@@ -1,0 +1,271 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Pre-Task Setup
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div id="wizard" data-failed-twice="{% if failed_twice %}true{% else %}false{% endif %}" data-failed-once="{% if failed_once %}true{% else %}false{% endif %}">
+                <!-- Step indicators (optional) -->
+                <ol class="breadcrumb small mb-3">
+                    <li class="breadcrumb-item" data-step="0">Consent</li>
+                    <li class="breadcrumb-item" data-step="1">Instructions + Check</li>
+                </ol>
+
+                <!-- Step 1: Informed Consent -->
+                <section class="wizard-step" data-step="0">
+                    <h2 class="h4 mb-3">Informed Consent</h2>
+                    <p style="font-size: 1.3em;"><strong>Please read the consent form and indicate your choice below.</strong></p>
+                    <p>
+                        <a id="wizard-consent-link" href="{% static 'docs/consent.pdf' %}" target="_blank" rel="noopener">
+                            Open the full Informed Consent form (PDF)
+                        </a>
+                    </p>
+
+                    <div class="my-4 p-4 border rounded bg-light" id="wizard-consent-options" style="opacity: 0.5;">
+                        <p class="mb-3"><strong style="font-size: 1.3em;">After reading the consent form, please select one option:</strong></p>
+                        
+                        <div class="form-check mb-3 p-3 border rounded bg-white">
+                            <input class="form-check-input" type="radio" name="wizardConsentChoice" id="wizard-consent-agree" value="agree" disabled style="width: 1.5em; height: 1.5em; margin-top: 0.15em;">
+                            <label class="form-check-label" for="wizard-consent-agree" style="font-size: 1.2em; margin-left: 0.5em; cursor: pointer;">
+                                <strong>I have read and agree to participate</strong>
+                            </label>
+                        </div>
+
+                        <div class="form-check p-3 border rounded bg-white">
+                            <input class="form-check-input" type="radio" name="wizardConsentChoice" id="wizard-consent-disagree" value="disagree" disabled style="width: 1.5em; height: 1.5em; margin-top: 0.15em;">
+                            <label class="form-check-label" for="wizard-consent-disagree" style="font-size: 1.2em; margin-left: 0.5em; cursor: pointer;">
+                                <strong>I do not wish to participate</strong>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div id="wizard-no-consent-message" style="display:none">
+                        <p>Thank you for your time.</p>
+                        <p>
+                            <a href="https://app.prolific.com/submissions/complete?cc=C14RFPVF" class="btn btn-primary">
+                                Return to Prolific
+                            </a>
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Step 2: Task Instructions + Comprehension Check -->
+                <section class="wizard-step d-none" data-step="1">
+                    <h2 class="h4 mb-3">Task Instructions</h2>
+                    <div class="row">
+                        <div class="col-lg-7 col-xl-8">
+                            <ol class="text-muted">
+                                <li>You are on a team with a partner. Your goal is to work with your teammate to match the correct order of a set of baskets. The game consists of 4 rounds, and in each round, your team must correctly order 12 baskets.</li>
+                                <li>
+                                    There are two distinct roles in this task: the Director and the Matcher.
+                                    Both partners see the same 12 baskets; The Matcher sees a few extras.
+                                    <ul>
+                                        <li><strong>Director</strong>: Will see the correct target sequence for the 12 baskets and needs to type clear descriptions of each basket <em>one by one</em> (in order starting with the upper-left basket) to the Matcher via a live chat.</li>
+                                        <li><strong>Matcher</strong>: Will see these 12 target baskets plus some other baskets. As the Director describes each basket, the Matcher should interpret the Director's description, ask clarifying questions if needed, and select the correct target basket by clicking on it. The basket will move up.</li>
+                                    </ul>
+                                </li>
+                                <li>The two of you can communicate back and forth as much as needed to do the task. If you discover an error, it is fine to make corrections within a round. When the round is finished, the Matcher should submit the sequence of 12 baskets, and you'll both see your score. The study consists of 4 rounds in total.</li>
+                                <li>Please have your sound on; you'll hear a chime when your partner types something.</li>
+                                <li>Make sure your screen is maximized so you can see all the task details.</li>
+                                <li>Please don't navigate off this site until you've completed the task.</li>
+                            </ol>
+                        </div>
+                        <div class="col-lg-5 col-xl-4">
+                            <div class="alert alert-info">
+                                <strong>Comprehension Check</strong>
+                                <p class="mb-0">Please answer to confirm you understand the instructions.</p>
+                            </div>
+                            {% if failed_once and not failed_twice %}
+                            <div class="alert alert-warning">
+                                <strong>First Attempt Incorrect</strong>
+                                <p class="mb-0">Please review the instructions. You have one more chance.</p>
+                            </div>
+                            {% endif %}
+                            {% if failed_twice %}
+                            <div class="alert alert-danger">
+                                <strong>Comprehension Check Failed</strong>
+                                <p class="mb-0">Unfortunately you did not pass after two attempts. Please return your submission on Prolific.</p>
+                                {% if prolific_return_url %}
+                                <a href="{{ prolific_return_url }}" class="btn btn-danger mt-2">Return to Prolific</a>
+                                {% endif %}
+                            </div>
+                            {% endif %}
+                            {% formfield player.comprehension_check %}
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Navigation -->
+                <div class="d-flex justify-content-end mt-4">
+                    <button type="button" class="btn btn-primary" id="next-btn" disabled>Next</button>
+                    <button type="button" class="btn btn-success d-none" id="start-task-btn">Start Task</button>
+                </div>
+                {% if testing_skip_enabled %}
+                <div class="mt-2 text-end">
+                    <button type="button" class="btn btn-sm btn-warning" id="skip-to-wait">Skip to waiting room (testing)</button>
+                </div>
+                {% endif %}
+
+                <div style="display:none">{% next_button %}</div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var currentStep = 0;
+    var wizard = document.getElementById('wizard');
+    var steps = Array.prototype.slice.call(document.querySelectorAll('.wizard-step'));
+    var crumbs = Array.prototype.slice.call(document.querySelectorAll('.breadcrumb .breadcrumb-item'));
+    var nextBtn = document.getElementById('next-btn');
+    var startBtn = document.getElementById('start-task-btn');
+    var agreeRadio = document.getElementById('wizard-consent-agree');
+    var disagreeRadio = document.getElementById('wizard-consent-disagree');
+    var thankyou = document.getElementById('thankyou-section');
+    var noConsentMessage = document.getElementById('wizard-no-consent-message');
+    var skipBtn = document.getElementById('skip-to-wait');
+    var consentLink = document.getElementById('wizard-consent-link');
+    var consentOptions = document.getElementById('wizard-consent-options');
+    var hasReadConsent = false;
+    var failedTwice = wizard && wizard.getAttribute('data-failed-twice') === 'true';
+    var hasFailedOnce = wizard && wizard.getAttribute('data-failed-once') === 'true';
+    var hasComprehensionError = hasFailedOnce || failedTwice;
+
+    function updateCrumbs() {
+        crumbs.forEach(function(c, idx){
+            c.classList.toggle('active', idx === currentStep);
+        });
+    }
+
+    function updateConsentUI() {
+        if (agreeRadio && agreeRadio.checked) {
+            if (thankyou) thankyou.style.display = '';
+            if (noConsentMessage) noConsentMessage.style.display = 'none';
+            if (currentStep === 0) nextBtn.disabled = false;
+        } else if (disagreeRadio && disagreeRadio.checked) {
+            if (thankyou) thankyou.style.display = 'none';
+            if (noConsentMessage) noConsentMessage.style.display = '';
+            if (currentStep === 0) nextBtn.disabled = true;
+        } else {
+            if (thankyou) thankyou.style.display = 'none';
+            if (noConsentMessage) noConsentMessage.style.display = 'none';
+            if (currentStep === 0) nextBtn.disabled = true;
+        }
+    }
+
+    function showStep(step) {
+        currentStep = step;
+        steps.forEach(function(s, idx){ s.classList.toggle('d-none', idx !== step); });
+        updateCrumbs();
+        var isLast = (step === steps.length - 1);
+        // Toggle Next (consent) vs Start (instructions)
+        if (nextBtn) nextBtn.classList.toggle('d-none', step !== 0);
+        // Hide Start Task button if failed twice, otherwise show on last step
+        if (failedTwice && isLast) {
+            startBtn.classList.add('d-none');
+        } else {
+            startBtn.classList.toggle('d-none', !isLast);
+        }
+        
+        // Gate step 0 until agree radio checked
+        if (step === 0) {
+            if (nextBtn) nextBtn.disabled = !(agreeRadio && agreeRadio.checked);
+        } else {
+            // nothing
+        }
+        // Scroll to top when changing steps
+        window.scrollTo(0, 0);
+    }
+
+    function submitForm() {
+        var form = document.querySelector('form');
+        if (form && typeof form.requestSubmit === 'function') { form.requestSubmit(); return; }
+        if (form) { form.submit(); return; }
+        var next = document.querySelector('button[type="submit"], input[type="submit"], .otree-next');
+        if (next) next.click();
+    }
+
+    // Track when consent form is opened
+    if (consentLink) {
+        consentLink.addEventListener('click', function() {
+            if (!hasReadConsent) {
+                hasReadConsent = true;
+                // Enable the radio buttons after they've opened the consent form
+                setTimeout(function() {
+                    if (agreeRadio) agreeRadio.disabled = false;
+                    if (disagreeRadio) disagreeRadio.disabled = false;
+                    if (consentOptions) {
+                        consentOptions.style.opacity = '1';
+                        consentOptions.style.transition = 'opacity 0.3s';
+                    }
+                }, 1000); // Small delay to ensure they actually open it
+            }
+        });
+    }
+
+    if (nextBtn) nextBtn.addEventListener('click', function(){ if (currentStep < steps.length - 1) showStep(currentStep + 1); });
+    if (startBtn) startBtn.addEventListener('click', function() {
+        // Validate comprehension check answer is selected
+        var radioButtons = document.querySelectorAll('input[name="comprehension_check"]');
+        var isChecked = Array.from(radioButtons).some(function(radio) { return radio.checked; });
+        
+        if (!isChecked) {
+            alert('Please select an answer before proceeding.');
+            return;
+        }
+        
+        submitForm();
+    });
+    if (agreeRadio) agreeRadio.addEventListener('change', updateConsentUI);
+    if (disagreeRadio) disagreeRadio.addEventListener('change', updateConsentUI);
+    if (skipBtn) skipBtn.addEventListener('click', function(){
+        try {
+            // Clear any previous exit flags from localStorage (for testing)
+            localStorage.removeItem('prolific_exit_clicked');
+            
+            // Mark a participant var via live storage by posting a hidden input
+            var form = document.querySelector('form');
+            if (!form) { submitForm(); return; }
+            var hidden = document.createElement('input');
+            hidden.type = 'hidden';
+            hidden.name = '__testing_skip_triggered';
+            hidden.value = '1';
+            form.appendChild(hidden);
+            // Some flows gate on attention_passed; ensure it is set by server in before_next_page
+            submitForm();
+        } catch(e) { submitForm(); }
+    });
+
+    // Initialize UI state
+    updateConsentUI();
+    
+    // If they failed the comprehension check, start at instructions page (which includes the check)
+    var initialStep = 0;
+    if (failedTwice) {
+        // Failed twice: show instructions+check with final error
+        initialStep = 1;
+        // Auto-check consent agree since they already passed that
+        if (agreeRadio) agreeRadio.checked = true;
+        updateConsentUI();
+    } else if (hasFailedOnce) {
+        // Failed once: show instructions so they can review before trying again
+        initialStep = 1;
+        // Auto-check consent agree since they already passed that
+        if (agreeRadio) agreeRadio.checked = true;
+        updateConsentUI();
+    }
+    
+    showStep(initialStep);
+});
+</script>
+{% endblock %}
+
+

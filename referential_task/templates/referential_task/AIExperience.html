@@ -1,0 +1,34 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+            <h3 class="mb-3">Your experience with AI tools</h3>
+
+            <p class="mb-4">
+                Please answer a few final questions about your familiarity with AI tools such as ChatGPT or Gemini.
+            </p>
+
+            <div class="mb-4">
+                {{ formfield 'ai_familiarity' }}
+            </div>
+
+            <div class="mb-4">
+                {{ formfield 'ai_usage_frequency' }}
+            </div>
+
+            <div class="mb-4">
+                {{ formfield 'ai_used_for_task' }}
+            </div>
+
+            <div class="text-center mt-4">
+                {% next_button %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+

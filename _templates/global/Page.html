@@ -1,0 +1,281 @@
+{% extends "otree/Page.html" %}
+{% load otree static %}
+
+{% block global_styles  %}
+{% endblock %}
+
+{% block global_scripts  %}
+<script>
+(function() {
+function isFullscreen() {
+    return !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
+}
+
+function isEffectivelyMaximized() {
+    try {
+        // If using OS/browser fullscreen mode
+        if (isFullscreen()) return true;
+
+        // Heuristic 1: window vs available screen size (tolerate small chrome/docks)
+        var vw = window.innerWidth || document.documentElement.clientWidth || 0;
+        var vh = window.innerHeight || document.documentElement.clientHeight || 0;
+        var sw = (screen.availWidth || screen.width || vw) || 0;
+        var sh = (screen.availHeight || screen.height || vh) || 0;
+        if (sw && sh) {
+            var ratioOK = (vw / sw >= 0.98) && (vh / sh >= 0.95);
+            if (ratioOK) return true;
+        }
+
+        // Heuristic 2: outer vs available (where supported)
+        if (typeof window.outerWidth === 'number' && typeof window.outerHeight === 'number') {
+            var ow = window.outerWidth;
+            var oh = window.outerHeight;
+            var aw = screen.availWidth || screen.width || ow;
+            var ah = screen.availHeight || screen.height || oh;
+            var delta = 16; // tolerate small borders/OS UI
+            if (Math.abs(aw - ow) <= delta && Math.abs(ah - oh) <= delta) return true;
+        }
+
+        // Heuristic 3: absolute size large enough (for typical laptop/desktop)
+        if (vw >= 1200 && vh >= 700) return true;
+
+        return false;
+    } catch (e) {
+        return false;
+    }
+}
+
+function platformHint() {
+    var p = navigator.platform || '';
+    if (p.indexOf('Mac') >= 0) return 'Double-click the title bar or click the green button.';
+    if (/Win/.test(p)) return 'Click the maximize button in the window title bar.';
+    if (/Linux|X11/.test(p)) return 'Click the maximize button in the window title bar.';
+    return 'Maximize your browser window.';
+}
+
+function ensureStyles() {
+    if (document.getElementById('maximize-banner-style')) return;
+    var css = '#maximize-banner{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);background:#0d6efd;color:#fff;padding:10px 14px;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,0.2);z-index:9999;display:flex;gap:8px;align-items:center;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;font-size:14px}#maximize-banner button{border:0;border-radius:6px;padding:6px 10px;cursor:pointer}#maximize-dismiss{background:#6c757d;color:#fff}#maximize-help{background:#ffffff;color:#0d6efd}';
+    var style = document.createElement('style');
+    style.id = 'maximize-banner-style';
+    style.textContent = css;
+    document.head.appendChild(style);
+}
+
+function showBanner() {
+    if (sessionStorage.getItem('maximize_prompt_dismissed') === '1') return;
+    if (document.getElementById('maximize-banner')) return;
+    ensureStyles();
+    var banner = document.createElement('div');
+    banner.id = 'maximize-banner';
+    var span = document.createElement('span');
+    span.textContent = 'For best experience, please maximize your browser window.';
+    var help = document.createElement('button');
+    help.id = 'maximize-help';
+    help.type = 'button';
+    help.textContent = 'How';
+    help.addEventListener('click', function() { alert(platformHint()); });
+    var dismiss = document.createElement('button');
+    dismiss.id = 'maximize-dismiss';
+    dismiss.type = 'button';
+    dismiss.textContent = 'Dismiss';
+    dismiss.addEventListener('click', function() {
+        sessionStorage.setItem('maximize_prompt_dismissed', '1');
+        hideBanner();
+    });
+    banner.appendChild(span);
+    banner.appendChild(help);
+    banner.appendChild(dismiss);
+    document.body.appendChild(banner);
+}
+
+function hideBanner() {
+    var el = document.getElementById('maximize-banner');
+    if (el && el.parentNode) el.parentNode.removeChild(el);
+}
+
+function evaluate() {
+    if (isEffectivelyMaximized()) hideBanner(); else showBanner();
+}
+
+var debTimer = null;
+window.addEventListener('resize', function() {
+    clearTimeout(debTimer);
+    debTimer = setTimeout(evaluate, 150);
+});
+document.addEventListener('visibilitychange', evaluate);
+document.addEventListener('DOMContentLoaded', evaluate);
+// React to fullscreen changes across browsers
+document.addEventListener('fullscreenchange', evaluate);
+document.addEventListener('webkitfullscreenchange', evaluate);
+document.addEventListener('mozfullscreenchange', evaluate);
+document.addEventListener('MSFullscreenChange', evaluate);
+})();
+</script>
+<script>
+(function() {
+    function isWaitingRoom() {
+        try {
+            var titleEl = document.querySelector('h1, .otree-title, .otree-title h1');
+            var title = (titleEl && (titleEl.textContent || '')).trim().toLowerCase();
+            if (title.indexOf('waiting room') !== -1) return true;
+            var bodyText = (document.body && document.body.innerText || '').toLowerCase();
+            if (bodyText.indexOf('please wait until another participant joins') !== -1) return true;
+        } catch (e) {}
+        return false;
+    }
+
+    function ensureStyles() {
+        if (document.getElementById('minute-progress-style')) return;
+        var css = '#minute-progress-wrap{max-width:900px;margin:12px auto 0 auto;padding:12px 16px;background:#ffffff;border:1px solid #e5e7eb;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,0.06)}#minute-progress-track{width:100%;height:12px;background:#e9ecef;border-radius:8px;overflow:hidden}#minute-progress-bar{height:100%;width:0;background:linear-gradient(90deg,#0d6efd,#4dabf7);border-radius:8px}#minute-progress-note{margin:8px 0 0 0;font:14px/1.35 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#495057}#prolific-return-btn{margin-top:10px;background:#0d6efd;color:#fff;border:0;border-radius:8px;padding:8px 12px;font:14px/1.2 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;cursor:pointer;display:none}#prolific-return-btn:disabled{opacity:.7;cursor:default}';
+        var style = document.createElement('style');
+        style.id = 'minute-progress-style';
+        style.textContent = css;
+        document.head.appendChild(style);
+    }
+
+    function hideDefaultProgressBars() {
+        try {
+            var selectors = [
+                '.progress',
+                '.otree-progressbar',
+                '.otree-progress-bar',
+                '.otree-wait-page .progress',
+                '.wait-page__progress',
+                '.otree-progress'
+            ];
+            selectors.forEach(function(sel) {
+                document.querySelectorAll(sel).forEach(function(el){
+                    el.style.display = 'none';
+                    el.setAttribute('aria-hidden', 'true');
+                });
+            });
+        } catch (e) {}
+    }
+
+    function insertProgressBar() {
+        if (!isWaitingRoom()) return;
+        if (document.getElementById('minute-progress-wrap')) return;
+        ensureStyles();
+        hideDefaultProgressBars();
+
+        var wrap = document.createElement('div');
+        wrap.id = 'minute-progress-wrap';
+
+        var track = document.createElement('div');
+        track.id = 'minute-progress-track';
+
+        var bar = document.createElement('div');
+        bar.id = 'minute-progress-bar';
+        track.appendChild(bar);
+
+        var note = document.createElement('div');
+        note.id = 'minute-progress-note';
+        note.textContent = 'Loading… This bar fills over 60 seconds and then restarts.';
+
+        var btn = document.createElement('button');
+        btn.id = 'prolific-return-btn';
+        btn.type = 'button';
+        btn.textContent = 'Go Back to Prolific';
+        btn.addEventListener('click', function() {
+            // Placeholder: wire up to actual Prolific return URL later
+            console.log('Prolific return button clicked');
+        });
+
+        wrap.appendChild(track);
+        wrap.appendChild(note);
+        wrap.appendChild(btn);
+
+        // Try to place it just below the main title/content card; fallback to body
+        var anchor = document.querySelector('.otree-body, .container, main, body');
+        if (anchor && anchor.firstElementChild) {
+            anchor.insertBefore(wrap, anchor.firstElementChild.nextSibling);
+        } else if (anchor) {
+            anchor.appendChild(wrap);
+        } else {
+            document.body.appendChild(wrap);
+        }
+
+        // Animate: 60s per full cycle, loop. Reveal button after first minute.
+        var startEpoch = Date.now();
+        var buttonShown = false;
+        function tick() {
+            var elapsed = Date.now() - startEpoch;
+            var cycleMs = 60000; // 60 seconds
+            var inCycle = elapsed % cycleMs;
+            var pct = Math.max(0, Math.min(100, (inCycle / cycleMs) * 100));
+            bar.style.width = pct + '%';
+
+            if (!buttonShown && elapsed >= cycleMs) {
+                buttonShown = true;
+                btn.style.display = 'inline-block';
+            }
+            requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+    }
+
+    document.addEventListener('DOMContentLoaded', insertProgressBar);
+})();
+</script>
+<script>
+(function() {
+    // Flag to track if we should show the warning
+    var shouldWarnOnLeave = true;
+    
+    // Function to disable the warning (call this when form is submitted or page is done)
+    window.disableLeaveWarning = function() {
+        shouldWarnOnLeave = false;
+    };
+    
+    // Function to enable the warning (call this if needed)
+    window.enableLeaveWarning = function() {
+        shouldWarnOnLeave = true;
+    };
+    
+    // Handle browser back/forward buttons
+    // Push a state to history so we can detect back button
+    history.pushState(null, null, location.href);
+    
+    window.addEventListener('popstate', function(event) {
+        if (shouldWarnOnLeave) {
+            var confirmed = confirm('Are you sure you want to leave this page? Your progress may be lost.');
+            if (!confirmed) {
+                // Push state back to prevent navigation
+                history.pushState(null, null, location.href);
+            }
+        }
+    });
+    
+    // Handle page refresh, tab close, and navigation away
+    window.addEventListener('beforeunload', function(event) {
+        if (shouldWarnOnLeave) {
+            // Modern browsers show their own message, but we can set a custom one
+            event.preventDefault();
+            // For older browsers
+            event.returnValue = 'Are you sure you want to leave this page? Your progress may be lost.';
+            // For modern browsers (Chrome 51+, Firefox 44+)
+            return 'Are you sure you want to leave this page? Your progress may be lost.';
+        }
+    });
+    
+    // Disable warning when form is submitted normally (via otree's next button)
+    document.addEventListener('DOMContentLoaded', function() {
+        var forms = document.querySelectorAll('form');
+        forms.forEach(function(form) {
+            form.addEventListener('submit', function() {
+                shouldWarnOnLeave = false;
+            });
+        });
+        
+        // Also disable warning when clicking otree's next button
+        var nextButtons = document.querySelectorAll('input[type="submit"], button[type="submit"], .otree-btn-next');
+        nextButtons.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                shouldWarnOnLeave = false;
+            });
+        });
+    });
+})();
+</script>
+{% endblock %}

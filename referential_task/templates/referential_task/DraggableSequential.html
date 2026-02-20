@@ -1,0 +1,712 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+{% load basket_filters %}
+
+{% block title %}{% endblock %}
+
+{% block global_styles %}
+<link rel="stylesheet" href="{% static 'css/basket-selection.css' %}">
+<style>
+    /* Director-specific override to align chat with grid task */
+    .is-director .chat-panel {
+        top: 0 !important;
+        /* Ensure a robust height in deployment environments */
+        height: calc(100vh - 250px) !important;
+        max-height: 70vh !important;
+        min-height: 300px !important;
+    }
+
+    .is-director .chat-container {
+        /* Allow the chat list to scroll within the panel */
+        height: auto !important;
+        max-height: none !important;
+        min-height: 110px !important;
+    }
+
+    .role-indicator .badge,
+    .role-badge {
+        font-size: 0.9rem;
+        padding: 0.35rem 0.5rem;
+    }
+
+    .badge-lg {
+        font-size: 1.6em;
+        padding: 0.5rem 1rem;
+    }
+
+    .role-indicator .text-muted {
+        font-size: 1.35em;
+        font-weight: 600;
+    }
+
+    /* Scope marker for potential future overrides */
+
+    /* Apply consistent viewport-based sizing on sequential page for BOTH roles */
+    .sequential-page .chat-panel {
+        top: 0 !important;
+        height: calc(100vh - 250px) !important;
+        max-height: 70vh !important;
+        min-height: 300px !important;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid sequential-page {% if is_director %}is-director{% endif %}">
+    <div class="row">
+        <div class="col-12">
+            <div class="role-indicator mb-3">
+                <span class="badge {% if is_director %}bg-info{% else %}bg-success{% endif %}"
+                    style="font-size: 0.9rem; padding: 0.35rem 0.5rem;">
+                    You are the {{ player_role_title }}
+                </span>
+                <span class="ms-2 text-muted">Round {{ round_number }} / {{ total_rounds }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            {% if is_director %}
+            <p class="lead">Describe each basket one by one, using the next button button to advance when you think your
+                matcher has the correct sequence.</p>
+            <p class="text-muted small mb-1">Please have your sound on in order to hear messages from your partner!</p>
+            <p class="text-muted small mb-0">Please don't navigate off this site until you've completed the task.</p>
+            {% else %}
+            <p class="lead">Select baskets from the staging area to fill the 12 positions in order as described to you
+                by the director, then submit your set of baskets.</p>
+            <p class="text-muted small mb-1">Please have your sound on in order to hear messages from your partner!</p>
+            <p class="text-muted small mb-0">Please don't navigate off this site until you've completed the task.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Main content area with side-by-side layout -->
+    <div class="row g-4">
+        <!-- Left side: Baskets/Grid -->
+        <div class="col-lg-8 col-md-7">
+            {% if is_director %}
+            <!-- Director sees one basket at a time with navigation -->
+            <div class="sequential-container">
+                <button type="button" class="nav-btn" id="prev-basket" aria-label="Previous">&#8592;</button>
+                <div class="current-basket" id="current-basket">
+                    {% if shared_grid and shared_grid|length > 0 %}
+                    <img src="{% static shared_grid.0.image %}" alt="Basket 1" class="basket-image">
+                    {% endif %}
+                </div>
+                <button type="button" class="nav-btn" id="next-basket" aria-label="Next">&#8594;</button>
+            </div>
+            <div class="text-center mt-3">
+                <span id="basket-counter" class="text-muted fs-5">1 / {{ shared_grid|length }}</span>
+            </div>
+            {% else %}
+            <!-- Matcher sees staging area and target area (same as grid version) -->
+            <div class="matcher-interface">
+                <div class="target-area-container mb-4">
+                    <div id="target-area" class="target-area">
+                        {% for i in "123456789012" %}
+                        <div class="target-slot" data-position="{{ forloop.counter }}">
+                            <div class="empty-cell">
+                                <span class="position-number">{{ forloop.counter }}</span>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="staging-area-container">
+                    <div id="staging-area" class="staging-area"></div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Right side: Chat -->
+        <div class="col-lg-4 col-md-5">
+            <div class="chat-panel">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h5 class="mb-0">Communication</h5>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <div class="alert alert-warning text-center fw-bold mb-3">
+                            This is a communication task that relies on careful attention from both partners.
+                            Please take your time, avoid guessing, and do your best to communicate clearly so you and your partner can succeed.
+                        </div>
+                        <!-- Chat messages -->
+                        <div id="chat-messages" class="chat-container flex-grow-1 mb-3">
+                            <!-- Messages will be populated by JavaScript -->
+                        </div>
+                        <!-- Typing indicator -->
+                        <div id="typing-indicator" class="typing-indicator visually-hidden" aria-live="polite"></div>
+                        <!-- Chat input -->
+                        <div class="chat-input-section">
+                            <div class="input-group mb-2">
+                                <input type="text" id="chat-input" class="form-control"
+                                    placeholder="Type your message here..." maxlength="500">
+                                <button class="btn btn-outline-secondary" type="button"
+                                    id="send-message-btn">Send</button>
+                            </div>
+                            {% if is_matcher %}
+                                <button class="btn btn-primary w-100" type="button" id="submit-guess-btn"
+                                    style="display: none;">Submit order</button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="display: none;">{% next_button %}</div>
+
+    <style>
+        /* Enhanced sequential container for director */
+        .sequential-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding: 30px;
+            background-color: #f8f9fa;
+            border: 3px solid #dee2e6;
+            border-radius: 15px;
+            max-width: 100%;
+            margin: 0 auto;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .current-basket {
+            width: 400px;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            border-radius: 12px;
+            border: 3px dashed #adb5bd;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-btn {
+            border: 2px solid #ced4da;
+            background: #fff;
+            padding: 15px 20px;
+            font-size: 24px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background-color: #f8f9fa;
+            border-color: #6c757d;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .basket-image {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
+        }
+
+        /* Enhanced matcher interface styles */
+        .matcher-interface {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .target-area-container h4,
+        .staging-area-container h4 {
+            color: #495057;
+            margin-bottom: 20px;
+            font-weight: 600;
+            font-size: 1.3em;
+        }
+
+        .target-area {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 12px;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #e9ecef;
+            border-radius: 15px;
+            border: 3px solid #6c757d;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .target-slot {
+            aspect-ratio: 1;
+            border: 3px dashed #adb5bd;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            transition: all 0.3s ease;
+            min-height: 100px;
+            position: relative;
+        }
+
+        .target-slot.filled {
+            border-color: #28a745;
+            border-style: solid;
+            background-color: #d4edda;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .target-slot.filled:hover {
+            border-color: #dc3545;
+            background-color: #f8d7da;
+            transform: scale(1.02);
+        }
+
+        .target-slot.filled::after {
+            content: "×";
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            background: #dc3545;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .target-slot.filled:hover::after {
+            opacity: 1;
+        }
+
+        .empty-cell {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6c757d;
+            font-weight: bold;
+        }
+
+        .position-number {
+            font-size: 1.4em;
+            color: #adb5bd;
+        }
+
+        .target-slot.filled .position-number {
+            display: none;
+        }
+
+        .target-slot img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
+        }
+
+        .staging-area {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 12px;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 15px;
+            border: 3px solid #dee2e6;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .staging-slot {
+            aspect-ratio: 1;
+            border: 3px solid #dee2e6;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            transition: all 0.3s ease;
+            min-height: 100px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .staging-slot:hover {
+            border-color: #007bff;
+            background-color: #f8f9fa;
+            transform: scale(1.05);
+        }
+
+        .staging-slot.selected {
+            border-color: #6c757d;
+            background-color: #6c757d;
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .staging-slot.selected img {
+            filter: grayscale(100%);
+        }
+
+        .staging-slot img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        /* Enhanced chat styles for side-by-side layout */
+        .chat-container {
+            height: auto;
+            max-height: none;
+            overflow-y: auto;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            font-size: 1.1em;
+        }
+
+        .chat-message {
+            margin-bottom: 15px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            max-width: 90%;
+            position: relative;
+        }
+
+        .chat-message.director {
+            background-color: #e3f2fd;
+            margin-right: auto;
+        }
+
+        .chat-message.matcher {
+            background-color: #f3e5f5;
+            margin-right: auto;
+        }
+
+        .chat-message.own {
+            margin-left: auto;
+            margin-right: 0;
+            background-color: #e8f5e9;
+        }
+
+        .chat-message .sender {
+            font-weight: bold;
+            font-size: 0.9em;
+            margin-bottom: 6px;
+            color: #495057;
+        }
+
+        .chat-message .text {
+            word-break: break-word;
+            font-size: 1.05em;
+            line-height: 1.4;
+        }
+
+        .chat-message .timestamp {
+            font-size: 0.8em;
+            color: #6c757d;
+            margin-top: 6px;
+            text-align: right;
+        }
+
+        /* Chat panel styling */
+        .chat-panel {
+            position: sticky;
+            top: 0;
+            overflow: hidden;
+        }
+
+        .chat-panel .card {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .chat-panel .card-body {
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+        }
+
+        .chat-panel .card-body .chat-container {
+            flex: 1 1 auto;
+            min-height: 0;
+            overflow-y: auto;
+        }
+
+        .chat-input-section {
+            margin-top: auto;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 991px) {
+            .chat-panel {
+                position: static;
+                margin-top: 30px;
+            }
+
+            .chat-container {
+                height: auto;
+            }
+
+            .sequential-container {
+                gap: 15px;
+                padding: 20px;
+            }
+
+            .current-basket {
+                width: 300px;
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .sequential-container {
+                gap: 10px;
+                padding: 15px;
+            }
+
+            .current-basket {
+                width: 250px;
+                height: 250px;
+            }
+
+            .nav-btn {
+                padding: 10px 15px;
+                font-size: 20px;
+            }
+
+            .target-area,
+            .staging-area {
+                gap: 8px;
+                padding: 15px;
+            }
+
+            .target-slot,
+            .staging-slot {
+                min-height: 80px;
+            }
+
+            .chat-container {
+                height: auto;
+            }
+        }
+    </style>
+</div>
+<script>window.js_vars = window.js_vars || {}; js_vars.my_id = "{{ player.id_in_group }}";</script>
+<script>
+    window.isMatcher = {% if is_matcher %}true{% else %} false{% endif %};
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Prevent pasting links in chat
+        const chatInput = document.getElementById('chat-input');
+        if (chatInput) {
+            chatInput.addEventListener('paste', function(e) {
+                const pastedText = (e.clipboardData || window.clipboardData).getData('text');
+                // Check for URLs (http://, https://, www., or common domain patterns)
+                const urlPattern = /(https?:\/\/|www\.|\w+\.(com|org|net|edu|gov|io|co|uk|de|fr|app|ai))/i;
+                if (urlPattern.test(pastedText)) {
+                    e.preventDefault();
+                    alert('Pasting links is not allowed in the chat.');
+                }
+            });
+        }
+
+        if (!window.isMatcher) {
+            const grid = {% if shared_grid %}{{ shared_grid|safe }}{% else %}[]{% endif %};
+            let index = 0;
+            const imgEl = document.querySelector('#current-basket img');
+            const counter = document.getElementById('basket-counter');
+            const prevBtn = document.getElementById('prev-basket');
+            const nextBtn = document.getElementById('next-basket');
+
+            function update() {
+                if (!grid || grid.length === 0 || !imgEl) return;
+                const path = grid[index].image;
+                // Try to reuse any existing static img path
+                const existingImg = document.querySelector(`img[src*="${path}"]`);
+                const src = existingImg ? existingImg.src : `/static/${path}`;
+                imgEl.src = src;
+                imgEl.alt = `Basket ${index + 1}`;
+                if (counter) counter.textContent = `${index + 1} / ${grid.length}`;
+                if (prevBtn) prevBtn.disabled = index === 0;
+                if (nextBtn) nextBtn.disabled = index === grid.length - 1;
+            }
+
+            if (prevBtn) prevBtn.addEventListener('click', function () { if (index > 0) { index -= 1; update(); } });
+            if (nextBtn) nextBtn.addEventListener('click', function () { if (index < grid.length - 1) { index += 1; update(); } });
+            update();
+        } else {
+        // Matcher interaction logic (same as grid template)
+        const targetSlots = document.querySelectorAll('.target-slot');
+        let selectedSequence = [];
+        let stagingSlots = [];
+
+        function createRandomizedStagingArea() {
+            const stagingArea = document.getElementById('staging-area');
+            if (!stagingArea) return;
+            // Server-provided staging pool ordering (consistent across sessions).
+            const shuffledBaskets = {% if staging_baskets_json %}{{ staging_baskets_json|safe }}{% else %}[]{% endif %};
+    stagingArea.innerHTML = '';
+    stagingSlots = [];
+    shuffledBaskets.forEach((basket) => {
+        const slot = document.createElement('div');
+        slot.className = 'staging-slot basket-slot';
+        slot.setAttribute('data-image', basket.image);
+        slot.setAttribute('data-position', basket.position);
+        slot.setAttribute('data-basket-id', basket.basket_id);
+        const existingImg = document.querySelector(`img[src*="${basket.image}"]`);
+        const imgSrc = existingImg ? existingImg.src : `/static/${basket.image}`;
+        slot.innerHTML = `<img src="${imgSrc}" alt="Basket" class="basket-image">`;
+        stagingArea.appendChild(slot);
+        stagingSlots.push(slot);
+    });
+    addStagingClickHandlers();
+            }
+
+    function addStagingClickHandlers() {
+        stagingSlots.forEach(function (slot) {
+            slot.addEventListener('click', function () {
+                if (slot.classList.contains('selected')) return;
+                const image = slot.getAttribute('data-image');
+                const position = slot.getAttribute('data-position');
+                let targetPosition = 1;
+                while (targetPosition <= 12) {
+                    const targetSlot = document.querySelector(`.target-slot[data-position="${targetPosition}"]`);
+                    if (!targetSlot.classList.contains('filled')) break;
+                    targetPosition++;
+                }
+                if (targetPosition > 12) return;
+                slot.classList.add('selected');
+                const targetSlot = document.querySelector(`.target-slot[data-position="${targetPosition}"]`);
+                if (targetSlot) {
+                    targetSlot.classList.add('filled');
+                    const existingImg = document.querySelector(`img[src*="${image}"]`);
+                    const imgSrc = existingImg ? existingImg.src : `/static/${image}`;
+                    targetSlot.innerHTML = `<img src="${imgSrc}" alt="Basket" class="basket-image" data-original-slot="${position}">`;
+                    targetSlot.addEventListener('click', function () { removeBasketFromTarget(targetPosition, image, position); });
+                }
+                selectedSequence.push({ position: targetPosition, image: image, originalPosition: position });
+                updateSubmitButton();
+            });
+        });
+    }
+
+    function removeBasketFromTarget(targetPosition, image, originalPosition) {
+        const targetSlot = document.querySelector(`.target-slot[data-position="${targetPosition}"]`);
+        if (targetSlot) { targetSlot.classList.remove('filled'); targetSlot.innerHTML = `<div class="empty-cell"><span class="position-number">${targetPosition}</span></div>`; }
+        const stagingSlot = document.querySelector(`.staging-slot[data-position="${originalPosition}"]`);
+        if (stagingSlot) { stagingSlot.classList.remove('selected'); }
+        selectedSequence = selectedSequence.filter(item => item.position !== targetPosition);
+        updateSubmitButton();
+    }
+
+    function updateSubmitButton() {
+        const submitBtn = document.getElementById('submit-guess-btn');
+        if (!submitBtn) return;
+        if (selectedSequence.length === 12) {
+            submitBtn.style.display = '';
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Submit order';
+        } else {
+            submitBtn.style.display = 'none';
+        }
+    }
+
+    const submitBtn = document.getElementById('submit-guess-btn');
+    if (submitBtn) {
+        submitBtn.addEventListener('click', function () {
+            if (selectedSequence.length < 12) return;
+            const confirmed = window.confirm('Are you sure you want to submit your order and proceed to the next round?');
+            if (!confirmed) return;
+            const sequenceData = { sequence: selectedSequence, total_selected: selectedSequence.length };
+            liveSend({ 'send_message': true, 'message': JSON.stringify(sequenceData), 'timestamp': new Date().toISOString(), 'is_guess': true });
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Order submitted';
+        });
+    }
+
+    createRandomizedStagingArea();
+    updateSubmitButton();
+        }
+    });
+</script>
+<script src="{% static 'js/draggable-grid.js' %}"></script>
+<script>
+    const originalLiveRecv = window.liveRecv;
+    function advanceToNextRound() {
+        const form = document.querySelector('form');
+        if (form && typeof form.requestSubmit === 'function') { form.requestSubmit(); return true; }
+        if (form) { form.submit(); return true; }
+        const nextBtn = document.querySelector('button[type="submit"], input[type="submit"], .otree-next, button.otree-next, [name="next"]');
+        if (nextBtn) { nextBtn.click(); return true; }
+        return false;
+    }
+    window.liveRecv = function (data) {
+        const myId = window.js_vars.my_id;
+        const myData = data[myId] || data;
+        if (myData && myData.advance_round) {
+            if (advanceToNextRound()) { return; }
+        }
+        if (originalLiveRecv) { originalLiveRecv(data); }
+    };
+    initializeDraggableGrid({
+        isDirector: {% if is_director %}true{% else %}false{% endif %},
+        chatMessages: {% if chat_messages %}{{ chat_messages|safe }}{% else %}[]{% endif %},
+        partnerMessages: {% if partner_messages %}{{ partner_messages|safe }}{% else %}[]{% endif %}
+    });
+</script>
+{% if round_number == 1 %}
+<script>
+    // Play a short ping when arriving from the waiting room (matched)
+    (function() {
+        function playPing() {
+            try {
+                var AudioCtx = window.AudioContext || window.webkitAudioContext;
+                if (!AudioCtx) return;
+                var ctx = new AudioCtx();
+                if (ctx.state === 'suspended' && ctx.resume) { try { ctx.resume(); } catch (e) {} }
+                var osc = ctx.createOscillator();
+                var gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.value = 880;
+                gain.gain.value = 0.0001;
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                var t = ctx.currentTime;
+                gain.gain.setValueAtTime(0.0001, t);
+                gain.gain.exponentialRampToValueAtTime(0.12, t + 0.02);
+                gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.25);
+                osc.start(t);
+                osc.stop(t + 0.3);
+            } catch (e) {}
+        }
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function() { setTimeout(playPing, 100); });
+        } else {
+            setTimeout(playPing, 100);
+        }
+    })();
+</script>
+{% endif %}
+{% endblock %}

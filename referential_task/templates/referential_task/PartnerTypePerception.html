@@ -1,0 +1,91 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+            <h3 class="mb-3">Do you think your partner was AI or Human? Use the dot on the slider.</h3>
+
+            <p class="text-muted small">
+                This rating will not be shown to your partner, and will not be passed to the Prolific platform.
+                It will only be used to assess the interaction in an anonymous manner by the researchers.
+            </p>
+
+            <div class="d-flex justify-content-between small text-muted mb-2">
+                <span>AI</span>
+                <span>Human</span>
+            </div>
+            <input type="range" min="0" max="100" value="50" class="form-range" name="partner_human_vs_ai" id="id_partner_human_vs_ai" required>
+            <div class="text-center mb-2">
+                <strong>Current value: <span id="slider-value">50</span></strong>
+            </div>
+            <div class="d-flex justify-content-between small text-muted">
+                <span>0</span>
+                <span>100</span>
+            </div>
+            
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    // Update slider value display and enable Next button on interaction
+                    const slider = document.getElementById('id_partner_human_vs_ai');
+                    const valueDisplay = document.getElementById('slider-value');
+                    let hasInteracted = false;
+                    
+                    // Find next button (try multiple selectors)
+                    const nextButton = document.querySelector('.otree-next-button') || 
+                                     document.querySelector('button[type="submit"]') ||
+                                     document.querySelector('.btn-primary');
+                    
+                    // Disable next button initially
+                    if (nextButton) {
+                        nextButton.disabled = true;
+                        nextButton.classList.add('disabled');
+                        nextButton.style.opacity = '0.5';
+                        nextButton.style.cursor = 'not-allowed';
+                    }
+                    
+                    // Enable button on any slider interaction
+                    function enableButton() {
+                        if (!hasInteracted && nextButton) {
+                            hasInteracted = true;
+                            nextButton.disabled = false;
+                            nextButton.classList.remove('disabled');
+                            nextButton.style.opacity = '1';
+                            nextButton.style.cursor = 'pointer';
+                        }
+                    }
+                    
+                    if (slider) {
+                        // Listen to multiple events to ensure we catch interaction
+                        slider.addEventListener('input', function() {
+                            valueDisplay.textContent = this.value;
+                            enableButton();
+                        });
+                        
+                        slider.addEventListener('change', enableButton);
+                        slider.addEventListener('click', enableButton);
+                        slider.addEventListener('mousedown', enableButton);
+                        slider.addEventListener('touchstart', enableButton);
+                        
+                        // Set initial value
+                        if (valueDisplay) {
+                            valueDisplay.textContent = slider.value;
+                        }
+                    }
+                });
+            </script>
+
+            <div class="mb-3 mt-3">
+                {{ formfield 'partner_human_vs_ai_why' }}
+            </div>
+
+            <div class="text-center mt-4">
+                {% next_button %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+

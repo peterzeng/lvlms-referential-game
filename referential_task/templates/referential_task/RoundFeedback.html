@@ -1,0 +1,144 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Round {{ round_number }} Feedback
+{% endblock %}
+
+{% block global_styles %}
+<style>
+    .feedback-container {
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+    .feedback-header {
+        display: flex;
+        align-items: baseline;
+        gap: 12px;
+    }
+    .feedback-grid {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        gap: 10px;
+        background: #f8f9fa;
+        border: 2px solid #dee2e6;
+        border-radius: 10px;
+        padding: 14px;
+    }
+    .feedback-slot {
+        aspect-ratio: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px dashed #adb5bd;
+        border-radius: 10px;
+        background: #ffffff;
+        position: relative;
+        min-height: 72px;
+    }
+    .feedback-slot.incorrect {
+        border-style: solid;
+        border-color: #dc3545;
+        background: #f8d7da;
+    }
+    /* Only show green for correct positions to the director */
+    .is-director .feedback-slot.correct {
+        border-style: solid;
+        border-color: #28a745;
+        background: #eaf7ee;
+    }
+    .feedback-slot .pos {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        font-weight: 600;
+        color: #000000; /* make number label black */
+        font-size: 16px; /* larger number label */
+        background: rgba(255,255,255,0.8);
+        padding: 2px 6px;
+        border-radius: 6px;
+        border: 1px solid #e9ecef;
+        line-height: 1;
+        z-index: 2;
+    }
+    /* Show a red X over the number when incorrect */
+    .feedback-slot.incorrect .pos {
+        color: #000000; /* keep number black even when incorrect */
+        border-color: #f5c2c7;
+        background: #ffffff;
+    }
+    .feedback-slot.incorrect .pos::after {
+        content: "×";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -53%);
+        color: #dc3545;
+        font-weight: 900;
+        font-size: 1.1em;
+        line-height: 1;
+        pointer-events: none;
+    }
+    .feedback-slot img {
+        max-width: 80%;
+        max-height: 80%;
+        object-fit: contain;
+        border-radius: 8px;
+    }
+    .hint {
+        color: #6c757d;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container feedback-container {% if is_director %}is-director{% endif %}">
+    <div class="row">
+        <div class="col-12">
+            <div class="feedback-header mb-2">
+                <span class="badge {% if is_director %}bg-info{% else %}bg-success{% endif %}" style="text-transform: capitalize;">
+                    {{ player_role }}
+                </span>
+                <span class="text-muted">Round {{ round_number }} / {{ total_rounds }}</span>
+            </div>
+            {% if is_matcher %}
+                <h2 class="mb-2">You got {{ correct_count }} basket(s) right</h2>
+                <p class="hint">Incorrect baskets are highlighted. The correct order is not shown.</p>
+            {% else %}
+                <h2 class="mb-2">The Matcher got {{ correct_count }} basket(s) right</h2>
+                <p class="hint">Baskets the matcher got wrong are highlighted in red</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col-12">
+            <div class="feedback-grid">
+                {% for slot in feedback_slots %}
+                    {#
+                        For matcher: image is their submission; mark incorrect
+                        For director: image is correct; mark incorrect where matcher missed
+                    #}
+                    <div class="feedback-slot {% if slot.is_correct %}correct{% else %}incorrect{% endif %}">
+                        <div class="pos">{{ slot.position }}</div>
+                        {% if slot.image %}
+                            <img src="{% static slot.image %}" alt="Basket {{ slot.position }}">
+                        {% else %}
+                            <span class="text-muted">Empty</span>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12 text-center">
+            {% next_button %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
