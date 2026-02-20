@@ -105,8 +105,9 @@ The experiment is run in real time, with both participants interacting through a
 
 ## Human–AI and AI–Human Mode and GPT‑5.2 Integration
 
-> [!IMPORTANT]
-> This branch (`grid-ai`) runs the referential task **purely as a human–VLM (human–AI) or AI–human interaction**. There is **no human–human mode** nor **AI–AI mode** in this branch.
+This branch (main) runs the referential task **purely as a human–VLM (human–AI) or AI–human interaction**. There is **no human–human mode** nor **AI–AI mode** in this branch.
+
+To run human-human, switch to human, and to run AI-AI experiments, switch to ai-ai.
 
 In this setup, each oTree group contains exactly **one human participant**.
 
