@@ -18,9 +18,15 @@ class DraggableGrid {
         // Detect deployment environment
         this.isDeployed = this.detectDeploymentEnvironment();
         
-        document.addEventListener('DOMContentLoaded', () => {
+        // Handle both cases: DOM already loaded or still loading
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => {
+                this.initialize();
+            });
+        } else {
+            // DOM already loaded, initialize immediately
             this.initialize();
-        });
+        }
     }
     
     // Detect if we're running in a deployed environment vs localhost
@@ -60,6 +66,7 @@ class DraggableGrid {
         this.loadChatMessages();
         this.initializeSounds();
         this.setupBasketRefocus();
+        this.initializeMagnifier();
         
         // Initialize chat height with multiple attempts to ensure it works in all environments
         this.initializeChatHeight();
@@ -526,6 +533,223 @@ class DraggableGrid {
         
         console.log('🎯 Basket refocus functionality initialized');
     }
+
+    // ========================================
+    // MAGNIFYING GLASS ZOOM FUNCTIONALITY
+    // ========================================
+    initializeMagnifier() {
+        // Create the magnifier lens element
+        this.magnifierLens = document.createElement('div');
+        this.magnifierLens.className = 'magnifier-lens';
+        document.body.appendChild(this.magnifierLens);
+        
+        // Magnifier configuration
+        this.magnifierZoom = 1.005; // zoom level
+        this.magnifierSize = 350; // lens diameter in pixels
+        this.magnifierOffset = 20; // offset from cursor
+        
+        // Apply size to the lens element
+        this.magnifierLens.style.width = `${this.magnifierSize}px`;
+        this.magnifierLens.style.height = `${this.magnifierSize}px`;
+        
+        // Track current magnified image
+        this.currentMagnifiedImg = null;
+        
+        // Bind event handlers
+        this.handleMagnifierMouseMove = this.handleMagnifierMouseMove.bind(this);
+        this.handleMagnifierMouseEnter = this.handleMagnifierMouseEnter.bind(this);
+        this.handleMagnifierMouseLeave = this.handleMagnifierMouseLeave.bind(this);
+        
+        // Setup magnifier on all basket images (with delayed retries for dynamic content)
+        this.setupMagnifierListeners();
+        
+        // Retry setup after delays to catch dynamically created content
+        // The staging area is created by JavaScript which may run after this
+        const retryDelays = [100, 300, 500, 1000, 2000];
+        retryDelays.forEach(delay => {
+            setTimeout(() => this.setupMagnifierListeners(), delay);
+        });
+        
+        // Re-setup magnifier when staging area is dynamically created (for Matcher)
+        if (!this.isDirector) {
+            // Use MutationObserver to catch dynamically added basket images
+            const observer = new MutationObserver((mutations) => {
+                let shouldResetup = false;
+                mutations.forEach((mutation) => {
+                    if (mutation.addedNodes.length > 0) {
+                        mutation.addedNodes.forEach((node) => {
+                            if (node.nodeType === 1 && (
+                                node.classList?.contains('staging-slot') ||
+                                node.classList?.contains('basket-slot') ||
+                                node.querySelector?.('.basket-image')
+                            )) {
+                                shouldResetup = true;
+                            }
+                        });
+                    }
+                });
+                if (shouldResetup) {
+                    // Debounce the re-setup
+                    clearTimeout(this._magnifierSetupTimer);
+                    this._magnifierSetupTimer = setTimeout(() => {
+                        this.setupMagnifierListeners();
+                    }, 50);
+                }
+            });
+            
+            const stagingArea = document.getElementById('staging-area');
+            if (stagingArea) {
+                observer.observe(stagingArea, { childList: true, subtree: true });
+            }
+            
+            // Also observe target area for filled slots
+            const targetArea = document.getElementById('target-area');
+            if (targetArea) {
+                observer.observe(targetArea, { childList: true, subtree: true });
+            }
+        }
+        
+        // console.log('🔍 Magnifier zoom initialized');
+    }
+    
+    setupMagnifierListeners() {
+        // Use event delegation on the document for better dynamic content support
+        if (this._magnifierDelegationSetup) {
+            // Already set up delegation, just log current image count
+            const images = document.querySelectorAll('.basket-image');
+            console.log(`🔍 Magnifier ready (${images.length} basket images found)`);
+            return;
+        }
+        
+        this._magnifierDelegationSetup = true;
+        
+        // Use event delegation - attach to document and check target
+        document.addEventListener('mouseenter', (e) => {
+            const img = e.target;
+            if (img && img.tagName === 'IMG' && img.classList.contains('basket-image')) {
+                this.handleMagnifierMouseEnter(e);
+            }
+        }, true); // Use capture phase
+        
+        document.addEventListener('mouseleave', (e) => {
+            const img = e.target;
+            if (img && img.tagName === 'IMG' && img.classList.contains('basket-image')) {
+                this.handleMagnifierMouseLeave(e);
+            }
+        }, true); // Use capture phase
+        
+        document.addEventListener('mousemove', (e) => {
+            // Only process if we're currently magnifying
+            if (this.currentMagnifiedImg) {
+                this.handleMagnifierMouseMove(e);
+            }
+        });
+        
+        const images = document.querySelectorAll('.basket-image');
+        console.log(`🔍 Magnifier delegation setup complete (${images.length} basket images currently found)`);
+    }
+    
+    handleMagnifierMouseEnter(event) {
+        const img = event.target;
+        if (!img || !img.src) {
+            console.log('🔍 Magnifier: invalid img', img);
+            return;
+        }
+        
+        // console.log('🔍 Magnifier ENTER:', img.src.substring(img.src.lastIndexOf('/') + 1));
+        
+        this.currentMagnifiedImg = img;
+        
+        // Set the background image for the magnifier lens
+        this.magnifierLens.style.backgroundImage = `url('${img.src}')`;
+        
+        // Calculate the background size preserving aspect ratio
+        // Use natural dimensions if available, otherwise use displayed dimensions
+        const naturalW = img.naturalWidth || img.width;
+        const naturalH = img.naturalHeight || img.height;
+        const aspectRatio = naturalW / naturalH;
+        
+        // Scale so the image fills the lens area while maintaining aspect ratio
+        let bgWidth, bgHeight;
+        if (aspectRatio >= 1) {
+            // Wider than tall - fit height, let width extend
+            bgHeight = this.magnifierSize * this.magnifierZoom;
+            bgWidth = bgHeight * aspectRatio;
+        } else {
+            // Taller than wide - fit width, let height extend
+            bgWidth = this.magnifierSize * this.magnifierZoom;
+            bgHeight = bgWidth / aspectRatio;
+        }
+        
+        this.magnifierLens.style.backgroundSize = `${bgWidth}px ${bgHeight}px`;
+        
+        // Store these for position calculations
+        this._bgWidth = bgWidth;
+        this._bgHeight = bgHeight;
+        
+        // Show the magnifier
+        this.magnifierLens.classList.add('active');
+        // console.log('🔍 Magnifier lens active:', this.magnifierLens.classList.contains('active'));
+        
+        // Position immediately
+        this.updateMagnifierPosition(event);
+    }
+    
+    handleMagnifierMouseLeave(event) {
+        // console.log('🔍 Magnifier LEAVE');
+        this.currentMagnifiedImg = null;
+        this.magnifierLens.classList.remove('active');
+    }
+    
+    handleMagnifierMouseMove(event) {
+        if (!this.currentMagnifiedImg) return;
+        this.updateMagnifierPosition(event);
+    }
+    
+    updateMagnifierPosition(event) {
+        const img = this.currentMagnifiedImg;
+        if (!img) return;
+        
+        const imgRect = img.getBoundingClientRect();
+        
+        // Calculate mouse position relative to the image (0-1)
+        const relX = (event.clientX - imgRect.left) / imgRect.width;
+        const relY = (event.clientY - imgRect.top) / imgRect.height;
+        
+        // Clamp to image bounds
+        const clampedX = Math.max(0, Math.min(1, relX));
+        const clampedY = Math.max(0, Math.min(1, relY));
+        
+        // Use the aspect-ratio-aware background dimensions
+        const bgWidth = this._bgWidth || (this.magnifierSize * this.magnifierZoom);
+        const bgHeight = this._bgHeight || (this.magnifierSize * this.magnifierZoom);
+        
+        // Calculate background position to show zoomed area
+        const bgX = -(clampedX * bgWidth - this.magnifierSize / 2);
+        const bgY = -(clampedY * bgHeight - this.magnifierSize / 2);
+        
+        this.magnifierLens.style.backgroundPosition = `${bgX}px ${bgY}px`;
+        
+        // Position the lens near the cursor
+        // Calculate optimal position to avoid going off-screen
+        let lensX = event.clientX + this.magnifierOffset;
+        let lensY = event.clientY - this.magnifierSize / 2;
+        
+        // Adjust if going off right edge
+        if (lensX + this.magnifierSize > window.innerWidth - 10) {
+            lensX = event.clientX - this.magnifierSize - this.magnifierOffset;
+        }
+        
+        // Adjust if going off top or bottom
+        if (lensY < 10) {
+            lensY = 10;
+        } else if (lensY + this.magnifierSize > window.innerHeight - 10) {
+            lensY = window.innerHeight - this.magnifierSize - 10;
+        }
+        
+        this.magnifierLens.style.left = `${lensX}px`;
+        this.magnifierLens.style.top = `${lensY}px`;
+    }
 }
 let draggableGrid = null;
 function initializeDraggableGrid(config) {
@@ -638,13 +862,16 @@ window.checkPageReady = function() {
 window.checkDraggableGridVersion = function() {
     console.log('=== DraggableGrid Version Check ===');
     console.log('JavaScript file loaded successfully');
-    console.log('Version: 2.2 - Enhanced typing indicator + Message sound notifications only');
+    console.log('Version: 2.3 - Magnifying glass zoom + typing indicator + sounds');
     console.log('Available test functions:');
     console.log('- simpleTypingTest() - Basic typing indicator test');
     console.log('- checkPageReady() - Check if page elements are ready');
-    console.log('- testTypingIndicator() - Full typing indicator test (if DraggableGrid is initialized)');
-    console.log('- debugTypingIndicator() - Debug info (if DraggableGrid is initialized)');
+    console.log('- testTypingIndicator() - Full typing indicator test');
+    console.log('- debugTypingIndicator() - Debug info');
     console.log('- testSoundSystem() - Test sound notifications');
+    console.log('- testMagnifier() - Check magnifier status');
+    console.log('- setMagnifierZoom(n) - Set zoom level (1-10)');
+    console.log('- setMagnifierSize(n) - Set lens size in pixels (50-400)');
     console.log('===============================');
 };
 
@@ -652,6 +879,76 @@ window.checkDraggableGridVersion = function() {
 if (typeof window !== 'undefined') {
     window.checkDraggableGridVersion();
 }
+
+// Magnifier configuration functions
+window.setMagnifierZoom = function(zoom) {
+    if (!window.draggableGrid) {
+        console.error('❌ DraggableGrid not initialized yet');
+        return;
+    }
+    if (typeof zoom !== 'number' || zoom < 1 || zoom > 10) {
+        console.error('❌ Zoom must be a number between 1 and 10');
+        return;
+    }
+    window.draggableGrid.magnifierZoom = zoom;
+    console.log(`🔍 Magnifier zoom set to ${zoom}x`);
+};
+
+window.setMagnifierSize = function(size) {
+    if (!window.draggableGrid) {
+        console.error('❌ DraggableGrid not initialized yet');
+        return;
+    }
+    if (typeof size !== 'number' || size < 50 || size > 400) {
+        console.error('❌ Size must be a number between 50 and 400');
+        return;
+    }
+    const dg = window.draggableGrid;
+    dg.magnifierSize = size;
+    dg.magnifierLens.style.width = `${size}px`;
+    dg.magnifierLens.style.height = `${size}px`;
+    console.log(`🔍 Magnifier size set to ${size}px (refresh hover to see effect)`);
+};
+
+window.testMagnifier = function() {
+    console.log('🔍 Magnifier Test Info:');
+    if (!window.draggableGrid) {
+        console.error('❌ DraggableGrid not initialized');
+        return;
+    }
+    const dg = window.draggableGrid;
+    console.log(`  - Zoom level: ${dg.magnifierZoom}x`);
+    console.log(`  - Lens size: ${dg.magnifierSize}px`);
+    console.log(`  - Lens element exists:`, !!dg.magnifierLens);
+    console.log(`  - Lens in DOM:`, document.body.contains(dg.magnifierLens));
+    console.log(`  - Delegation setup:`, !!dg._magnifierDelegationSetup);
+    
+    const images = document.querySelectorAll('.basket-image');
+    console.log(`  - Basket images found: ${images.length}`);
+    
+    // Show the lens briefly for testing
+    if (dg.magnifierLens && images.length > 0) {
+        console.log('🔍 Testing magnifier on first image...');
+        const testImg = images[0];
+        dg.magnifierLens.style.backgroundImage = `url('${testImg.src}')`;
+        const bgSize = dg.magnifierSize * dg.magnifierZoom;
+        dg.magnifierLens.style.backgroundSize = `${bgSize}px ${bgSize}px`;
+        dg.magnifierLens.style.backgroundPosition = 'center';
+        dg.magnifierLens.style.left = '100px';
+        dg.magnifierLens.style.top = '100px';
+        dg.magnifierLens.classList.add('active');
+        console.log('✅ Magnifier lens should be visible at top-left. Hiding in 3 seconds...');
+        setTimeout(() => {
+            dg.magnifierLens.classList.remove('active');
+            console.log('🔍 Magnifier hidden');
+        }, 3000);
+    }
+    
+    console.log('');
+    console.log('📝 Configuration commands:');
+    console.log('  - setMagnifierZoom(2)  // Set zoom to 3x (1-10)');
+    console.log('  - setMagnifierSize(400)  // Set lens size to 200px (50-400)');
+};
 
     // Test function for sound system
     window.testSoundSystem = function() {

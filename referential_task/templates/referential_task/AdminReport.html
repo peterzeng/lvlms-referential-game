@@ -20,22 +20,38 @@
           <thead>
             <tr>
               <th>Group</th>
+              <th>Matcher Type</th>
               <th>Matcher (id_in_group)</th>
               <th>Accuracy (%)</th>
               <th>Submitted At</th>
               <th>Correct Sequence (first 5)</th>
               <th>Submitted Sequence (first 5)</th>
+              <th>Debug</th>
             </tr>
           </thead>
           <tbody>
             {% for g in groups %}
             <tr>
               <td>{{ g.group_id }}</td>
+              <td>{% if g.matcher_type %}{{ g.matcher_type }}{% else %}Human{% endif %}</td>
               <td>{% if g.matcher_id_in_group %}{{ g.matcher_id_in_group }}{% else %}-{% endif %}</td>
               <td>{% if g.accuracy_str %}{{ g.accuracy_str }}{% else %}-{% endif %}</td>
               <td>{% if g.submitted_at %}{{ g.submitted_at }}{% else %}-{% endif %}</td>
               <td><code>{{ g.correct_sequence_head }}</code></td>
               <td><code>{{ g.submitted_sequence_head }}</code></td>
+              <td>
+                {% if g.matcher_type == "AI" %}
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-info open-aimatcher-debug"
+                    data-group-id="{{ g.group_id }}"
+                  >
+                    Open matcher view
+                  </button>
+                {% else %}
+                  -
+                {% endif %}
+              </td>
             </tr>
             {% endfor %}
           </tbody>
@@ -52,8 +68,10 @@
     round_number: {{ round_number }},
     groups: {{ groups_json }},
   };
+  const roundNumber = reportData.round_number;
   const sessionCode = {{ session_code|json }};
   const customExportUrl = '{{ custom_export_url }}';
+  const staticPrefix = "{% get_static_prefix %}";
 
   function downloadBlob(content, filename, type) {
     const blob = new Blob([content], { type });
@@ -70,11 +88,12 @@
   function toCsv(data) {
     const rows = [];
     // Header
-    rows.push(['round_number','group_id','matcher_id_in_group','accuracy','submitted_at','correct_sequence','submitted_sequence']);
+    rows.push(['round_number','group_id','matcher_type','matcher_id_in_group','accuracy','submitted_at','correct_sequence','submitted_sequence']);
     for (const g of data.groups) {
       rows.push([
         data.round_number,
         g.group_id ?? '',
+        g.matcher_type ?? '',
         g.matcher_id_in_group ?? '',
         g.accuracy ?? '',
         g.submitted_at ?? '',
@@ -133,6 +152,283 @@
     } catch (e) {
       alert('Failed to fetch custom export. Try opening the Data tab CSV first.');
     }
+  });
+
+  // --- AI matcher debug viewer (researcher-only, admin page) ---
+  function parseCsvLine(row) {
+    const cols = [];
+    let cur = '';
+    let inQ = false;
+    for (let j = 0; j < row.length; j++) {
+      const ch = row[j];
+      if (ch === '"') {
+        if (inQ && row[j + 1] === '"') {
+          cur += '"';
+          j++;
+        } else {
+          inQ = !inQ;
+        }
+      } else if (ch === ',' && !inQ) {
+        cols.push(cur);
+        cur = '';
+      } else {
+        cur += ch;
+      }
+    }
+    cols.push(cur);
+    return cols;
+  }
+
+  function openAIMatcherDebug(groupId) {
+    const group = (reportData.groups || []).find(
+      g => String(g.group_id) === String(groupId)
+    );
+    if (!group) {
+      alert('No data available for this group yet.');
+      return;
+    }
+
+    const correctImages = group.correct_sequence || [];
+    const win = window.open('', '_blank', 'width=1100,height=750');
+    if (!win) {
+      alert('Popup blocked. Please allow popups for this site.');
+      return;
+    }
+
+    const html = `
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>AI Matcher Debug – Group ${groupId}</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin: 0;
+      padding: 16px;
+      background: #f8f9fa;
+    }
+    h3 {
+      margin-top: 0;
+    }
+    .subtitle {
+      color: #6c757d;
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+    }
+    .grid-wrapper {
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+    .grid-row {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+    .row-label {
+      width: 110px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding-top: 6px;
+    }
+    .slots {
+      display: grid;
+      grid-template-columns: repeat(6, 80px);
+      grid-auto-rows: 90px;
+      gap: 6px;
+    }
+    .slot {
+      position: relative;
+      background: #f1f3f5;
+      border-radius: 4px;
+      border: 1px solid #dee2e6;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      font-size: 0.75rem;
+      color: #495057;
+    }
+    .slot-inner {
+      flex: 1;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    .slot-label {
+      padding: 2px 4px;
+      text-align: right;
+      background: rgba(255,255,255,0.9);
+      border-top: 1px solid #dee2e6;
+    }
+    #status {
+      margin-top: 10px;
+      font-size: 0.8rem;
+      color: #6c757d;
+    }
+  </style>
+</head>
+<body>
+  <h3>AI Matcher Debug – Group ${groupId}</h3>
+  <div class="subtitle">
+    Session <code>${sessionCode}</code>, Round <strong>${roundNumber}</strong>.
+    This read-only view approximates the matcher grid and polls the server every 5 seconds.
+  </div>
+  <div class="grid-wrapper">
+    <div class="grid-row">
+      <div class="row-label">Correct order</div>
+      <div class="slots" id="correct-row">
+        ${Array.from({ length: 12 }).map((_, idx) => `
+          <div class="slot" data-pos="${idx + 1}">
+            <div class="slot-inner"></div>
+            <div class="slot-label">#${idx + 1}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+    <div class="grid-row">
+      <div class="row-label">AI matcher</div>
+      <div class="slots" id="ai-row">
+        ${Array.from({ length: 12 }).map((_, idx) => `
+          <div class="slot" data-pos="${idx + 1}">
+            <div class="slot-inner"></div>
+            <div class="slot-label">#${idx + 1}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  </div>
+  <div id="status">Waiting for updates…</div>
+  <script>
+    const staticPrefix = ${JSON.stringify(staticPrefix)};
+    const sessionCode = ${JSON.stringify(sessionCode)};
+    const roundNumber = ${JSON.stringify(roundNumber)};
+    const groupId = ${JSON.stringify(String(groupId))};
+    const customExportUrl = ${JSON.stringify(customExportUrl)};
+    const correctImages = ${JSON.stringify(correctImages || [])};
+
+    function renderRow(containerId, images) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      const slots = container.querySelectorAll('.slot');
+      slots.forEach((slot, idx) => {
+        const imgPath = images[idx] || null;
+        const inner = slot.querySelector('.slot-inner');
+        if (!inner) return;
+        if (imgPath) {
+          inner.style.backgroundImage = 'url(' + staticPrefix + imgPath + ')';
+        } else {
+          inner.style.backgroundImage = 'none';
+        }
+      });
+    }
+
+    function parseCsvLine(row) {
+      const cols = [];
+      let cur = '';
+      let inQ = false;
+      for (let j = 0; j < row.length; j++) {
+        const ch = row[j];
+        if (ch === '"') {
+          if (inQ && row[j + 1] === '"') {
+            cur += '"';
+            j++;
+          } else {
+            inQ = !inQ;
+          }
+        } else if (ch === ',' && !inQ) {
+          cols.push(cur);
+          cur = '';
+        } else {
+          cur += ch;
+        }
+      }
+      cols.push(cur);
+      return cols;
+    }
+
+    async function refreshFromCsv() {
+      const statusEl = document.getElementById('status');
+      try {
+        const resp = await fetch(customExportUrl, { credentials: 'same-origin' });
+        const text = await resp.text();
+        const lines = text.split(/\\r?\\n/).filter(Boolean);
+        if (!lines.length) {
+          statusEl.textContent = 'No CSV data available yet.';
+          return;
+        }
+        const headerCols = parseCsvLine(lines[0]);
+        const idxSession = headerCols.indexOf('session_code');
+        const idxRound = headerCols.indexOf('round_number');
+        const idxGroup = headerCols.indexOf('group_id');
+        const idxSeq = headerCols.indexOf('matcher_sequence_json');
+        if (idxSession === -1 || idxRound === -1 || idxGroup === -1 || idxSeq === -1) {
+          statusEl.textContent = 'CSV missing matcher_sequence_json; open the Data tab CSV once to enable custom export.';
+          return;
+        }
+        let seqJsonCell = null;
+        for (let i = 1; i < lines.length; i++) {
+          const cols = parseCsvLine(lines[i]);
+          if (cols.length <= idxSeq) continue;
+          const sess = cols[idxSession].replace(/^"|"$/g, '');
+          const rnd = cols[idxRound].replace(/^"|"$/g, '');
+          const gid = cols[idxGroup].replace(/^"|"$/g, '');
+          if (sess === sessionCode && rnd === String(roundNumber) && gid === String(groupId)) {
+            seqJsonCell = cols[idxSeq];
+          }
+        }
+        if (!seqJsonCell) {
+          statusEl.textContent = 'Waiting for AI matcher to submit sequence…';
+          renderRow('ai-row', []);
+          return;
+        }
+        let jsonText = seqJsonCell.replace(/^"|"$/g, '').replace(/""/g, '"');
+        if (!jsonText) {
+          statusEl.textContent = 'No sequence found yet.';
+          renderRow('ai-row', []);
+          return;
+        }
+        let parsed;
+        try {
+          parsed = JSON.parse(jsonText);
+        } catch (e) {
+          statusEl.textContent = 'Failed to parse matcher_sequence_json.';
+          return;
+        }
+        const arr = Array.isArray(parsed) ? parsed : (parsed.sequence || []);
+        const byPos = (arr || []).slice().sort((a, b) => (a.position || 0) - (b.position || 0));
+        const images = byPos.map(item => item && item.image).filter(Boolean);
+        renderRow('ai-row', images);
+        statusEl.textContent = 'Last updated: ' + new Date().toLocaleTimeString();
+      } catch (e) {
+        statusEl.textContent = 'Error loading AI matcher sequence.';
+      }
+    }
+
+    // Initial render of correct row (static per round)
+    renderRow('correct-row', correctImages);
+    // Poll periodically for AI matcher updates
+    refreshFromCsv();
+    setInterval(refreshFromCsv, 5000);
+  </script>
+</body>
+</html>
+`;
+
+    win.document.write(html);
+    win.document.close();
+  }
+
+  // Attach click handlers after DOM is ready (script is at end of body)
+  document.querySelectorAll('.open-aimatcher-debug').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const groupId = btn.getAttribute('data-group-id');
+      if (groupId) {
+        openAIMatcherDebug(groupId);
+      }
+    });
   });
 </script>
 

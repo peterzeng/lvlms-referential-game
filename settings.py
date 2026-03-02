@@ -22,105 +22,108 @@ except Exception:
 # ]
 
 SESSION_CONFIGS = [
-    # Grid view: Set 1
+    # --- Core AI–human grid configs (Set 5 by default) ---
+    #
+    # Prompt strategies (all of these see the same visual 12‑basket grid via
+    # `_inject_visual_grid_context` in `referential_task/pages.py` whenever
+    # images are available):
+    # - v1  = Simple baseline prompt:
+    #         short role description, no explicit KB hints, no JSON reasoning.
+    # - v2  = “Weiling‑style” rich prompt:
+    #         detailed role + round context, optional KB basket hints when
+    #         `use_kb=True`.
+    # - v3  = CoT / JSON reasoning on top of v2:
+    #         same rich prompt as v2, but the model must reply with
+    #         {"reasoning": {...}, "utterance": "..."}; only `utterance`
+    #         is shown to the human; reasoning can be logged when
+    #         `log_v3_reasoning=True`.
+    #
+    # Visual context is therefore NOT unique to any one strategy; differences
+    # between v1 / v2 / v3 are in text instructions, KB usage, and whether
+    # JSON reasoning is requested.
+    
+    # Baseline V1: simple prompt (visual grid), human is Matcher
     dict(
-        name='referential_task_set1',
-        display_name="Basket Grid Experiment (Set 1) — P1: Director, P2: Matcher",
+        name='referential_task_grid_human_matcher',
+        display_name="Basket Grid Human–VLM (Set 5, Human = Matcher, V1 simple)",
         app_sequence=['onboarding', 'referential_task'],
-        num_demo_participants=2,
-        director_view='grid',
-        basket_set=1,
-    ),
-    # Grid view: Set 2
-    dict(
-        name='referential_task_set2',
-        display_name="Basket Grid Experiment (Set 2) — P1: Director, P2: Matcher",
-        app_sequence=['onboarding', 'referential_task'],
-        num_demo_participants=2,
-        director_view='grid',
-        basket_set=2,
-    ),
-    # Grid view: Set 3
-    dict(
-        name='referential_task_set3',
-        display_name="Basket Grid Experiment (Set 3) — P1: Director, P2: Matcher",
-        app_sequence=['onboarding', 'referential_task'],
-        num_demo_participants=2,
-        director_view='grid',
-        basket_set=3,
-    ),
-    # Grid view: Set 4
-    dict(
-        name='referential_task_set4',
-        display_name="Basket Grid Experiment (Set 4) — P1: Director, P2: Matcher",
-        app_sequence=['onboarding', 'referential_task'],
-        num_demo_participants=2,
-        director_view='grid',
-        basket_set=4,
-    ),
-    # Grid view: Set 5
-    dict(
-        name='referential_task_set5',
-        display_name="Basket Grid Experiment (Set 5) — P1: Director, P2: Matcher",
-        app_sequence=['onboarding', 'referential_task'],
-        num_demo_participants=2,
+        num_demo_participants=1,
         director_view='grid',
         basket_set=5,
+        human_role='matcher',
+        prompt_strategy='v1',
+        testing_skip_enabled=False, 
+        testing_debug_enabled=True,
+        ai_debug_enabled=True
     ),
-    # Sequential director variant keeps working; defaults to Set 1 unless overridden in session
+    # V2: Weiling-style rich prompt (visual grid) + optional KB hints, human is Matcher
     dict(
-        name='referential_task_sequential',
-        display_name="Basket Grid Experiment (Sequential Director) — P1: Director, P2: Matcher",
+        name='referential_task_grid_human_matcher_v2',
+        display_name="Basket Grid Human–VLM (Set 5, Human = Matcher, V2 Weiling)",
         app_sequence=['onboarding', 'referential_task'],
-        num_demo_participants=2,
-        director_view='sequential',
-        basket_set=1,
-    ),
-    # Sequential director variant using Set 2
-    dict(
-        name='referential_task_sequential_set2',
-        display_name="Basket Grid Experiment (Sequential Director, Set 2) — P1: Director, P2: Matcher",
-        app_sequence=['onboarding', 'referential_task'],
-        num_demo_participants=2,
-        director_view='sequential',
-        basket_set=2,
-    ),
-    # Sequential director variant using Set 3
-    dict(
-        name='referential_task_sequential_set3',
-        display_name="Basket Grid Experiment (Sequential Director, Set 3) — P1: Director, P2: Matcher",
-        app_sequence=['onboarding', 'referential_task'],
-        num_demo_participants=2,
-        director_view='sequential',
-        basket_set=3,
-    ),
-    # Sequential director variant using Set 4
-    dict(
-        name='referential_task_sequential_set4',
-        display_name="Basket Grid Experiment (Sequential Director, Set 4) — P1: Director, P2: Matcher",
-        app_sequence=['onboarding', 'referential_task'],
-        num_demo_participants=2,
-        director_view='sequential',
-        basket_set=4,
-    ),
-    # Sequential director variant using Set 5
-    dict(
-        name='referential_task_sequential_set5',
-        display_name="Basket Grid Experiment (Sequential Director, Set 5) — P1: Director, P2: Matcher",
-        app_sequence=['onboarding', 'referential_task'],
-        num_demo_participants=2,
-        director_view='sequential',
+        num_demo_participants=1,
+        director_view='grid',
         basket_set=5,
+        human_role='matcher',
+        testing_debug_enabled=True,
+        prompt_strategy='v2',
+        testing_skip_enabled=False, 
     ),
-    # Shapes demo: single-round, colored shapes instead of baskets
+    # V3: CoT prompt on top of V2 (JSON reasoning + utterance, visual grid), human is Matcher
     dict(
-        name='referential_task_shapes_demo',
-        display_name="Shapes Demo (Single Round)",
+        name='referential_task_grid_human_matcher_v3',
+        display_name="Basket Grid Human–VLM (Set 5, Human = Matcher, V3 CoT)",
         app_sequence=['onboarding', 'referential_task'],
-        num_demo_participants=2,
-        director_view='shapes_demo',
-        basket_set=1,
-        num_rounds=1,
+        num_demo_participants=1,
+        director_view='grid',
+        basket_set=5,
+        human_role='matcher',
+        prompt_strategy='v3',
+        testing_debug_enabled=True,
+        log_v3_reasoning=True,
+        testing_skip_enabled=False, 
+    ),
+
+    # Baseline V1: simple prompt (visual grid), human is Director
+    dict(
+        name='referential_task_grid_human_director',
+        display_name="Basket Grid Human–VLM (Set 5, Human = Director, V1 simple)",
+        app_sequence=['onboarding', 'referential_task'],
+        num_demo_participants=1,
+        director_view='grid',
+        basket_set=5,
+        human_role='director',
+        prompt_strategy='v1',
+        testing_debug_enabled=True,
+        testing_skip_enabled=False, 
+        ai_debug_enabled=True
+    ),
+    # V2: Weiling-style rich prompt (visual grid) + optional KB hints, human is Director
+    dict(
+        name='referential_task_grid_human_director_v2',
+        display_name="Basket Grid Human–VLM (Set 5, Human = Director, V2 Weiling)",
+        app_sequence=['onboarding', 'referential_task'],
+        num_demo_participants=1,
+        director_view='grid',
+        basket_set=5,
+        human_role='director',
+        prompt_strategy='v2',
+        testing_debug_enabled=True,
+        testing_skip_enabled=False,
+    ),
+    # V3: CoT prompt on top of V2 (JSON reasoning + utterance, visual grid), human is Director
+    dict(
+        name='referential_task_grid_human_director_v3',
+        display_name="Basket Grid Human–VLM (Set 5, Human = Director, V3 CoT)",
+        app_sequence=['onboarding', 'referential_task'],
+        num_demo_participants=1,
+        director_view='grid',
+        basket_set=5,
+        human_role='director',
+        prompt_strategy='v3',
+        log_v3_reasoning=True,
+        testing_debug_enabled=True,
+        testing_skip_enabled=False, 
     ),
 ]
 
@@ -135,44 +138,47 @@ SESSION_CONFIG_DEFAULTS = dict(
     doc="",
     # Set your Prolific return URL here; can be overridden per session config
     prolific_return_url=environ.get('PROLIFIC_RETURN_URL', ''),
+    # By default, do NOT use the text KnowledgeBase (KB); all strategies rely
+    # on visual context + dialogue alone unless a session explicitly opts in.
+    use_kb=False,
+    # Cross-round history: AI sees full dialogue history from all prior rounds.
+    # Essential for entrainment studies in human-AI settings.
+    cross_round_history=True,
+    # Maximum number of dialogue turns to include in AI prompts.
+    # With cross_round_history=True, 200 turns covers ~4 rounds of rich dialogue.
+    # GPT-4o supports 128K tokens (~500+ turns). Adjust as needed.
+    ai_max_history_turns=200,
+    # ---------------------------------------------------------------------------
+    # AI Model Configuration
+    # ---------------------------------------------------------------------------
+    # AI model to use. Defaults to 'gpt-5.2' (latest reasoning model).
+    # Other options: 'gpt-5', 'gpt-5.1', 'gpt-4o', 'o1', 'o3', etc.
+    # Can also be set via OPENAI_MODEL environment variable.
+    ai_model='gpt-5.2',
+    # Reasoning effort for reasoning models (gpt-5+, o1, o3).
+    # Options: 'none' (fastest), 'low', 'medium', 'high' (slowest, most thorough).
+    # Ignored for traditional models (gpt-4o) which use temperature=0 instead.
+    # Can also be set via AI_REASONING_EFFORT environment variable.
+    ai_reasoning_effort='none',
 )
 
-# Rooms let you share one stable link like /room/basket_room/
+# Rooms let you share one stable link per condition (e.g., /room/grid_matcher_v1/)
+# Each of these maps 1:1 to a session config above, so you can hand out
+# persistent URLs for that specific prompt/role variant.
 ROOMS = [
-    dict(
-        name='basket_room',
-        display_name='Basket Room',
-        # participant_label_file='participant_labels.txt',  # optional
-        # use_secure_urls=True,  # set True when recruiting externally
-    ),
+    dict(name='basket_room', display_name='Basket Room'),
+    dict(name='grid_matcher_v1', display_name='Grid Human = Matcher (v1 simple)'),
+    dict(name='grid_matcher_v2', display_name='Grid Human = Matcher (v2 Weiling)'),
+    dict(name='grid_matcher_v3', display_name='Grid Human = Matcher (v3 CoT)'),
+    dict(name='grid_director_v1', display_name='Grid Human = Director (v1 simple)'),
+    dict(name='grid_director_v2', display_name='Grid Human = Director (v2 Weiling)'),
+    dict(name='grid_director_v3', display_name='Grid Human = Director (v3 CoT)'),
+    # Add participant_label_file/use_secure_urls here if you need named IDs or secure links.
 ]
 
 ROOM_DEFAULTS = dict(participation_fee=0)
 
-PARTICIPANT_FIELDS = [
-    # Stable dyad identifier and group metadata persisted in participant.vars
-    # (see referential_task.GridTaskWaitPage.after_all_players_arrive)
-    'pair_id',
-    'group_id_db',
-    'group_id_in_subsession',
-    'id_in_group',
-    'partner_code',
-    'partner_id_in_group',
-    'partner_role',
-    # Final-round survey responses stored once per participant (instead of per round)
-    # These are populated from referential_task.Player fields on the final round.
-    'partner_capable',
-    'partner_helpful',
-    'partner_understood',
-    'partner_adapted',
-    'collaboration_improved',
-    'partner_comment',
-    'partner_human_vs_ai',
-    'partner_human_vs_ai_why',
-    'ai_familiarity',
-    'ai_usage_frequency',
-    'ai_used_for_task',
-]
+PARTICIPANT_FIELDS = []
 SESSION_FIELDS = []
 
 # ISO-639 code

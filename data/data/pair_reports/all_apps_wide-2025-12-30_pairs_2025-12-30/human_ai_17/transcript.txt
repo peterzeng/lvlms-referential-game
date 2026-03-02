@@ -1,0 +1,360 @@
+================================================================================
+SESSION TRANSCRIPT REPORT
+================================================================================
+
+Pair ID:        human_ai_17
+Session Code:   aqxp0ef2
+AI Role:        DIRECTOR
+Human Role:     MATCHER
+Human Code:     ab3xpodj
+
+SESSION CONFIGURATION:
+  Config Name:    referential_task_grid_human_matcher_v3
+  Basket Set:     5
+  Director View:  grid
+  Prompt Version: V3
+  Reasoning:      nan
+
+OVERALL ACCURACY: 47.9% (avg across 4 rounds)
+
+================================================================================
+
+ROUND 1
+----------------------------------------
+Accuracy: 91.7%
+
+DIALOGUE:
+--------------------
+[16:15:00] DIRECTOR: Basket 1: the novelty wicker basket shaped like a duck/bird—plump oval body with a small head on the right, a blue eye and beak-like front; there’s a flat strap handle/opening on top behind the head. Please confirm when you’ve placed it.
+
+[16:17:25] MATCHER: I have one basket that is not loading
+
+[16:17:32] DIRECTOR: No problem—basket 1 is the duck/bird-shaped wicker one: plump oval body with a small head sticking out on the right, a clear blue eye and beak-like tip. There’s a flat strap/opening on top behind the head. Let me know when you’ve found/placed it, and tell me which one isn’t loading.
+
+[16:19:59] MATCHER: do you have 2 baskets that look like animals?
+
+[16:20:06] DIRECTOR: Yes—there are 2 animal-like ones. Basket 1 is the duck/bird-shaped wicker basket in side view: plump oval body with a small head sticking out on the RIGHT, a visible blue eye, and a beak-like point; there’s a flat strap/opening on top behind the head.
+
+[16:20:37] MATCHER: I see red eyes only, no blue
+
+[16:20:41] DIRECTOR: You’re right to flag that—let me clarify basket 1 again: it’s the duck/bird-shaped wicker basket in side view (not the round cat face). The head sticks out on the RIGHT with a pointed beak-like tip; the eye is a small colored dot (can look dark/reddish depending on display). Key is the whole basket is shaped like a duck body with a head, and there’s a flat strap/opening on top behind the head. Please confirm you’ve got the duck-shaped one for position 1.
+
+[16:21:11] MATCHER: and it has long rabbit ears
+
+[16:21:14] DIRECTOR: That one with long rabbit ears is NOT basket 1. Basket 1 is the duck/bird shape: smooth oval “body” with a small head protruding on the right and a pointed beak; no tall ears. If you have a rabbit-eared one in your pool, leave it aside for now—can you find the duck-shaped basket and place it in slot 1?
+
+[16:22:52] MATCHER: other one looks to me like a rat/mouse, head straight and looking directly, has whiskers
+
+[16:22:59] DIRECTOR: Basket 2: a simple open oval basket with ONE tall arched handle that’s very dark brown/near-black and thick. The basket body is medium warm-brown with tight small weave; no lid, no animal face. Confirm when placed for position 2.
+
+[16:24:23] MATCHER: Near black?
+
+[16:24:26] DIRECTOR: Yes—on basket 2 the handle is the darkest element in the whole grid: a thick, smooth arc that looks very dark brown to almost black, contrasting with the lighter brown basket body. No animal features. Does that match one you see for slot 2?
+
+[16:25:33] MATCHER: I think, I placed it
+
+[16:25:39] DIRECTOR: Basket 3: a boxy rectangular picnic basket with a tall upright handle in the middle, and a hinged lid that’s flipped open/up (you can see the open top and the lid sticking up on the right). Please confirm when you place it in position 3.
+
+[16:26:16] MATCHER: got it
+
+[16:26:20] DIRECTOR: Basket 4: a light-colored oval basket with a single arched handle wrapped in pale material; the handle has small red/burgundy bands near where it attaches. The basket body has alternating light/medium bands and a slightly pointed/teardrop shape to the left. Confirm when placed for slot 4.
+
+[16:26:20] MATCHER: placed
+
+[16:26:23] DIRECTOR: Basket 5: a shallow rectangular basket with squared corners and a chunky twisted-rope style handle arching high. The weave is medium honey-brown, and the basket is wider than tall (open top). Please confirm for position 5.
+
+[16:27:58] MATCHER: placed 4
+
+[16:28:01] DIRECTOR: Let me clarify basket 5 (position 5) again: it’s the low, open rectangle with a very thick “twisted rope” handle (looks like a braided cord). No lid, no animal face—just a squat rectangular tray-basket. Can you confirm once you’ve placed that for slot 5?
+
+[16:29:16] MATCHER: I am not sure of this due to rectangular shape but I think this is what matches the most
+
+[16:29:23] DIRECTOR: Basket 6 (position 6): the round lidded wicker basket that looks like a CAT face straight-on—two little pointy ears on top and painted whiskers/nose/eyes on the lid. It’s a circular container (not the side-view duck). Confirm when placed in slot 6.
+
+[16:30:03] MATCHER: done
+
+[16:30:07] DIRECTOR: Basket 7 (position 7): rectangular basket with a single arched handle; the body has a distinctive two-tone look—greenish/teal vertical weave on the sides with a natural tan/brown rim and base. More “boxy” than the shallow rectangle. Please confirm when placed for slot 7.
+
+[16:31:05] MATCHER: done
+
+[16:31:11] DIRECTOR: (For reference) Basket 1 is the duck/bird-shaped wicker basket in SIDE view: plump oval body with a small head sticking out on the RIGHT and a pointed beak; no whiskers/ears. Flat strap/opening on top behind the head.
+
+[16:31:56] MATCHER: it has rabbit ears going down to the back
+
+[16:32:04] DIRECTOR: Basket 8 (position 8): the squat oval basket with a single dark handle and a dark gray/black woven body, but with a lighter natural/tan band around the bottom. It’s low and rounded (not rectangular, not light brown). Confirm when placed for slot 8.
+
+[16:32:53] MATCHER: got it
+
+[16:32:56] DIRECTOR: Basket 9 (position 9): a tall cylindrical “bucket” basket, medium brown, with TWO small loop handles near the top rim. It’s much taller than the others and has straight vertical sides. Confirm when placed for slot 9.
+
+[16:33:25] MATCHER: done
+
+[16:33:28] DIRECTOR: Basket 10 (position 10): a shallow round tray-like basket with a spiral coil pattern on the base (concentric circles), and one long pale arched handle. It’s flatter than most, like a round platter with a handle. Confirm for slot 10.
+
+[16:34:13] MATCHER: ok
+
+[16:34:16] DIRECTOR: Basket 11 (position 11): a deep roundish basket with two short “ear” handles on the sides (integrated loops). It’s tan/brown with a zigzag/chevron weave pattern around the body; open top, no tall handle. Confirm when placed for slot 11.
+
+[16:34:16] MATCHER: done
+
+[16:34:20] DIRECTOR: Basket 12 (position 12): an open oval basket with a single handle, in uniform light-to-medium brown. The sides are more open lattice/vertical slats, and the handle is wrapped and matches the basket color. It’s more delicate/open than basket 2 (which has the very dark handle). Confirm when placed for slot 12.
+
+[16:35:47] MATCHER: placed
+
+[16:35:55] DIRECTOR: Before you submit—please double-check basket 1 (slot 1): it’s the SIDE-VIEW duck/bird-shaped wicker basket (plump oval body) with a small head sticking out on the RIGHT and a pointed beak. It’s not the round cat-face/whiskers one. Does your slot 1 match that duck shape?
+
+================================================================================
+
+ROUND 2
+----------------------------------------
+Accuracy: 50.0%
+
+DIALOGUE:
+--------------------
+[16:52:02] DIRECTOR: Basket 1 (top-left): a picnic-style wicker basket with a tall center divider/handle, and a hinged lid flap on the RIGHT that’s flipped up/open (you can see the open top with the lid leaning outward). Can you confirm when you’ve found that one?
+
+[16:52:50] MATCHER: confirmed
+
+[16:52:58] DIRECTOR: Basket 2: the tallest one— a straight-sided cylindrical wicker bucket in medium brown with TWO small loop handles near the top rim. Please confirm when you place it in slot 2.
+
+[16:53:11] MATCHER: done
+
+[16:53:15] DIRECTOR: Basket 3: the deep rounded “bucket” basket with a single thick arched handle that’s very dark brown/near-black. The body is warm brown with a tight weave, and it’s shaped like a half-sphere (deeper than a tray). Confirm for slot 3.
+
+[16:54:00] MATCHER: done
+
+[16:54:04] DIRECTOR: Basket 4: a small shallow rectangular basket (open top) in honey-brown with a high arched handle that looks like a thick twisted rope/braid. Confirm when placed in slot 4.
+
+[16:54:46] MATCHER: ok
+
+[16:54:49] DIRECTOR: Basket 5: a small rectangular/square basket with a dark gray/black body and a lighter natural/tan band around the bottom; one arched handle (not twisted-rope thick). It looks like a two-tone “dark basket with light base.” Confirm for slot 5.
+
+[16:55:43] MATCHER: ok
+
+[16:55:47] DIRECTOR: Basket 6: the duck/bird-shaped lidded basket in side view—plump oval body with a small head sticking out on the RIGHT and a pointed beak; there’s a strap-like opening/handle on top behind the head. Confirm for slot 6.
+
+[16:56:02] MATCHER: got it
+
+[16:56:05] DIRECTOR: Basket 7: rectangular basket with a single arched handle; distinctive green/teal vertical weave on the sides, with natural tan/brown rim and base. Confirm for slot 7.
+
+[16:57:01] MATCHER: ok
+
+[16:57:04] DIRECTOR: Basket 8: a light-colored oval basket with a single arched handle; the handle has small red/burgundy wraps near where it attaches. Basket is mostly pale straw/tan. Confirm for slot 8.
+
+[16:57:21] MATCHER: ok
+
+[16:57:24] DIRECTOR: Basket 9: a squat wide rectangular basket with a chunky twisted-rope style handle arching high; warm honey-brown weave (open top). This is wider/flatter than basket 1. Confirm for slot 9.
+
+[16:58:58] MATCHER: this looks to me like the same one I put in slot 4
+
+[16:59:04] DIRECTOR: Basket 10: the round, very shallow tray-basket with a clear spiral/concentric coil pattern on the base and one long pale arched handle—like a flat platter with a handle (not rectangular). Confirm when placed for slot 10.
+
+[17:00:03] MATCHER: got 10 but not 9 - this to me looks like slot for description in 4
+
+[17:00:09] DIRECTOR: Basket 11: a deep round tub-shaped basket with NO tall handle—instead it has two short side “ear” handles. The weave forms a zigzag/chevron pattern around the body. Please confirm when you place it in slot 11.
+
+[17:01:13] MATCHER: ya but I still did not get sorted with 9
+
+[17:01:23] DIRECTOR: Basket 12: the simple open oval market basket in uniform tan/light-brown with ONE normal handle (not the thick twisted-rope one). The sides are more open/airy with vertical slats/lattice. No red wraps on the handle, and the handle isn’t dark. Confirm when placed in slot 12.
+
+[17:02:42] MATCHER: ok but again - I did not get 4 and 9 sorted - confused
+
+[17:02:51] DIRECTOR: Let’s sort 4 vs 9: Basket 4 is the shallow rectangular tray with the SUPER thick twisted-rope/braided handle (chunky like a rope). Basket 9 is the other rectangular open basket with a more normal smooth wicker handle (not rope-thick) and the basket body is a bit taller/deeper. Which one do you currently have in slot 4?
+
+[17:03:53] MATCHER: I think 4 is correct
+
+[17:04:02] DIRECTOR: Clarifying basket 9: it’s the OTHER rectangular open basket with a single handle, but the handle is a normal smooth wicker arch (NOT the super thick twisted-rope handle from basket 4). The basket is a bit deeper/boxier, and the sides look more open with vertical slats/lattice. Does that help you pick the non-rope-handle rectangle for slot 9?
+
+[17:04:52] MATCHER: I am just not sure about it being rectangular in shape - is it all in one tone brown?
+
+[17:05:01] DIRECTOR: Yes—basket 9 is basically all one-tone tan/brown. It’s the open basket with a NORMAL smooth wicker handle (not the super thick twisted-rope handle of basket 4). Also it’s more oval/rounded than a sharp rectangle, and there are no red wraps on the handle (that’s basket 8). Does that let you spot it for slot 9?
+
+[17:05:20] MATCHER: ok, more ovar
+
+[17:05:26] DIRECTOR: Basket 1: picnic-style rectangular wicker basket with a tall center handle/divider, and a hinged lid flap on the RIGHT that’s flipped up/open (you can see the open top with the lid sticking up). Confirm when you’ve got slot 1.
+
+[17:05:38] MATCHER: oval
+
+[17:05:46] DIRECTOR: Basket 1 (slot 1) is the boxy picnic basket with a tall center divider/handle AND a hinged lid flap that’s flipped open/up on the RIGHT—none of the other baskets have that open lid. Can you confirm slot 1?
+
+[17:05:46] MATCHER: I think I got it
+
+[17:05:52] DIRECTOR: Basket 1: the picnic-style rectangular basket with a tall center divider/handle AND a hinged lid flap flipped open/up on the RIGHT (you can clearly see the open top and the lid panel sticking up). Please confirm you have that in slot 1.
+
+================================================================================
+
+ROUND 3
+----------------------------------------
+Accuracy: 25.0%
+
+DIALOGUE:
+--------------------
+[17:06:24] DIRECTOR: Basket 1 (top-left): a boxy rectangular wicker basket with one arched handle and very distinctive green/teal vertical-weave sides, with a natural tan/brown rim and base (two-tone: green sides + tan top/bottom). Can you confirm when you’ve found/placed it?
+
+[17:07:04] MATCHER: yes
+
+[17:07:11] DIRECTOR: Basket 1: the boxy rectangular basket with ONE arched handle and distinctive green/teal vertical-weave sides, with a natural tan/brown rim and base (strong two-tone). Please confirm when it’s in slot 1.
+
+[17:07:24] MATCHER: yes, got it
+
+[17:07:28] DIRECTOR: Basket 2: a small oval/light-colored basket with one arched handle; the handle has little red/burgundy wraps near where it connects to the basket on both sides. The basket body is pale straw/tan with light banding. Confirm for slot 2.
+
+[17:08:30] MATCHER: and those connection sides go from one handle into two on both sides?
+
+[17:08:39] DIRECTOR: Yes—on basket 2 the single top handle transitions into TWO thin side straps on each side (like a Y-split), and right at those junctions there are small red/burgundy wrap bands. The whole basket is very pale straw/tan.
+
+[17:09:02] MATCHER: ok got it
+
+[17:09:09] DIRECTOR: Basket 1: the boxy rectangular basket with ONE arched handle and very distinctive green/teal vertical-weave sides, with a natural tan/brown rim and base (strong two-tone). Confirm when it’s in slot 1.
+
+[17:09:22] MATCHER: so for 3?
+
+[17:09:31] DIRECTOR: Basket 3: the squat oval basket with a dark gray/black woven body but a lighter natural/tan band around the bottom; one arched handle (also dark). It’s two-tone: dark overall with a light base band. Confirm when placed in slot 3.
+
+[17:10:26] MATCHER: is there also a little lighter area on top same as base
+
+[17:10:30] DIRECTOR: Yes—there’s a lighter natural/tan strip right along the top rim too (thin), but the most obvious light part is the wider band around the bottom. The middle body stays dark gray/black.
+
+[17:10:39] MATCHER: ok
+
+[17:10:43] DIRECTOR: Basket 4: the duck/bird-shaped lidded basket in side view—plump oval body with a small head sticking out on the RIGHT and a pointed beak. There’s a strap-like handle/opening on top behind the head. Confirm for slot 4.
+
+[17:10:55] MATCHER: Got that one
+
+[17:10:59] DIRECTOR: Basket 5: the deep rounded “bucket” basket with a single thick arched handle that’s very dark brown (almost black). The basket is warm brown with tight weave and a half-sphere/deep bowl shape. Confirm for slot 5.
+
+[17:11:32] MATCHER: Ok
+
+[17:11:36] DIRECTOR: Basket 6: the shallow rectangular tray-basket with a SUPER thick twisted-rope/braided handle arching high. Honey-brown color; open top; the handle looks like a chunky rope. Confirm for slot 6.
+
+[17:11:47] MATCHER: Got that
+
+[17:11:51] DIRECTOR: Basket 7: tall cylindrical wicker basket (like a straight-sided bucket) in medium brown with TWO small loop handles near the top rim. Confirm for slot 7.
+
+[17:12:20] MATCHER: is this the tallest out of all?
+
+[17:12:23] DIRECTOR: Yes—basket 7 is the tallest/most vertical one in the set: a straight cylinder with two little loop handles near the top.
+
+[17:12:33] MATCHER: got it
+
+[17:12:37] DIRECTOR: Basket 8: the low, shallow round tray with a spiral/concentric coil pattern on the base, and one long pale arched handle. Looks like a flat platter with a handle. Confirm for slot 8.
+
+[17:13:33] MATCHER: there are two that look like that
+
+[17:13:37] DIRECTOR: For basket 8, pick the one that is VERY shallow/flat and you can clearly see the concentric spiral “coil” circles in the base. Also it has only ONE long handle and no side handles. The other similar one is usually deeper or lacks that obvious spiral base—do you see the very clear spiral-base tray?
+
+[17:14:23] MATCHER: ya, for both but one is more shallow
+
+[17:14:27] DIRECTOR: Choose the more shallow/flatter one for basket 8—the one that looks almost like a plate with a handle. Please confirm once you place that in slot 8.
+
+[17:14:43] MATCHER: yes got it
+
+[17:14:47] DIRECTOR: Basket 9: the round lidded basket that looks like a CAT face straight-on—two pointy ears on top and painted whiskers/nose/eyes on the lid. Confirm for slot 9.
+
+[17:14:56] MATCHER: got it
+
+[17:15:00] DIRECTOR: Basket 10: a squat oval/rounded basket in uniform tan/light-brown with ONE normal smooth handle (not twisted-rope, not dark). The sides are more open lattice/vertical slats, giving it an airy look. Confirm for slot 10.
+
+[17:15:57] MATCHER: so that is the one which looks similar to 8
+
+[17:16:01] DIRECTOR: Basket 10 is NOT the flat spiral tray. It’s deeper and more “open-lattice” on the sides—think an oval market basket with vertical slats and a normal handle. Basket 8 was the very shallow round tray with the spiral base. Does that distinction let you spot basket 10?
+
+[17:16:45] MATCHER: all one color?
+
+[17:16:49] DIRECTOR: Yes—basket 10 is basically all one tan/light-brown color (no green sides, no dark body, no red wraps). The key cue is the open vertical-slat/lattice sides and a normal handle.
+
+[17:17:13] MATCHER: looks like an acorn cut in half?
+
+[17:17:17] DIRECTOR: No—“acorn cut in half” sounds like the duck/bird body (already basket 4). Basket 10 should look like a normal open market basket (oval), with airy vertical slats on the sides and a regular handle. No animal head, no lid.
+
+[17:17:23] MATCHER: not to me
+
+[17:17:27] DIRECTOR: Basket 11: a smaller rectangular/wide basket with a single handle and a hinged lid flap that’s flipped open/up on the RIGHT side (you can see the open top with the lid sticking up). Looks like a picnic basket with an open lid. Confirm for slot 11.
+
+[17:17:49] MATCHER: picnic baket is rectangular
+
+[17:17:52] DIRECTOR: Yes—basket 11 is rectangular/boxy, and it’s the ONLY one with a lid that’s visibly flipped open. The center handle/divider rises up, and the lid panel sticks up on the right. If you have that, it should be slot 11.
+
+[17:18:16] MATCHER: no issue with 11 but clearly with 10
+
+[17:18:22] DIRECTOR: Basket 10 again: it’s the medium-brown basket with a single handle where the TOP edge has an uneven “wavy” rim and the body is woven tightly (no spiral base). It looks like a rounded rectangle/oval tote, more like a purse-basket. It’s not the flat tray (8) and not the picnic basket (11). Can you scan for the one with that wavy rim and tote-like shape?
+
+[17:18:53] MATCHER: oh - unever rim - that is clear now
+
+[17:18:57] DIRECTOR: Basket 12: deep round tub-shaped basket with NO tall handle; instead it has two short side “ear” handles. The weave makes a chevron/zigzag pattern around the body. Confirm for slot 12.
+
+[17:19:12] MATCHER: ok
+
+[17:19:21] DIRECTOR: All set—before you submit, quick final check: slot 1 should be the boxy rectangular basket with ONE arched handle and very distinctive green/teal vertical-weave sides, with a natural tan/brown rim and base. Does your slot 1 match that?
+
+================================================================================
+
+ROUND 4
+----------------------------------------
+Accuracy: 25.0%
+
+DIALOGUE:
+--------------------
+[17:20:11] DIRECTOR: Basket 1 (top-left): the very shallow, round tray/platter basket with a clear concentric spiral/coil pattern on the base, and one big arched handle over the top. It’s much flatter than the other handled baskets. Let me know when you’ve placed it.
+
+[17:20:31] MATCHER: got it
+
+[17:20:40] DIRECTOR: Basket 2: a small, neat RECTANGULAR open basket in honey-brown with a single handle that looks like a thick twisted rope/braid (not a smooth handle). The weave is very blocky/uniform. Confirm when you’ve placed it in slot 2.
+
+[17:21:05] MATCHER: placed
+
+[17:21:11] DIRECTOR: Basket 1: the very shallow ROUND tray/platter basket—almost flat—with a clear concentric spiral/coil pattern on the base and one pale arched handle. Please confirm when placed.
+
+[17:21:32] MATCHER: yes - that one is the shallowest of all
+
+[17:21:37] DIRECTOR: Basket 3: the tan/brown tote-like basket with a single smooth handle and a distinctive uneven/wavy top rim. It’s more like a purse shape, not flat, and no special colors (no green, no dark/black). Confirm for slot 3.
+
+[17:21:48] MATCHER: ok
+
+[17:21:52] DIRECTOR: Basket 4: the tall straight-sided CYLINDRICAL basket (like a wicker bucket) with two small loop handles near the top rim. It’s the tallest one. Confirm for slot 4.
+
+[17:22:05] MATCHER: yes
+
+[17:22:10] DIRECTOR: Basket 5: the round tub basket with NO tall handle; it has two small side “ear” handles and a zigzag/chevron weave pattern around the body. Confirm for slot 5.
+
+[17:22:31] MATCHER: is this the one that has 2 other baskets inside it
+
+[17:22:41] DIRECTOR: Basket 5 shouldn’t be identified by having other baskets inside—focus on shape: it’s the round tub with NO arched handle, just two small side “ear” handles, and a very clear zigzag/chevron (herringbone) weave on the sides. Is that the one you’re looking at?
+
+[17:23:26] MATCHER: it clearly has two other baskets inside and it is the only one with two side ears left after the tall 4th onw
+
+[17:23:36] DIRECTOR: Basket 6: the ONLY basket with green/teal sides—boxy rectangular shape with one arched handle, and the top rim + base are natural tan/brown framing the green vertical weave panels. Please confirm when you place that in slot 6.
+
+[17:23:51] MATCHER: ok
+
+[17:23:58] DIRECTOR: Basket 1: the very shallow ROUND tray/platter basket—almost flat—with a clear concentric spiral/coil pattern on the base and one pale arched handle. Confirm when you’ve placed it.
+
+[17:24:49] MATCHER: I'm waiting
+
+[17:24:57] DIRECTOR: Basket 7: the duck/bird-shaped wicker basket in SIDE view—plump oval body with a small head sticking out on the RIGHT and a pointed beak; there’s a strap-like opening/handle on top behind the head. Please confirm when placed.
+
+[17:25:12] MATCHER: ok
+
+[17:25:21] DIRECTOR: Basket 8: a deep rounded bowl/half-sphere basket with ONE thick arched handle that’s very dark brown (almost black) compared to the lighter tan body. Tight weave, no lid/animal face, and no side ear-handles. Confirm when you place it in slot 8.
+
+[17:25:49] MATCHER: got it
+
+[17:25:54] DIRECTOR: Basket 9: the small oval/light-colored basket with one arched handle that splits into two thin side straps on each side; there are little red/burgundy wrap bands at the handle attachment points. Very pale straw/tan overall. Confirm for slot 9.
+
+[17:26:12] MATCHER: ok
+
+[17:26:16] DIRECTOR: Basket 10: the squat oval basket with a dark gray/black woven body and a lighter natural/tan band around the bottom (often also a thin light rim at top). One dark handle. Confirm for slot 10.
+
+[17:26:42] MATCHER: got it
+
+[17:26:46] DIRECTOR: Basket 11: the round lidded basket that’s a CAT face straight-on—two pointy ears on top and painted whiskers/nose/eyes on the lid. Confirm for slot 11.
+
+[17:27:02] MATCHER: placed
+
+[17:27:14] DIRECTOR: Basket 12: the rectangular picnic-style basket with a tall center divider/handle and a hinged lid flap that’s visibly flipped open/up on the RIGHT side (open top showing). Confirm when placed in slot 12.
+
+[17:27:29] MATCHER: ok
+
+[17:27:36] DIRECTOR: Final quick check: slot 1 should be the flattest, round tray/platter basket with a very clear concentric spiral/coil base and one pale arched handle. Does your slot 1 match that?
+
+================================================================================

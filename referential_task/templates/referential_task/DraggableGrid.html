@@ -20,6 +20,24 @@
                     You are the {{ player_role_title }}
                 </span>
                 <span class="ms-2 text-muted">Round {{ round_number }} / {{ total_rounds }}</span>
+                {% if is_director and show_ai_debug_button %}
+                    <button
+                        type="button"
+                        class="btn btn-sm btn-outline-secondary ms-3"
+                        id="open-ai-matcher-debug-btn"
+                    >
+                        Open AI matcher debug view
+                    </button>
+                {% endif %}
+                {% if is_matcher and show_ai_debug_button %}
+                    <button
+                        type="button"
+                        class="btn btn-sm btn-outline-secondary ms-3"
+                        id="open-ai-director-debug-btn"
+                    >
+                        Open AI director debug view
+                    </button>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -117,9 +135,9 @@
                                 <button class="btn btn-outline-secondary" type="button" id="send-message-btn">Send</button>
                             </div>
                             {% if is_matcher %}
-                            <div class="submit-guess-container">
-                                <button class="btn btn-primary w-100" type="button" id="submit-guess-btn" style="display: none;">Submit order</button>
-                            </div>
+                                <div class="submit-guess-container">
+                                    <button class="btn btn-primary w-100" type="button" id="submit-guess-btn" style="display: none;">Submit order</button>
+                                </div>
                             {% endif %}
                         </div>
                     </div>
@@ -156,47 +174,18 @@
             const targetSlots = document.querySelectorAll('.target-slot');
             let selectedSequence = [];
             let stagingSlots = [];
-            
+
             // Create randomized staging area with more baskets
             function createRandomizedStagingArea() {
                 const stagingArea = document.getElementById('staging-area');
                 if (!stagingArea) return;
-                
-                // Get the 12 baskets from the director's grid (these are the ones to match)
-                const directorBaskets = [];
-                {% for slot in shared_grid %}
-                    directorBaskets.push({
-                        image: "{{ slot.image }}",
-                        position: "{{ slot.position }}",
-                        basket_id: {{ slot.basket_id }}
-                    });
-                {% endfor %}
-                
-                // Create additional random baskets from preset full list (excluding director's 12)
-                const randomAdditional = [];
-                const presetFullList = {% if preset_full_list %}{{ preset_full_list|safe }}{% else %}[]{% endif %};
-                // Normalize to full static paths 'images/NNN.png'
-                const normalizedPreset = (presetFullList || []).map(p => p.startsWith('images/') ? p : `images/${p}`);
-                const directorSet = new Set(directorBaskets.map(b => b.image));
-                const candidateExtras = normalizedPreset.filter(img => !directorSet.has(img));
-                // Sample up to 6 random extras
-                const pool = [...candidateExtras];
-                for (let i = 0; i < 6 && pool.length > 0; i++) {
-                    const idx = Math.floor(Math.random() * pool.length);
-                    const imgPath = pool.splice(idx, 1)[0];
-                    randomAdditional.push({
-                        image: imgPath,
-                        position: `extra_${i}`,
-                        basket_id: 100 + i
-                    });
-                }
-                
-                // Combine director baskets and additional baskets, then shuffle
-                const allBaskets = [...directorBaskets, ...randomAdditional];
-                const shuffledBaskets = allBaskets.sort(() => Math.random() - 0.5);
+
+                // Server-provided staging pool ordering (consistent across sessions).
+                const shuffledBaskets = {% if staging_baskets_json %}{{ staging_baskets_json|safe }}{% else %}[]{% endif %};
                 
                 // Create the staging area HTML
                 stagingArea.innerHTML = '';
+                stagingSlots = [];
                 shuffledBaskets.forEach((basket, index) => {
                     const slot = document.createElement('div');
                     slot.className = 'staging-slot basket-slot';
@@ -344,6 +333,508 @@
             // Initialize submit button state
             updateSubmitButton();
         }
+
+        // --- Researcher-only AI matcher debug viewer (Director testing mode) ---
+        const debugConfig = {
+            showButton: {% if show_ai_debug_button %}true{% else %}false{% endif %},
+            isDirector: {% if is_director %}true{% else %}false{% endif %},
+            sessionCode: {{ session_code|json }},
+            roundNumber: {{ round_number }},
+            groupId: {{ group_id_for_debug|json }},
+            customExportUrl: {{ custom_export_url|json }},
+            // Example static URL used to infer the correct static prefix at runtime.
+            staticSample: "{% static 'images/001.png' %}",
+            sharedGrid: {% if current_grid_state %}{{ current_grid_state|safe }}{% else %}[]{% endif %}
+        };
+
+        function debugParseCsvLine(row) {
+            const cols = [];
+            let cur = '';
+            let inQ = false;
+            for (let j = 0; j < row.length; j++) {
+                const ch = row[j];
+                if (ch === '"') {
+                    if (inQ && row[j + 1] === '"') {
+                        cur += '"';
+                        j++;
+                    } else {
+                        inQ = !inQ;
+                    }
+                } else if (ch === ',' && !inQ) {
+                    cols.push(cur);
+                    cur = '';
+                } else {
+                    cur += ch;
+                }
+            }
+            cols.push(cur);
+            return cols;
+        }
+
+        function openAIMatcherDebugFromDirector() {
+            try {
+                console.log('[AI matcher debug] Button clicked; config:', debugConfig);
+                if (!debugConfig.isDirector) {
+                    alert('AI matcher debug view is only available to the Director.');
+                    return;
+                }
+                if (!debugConfig.showButton) {
+                    alert('AI matcher debug view is not enabled for this session.');
+                    return;
+                }
+
+                let shared = debugConfig.sharedGrid;
+                if (!Array.isArray(shared)) {
+                    if (typeof shared === 'string' && shared.trim()) {
+                        try {
+                            shared = JSON.parse(shared);
+                        } catch (_) {
+                            console.error('[AI matcher debug] Failed to parse sharedGrid JSON; proceeding with empty array.');
+                            shared = [];
+                        }
+                    } else {
+                        shared = [];
+                    }
+                }
+
+                const correctImages = (shared || []).map(s => s && s.image).filter(Boolean);
+                console.log('[AI matcher debug] Derived correctImages:', correctImages);
+
+                const win = window.open('', '_blank', 'width=1100,height=750');
+                if (!win) {
+                    alert('Popup blocked. Please allow popups for this site.');
+                    return;
+                }
+
+                const html = `
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>AI Matcher Debug – Group ${debugConfig.groupId}</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin: 0;
+      padding: 16px;
+      background: #f8f9fa;
+    }
+    h3 {
+      margin-top: 0;
+    }
+    .subtitle {
+      color: #6c757d;
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+    }
+    .grid-wrapper {
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+    .grid-row {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+    .row-label {
+      width: 110px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding-top: 6px;
+    }
+    .slots {
+      display: grid;
+      grid-template-columns: repeat(6, 80px);
+      grid-auto-rows: 90px;
+      gap: 6px;
+    }
+    .slot {
+      position: relative;
+      background: #f1f3f5;
+      border-radius: 4px;
+      border: 1px solid #dee2e6;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      font-size: 0.75rem;
+      color: #495057;
+    }
+    .slot-inner {
+      flex: 1;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    .slot-label {
+      padding: 2px 4px;
+      text-align: right;
+      background: rgba(255,255,255,0.9);
+      border-top: 1px solid #dee2e6;
+    }
+    #status {
+      margin-top: 10px;
+      font-size: 0.8rem;
+      color: #6c757d;
+    }
+  </style>
+</head>
+<body>
+  <h3>AI Matcher Debug – Group ${debugConfig.groupId}</h3>
+  <div class="subtitle">
+    Session <code>${debugConfig.sessionCode}</code>, Round <strong>${debugConfig.roundNumber}</strong>.
+    This read-only view approximates the matcher grid and polls the server every 5 seconds.
+  </div>
+  <div class="grid-wrapper">
+    <div class="grid-row">
+      <div class="row-label">Correct order</div>
+      <div class="slots" id="correct-row">
+        ${Array.from({ length: 12 }).map((_, idx) => `
+          <div class="slot" data-pos="${idx + 1}">
+            <div class="slot-inner"></div>
+            <div class="slot-label">#${idx + 1}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+    <div class="grid-row">
+      <div class="row-label">AI matcher</div>
+      <div class="slots" id="ai-row">
+        ${Array.from({ length: 12 }).map((_, idx) => `
+          <div class="slot" data-pos="${idx + 1}">
+            <div class="slot-inner"></div>
+            <div class="slot-label">#${idx + 1}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  </div>
+  <div id="status">Waiting for AI matcher sequence…</div>
+  <script>
+    const staticPrefix = (function () {
+      const sample = ${JSON.stringify(debugConfig.staticSample || '')};
+      const marker = 'images/001.png';
+      const idx = sample.indexOf(marker);
+      if (idx === -1) {
+        return '';
+      }
+      return sample.slice(0, idx);
+    })();
+    const correctImages = ${JSON.stringify(correctImages || [])};
+
+    function renderRow(containerId, images) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      const slots = container.querySelectorAll('.slot');
+      slots.forEach((slot, idx) => {
+        const imgPath = images[idx] || null;
+        const inner = slot.querySelector('.slot-inner');
+        if (!inner) return;
+        if (imgPath) {
+          inner.style.backgroundImage = 'url(' + staticPrefix + imgPath + ')';
+        } else {
+          inner.style.backgroundImage = 'none';
+        }
+      });
+    }
+
+    function updateFromSequence(sequence) {
+      const statusEl = document.getElementById('status');
+      const arr = Array.isArray(sequence) ? sequence : (sequence && sequence.sequence) || [];
+      // Preserve explicit logical positions (1–12) including gaps. We do NOT
+      // compact the row, so that when the AI "moves" a basket from position 2
+      // to position 4 the #2 slot becomes empty instead of all baskets sliding
+      // left in the debug view.
+      const MAX_SLOTS = 12;
+      const images = new Array(MAX_SLOTS).fill(null);
+      (arr || []).forEach(item => {
+        if (!item) return;
+        let pos = item.position;
+        if (typeof pos === 'string') {
+          pos = parseInt(pos, 10);
+        }
+        if (Number.isFinite(pos) && pos >= 1 && pos <= MAX_SLOTS) {
+          images[pos - 1] = item.image || null;
+        }
+      });
+      renderRow('ai-row', images);
+      if (statusEl) {
+        statusEl.textContent = 'Last updated from live matcher sequence: ' + new Date().toLocaleTimeString();
+      }
+    }
+
+    window.addEventListener('message', (event) => {
+      if (!event || !event.data) return;
+      if (event.data.type !== 'ai_matcher_sequence') return;
+      updateFromSequence(event.data.sequence);
+    });
+
+    renderRow('correct-row', correctImages);
+  <\/script>
+</body>
+</html>
+`;
+
+                win.document.write(html);
+                win.document.close();
+
+                // Remember handle so we can push live updates from the main page.
+                window.aiMatcherDebugWindow = win;
+
+                // If we already have a latest matcher sequence from this round,
+                // send it immediately to populate the AI row.
+                if (window.latestMatcherSequence) {
+                    try {
+                        win.postMessage(
+                            {
+                                type: 'ai_matcher_sequence',
+                                sequence: window.latestMatcherSequence,
+                            },
+                            '*'
+                        );
+                    } catch (err) {
+                        console.error('[AI matcher debug] Failed to send initial sequence to popup:', err);
+                    }
+                }
+            } catch (e) {
+                console.error('[AI matcher debug] Error while opening debug window:', e);
+                alert('Could not open AI matcher debug viewer. Please check the browser console for details.');
+            }
+        }
+
+        const debugBtn = document.getElementById('open-ai-matcher-debug-btn');
+        if (debugBtn) {
+            debugBtn.addEventListener('click', function (event) {
+                event.preventDefault();
+                openAIMatcherDebugFromDirector();
+            });
+        }
+
+        // --- Researcher-only AI Director debug viewer (Matcher testing mode) ---
+        // Shows the target grid that the AI Director is describing
+        function openAIDirectorDebugFromMatcher() {
+            try {
+                console.log('[AI director debug] Button clicked; config:', debugConfig);
+                if (debugConfig.isDirector) {
+                    alert('AI Director debug view is only available to the Matcher.');
+                    return;
+                }
+                if (!debugConfig.showButton) {
+                    alert('AI Director debug view is not enabled for this session.');
+                    return;
+                }
+
+                let shared = debugConfig.sharedGrid;
+                if (!Array.isArray(shared)) {
+                    if (typeof shared === 'string' && shared.trim()) {
+                        try {
+                            shared = JSON.parse(shared);
+                        } catch (_) {
+                            console.error('[AI director debug] Failed to parse sharedGrid JSON; proceeding with empty array.');
+                            shared = [];
+                        }
+                    } else {
+                        shared = [];
+                    }
+                }
+
+                const targetImages = (shared || []).map(s => s && s.image).filter(Boolean);
+                console.log('[AI director debug] Derived targetImages:', targetImages);
+
+                const win = window.open('', '_blank', 'width=1100,height=500');
+                if (!win) {
+                    alert('Popup blocked. Please allow popups for this site.');
+                    return;
+                }
+
+                const html = `
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>AI Director Debug – Group ${debugConfig.groupId}</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin: 0;
+      padding: 16px;
+      background: #f8f9fa;
+    }
+    h3 {
+      margin-top: 0;
+      color: #2c3e50;
+    }
+    .subtitle {
+      color: #6c757d;
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+    }
+    .info-box {
+      background: #e3f2fd;
+      border-left: 4px solid #2196f3;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      border-radius: 4px;
+    }
+    .info-box p {
+      margin: 0;
+      color: #1565c0;
+      font-size: 0.9rem;
+    }
+    .grid-wrapper {
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+    .grid-section {
+      margin-bottom: 16px;
+    }
+    .grid-section:last-child {
+      margin-bottom: 0;
+    }
+    .section-header {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #495057;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-header .badge {
+      background: #4a7c59;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+    }
+    .slots {
+      display: grid;
+      grid-template-columns: repeat(6, 130px);
+      grid-auto-rows: 140px;
+      gap: 8px;
+    }
+    .slot {
+      position: relative;
+      background: #f8f9fa;
+      border-radius: 6px;
+      border: 2px solid #dee2e6;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      font-size: 0.8rem;
+      color: #495057;
+    }
+    .slot-inner {
+      flex: 1;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-color: #fff;
+    }
+    .slot-label {
+      padding: 4px 6px;
+      text-align: center;
+      background: #4a7c59;
+      color: white;
+      font-weight: 600;
+      border-top: none;
+    }
+    .row-divider {
+      grid-column: 1 / -1;
+      height: 1px;
+      background: transparent;
+    }
+    #status {
+      margin-top: 12px;
+      font-size: 0.8rem;
+      color: #6c757d;
+    }
+  </style>
+</head>
+<body>
+  <h3>🎯 AI Director Debug – Target Sequence</h3>
+  <div class="subtitle">
+    Session <code>${debugConfig.sessionCode}</code>, Round <strong>${debugConfig.roundNumber}</strong>, Group <strong>${debugConfig.groupId}</strong>
+  </div>
+  <div class="info-box">
+    <p><strong>This shows what the AI Director is attempting to describe.</strong> The AI describes baskets in order: top row (1→6), then bottom row (7→12). Use this to verify AI descriptions match the correct targets.</p>
+  </div>
+  <div class="grid-wrapper">
+    <div class="grid-section">
+      <div class="section-header">
+        Target Sequence (what the AI Director is describing)
+        <span class="badge">2 rows × 6 columns</span>
+      </div>
+      <div class="slots" id="target-row">
+        ${Array.from({ length: 12 }).map((_, idx) => `
+          <div class="slot" data-pos="${idx + 1}">
+            <div class="slot-inner"></div>
+            <div class="slot-label">Basket ${idx + 1}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  </div>
+  <div id="status">Loaded target grid from server.</div>
+  <script>
+    const staticPrefix = (function () {
+      const sample = ${JSON.stringify(debugConfig.staticSample || '')};
+      const marker = 'images/001.png';
+      const idx = sample.indexOf(marker);
+      if (idx === -1) {
+        return '';
+      }
+      return sample.slice(0, idx);
+    })();
+    const targetImages = ${JSON.stringify(targetImages || [])};
+
+    function renderRow(containerId, images) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      const slots = container.querySelectorAll('.slot');
+      slots.forEach((slot, idx) => {
+        const imgPath = images[idx] || null;
+        const inner = slot.querySelector('.slot-inner');
+        if (!inner) return;
+        if (imgPath) {
+          inner.style.backgroundImage = 'url(' + staticPrefix + imgPath + ')';
+        } else {
+          inner.style.backgroundImage = 'none';
+        }
+      });
+    }
+
+    // Render the target sequence immediately
+    renderRow('target-row', targetImages);
+    document.getElementById('status').textContent = 'Target grid loaded at ' + new Date().toLocaleTimeString();
+  <\/script>
+</body>
+</html>
+`;
+
+                win.document.write(html);
+                win.document.close();
+
+                // Store handle for potential future live updates
+                window.aiDirectorDebugWindow = win;
+
+            } catch (e) {
+                console.error('[AI director debug] Error while opening debug window:', e);
+                alert('Could not open AI Director debug viewer. Please check the browser console for details.');
+            }
+        }
+
+        const directorDebugBtn = document.getElementById('open-ai-director-debug-btn');
+        if (directorDebugBtn) {
+            directorDebugBtn.addEventListener('click', function (event) {
+                event.preventDefault();
+                openAIDirectorDebugFromMatcher();
+            });
+        }
     });
 </script>
 <script src="{% static 'js/draggable-grid.js' %}"></script>
@@ -372,6 +863,24 @@
     window.liveRecv = function(data) {
         const myId = window.js_vars.my_id;
         const myData = data[myId] || data;
+        if (myData && myData.matcher_sequence) {
+            // Cache the latest matcher sequence so we can show it in the popup,
+            // even if the Director opens the debug view after the sequence arrives.
+            window.latestMatcherSequence = myData.matcher_sequence;
+
+            // Push live updates into the popup window if it is open.
+            if (window.aiMatcherDebugWindow && !window.aiMatcherDebugWindow.closed) {
+                try {
+                    window.aiMatcherDebugWindow.postMessage(
+                        { type: 'ai_matcher_sequence', sequence: myData.matcher_sequence },
+                        '*'
+                    );
+                } catch (err) {
+                    console.error('[AI matcher debug] Failed to post matcher sequence to popup:', err);
+                }
+            }
+        }
+
         if (myData && myData.advance_round) {
             if (advanceToNextRound()) {
                 return;

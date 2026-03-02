@@ -105,9 +105,9 @@ The experiment is run in real time, with both participants interacting through a
 
 ## Human–AI and AI–Human Mode and GPT‑5.2 Integration
 
-This branch (human-human) runs the referential task **purely as a human–human interaction**. There is **no human–AI mode/AI-human** nor **AI–AI mode** in this branch.
+This branch (human-human) runs the referential task **purely as an ai-ai interaction**. There is **no human–AI mode/AI-human** nor **human–human mode** in this branch.
 
-To run human-ai or ai-human, switch to *main* branch, and for ai-ai, switch to *ai-ai* branch.
+To run human-ai or ai-human, switch to *main* branch, and for human-human, switch to *human-human* branch.
 
 In this setup, each oTree group contains exactly **one human participant**.
 

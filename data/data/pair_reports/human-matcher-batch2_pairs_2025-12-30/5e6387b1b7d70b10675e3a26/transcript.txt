@@ -1,0 +1,312 @@
+================================================================================
+SESSION TRANSCRIPT REPORT
+================================================================================
+
+Pair ID:        5e6387b1b7d70b10675e3a26
+Session Code:   lhowbw04
+AI Role:        DIRECTOR
+Human Role:     MATCHER
+Human Code:     rebeogtj
+
+SESSION CONFIGURATION:
+  Config Name:    referential_task_grid_human_matcher_v3
+  Basket Set:     5
+  Director View:  grid
+  Prompt Version: nan
+  Reasoning:      nan
+
+OVERALL ACCURACY: 62.5% (avg across 4 rounds)
+
+================================================================================
+
+ROUND 1
+----------------------------------------
+Accuracy: 75.0%
+
+DIALOGUE:
+--------------------
+[21:16:16] DIRECTOR: Basket 1: the novelty animal basket shaped like a DUCK in side profile—rounded body with a little head/beak pointing to the right, a small colored eye, and one arched handle over its back. Let me know when you’ve found/placed it.
+
+[21:18:23] MATCHER: Ok next
+
+[21:18:29] DIRECTOR: Basket 2: a deep, round bucket-shaped wicker basket with a very dark (almost black) thick arched handle; tight smooth weave and no lid.
+
+[21:19:54] MATCHER: Just one handle correct
+
+[21:20:01] DIRECTOR: Yes—basket 2 has exactly ONE handle: a thick, very dark/black arched handle on a deep round bucket-style basket (tight weave, no lid).
+
+[21:20:39] MATCHER: Got it next
+
+[21:20:41] DIRECTOR: Basket 3: a rectangular picnic basket with a hinged lid that’s flipped open to the right; it has a tall upright handle on the left side and an overall boxy shape with vertical slat-like weaving.
+
+[21:22:26] MATCHER: Ok next
+
+[21:22:29] DIRECTOR: Basket 4: an oval, slightly boat-shaped basket with a single arched handle; light tan/cream weave with decorative colored wraps on the handle (reddish bands). Looks lighter and more delicate than most.
+
+[21:24:07] MATCHER: Is there a black stripe that separates the two tone colors?
+
+[21:24:10] DIRECTOR: Yes—basket 4 has a distinct darker band/stripe around the upper rim separating the lighter cream/tan weaving from the slightly darker interior/rim area, plus the handle has those reddish wraps.
+
+[21:25:05] MATCHER: Ok next
+
+[21:25:07] DIRECTOR: Basket 5: a small rectangular basket with a chunky twisted-rope looking handle; warm golden-brown, with a thicker woven rim and a squat, boxy body (no lid).
+
+[21:28:03] MATCHER: Is there a distinct shade of black in the midsection and is the rope handle more uniformed shaped or does it look imperfect
+
+[21:28:05] DIRECTOR: No distinct black band in the midsection on basket 5—it’s pretty uniformly golden-brown throughout. The rope-like handle looks fairly uniform and evenly twisted (not lumpy/imperfect).
+
+[21:28:24] MATCHER: Ok next
+
+[21:28:27] DIRECTOR: Basket 6: the round “cat face” lidded basket—top-down view of a circular basket with a lid showing a cat’s face (eyes/whiskers) and little ear shapes; sits on small feet.
+
+[21:29:07] MATCHER: Light colored correct
+
+[21:29:09] DIRECTOR: Yes—basket 6 is a light, pale tan wicker with the cat face features on the lid.
+
+[21:29:36] MATCHER: Ok next
+
+[21:29:38] DIRECTOR: Basket 7: a rectangular basket with a single arched handle and two-tone body—greenish/dark woven sides with a lighter tan/orange rim and handle; looks like a sturdy shopping basket.
+
+[21:30:48] MATCHER: Does the handle have a slight offset bend?
+
+[21:30:50] DIRECTOR: Basket 7’s handle is mostly a smooth arch and centered—no strong offset kink. The most distinctive thing is the green/dark body with the tan/orange rim/handle.
+
+[21:31:27] MATCHER: Ok next
+
+[21:31:29] DIRECTOR: Basket 8: a low oval basket with one handle; dark gray/brown weave with lighter cream stripes/bands near the bottom, and a grayish handle that blends with the dark body.
+
+[21:31:53] MATCHER: Ok next
+
+[21:31:56] DIRECTOR: Basket 9: a tall cylindrical basket like a woven tub/hamper, medium brown, with TWO small loop handles near the top rim (not one big arch handle).
+
+[21:32:29] MATCHER: Ok next
+
+[21:32:31] DIRECTOR: Basket 10: a shallow round tray-style basket with a single arched handle; spiral weave visible on the base, light tan with a slightly reddish patch near the handle base.
+
+[21:34:18] MATCHER: Is the upper rim of the basket the same color as the rest of the body or does it have a darker(reddish) ring around the top
+
+[21:34:20] DIRECTOR: Basket 10’s rim is mostly the same light tan as the body—no continuous dark/reddish ring around the top. The reddish tone is more like a small patch/area near one side by where the handle attaches.
+
+[21:34:46] MATCHER: Ok next
+
+[21:34:48] DIRECTOR: Basket 11: a large, deep, open-top round basket with TWO integrated side handles (ear-like) made from the same weave; darker brown with a subtle zigzag/chevron weave pattern around the middle.
+
+[21:35:13] MATCHER: Ok next
+
+[21:35:15] DIRECTOR: Basket 12: a squat oval basket with a single arched handle; smooth light brown weave, and the top rim dips into a V-shape at the front (like a little notch), with a more open slatted weave on the upper half.
+
+[21:36:15] MATCHER: Body and handle are the same color correct
+
+[21:36:17] DIRECTOR: Yes—basket 12’s body and single arched handle are essentially the same light brown/tan color.
+
+================================================================================
+
+ROUND 2
+----------------------------------------
+Accuracy: 66.7%
+
+DIALOGUE:
+--------------------
+[21:37:08] DIRECTOR: Basket 1 (top-left): a rectangular picnic/market basket with a tall upright handle on the LEFT end, and a hinged lid/flap that’s open and sticking out to the RIGHT side. No big arched handle—more like a vertical handle + open lid.
+
+[21:37:35] MATCHER: Ok next
+
+[21:37:43] DIRECTOR: Basket 2: a tall, straight-sided CYLINDER/hamper basket, open top, medium brown, with TWO small loop handles right at the rim (one on each side)—no big arched handle. Confirm when placed?
+
+[21:37:58] MATCHER: Ok next
+
+[21:38:02] DIRECTOR: Basket 3: a deep round bucket basket with a single thick, very dark (almost black) arched handle; the body is brown with a tight weave and a slightly darker rim band.
+
+[21:38:38] MATCHER: Ok next
+
+[21:38:41] DIRECTOR: Basket 4: a small rectangular basket with a chunky twisted “rope” handle; warm honey/golden brown overall, squat boxy shape, no lid.
+
+[21:39:10] MATCHER: Ok next
+
+[21:39:14] DIRECTOR: Basket 5: the oval basket with the thick twisted-rope handle (same warm brown), but this one is LOWER and more open with a very blocky, squared weave pattern—almost like a tight checkerboard on the sides.
+
+[21:40:35] MATCHER: Ok next
+
+[21:40:40] DIRECTOR: Basket 6: the duck-shaped novelty basket in side view—rounded body with a little head/beak pointing right and a small colored eye; one handle arches over its back.
+
+[21:40:55] MATCHER: Ok next
+
+[21:40:58] DIRECTOR: Basket 7: the round lidded “cat face” basket—circular, light tan, lid shows cat eyes/whiskers and little ear shapes; sits on small feet.
+
+[21:41:17] MATCHER: Ok next
+
+[21:41:20] DIRECTOR: Basket 8: a low, shallow ROUND tray-basket with a spiral weave base and one thin arched handle; light tan overall, and there’s a small reddish-toned patch near where the handle attaches.
+
+[21:41:56] MATCHER: Ok next
+
+[21:41:59] DIRECTOR: Basket 9: a rectangular shopping basket with a single arched handle; distinctive two-tone—dark greenish woven sides with a lighter tan/orange rim and matching tan/orange handle.
+
+[21:42:29] MATCHER: Ok next
+
+[21:42:32] DIRECTOR: Basket 10: a small rectangular basket with a gray/black handle and dark gray woven body, plus lighter cream bands/stripes near the bottom; looks darker/cooler-toned than most.
+
+[21:45:00] MATCHER: Is the handle arch shaped or more square
+
+[21:45:04] DIRECTOR: Basket 10’s handle is an arched handle (rounded curve), not a square/boxy handle.
+
+[21:45:34] MATCHER: Ok next
+
+[21:45:38] DIRECTOR: Basket 11: a large deep round basket with TWO built-in side handles (“ears”) made of the same weave; darker brown with a noticeable chevron/zigzag texture around the middle.
+
+[21:45:49] MATCHER: Ok next
+
+[21:45:52] DIRECTOR: Basket 12: a squat oval basket with a single arched handle, light brown; the top rim has a V-shaped dip/notch at the front, and the upper half has more open slatted weaving than the bottom.
+
+================================================================================
+
+ROUND 3
+----------------------------------------
+Accuracy: 58.3%
+
+DIALOGUE:
+--------------------
+[21:47:17] DIRECTOR: Basket 1 (top-left): a tall rectangular market basket with ONE big arched handle; the sides are dark green/teal weave, while the rim/handle/base are tan–orange, giving a strong two-tone look.
+
+[21:47:51] MATCHER: Ok next
+
+[21:47:55] DIRECTOR: Basket 2: the small light cream/tan oval basket with ONE arch handle and a darker band around the upper rim; the handle has little reddish wrap accents near the sides.
+
+[21:49:27] MATCHER: Ok next
+
+[21:49:31] DIRECTOR: Basket 3: attaché/picnic style—rectangular basket with a lid that’s flipped open to the right, and a tall vertical handle on the left side; boxy and slatted.
+
+[21:50:06] MATCHER: Ok next
+
+[21:50:10] DIRECTOR: Basket 4: the duck-shaped novelty basket (side profile), rounded body with head/beak pointing right and a small eye; one handle arches over the back.
+
+[21:50:27] MATCHER: Ok next
+
+[21:50:31] DIRECTOR: Basket 5: a medium light-brown oval basket with ONE arched handle; the top rim dips into a V-shaped notch at the front, and the upper weave is more open/slatted.
+
+[21:50:45] MATCHER: Ok next
+
+[21:50:49] DIRECTOR: Basket 6: tall cylindrical hamper basket, medium brown, open top, with TWO small loop handles right at the rim (one each side).
+
+[21:51:16] MATCHER: Ok next
+
+[21:51:20] DIRECTOR: Basket 7: a deep round bucket basket with a single thick very dark/black arched handle; tight brown weave body, no lid.
+
+[21:51:49] MATCHER: Ok next
+
+[21:51:53] DIRECTOR: Basket 8: a low oval basket with ONE arched handle, dark gray/brown overall with lighter cream bands/stripes near the bottom (cool-toned compared to the others).
+
+[21:52:52] MATCHER: Ok next
+
+[21:53:00] DIRECTOR: Basket 10: a big deep round/tub basket (largest one), dark brown, with TWO small side handles built into the rim (like little ears) and a noticeable chevron/zigzag weave texture around the middle. Confirm when placed.
+
+[21:54:36] MATCHER: What happened to basket 9?
+
+[21:54:44] DIRECTOR: Oops—Basket 9: the small rectangular, warm honey-brown basket with a thick twisted/rope-braided arched handle. Body has a dense blocky/checkerboard weave; open top, no lid.
+
+[21:55:52] MATCHER: Ok basket 11
+
+[21:55:56] DIRECTOR: Basket 11: shallow round tray/bowl basket with a spiral-coiled base and ONE thin arched handle; light tan overall with a small reddish-toned patch near where the handle attaches.
+
+[21:56:45] MATCHER: Ok next
+
+[21:56:49] DIRECTOR: Basket 12: the round lidded “cat face” basket—light pale tan, lid shows cat eyes/whiskers and little ear shapes; sits on small feet.
+
+================================================================================
+
+ROUND 4
+----------------------------------------
+Accuracy: 50.0%
+
+DIALOGUE:
+--------------------
+[21:57:34] DIRECTOR: Basket 1 (top-left): a very shallow round/oval open basket like a low tray, with a single pale straw-colored arched handle; the base shows a clear spiral-coiled weave pattern. No lid—this is the flattest one.
+
+[21:58:18] MATCHER: Ok next
+
+[21:58:23] DIRECTOR: Basket 2: a small rectangular basket with a single tall arched handle; very uniform “brick/checker” weave and a braided-looking rim—overall honey-brown and fairly compact.
+
+[22:00:03] MATCHER: Ok next
+
+[22:00:07] DIRECTOR: Basket 3: the DUCK-shaped novelty basket in side profile—rounded body, head/beak pointing to the right, visible small colored eye, and one handle arching over the back.
+
+[22:02:50] MATCHER: Ok I'm ready
+
+[22:02:58] DIRECTOR: Basket 1 (top-left): the flattest, shallow tray-like round/oval basket with ONE pale straw arched handle and a clearly visible spiral-coiled weave on the base (no lid). Confirm when placed.
+
+[22:03:34] MATCHER: You mean basket 4 correct?
+
+[22:03:44] DIRECTOR: Yes—if you’re talking about the rectangular basket with dark green/teal sides and a tan/orange rim + matching tan/orange arched handle, that’s basket 4. It’s the only clearly green two-tone rectangular one.
+
+[22:04:24] MATCHER: Ok next
+
+[22:04:28] DIRECTOR: Basket 2: a small rectangular basket with a single tall arched handle; honey-brown overall with a tight “checker/brick” weave and a braided-looking rim (no lid).
+
+[22:04:52] MATCHER: You mean basket 5 correct?
+
+[22:04:57] DIRECTOR: Yes—if you’re looking at the small honey-brown rectangular basket with the tall arched handle and tight checker/brick weave, that corresponds to basket 5 in the current Round 4 target grid.
+
+[22:05:50] MATCHER: We're on target grid number 5 right?
+
+[22:05:58] DIRECTOR: Sorry for the confusion—back to ROUND 4 target grid. Basket 1 (top-left) is a shallow, low tray-like round/oval basket with ONE light straw-colored arched handle and a very clear spiral-coiled pattern on the base. Please confirm when placed.
+
+[22:08:50] MATCHER: Ok I'm ready
+
+[22:08:59] DIRECTOR: Basket 1 (top-left): the flattest shallow tray-like oval basket with ONE light straw arch handle and a very clear spiral/coiled weave on the base (no lid). Confirm when you’ve placed it.
+
+[22:10:50] MATCHER: Ok
+
+[22:11:00] DIRECTOR: Basket 2: a small, compact RECTANGULAR basket, warm honey-brown, with a very uniform tight checker/brick weave and a thick evenly-twisted “rope” arched handle (no lid). Let me know when it’s placed.
+
+[22:11:27] MATCHER: We should be on target grid 6
+
+[22:11:35] DIRECTOR: Basket 1 (top-left): the flattest shallow tray-like oval basket with ONE pale straw arched handle and a very obvious spiral/coiled pattern on the base (no lid). Confirm when placed.
+
+[22:12:14] MATCHER: Ok
+
+[22:12:22] DIRECTOR: Basket 1 (top-left): the flattest shallow tray-like oval basket with ONE pale straw arched handle and a very obvious spiral/coiled pattern on the base (no lid). Confirm when you’ve placed it.
+
+[22:13:06] MATCHER: Ok we already did that
+
+[22:13:15] DIRECTOR: Basket 2: small compact RECTANGULAR honey-brown basket, open top, with a very tight uniform checker/brick weave on the sides and a thick evenly-twisted rope-like arched handle. No lid. Confirm when placed.
+
+[22:13:45] MATCHER: Ok we did that too
+
+[22:13:56] DIRECTOR: Basket 3: the ONLY novelty animal basket—shaped like a duck/goose in side profile, with the head/beak pointing to the right and a small eye; one handle arches over its back. Confirm when placed.
+
+[22:14:21] MATCHER: Ok did that too
+
+[22:14:26] DIRECTOR: Basket 4: rectangular shopping basket with dark green/teal woven sides and a contrasting tan/orange rim and matching tan/orange arched handle (strong two-tone). Confirm when placed.
+
+[22:14:57] MATCHER: Ok we did that
+
+[22:15:01] DIRECTOR: Basket 5: deep round bucket-shaped basket with a single thick, very dark (almost black) arched handle; tight brown weave body, no lid. Confirm when placed.
+
+[22:15:29] MATCHER: Ok done
+
+[22:15:33] DIRECTOR: Basket 6: a tall straight-sided cylindrical hamper basket, medium brown, open top, with TWO small loop handles right at the rim (one on each side)—no large arched handle. Confirm when placed.
+
+[22:15:47] MATCHER: Ok done
+
+[22:15:57] DIRECTOR: Basket 7: the rectangular, boxy basket with DARK green/teal woven sides and a contrasting tan/orange rim and base; it has one centered arched handle in the same tan/orange. Confirm when you’ve placed it.
+
+[22:17:15] MATCHER: Ok done
+
+[22:17:24] DIRECTOR: Basket 8: the rectangular picnic/market basket with a HINGED LID flipped open to the right, plus a tall upright handle on the LEFT side (not a centered arch handle). Boxy with slat-like vertical weave. Confirm when placed.
+
+[22:17:38] MATCHER: Ok done
+
+[22:17:48] DIRECTOR: Basket 9: the light/pale tan lidded novelty basket shaped like a CAT head—front-facing cat face on the lid (eyes/whiskers) with little ears on top, and it sits on small feet. Confirm when placed.
+
+[22:18:26] MATCHER: Ok done
+
+[22:18:31] DIRECTOR: Basket 10: an oval basket with a single arched handle; mostly light cream/tan, with a noticeable darker band around the upper rim, and small reddish wraps/accents on the handle near where it attaches. Confirm when placed.
+
+[22:19:08] MATCHER: Ok done
+
+[22:19:17] DIRECTOR: Basket 11: the biggest deep round tub basket, dark brown, with TWO small side “ear” handles built into the rim (no arched handle) and a visible chevron/zigzag weave texture around the middle. Confirm when placed.
+
+[22:19:56] MATCHER: Ok done
+
+[22:20:01] DIRECTOR: Basket 12: a squat oval basket, light brown/tan, with ONE arched handle; the top rim has a V-shaped notch/dip at the front and the upper weave is more open/slatted than the bottom. Confirm when placed.
+
+================================================================================

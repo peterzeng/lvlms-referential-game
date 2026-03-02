@@ -218,4 +218,64 @@ document.addEventListener('MSFullscreenChange', evaluate);
     document.addEventListener('DOMContentLoaded', insertProgressBar);
 })();
 </script>
+<script>
+(function() {
+    // Flag to track if we should show the warning
+    var shouldWarnOnLeave = true;
+    
+    // Function to disable the warning (call this when form is submitted or page is done)
+    window.disableLeaveWarning = function() {
+        shouldWarnOnLeave = false;
+    };
+    
+    // Function to enable the warning (call this if needed)
+    window.enableLeaveWarning = function() {
+        shouldWarnOnLeave = true;
+    };
+    
+    // Handle browser back/forward buttons
+    // Push a state to history so we can detect back button
+    history.pushState(null, null, location.href);
+    
+    window.addEventListener('popstate', function(event) {
+        if (shouldWarnOnLeave) {
+            var confirmed = confirm('Are you sure you want to leave this page? Your progress may be lost.');
+            if (!confirmed) {
+                // Push state back to prevent navigation
+                history.pushState(null, null, location.href);
+            }
+        }
+    });
+    
+    // Handle page refresh, tab close, and navigation away
+    window.addEventListener('beforeunload', function(event) {
+        if (shouldWarnOnLeave) {
+            // Modern browsers show their own message, but we can set a custom one
+            event.preventDefault();
+            // For older browsers
+            event.returnValue = 'Are you sure you want to leave this page? Your progress may be lost.';
+            // For modern browsers (Chrome 51+, Firefox 44+)
+            return 'Are you sure you want to leave this page? Your progress may be lost.';
+        }
+    });
+    
+    // Disable warning when form is submitted normally (via otree's next button)
+    document.addEventListener('DOMContentLoaded', function() {
+        var forms = document.querySelectorAll('form');
+        forms.forEach(function(form) {
+            form.addEventListener('submit', function() {
+                shouldWarnOnLeave = false;
+            });
+        });
+        
+        // Also disable warning when clicking otree's next button
+        var nextButtons = document.querySelectorAll('input[type="submit"], button[type="submit"], .otree-btn-next');
+        nextButtons.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                shouldWarnOnLeave = false;
+            });
+        });
+    });
+})();
+</script>
 {% endblock %}

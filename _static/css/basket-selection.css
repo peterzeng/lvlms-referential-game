@@ -304,6 +304,68 @@ body, html {
     cursor: zoom-in !important;
 }
 
+/* ========================================
+   MAGNIFYING GLASS ZOOM EFFECT
+   ======================================== */
+.magnifier-lens {
+    position: fixed;
+    /* Default size - JS will override via inline styles if different */
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.9);
+    box-shadow: 
+        0 0 0 1px rgba(0, 0, 0, 0.2),
+        0 8px 32px rgba(0, 0, 0, 0.35),
+        inset 0 0 30px rgba(255, 255, 255, 0.1);
+    pointer-events: none;
+    z-index: 10000;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: opacity 0.15s ease-out, transform 0.15s ease-out;
+    background-color: #fff;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+.magnifier-lens.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Subtle inner highlight ring for glass effect */
+.magnifier-lens::before {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    right: 4px;
+    bottom: 4px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    pointer-events: none;
+}
+
+/* Small crosshair at center for precision */
+.magnifier-lens::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    transform: translate(-50%, -50%);
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+/* Director grid also gets magnifier support */
+.basket-grid .grid-slot,
+.basket-grid .basket-slot {
+    cursor: zoom-in !important;
+}
+
 /* Chat panel - positioned on the right without overlap, moved up */
 .chat-panel {
     position: sticky !important;
