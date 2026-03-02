@@ -1,0 +1,173 @@
+Session: 3kk7u0fy
+Group ID (canonical): 40
+Raw group IDs (by round): 40, 45, 48, 53
+Participants: director: fkm1onm5 (prolific: 67ace3fc5892a4d45463156b), matcher: ecjbn129 (prolific: 66a276d13f40200c70c28109)
+Total Rounds: 4
+Timing:
+  Round 1: 7m 55s
+  Round 2: 6m 4s
+  Round 3: 9m 12s
+  Round 4: 5m 6s
+  Total: 28m 17s
+======================================================================
+
+
+======================================================================
+ROUND 1 (Group 40)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=A
+
+MATCHER METRICS:
+  Score (Accuracy): 75.00%
+  Attention Checks: Round Q=A
+
+CHAT TRANSCRIPT:
+[18:04:42] director: 1. bunny
+[18:04:57] matcher: got bunny
+[18:05:04] director: 2.darker brown normal handle
+[18:05:23] matcher: ok
+[18:05:38] director: 3. it has 2 openings, right side is open
+[18:05:48] matcher: got it
+[18:06:08] director: 4. light brown, its angled sideways, double handle combined into 1 at the top
+[18:06:34] matcher: ok go it
+[18:07:04] director: 5. a little wide, bug opening under handle. straight on. no angle
+[18:07:15] director: 6. a bunny? looking right at me
+[18:07:54] matcher: is 5 basically the same color throughout?
+[18:08:09] director: 7. almost like number 5, 2 different colors, less of an opening as number 5
+[18:08:16] director: yes to your question
+[18:08:38] director: 8. slightly angled, darker than 7, 2 different colors
+[18:08:57] director: 9. its a high cylinder, one color
+[18:09:00] matcher: ok got through 8
+[18:09:12] matcher: got 9
+[18:09:35] director: 10. angled, view from the top, light brown
+[18:10:02] director: light brown
+[18:10:15] matcher: for 10 is handle running left to right or more back to forward facing
+[18:11:06] director: left to right, angled to from front to back
+[18:11:29] director: 11. darker brown one color, kind of tall, 2 small handles
+[18:11:57] director: 12. angled slightly left to right, front to back
+[18:12:00] director: one color
+[18:12:32] matcher: ok i have them all
+[18:12:37] director: ok
+
+
+======================================================================
+ROUND 2 (Group 45)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=C
+
+MATCHER METRICS:
+  Score (Accuracy): 83.33%
+  Attention Checks: Round Q=C
+
+CHAT TRANSCRIPT:
+[18:13:21] director: 1. double openings, right is open
+[18:13:27] director: 2 long cylinder
+[18:13:29] matcher: got 1
+[18:13:34] matcher: got 2
+[18:13:53] director: 3. dark brown,  angled handle right to left, front to back
+[18:14:25] director: 4. skinny one color, big open, facing straight at us
+[18:14:42] director: 5. 2 different colors, darker in the middle,
+[18:15:01] director: 6. bunny looking right
+[18:15:23] matcher: ok got through 6
+[18:15:26] director: 7. bunny looking straight
+[18:15:43] director: 8. top down view. left to right angle, front to back.
+[18:16:01] director: 9. 2 colors, darker in the middle. straight on view
+[18:16:09] matcher: is 8 a lighter color
+[18:16:13] director: yes
+[18:16:36] director: 10. kind of tall, one medium brown color, 2 small handles
+[18:17:00] matcher: does 10 seem wider?
+[18:17:08] director: yes
+[18:17:24] matcher: got 10
+[18:17:27] director: 11. one color, thin handle up top, angled left to right, front to back
+[18:17:57] matcher: is 11 rounder or more rectangle?
+[18:18:10] director: rounder
+[18:18:24] matcher: for 11 is the handle the same color as the basket or darker?
+[18:18:36] director: same
+[18:18:41] matcher: got 11
+[18:19:12] director: 12. 2 colors, white in the middle, 2 handles on each side that are combined into 1 at the top
+[18:19:25] matcher: got 12
+
+
+======================================================================
+ROUND 3 (Group 48)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=B
+
+MATCHER METRICS:
+  Score (Accuracy): 91.67%
+  Attention Checks: Round Q=B
+
+CHAT TRANSCRIPT:
+[18:20:20] director: 1. 2 colors, darker in middle, facing direct
+[18:20:44] matcher: is 1 rounder or more rectangle?
+[18:20:49] director: 2. 2 colors white in the middle, 2 handles connecting into 1
+[18:20:54] director: rectangle
+[18:21:01] director: 3. bunny looking straight
+[18:21:08] director: 4. bunny looking right
+[18:21:29] director: 5. 1 color, angled a bit left to right, front to back
+[18:21:35] director: we got this one wrong last time
+[18:22:26] matcher: for 5 you mean the handles are front to back?
+[18:23:32] director: the handle coming from the left looks like it's in front of where it connects on the right
+[18:23:52] director: slightly. all one light brown color
+[18:24:20] matcher: ok
+[18:24:31] director: 6. long cylinder
+[18:24:58] director: 7. darker brown one color. looks like a bucket almost
+[18:25:07] director: we got this one wrong last time as well
+[18:25:55] matcher: and for 7 the handle is the same color as the basket, not darker?
+[18:26:07] director: it might be slightly darker
+[18:26:19] matcher: ok
+[18:26:47] director: 8. 2 colors, almost black in the middle. handle angles slightly.
+[18:27:11] director: 9. big opening from handle to basket. one color
+[18:27:45] matcher: ok got 9
+[18:27:57] director: 10. top down view, circle basket. handle angled
+[18:28:15] director: 11. kind of tall, 2 small handles
+[18:28:25] director: 12. double opening, right is open
+[18:28:36] matcher: for 10 is the handle running front to back or left to right
+[18:29:21] director: it's angled a lot from front to back
+[18:29:32] matcher: ok
+
+
+======================================================================
+ROUND 4 (Group 53)
+======================================================================
+
+
+DIRECTOR METRICS:
+
+MATCHER METRICS:
+  Score (Accuracy): 100.00%
+
+CHAT TRANSCRIPT:
+[18:30:14] director: 1. we got this wrong
+[18:30:18] director: top down view
+[18:30:30] matcher: ok i'm picking the OTHER one lol
+[18:30:38] director: nice!
+[18:30:51] director: 2. big opening from handle to basket
+[18:30:58] director: 3. bunny right
+[18:31:18] director: 4. 2 colors, darker in the middle, looking direct
+[18:31:33] director: 5. kind of tall, 2 small handles
+[18:32:08] director: 6. looks like a bucket. handle slightly darker
+[18:32:16] director: 7. long cylinder
+[18:32:20] matcher: is 4 rounder or rectangle
+[18:32:25] director: rectangle
+[18:32:44] matcher: got 7
+[18:32:52] director: 8. double opening, right open
+[18:32:59] director: 9. bunny looking at us
+[18:33:16] director: 10. 2 color, white in middle, 2 handles come together at top
+[18:33:54] director: 11. same light brown color, angled slightly front to back.
+[18:34:33] matcher: does 2 look like a tall backet or short?
+[18:34:52] director: 12. 2 colors, almost black in the middle, circular
+[18:34:56] director: which one?
+[18:35:04] director: 2. is short
+[18:35:20] director: 11. is taller than that
+[18:35:20] matcher: ok, thought so just checking. got them all
+

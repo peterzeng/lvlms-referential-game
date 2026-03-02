@@ -1,0 +1,55 @@
+Session: knco59ak
+Group ID (canonical): 56
+Participants: director: 8cg5aib6 (prolific: 63474e67a5fd298c6103c409), matcher: 5n60gxkk (prolific: 64275e53f51a5ed4f6b7d019)
+Total Rounds: 4
+Timing:
+  Round 1: 3m 36s
+  Round 2: No data
+  Round 3: No data
+  Round 4: No data
+  Total: 3m 36s
+======================================================================
+
+
+======================================================================
+ROUND 1 (Group 56)
+======================================================================
+
+
+DIRECTOR METRICS:
+
+MATCHER METRICS:
+  Score (Accuracy): 8.33%
+  Attention Checks: Round Q=A
+
+CHAT TRANSCRIPT:
+[20:50:43] matcher: Hello good day to you.
+[20:51:11] matcher: So which basket do we pick first?
+[20:51:38] matcher: I guess I'll start with the rabbit.
+[20:52:05] matcher: Hello did you see the rabbit go to #1?
+[20:52:23] matcher: I guess I'll just keep trying.
+[20:53:32] matcher: Hello, I've put all the baskets in there.
+[20:54:02] matcher: Hello? Why do I feel like I'm alone here...
+[20:54:19] matcher: Anyway I'm gonna try submitting this. Maybe you'll say something then.
+
+
+======================================================================
+ROUND 2
+======================================================================
+
+(No data for this round)
+
+
+======================================================================
+ROUND 3
+======================================================================
+
+(No data for this round)
+
+
+======================================================================
+ROUND 4
+======================================================================
+
+(No data for this round)
+

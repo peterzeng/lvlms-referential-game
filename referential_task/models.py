@@ -18,57 +18,16 @@ Your app description
 
 class Constants(BaseConstants):
     name_in_url = 'referential_task'
-    # In this branch we run exclusively human–AI sessions.
-    # Each participant works alone with an AI partner.
-    # oTree does not allow players_per_group = 1, so we use None
-    # and form single-player groups via group_by_arrival_time in
-    # the HumanAIGroupingPage WaitPage.
-    players_per_group = None
+    players_per_group = 2  # Two players for collaborative task
     num_rounds = 4
 
 
 class Subsession(BaseSubsession):
-    
-    def group_by_arrival_time_method(self, waiting_players):
-        """Form single-player groups for human-AI mode.
-        
-        Each participant gets their own group immediately when they arrive.
-        This ensures each person has isolated group-level data (ai_messages,
-        shared_grid, etc.) for their AI partner interaction.
-        
-        Returns a single list of players to form one group, or None.
-        oTree calls this repeatedly until all waiting players are grouped.
-        """
-        if waiting_players:
-            # Return just the first waiting player in their own group
-            return [waiting_players[0]]
-        return None
-
     def creating_session(self):
-        """Per-round setup for human–VLM (human–AI) sessions.
-
-        NOTE: With players_per_group = None and asynchronous Prolific arrivals,
-        participants are grouped dynamically via HumanAIGroupingPage (WaitPage
-        with group_by_arrival_time=True). This method runs at session creation
-        when no players exist yet, so initialization happens in the WaitPage's
-        after_all_players_arrive method instead.
-
-        For rounds 2+, we restore roles from participant vars since oTree
-        creates new Player objects each round.
-        """
-        import random
-
+        # Groups are now formed dynamically on the wait page using group_by_arrival_time
+        # Keep the same groups in later rounds
         if self.round_number > 1:
-            # Restore roles from participant vars for subsequent rounds
-            for group in self.get_groups():
-                for player in group.get_players():
-                    if not player.field_maybe_none('player_role'):
-                        stored_role = player.participant.vars.get('role')
-                        if stored_role:
-                            player.player_role = stored_role
-
-                # Create/refresh the shared grid for this round
-                group.create_shared_grid(round_number=self.round_number)
+            self.group_like_round(1)
 
 
 class Group(BaseGroup):
@@ -80,35 +39,6 @@ class Group(BaseGroup):
     
     # Store Matcher's sequence selections
     matcher_sequence = models.LongStringField(blank=True, initial='[]')
-
-    # Incremental AI matcher sequence (researcher/debug use only).
-    # This tracks the AI's growing 12‑basket guess across the dialogue,
-    # so we can visualize its per‑turn placements in the debug view.
-    ai_partial_sequence = models.LongStringField(blank=True, initial='[]')
-
-    # Store AI partner chat messages (shared at the group level)
-    # This mirrors the structure of Player.grid_messages so we can reuse
-    # transcript-building and export logic by treating these as partner messages.
-    ai_messages = models.LongStringField(blank=True, initial='[]')
-    # Optional: store AI partner reasoning logs for V3 CoT runs
-    # This is a JSON list of objects, each containing:
-    # - round_number, timestamp, strategy_name
-    # - human_role, ai_role
-    # - reasoning (as returned by the model)
-    # - utterance (final message shown to the human)
-    # - raw_text (raw model output before parsing)
-    ai_reasoning_log = models.LongStringField(blank=True, initial='[]')
-
-    # AI's perceptions of the human partner (generated at end of experiment)
-    # Mirrors the human's partner_* fields but from the AI's perspective
-    ai_partner_capable = models.IntegerField(blank=True, null=True)
-    ai_partner_helpful = models.IntegerField(blank=True, null=True)
-    ai_partner_understood = models.IntegerField(blank=True, null=True)
-    ai_partner_adapted = models.IntegerField(blank=True, null=True)
-    ai_collaboration_improved = models.IntegerField(blank=True, null=True)
-    ai_partner_comment = models.LongStringField(blank=True)
-    # Raw JSON response from AI for debugging/analysis
-    ai_partner_perceptions_raw = models.LongStringField(blank=True)
     
     def assign_roles(self):
         """Assign Director and Matcher roles to players"""
@@ -123,7 +53,7 @@ class Group(BaseGroup):
     def create_shared_grid(self, round_number=None):
         """Create a grid for the task.
 
-        - Default: 2x6 baskets (12) using presets or random images.
+        - Default: 4x3 baskets (12) using presets or random images.
         - Shapes demo: 5 colored shapes (no images) for tutorial recording.
         """
         import random
@@ -159,13 +89,12 @@ class Group(BaseGroup):
             self.target_baskets = json.dumps([])
             # Clear any prior matcher sequence
             self.matcher_sequence = json.dumps([])
-            self.ai_partial_sequence = json.dumps([])
             return grid, []
         # Choose preset file based on session config `basket_set` (supports 1, 2, 3)
         try:
-            set_num = int(self.session.config.get('basket_set', 5))
+            set_num = int(self.session.config.get('basket_set', 1))
         except Exception:
-            set_num = 5
+            set_num = 1
         if set_num == 2:
             preset_filename = 'grids_presets2.json'
         elif set_num == 3:
@@ -227,9 +156,6 @@ class Group(BaseGroup):
             targets = [grid[target_index]]
         self.shared_grid = json.dumps(grid)
         self.target_baskets = json.dumps(targets)
-        # Reset matcher/AI sequences at the start of each round
-        self.matcher_sequence = json.dumps([])
-        self.ai_partial_sequence = json.dumps([])
         return grid, targets
 
 
@@ -399,54 +325,78 @@ class Player(BasePlayer):
     )
 
 
-# Custom export for oTree Data page
-# Produces one row per player per round including:
-# - Combined chat log (both players) with timestamps
-# - Matcher's submitted order (sequence) and accuracy
-# - End-of-experiment fields only on final round to reduce clutter
+    # Custom export for oTree Data page
+    # Produces one row per player per round including:
+    # - Combined chat log (both players) with timestamps
+    # - Matcher's submitted order (sequence) and accuracy
+    # - Convenience fields for analysis
+    # 
+    # NOTE ON IDENTIFIERS
+    # -------------------
+    # To make downstream analysis easier and ensure consistency across
+    # different exports (wide CSV, custom export, transcript scripts), we
+    # expose:
+    # - group_id_db: Django's database PK for the group (legacy, stable within a session)
+    # - group_id_in_subsession: oTree's id_in_subsession (matches wide CSV columns
+    #   like referential_task.1.group.id_in_subsession)
+    # - pair_id: stable identifier for the dyad across all rounds within a session.
+    #   This is set once when the pair is first matched and then stored on
+    #   each participant via participant.vars['pair_id'].
 def custom_export(players):
     """oTree hook: customize the app's CSV export in the Data tab.
 
-    Columns (per-round):
-    - session_code, round_number, group_id, participant_code, role
+    Columns:
+    - session_code, round_number, group_id, id_in_group, participant_code, role
     - prolific_participant_id: Prolific ID entered at the start
-    - experiment_start_time: ISO timestamp when participant started
-    - chat_transcript: readable conversation transcript with timestamps
-    - chat_log_json: combined messages sorted by timestamp (JSON)
-    - matcher_sequence_json: sequence submitted by matcher
+    - experiment_start_time: ISO timestamp when participant started the experiment
+    - experiment_end_time: ISO timestamp when participant completed the experiment
+    - experiment_duration_minutes: Total time taken in minutes (calculated from start to end)
+    - chat_transcript: readable conversation transcript with timestamps (one message per line)
+    - chat_log_json: combined messages from both players, sorted by timestamp (JSON format)
+    - matcher_sequence_json: group-level sequence submitted by matcher
+    - selected_sequence_json: this player's own selected sequence (matcher only)
     - sequence_accuracy: matcher's accuracy (%)
-    - completion_time: ISO timestamp when task completed
-    - attention_round_q, attention_round_correct: attention check data
-
-    Columns (final round only - empty for rounds 1-3):
-    - experiment_end_time, experiment_duration_minutes: timing summary
-    - Partner perceptions: partner_capable, partner_helpful, etc.
-    - AI experience: ai_familiarity, ai_usage_frequency, ai_used_for_task
-    - AI partner perceptions: ai_partner_capable, ai_partner_helpful, etc.
-    - ai_reasoning_log: CoT reasoning log (JSON)
+    - completion_time: ISO timestamp when this player marked task complete
+    - left_waiting_room: ISO timestamp when player left/navigated away from waiting room
+    - waiting_room_exit_reason: reason for leaving ('prolific_button_click', 'page_hidden', 'page_unload')
+    - prolific_exit_clicked: ISO timestamp when player clicked "Return to Prolific" button (indicates intentional exit)
+    - attention_round_q: current round's attention check response
+    - attention_round_correct: whether current round's attention check was correct
+    - Post-task survey fields: partner ratings, AI perception, AI experience
     """
     # Header row
     yield [
         'session_code',
         'round_number',
-        'group_id',
+        # Group identifiers
+        'group_id_db',
+        'group_id_in_subsession',
+        # Invariant pair identifier shared by both players in a dyad
+        'pair_id',
+        'id_in_group',
         'participant_code',
         'prolific_participant_id',
         'role',
-        # Experiment timing (start always shown, end only on final round)
+        # Experiment timing
         'experiment_start_time',
         'experiment_end_time',
         'experiment_duration_minutes',
-        # Per-round task data
+        'round_duration_seconds',
+        'round_duration_formatted',
         'chat_transcript',
         'chat_log_json',
         'matcher_sequence_json',
+        'selected_sequence_json',
         'sequence_accuracy',
         'completion_time',
+        # Waiting room tracking
+        'left_waiting_room',
+        'waiting_room_exit_reason',
+        'prolific_exit_clicked',
         # Attention check (per round)
         'attention_round_q',
         'attention_round_correct',
-        # Post-task survey (final round only)
+        # Post-task survey
         'partner_capable',
         'partner_helpful',
         'partner_understood',
@@ -458,14 +408,6 @@ def custom_export(players):
         'ai_familiarity',
         'ai_usage_frequency',
         'ai_used_for_task',
-        # AI data (final round only)
-        'ai_reasoning_log',
-        'ai_partner_capable',
-        'ai_partner_helpful',
-        'ai_partner_understood',
-        'ai_partner_adapted',
-        'ai_collaboration_improved',
-        'ai_partner_comment',
     ]
 
     for p in players:
@@ -474,19 +416,12 @@ def custom_export(players):
             my_msgs = json.loads(p.grid_messages or '[]')
         except Exception:
             my_msgs = []
-
-        # Messages from human partner (if any; not used in human–AI mode)
+        # Messages from partner (if any)
         partner = p.get_others_in_group()[0] if p.get_others_in_group() else None
         try:
             partner_msgs = json.loads(partner.grid_messages or '[]') if partner else []
         except Exception:
             partner_msgs = []
-
-        # Messages from AI partner (group-level)
-        try:
-            ai_msgs = json.loads(p.group.ai_messages or '[]')
-        except Exception:
-            ai_msgs = []
 
         # Tag messages with sender id for clarity (non-destructive)
         def _tag(msg_list, sender_role):
@@ -497,19 +432,11 @@ def custom_export(players):
                         'text': m.get('text'),
                         'timestamp': m.get('timestamp'),
                         'server_ts': m.get('server_ts'),
-                        # Prefer the stored sender_role (for AI messages) but
-                        # fall back to the provided default for backwards
-                        # compatibility with legacy human–human data.
                         'sender_role': m.get('sender_role', sender_role),
                     })
             return tagged
 
-        # Tag and combine all messages: self, (optional) human partner, and AI
-        combined = (
-            _tag(my_msgs, getattr(p, 'player_role', None))
-            + _tag(partner_msgs, getattr(partner, 'player_role', None) if partner else None)
-            + _tag(ai_msgs, p.participant.vars.get('partner_role'))
-        )
+        combined = _tag(my_msgs, getattr(p, 'player_role', None)) + _tag(partner_msgs, getattr(partner, 'player_role', None) if partner else None)
 
         # Sort by server_ts if available, then by client timestamp
         def _ts_key(m):
@@ -527,6 +454,7 @@ def custom_export(players):
             matcher_sequence_json = p.group.matcher_sequence or '[]'
         except Exception:
             matcher_sequence_json = '[]'
+        selected_sequence_json = getattr(p, 'selected_sequence', '[]') or '[]'
 
         # Accuracy and completion time
         accuracy = getattr(p, 'sequence_accuracy', None)
@@ -565,65 +493,98 @@ def custom_export(players):
         prolific_id = p.participant.vars.get('prolific_participant_id') or getattr(p, 'prolific_participant_id', None)
         
         # Get experiment timing from participant vars (persisted) or current player
-        experiment_start = p.participant.vars.get('experiment_start_time') or getattr(p, 'experiment_start_time', None)
+        experiment_start = getattr(p, 'experiment_start_time', None) or p.participant.vars.get('experiment_start_time')
+        experiment_end = getattr(p, 'experiment_end_time', None) or p.participant.vars.get('experiment_end_time')
         
-        # Check if this is the final round - only include end-of-experiment data there
-        is_final_round = p.round_number == Constants.num_rounds
-        
-        # End-of-experiment timing (final round only)
-        experiment_end = None
+        # For early rounds (not last round), completion_time is the de facto end time
+        # because experiment_end_time might only be set on the last page
+        if not experiment_end and getattr(p, 'completion_time', None):
+            experiment_end = p.completion_time
+
+        # Calculate duration in minutes if both timestamps available
         duration_minutes = None
-        if is_final_round:
-            experiment_end = p.participant.vars.get('experiment_end_time') or getattr(p, 'experiment_end_time', None)
-            if experiment_start and experiment_end:
-                try:
-                    from datetime import datetime
-                    start_dt = datetime.fromisoformat(experiment_start)
-                    end_dt = datetime.fromisoformat(experiment_end)
-                    duration_seconds = (end_dt - start_dt).total_seconds()
-                    duration_minutes = round(duration_seconds / 60, 2)
-                except Exception:
-                    duration_minutes = None
+        if experiment_start and experiment_end:
+            try:
+                from datetime import datetime
+                start_dt = datetime.fromisoformat(experiment_start)
+                end_dt = datetime.fromisoformat(experiment_end)
+                duration_seconds = (end_dt - start_dt).total_seconds()
+                duration_minutes = round(duration_seconds / 60, 2)
+            except Exception:
+                duration_minutes = None
         
-        # Build row - end-of-experiment fields are None for non-final rounds
+        # Calculate round-specific duration
+        round_duration_seconds = None
+        round_duration_formatted = None
+        try:
+            # Get current round's start and end times from player fields
+            r_start = getattr(p, 'experiment_start_time', None)
+            r_end = getattr(p, 'experiment_end_time', None)
+            if r_start and r_end:
+                from datetime import datetime
+                start_dt = datetime.fromisoformat(r_start)
+                end_dt = datetime.fromisoformat(r_end)
+                duration_total_seconds = (end_dt - start_dt).total_seconds()
+                round_duration_seconds = round(duration_total_seconds, 2)
+                
+                # Format as "X minutes Y seconds"
+                minutes = int(duration_total_seconds // 60)
+                seconds = int(duration_total_seconds % 60)
+                if minutes > 0:
+                    round_duration_formatted = f"{minutes} minutes {seconds} seconds"
+                else:
+                    round_duration_formatted = f"{seconds} seconds"
+        except Exception:
+            round_duration_seconds = None
+            round_duration_formatted = None
+        
+        # Build row
+        # Group identifiers
+        group_db_id = getattr(p.group, 'id', None)
+        group_subsession_id = getattr(p.group, 'id_in_subsession', None)
+
+        # Stable pair identifier (set at matching time and persisted via participant vars)
+        pair_id = p.participant.vars.get('pair_id')
+
         yield [
             getattr(p.session, 'code', None),
             p.round_number,
-            getattr(p.group, 'id', None),
+            group_db_id,
+            group_subsession_id,
+            pair_id,
+            p.id_in_group,
             getattr(p.participant, 'code', None),
             prolific_id,
             getattr(p, 'player_role', None),
             # Experiment timing
             experiment_start,
-            experiment_end,  # final round only
-            duration_minutes,  # final round only
-            # Per-round task data
+            experiment_end,
+            duration_minutes,
+            round_duration_seconds,
+            round_duration_formatted,
             chat_transcript,
             json.dumps(combined, ensure_ascii=False),
             matcher_sequence_json,
+            selected_sequence_json,
             accuracy,
             completion_time,
+            # Waiting room tracking
+            getattr(p, 'left_waiting_room', None),
+            getattr(p, 'waiting_room_exit_reason', None),
+            getattr(p, 'prolific_exit_clicked', None),
             # Attention check (per round)
             attention_selected,
             attention_correct,
-            # Post-task survey (final round only)
-            getattr(p, 'partner_capable', None) if is_final_round else None,
-            getattr(p, 'partner_helpful', None) if is_final_round else None,
-            getattr(p, 'partner_understood', None) if is_final_round else None,
-            getattr(p, 'partner_adapted', None) if is_final_round else None,
-            getattr(p, 'collaboration_improved', None) if is_final_round else None,
-            getattr(p, 'partner_comment', None) if is_final_round else None,
-            getattr(p, 'partner_human_vs_ai', None) if is_final_round else None,
-            getattr(p, 'partner_human_vs_ai_why', None) if is_final_round else None,
-            getattr(p, 'ai_familiarity', None) if is_final_round else None,
-            getattr(p, 'ai_usage_frequency', None) if is_final_round else None,
-            getattr(p, 'ai_used_for_task', None) if is_final_round else None,
-            # AI data (final round only)
-            getattr(getattr(p, 'group', None), 'ai_reasoning_log', None) if is_final_round else None,
-            getattr(getattr(p, 'group', None), 'ai_partner_capable', None) if is_final_round else None,
-            getattr(getattr(p, 'group', None), 'ai_partner_helpful', None) if is_final_round else None,
-            getattr(getattr(p, 'group', None), 'ai_partner_understood', None) if is_final_round else None,
-            getattr(getattr(p, 'group', None), 'ai_partner_adapted', None) if is_final_round else None,
-            getattr(getattr(p, 'group', None), 'ai_collaboration_improved', None) if is_final_round else None,
-            getattr(getattr(p, 'group', None), 'ai_partner_comment', None) if is_final_round else None,
+            # Post-task survey values (will repeat each round; use last round for analysis)
+            getattr(p, 'partner_capable', None),
+            getattr(p, 'partner_helpful', None),
+            getattr(p, 'partner_understood', None),
+            getattr(p, 'partner_adapted', None),
+            getattr(p, 'collaboration_improved', None),
+            getattr(p, 'partner_comment', None),
+            getattr(p, 'partner_human_vs_ai', None),
+        getattr(p, 'partner_human_vs_ai_why', None),
+        getattr(p, 'ai_familiarity', None),
+        getattr(p, 'ai_usage_frequency', None),
+        getattr(p, 'ai_used_for_task', None),
         ]

@@ -148,8 +148,8 @@
                                     id="send-message-btn">Send</button>
                             </div>
                             {% if is_matcher %}
-                                <button class="btn btn-primary w-100" type="button" id="submit-guess-btn"
-                                    style="display: none;">Submit order</button>
+                            <button class="btn btn-primary w-100" type="button" id="submit-guess-btn"
+                                style="display: none;">Submit order</button>
                             {% endif %}
                         </div>
                     </div>
@@ -565,10 +565,26 @@
         function createRandomizedStagingArea() {
             const stagingArea = document.getElementById('staging-area');
             if (!stagingArea) return;
-            // Server-provided staging pool ordering (consistent across sessions).
-            const shuffledBaskets = {% if staging_baskets_json %}{{ staging_baskets_json|safe }}{% else %}[]{% endif %};
+            const directorBaskets = [];
+            {% for slot in shared_grid %}
+            directorBaskets.push({ image: "{{ slot.image }}", position: "{{ slot.position }}", basket_id: {{ slot.basket_id }}
+    });
+    {% endfor %}
+    // Create additional random baskets from preset full list (excluding director's 12)
+    const randomAdditional = [];
+    const presetFullList = {% if preset_full_list %}{{ preset_full_list|safe }}{% else %}[]{% endif %};
+    const normalizedPreset = (presetFullList || []).map(p => p.startsWith('images/') ? p : `images/${p}`);
+    const directorSet = new Set(directorBaskets.map(b => b.image));
+    const candidateExtras = normalizedPreset.filter(img => !directorSet.has(img));
+    const pool = [...candidateExtras];
+    for (let i = 0; i < 6 && pool.length > 0; i++) {
+        const idx = Math.floor(Math.random() * pool.length);
+        const imgPath = pool.splice(idx, 1)[0];
+        randomAdditional.push({ image: imgPath, position: `extra_${i}`, basket_id: 100 + i });
+    }
+    const allBaskets = [...directorBaskets, ...randomAdditional];
+    const shuffledBaskets = allBaskets.sort(() => Math.random() - 0.5);
     stagingArea.innerHTML = '';
-    stagingSlots = [];
     shuffledBaskets.forEach((basket) => {
         const slot = document.createElement('div');
         slot.className = 'staging-slot basket-slot';

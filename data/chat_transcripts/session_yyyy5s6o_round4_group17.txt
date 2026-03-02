@@ -1,0 +1,26 @@
+Session: yyyy5s6o
+Round: 4
+Group: 17
+Participants: director: m80jm5xg, matcher: bkkrxy6a
+======================================================================
+
+[22:30:55] director: 1 is elephant
+[22:31:08] director: 2 is bowl with brown F pattern
+[22:31:15] director: 3 is cone
+[22:31:31] matcher: got it
+[22:31:48] director: 4 is small front facing basket with small rim. One handle
+[22:32:03] director: 5 is bucket with lid
+[22:32:24] director: 6 is side facing, one handle and both sides go down
+[22:32:39] director: 7 is side facing, one handle and both sides go up
+[22:32:59] matcher: got it
+[22:33:09] director: 8 is tall cyllinder with handles on both sides
+[22:33:31] director: 9 is taller round jar with lid
+[22:33:42] director: 10 is honeycomb/flower
+[22:33:56] director: 11 is flatter short jar ith lid
+[22:34:35] director: 12 is narrow, one handle basket with large braided rim
+[22:34:39] director: angle photo
+[22:35:12] matcher: tell me more about 4.  you said small rim.  i have front facing with thick rim.  the ohter one with smaller rim looks more like i can see whats inside
+[22:36:21] director: Yes the rim is thicker than the rest of the basket
+[22:36:27] matcher: ok got it then
+[22:36:27] director: but not big like 12
+[22:36:34] director: Ok

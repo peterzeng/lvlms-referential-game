@@ -1,0 +1,64 @@
+Session: yyyy5s6o
+Round: 1
+Group: 3
+Participants: matcher: 0ri7a5dm, director: jdkitnok
+======================================================================
+
+[21:32:05] matcher: hello
+[21:32:43] director: 1-acorn shape
+[21:33:04] matcher: i don't see an acorn
+[21:33:15] director: horn shape
+[21:33:22] matcher: ok
+[21:33:34] matcher: got it
+[21:33:53] director: okay, 2- oval shaped with high edges
+[21:34:10] matcher: doe sit have handles?
+[21:34:18] director: one handle in the middle
+[21:34:33] matcher: got it
+[21:34:49] director: okay, 3- round basket with a lid that has a knob on top
+[21:35:08] matcher: is it a high one or a low one?
+[21:35:16] director: high one
+[21:35:24] matcher: got it
+[21:35:45] director: okay 4- oval kinds of side ways with one handle in the middle
+[21:36:12] matcher: does it look like a regular basket?
+[21:36:29] matcher: like with a braid around the edge?
+[21:36:30] director: yes, it has a row of braids around it
+[21:36:51] matcher: one row or two stacked?
+[21:37:00] director: it looks like 2
+[21:37:10] matcher: got ir
+[21:37:26] director: okay, 5- is the biggest of them all, with handles on the side
+[21:37:51] matcher: does it go up and narrow at the top?
+[21:38:09] director: not really, is tall and wide
+[21:38:24] matcher: and it's teh same width all the way down?
+[21:38:28] director: yes
+[21:38:36] matcher: got it
+[21:39:01] director: okay, 5- the only basket with a brown pattern of lines on the outside
+[21:39:41] matcher: i have two, one is more put together than the other. the other has a uuneven top lip
+[21:39:58] director: this one is open, no handles
+[21:40:17] matcher: does it have swastikas?
+[21:40:22] director: yes
+[21:40:30] matcher: got it
+[21:41:12] director: okay, and correction, that was #6. Now on to #7, tall oval basket with one handle in the middle, kind of narrow at the bottom
+[21:41:45] matcher: is it a deep or a shallow basket?
+[21:41:51] director: deep
+[21:42:11] matcher: does it fan across like a rainbow?
+[21:42:31] matcher: the top lip of teh basket notthe handle
+[21:42:31] director: no, its kind of tall
+[21:43:00] director: its the only tall oval one not yet selected
+[21:43:26] matcher: i tghink i put tht one in 2. what was 2 again?
+[21:43:49] director: 2 was the one that is high on both ends but shorter
+[21:44:09] director: 2 is darker than 7
+[21:44:14] matcher: so does #2  look like a helmet?
+[21:44:22] director: yes
+[21:44:45] matcher: ok corrected. next
+[21:45:00] director: okay, 8 is a flat open basket no handles, light color
+[21:45:14] matcher: got it
+[21:45:28] director: okay, 9 looks like an elephant
+[21:45:36] matcher: got it
+[21:46:07] director: okay 10 is a round regular looking basket with a handle, just a plain basket
+[21:46:23] matcher: i have two plain baskets and one is darker
+[21:46:43] director: umm this one is kind of dark, for sure not light
+[21:46:52] matcher: got it
+[21:47:27] director: okay 11 is very fancy looking. One handle in the middle. a lot of weaving.
+[21:47:54] matcher: got it
+[21:48:23] director: great, 12 the last one is a closed basket, round with a lid, little know on the lid
+[21:48:38] matcher: got it

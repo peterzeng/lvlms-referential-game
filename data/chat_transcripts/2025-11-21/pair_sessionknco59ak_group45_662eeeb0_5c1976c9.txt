@@ -1,0 +1,54 @@
+Session: knco59ak
+Group ID (canonical): 45
+Participants: director: 6hwoscz8 (prolific: 662eeeb09572de78ffb440b1), matcher: gdoo1cr3 (prolific: 5c1976c90d57c30001b4162c)
+Total Rounds: 4
+Timing:
+  Round 1: 2m 54s
+  Round 2: No data
+  Round 3: No data
+  Round 4: No data
+  Total: 2m 54s
+======================================================================
+
+
+======================================================================
+ROUND 1 (Group 45)
+======================================================================
+
+
+DIRECTOR METRICS:
+
+MATCHER METRICS:
+
+CHAT TRANSCRIPT:
+[20:04:51] director: The first basket, which is in the upper left corner, should look like a rabbit facing to the side.
+[20:05:19] matcher: facing to our right?
+[20:05:27] director: Correct.
+[20:05:36] matcher: okay, next
+[20:06:03] director: Next is a smooth basket with one handle
+[20:06:40] director: For this one, you can't see the wicker texture as much as the others.
+[20:07:09] matcher: Can you see inside the basket more than a little bit?
+[20:07:34] director: No. you can just barely see the inside edge
+[20:07:45] matcher: I think I got it.
+
+
+======================================================================
+ROUND 2
+======================================================================
+
+(No data for this round)
+
+
+======================================================================
+ROUND 3
+======================================================================
+
+(No data for this round)
+
+
+======================================================================
+ROUND 4
+======================================================================
+
+(No data for this round)
+

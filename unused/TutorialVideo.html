@@ -1,0 +1,45 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Tutorial Video
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <p class="text-muted">Embed or link your tutorial video here.</p>
+
+            <div class="ratio ratio-16x9 mb-3">
+                <!-- Replace the src with your actual video URL or embed -->
+                <iframe src="about:blank" title="Tutorial Video" allowfullscreen></iframe>
+            </div>
+
+            <div class="d-flex justify-content-end mt-4">
+                <button type="button" class="btn btn-success" id="start-task-btn">Start Task</button>
+            </div>
+
+            <div style="display:none">{% next_button %}</div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    function submitForm() {
+        var form = document.querySelector('form');
+        if (form && typeof form.requestSubmit === 'function') { form.requestSubmit(); return; }
+        if (form) { form.submit(); return; }
+        var next = document.querySelector('button[type="submit"], input[type="submit"], .otree-next');
+        if (next) next.click();
+    }
+    var startBtn = document.getElementById('start-task-btn');
+    if (startBtn) startBtn.addEventListener('click', submitForm);
+});
+</script>
+{% endblock %}
+
+

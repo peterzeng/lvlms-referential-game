@@ -1,0 +1,245 @@
+Session: rti75m9v
+Group ID (canonical): 22
+Raw group IDs (by round): 22, 24, 25, 9
+Participants: director: zeapmanp (prolific: 682c3f62f2680e9a67130379), matcher: uunm0npl (prolific: 5e31c4596ef37a1ab34f4454)
+Total Rounds: 4
+Timing:
+  Round 1: 39m 20s
+  Round 2: 31m 46s
+  Round 3: 15m 34s
+  Round 4: 11m 58s
+  Total: 1h 38m 38s
+======================================================================
+
+
+======================================================================
+ROUND 1 (Group 9)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=A
+
+MATCHER METRICS:
+  Score (Accuracy): 100.00%
+  Attention Checks: Round Q=A
+
+CHAT TRANSCRIPT:
+[19:37:43] matcher: hi i am ready
+[19:38:14] director: Which one would you like us to select
+[19:38:38] matcher: if i understand correctly, you are to tell me what order to put them by describing
+[19:38:54] matcher: like, number one is the basket that looks like a rabbit as an example
+[19:39:51] director: Select the basket that looks like a rabbit
+[19:40:09] matcher: ok, what is in the #2 spot
+[19:41:33] director: #2 it is a normal basket and which is brown in color and shiny
+[19:41:46] matcher: is it round?
+[19:42:03] director: yes the bottom is round
+[19:42:15] matcher: ok next
+[19:44:11] director: What number is the rabbit basket on your side
+[19:44:28] matcher: Select baskets from the staging area to fill the 12 positions in order as described to you by the director, then submit your set of baskets.
+[19:44:38] matcher: that is what my directions say at the top of my screen
+[19:45:10] matcher: i just have photos of 18 baskets and then blank boxes numbered 1-12 that i put them in based on your descriptions
+[19:45:27] director: RABBIT should be number one
+[19:45:45] matcher: ok i got that then shiny round for 2
+[19:45:57] director: Yes
+[19:47:11] director: Number #3 is the basket that is covered half and the other part part is open and is appears to have a triangle shape of the handle
+[19:47:24] matcher: i got it
+[19:47:26] director: Do you see it?
+[19:47:36] matcher: yes
+[19:47:41] director: Okay
+[19:48:34] director: # is a small basket and which has brown color at the bottom and at the top it appears to be white or cream
+[19:48:40] director: #4
+[19:48:58] director: Confirm if you can see it
+[19:49:16] matcher: does it have a dark band between the light and dark or no?
+[19:50:52] director: No but it has a double handle and which is jointed above and still on the handle there is those marks of another color
+[19:51:05] matcher: ok got it
+[19:53:21] director: #5 appears to resemble a bowl and the distance between the handle and the basket is high
+[19:53:40] director: The handle appears to be twisted
+[19:54:06] matcher: it is a medium brown color?
+[19:54:39] director: yes
+[19:54:59] matcher: does it have a cream colored stripe around the center or is all one color?
+[19:55:33] director: Yes
+[19:55:57] matcher: no does it have the cream colored stripe OR is it all one color?
+[19:57:19] director: But unless you look closely it is not visible
+[19:57:38] matcher: not sure but i picked one onto #6
+[19:58:15] director: #6 appears to be a pig like basket
+[19:58:48] matcher: it looks like an animal, right? looks like a mouse to be but who knows :)
+[19:58:57] matcher: to me
+[19:58:57] director: Yes
+[19:59:05] matcher: ok got it
+[20:00:46] director: #7Is rectangular the handle is dark brown, the top ring is brown and also a the base is brown but the center is greenish
+[20:01:21] matcher: i got it
+[20:04:53] director: #8 appears to be circular but only visible from the side with a darkish center while the base is cream or whitish and also near the top has a cream color all round but the handle appears to be dark and its top ring is brown
+[20:05:27] matcher: ok got it
+[20:07:15] director: #9 Appears to be a cylinder with very short handles and it is brown in color
+[20:08:08] matcher: i have two like this. does the one you see allow you to see space through the basket weave or is it so tight you cannot see through anywhere at all?
+[20:08:08] director: Handles are on the opposite side
+[20:08:45] director: There are spaces visible on the other side of the cylinder
+[20:08:56] matcher: got that
+[20:09:02] director: okay
+[20:10:35] director: #10 it is a very short round basket and which has cream and at the top near the handle is brown and remember also the handle is cream in color
+[20:11:03] director: And at the middle you can see a brown dot
+[20:11:12] matcher: good i got it
+[20:12:43] director: #11 is a cylindrical basket which has no holes and has two handles on the opposite sides and it appears to be shorter than #9 and also wide a little
+[20:13:07] matcher: ok one more for this round
+[20:13:14] director: Okay
+[20:16:06] director: #12  is a brown basket and which has very small holes visible the handle is not long. On the top of the basket ring and which is attached to the handles appears to have the opposite side being high than the middle part
+[20:16:25] director: I mean the top is not flat
+[20:16:41] matcher: it is all one shade of brown?
+[20:16:48] director: Yes
+[20:16:57] matcher: ok i will submit
+[20:17:03] director: Okay
+
+
+======================================================================
+ROUND 2 (Group 22)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=C
+
+MATCHER METRICS:
+  Score (Accuracy): 91.67%
+  Attention Checks: Round Q=C
+
+CHAT TRANSCRIPT:
+[20:17:46] director: Hey
+[20:17:51] matcher: hi
+[20:18:03] director: You did an amazing work
+[20:18:08] matcher: thanks you too
+[20:18:15] director: Let's start
+[20:18:25] matcher: yes
+[20:19:14] director: #1 is the basket that has a triangle shape formed by the handle and has one side covered
+[20:19:34] matcher: got it
+[20:20:22] director: #2 Is the cylindrical basket that was long with visible holes on the opposite side
+[20:20:36] matcher: i got that
+[20:20:56] director: #3 Is the shiny basket
+[20:21:17] matcher: ok
+[20:22:40] director: #4 Is a short basket with a handle that is high, the handle and the ring connected to it are brown together with the base but the middle appears to be creamish
+[20:23:35] director: Have you seen it?
+[20:23:44] matcher: i am trying
+[20:24:22] matcher: the handle is a darker brown?
+[20:24:46] director: No and it has a 'n' shape
+[20:25:13] director: the brown color is not dark
+[20:25:20] matcher: handle is a cream color?
+[20:26:13] director: Not Cream is you look closer at the center it appears to be somehow woolen
+[20:26:58] matcher: sorry i have no idea. is the handle in the pic situated in an east/west direction or in a north/south direction
+[20:28:05] matcher: also can you see the inside bottom of this basket?
+[20:31:14] director: Okay let me guide you, the basket is short, the base is dark brown, while on the top is brown together with the handle. The handle appears to be like small 'n' and it runs from left to right. again near the top if you look close, on the other site there are holes linear to the top of the basket . In the middle it appears to grey somehow
+[20:32:22] director: And you cannot see in the basket
+[20:32:32] director: Inside the basket
+[20:32:53] matcher: ok i think i know
+[20:33:16] matcher: you can go to the next
+[20:34:36] director: #5 appears to be a basket with a cream color at the bottom, a darkish color at the middle and a cream color on the top near it's ring which is dark brown
+[20:35:20] matcher: the dark brown is wider than the two cream colored bands?
+[20:35:35] director: Yes
+[20:35:42] matcher: got it
+[20:35:54] director: #6 is the rabbit shape
+[20:36:05] matcher: good easy :)
+[20:36:14] director: #7 Is the rat shape
+[20:36:24] matcher: got it
+[20:36:49] director: # Is the small basket with a brown dot visible at the middle
+[20:37:58] matcher: does the interior have all one cream color or is the bottom cream and the sides are darker?
+[20:39:05] director: No. The basket is cream in color with the top ring being brown and also the handle is cream in color and has a brown dot in the middle
+[20:39:24] matcher: got it
+[20:40:37] director: #9 Is the basket that is rectangle in shape with a brown basement and brown ring, brown handle. The middle is greenish
+[20:41:07] matcher: ok got it
+[20:42:10] director: #10 Is a shorter cylindrical basket than #2  and a bit wide. It has no holes visible
+[20:42:35] matcher: i got it
+[20:44:16] director: #11 Is a short basket that is brown and cream on the sides, The handles appears to be four and which are interjoined
+[20:45:03] matcher: does it have a dark brown line separating the brown and cream sections?
+[20:46:55] director: The base is brown to almost  half of it height then a cream color and it also has a brown ring. The handles appears to be 4 two each side and which are joined to form one handle
+[20:47:17] matcher: ok last one
+[20:49:09] director: #12 Is similar to the last one and where the basket is all brown in color and has small holes visible. The top of the basket appears to be of different heights. Both sides with the handles are higher than the middle part
+[20:49:32] matcher: ok i will submit now
+
+
+======================================================================
+ROUND 3 (Group 24)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=B
+
+MATCHER METRICS:
+  Score (Accuracy): 100.00%
+  Attention Checks: Round Q=B
+
+CHAT TRANSCRIPT:
+[20:50:21] matcher: halfway there
+[20:51:02] director: #1 Is the basket with the greenish color in the middle and the top and bottom are brown in color
+[20:51:11] matcher: got it
+[20:53:22] director: #2 Is the basket with color brown at the bottom to almost half. Then it has a white color and which extends to the top ring. The ring is brown and appears to be connected with a white tape
+[20:54:08] matcher: is this the basket i got wrong last time?
+[20:54:17] director: Yes
+[20:54:35] matcher: got it
+[20:54:44] director: # is the rat
+[20:54:53] matcher: done
+[20:55:00] director: #4 is the rabbit
+[20:55:08] matcher: also done
+[20:55:56] director: #5 is the brown basket and on the top both sides with handles are higher than the middle
+[20:56:11] matcher: got it
+[20:56:13] director: It was #12 in the last one
+[20:56:51] director: #6 Is the cylindrical basket with visible holes on the other side
+[20:57:01] matcher: done
+[20:57:16] director: #7 Is the shiny basket
+[20:57:24] matcher: got it
+[20:58:58] director: #8 is the basket with cream color at the bottom followed by a darkish color in the middle and a small round of cream color on the top. The ring is dark brown together with the handle
+[20:59:26] matcher: ok got it
+[21:01:35] director: #9 is the short basket and which I told you had a handle that looks like n shape. The handle is high and if you look close yo can see a linear of holes on the other side of the basket just below the the ring.
+[21:01:48] director: The base is also brown
+[21:01:53] matcher: done
+[21:03:03] director: #10 Is the shorter cylindrical basket shorter than # 6 and have no holes but it is abit wider
+[21:03:21] matcher: done
+[21:04:30] director: #11 Is the short basket and which is creamish in color with a brown dot in the middle
+[21:04:50] matcher: last one
+[21:05:29] director: #12 Is the basket with the triangular shape formed on the top by the handles
+[21:05:55] matcher: ok very fast i'm submitting
+
+
+======================================================================
+ROUND 4 (Group 25)
+======================================================================
+
+
+DIRECTOR METRICS:
+
+MATCHER METRICS:
+  Score (Accuracy): 100.00%
+
+CHAT TRANSCRIPT:
+[21:06:22] matcher: great work :)
+[21:06:53] director: #1 Is the cream basket with the brown ring in the middle
+[21:07:21] matcher: the brown dot in the center?
+[21:07:38] director: Yes brown dot in the cntre
+[21:07:42] director: center
+[21:07:45] matcher: just checking, got it
+[21:09:25] director: #2 The basket with handle that is n shaped and the ring on the top is brown together with the handle. If you check closely you can see linear holes on the other side just below the ring and the middles appears to be creamish
+[21:09:48] matcher: got it
+[21:09:56] director: #3 the rabbit
+[21:10:06] matcher: done
+[21:10:42] director: #4 The basket with a brown base and brown ring and handle but the middle is greenish
+[21:11:03] matcher: done
+[21:11:56] director: #5 Is the shorter cylindrical basket that has no holes but is a bit wide  and has two handles on the opposite side
+[21:12:12] matcher: got it
+[21:12:45] director: #6 Is the longer cylindrical basket with holes visible on the opposite side
+[21:12:54] matcher: done
+[21:12:59] director: Sorry that is #7
+[21:13:07] matcher: ok
+[21:13:12] director: #6 is the shiny basket
+[21:13:25] matcher: ok got 6 and 7 done
+[21:14:02] director: #8Is the basket with triangular shaped on the top formed by the handles
+[21:14:13] matcher: done
+[21:14:23] director: #9 Is the rat
+[21:14:31] matcher: got it
+[21:15:04] director: #10 Is the basket that you failed to answer correctly do you remember it
+[21:15:17] matcher: taped together handle?
+[21:15:24] director: Yes
+[21:15:31] matcher: got it
+[21:16:27] director: #11 Is the basket that on the opposite side of the handles appears to be high that the middles
+[21:16:36] matcher: done
+[21:17:57] director: #12 Is the basket with a creamish bottom followed by Darkish middle and a small cream on the top below the ring. The ring and the handle are both dark brown
+[21:18:20] matcher: ok done 4/4 i'm submitting now
+

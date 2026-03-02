@@ -1,0 +1,163 @@
+Session: knco59ak
+Group ID (canonical): 33
+Raw group IDs (by round): 33, 36, 38, 42
+Participants: director: yilrr2uq (prolific: 67ad3b723dcec072cfdf7815), matcher: mzlq24zh (prolific: 6788d82f8ec0422c248b737a)
+Total Rounds: 4
+Timing:
+  Round 1: 11m 48s
+  Round 2: 8m 11s
+  Round 3: 7m 49s
+  Round 4: 15m 23s
+  Total: 43m 11s
+======================================================================
+
+
+======================================================================
+ROUND 1 (Group 33)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=A
+
+MATCHER METRICS:
+  Score (Accuracy): 50.00%
+  Attention Checks: Round Q=A
+
+CHAT TRANSCRIPT:
+[18:32:23] matcher: describe
+[18:33:26] director: 1. rabbit facing right
+[18:35:00] director: 2. basket shaped like a semi circle
+[18:35:24] director: 3. basket with 2 lids but right lid is open
+[18:35:56] matcher: what of 1
+[18:36:26] director: 4. basket has white stripe on handle and white color in the middle
+[18:36:53] director: 1 is shaped like a rabbit facing right side
+[18:38:59] director: You there?
+[18:39:10] matcher: yes
+[18:39:15] matcher: continue
+[18:39:49] director: 5. basket with plated handle
+[18:40:18] director: 6. basket looking like a rat and you can see its front side
+[18:41:09] director: 7. brown handle, brown top, dark brown middle side and brown bottom side of the basket
+[18:42:07] director: 8. white top side, dark brown middle side, and white bottom side
+[18:42:29] director: 9. long laundry basket
+[18:43:01] director: 10. hamper basket that you can see its inside
+[18:43:33] director: 11. short laundry basket
+[18:44:11] director: 12. top side shaped like a contour but brown in color
+
+
+======================================================================
+ROUND 2 (Group 36)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=C
+
+MATCHER METRICS:
+  Score (Accuracy): 41.67%
+  Attention Checks: Round Q=C
+
+CHAT TRANSCRIPT:
+[18:45:20] director: 1. basket has 2 lids with right side open
+[18:45:42] director: 2. long laundry basket
+[18:46:12] director: The basket u placed in position 1 in the last round
+[18:46:18] director: is 3
+[18:46:45] director: 4. basket with plated handle
+[18:47:51] director: 5. basket with white top and bottom but dark brown middle section
+[18:48:32] director: 6. rabbit shaped basket facing right side
+[18:48:52] matcher: explain 3
+[18:49:06] matcher: I can't see from last round
+[18:49:13] director: 7. rat shaped basket front facing
+[18:49:43] director: Cant u remember what i picked in last round as 1?
+[18:50:21] director: 3. basket looking like a real bucket
+[18:51:14] director: 8. hamper basket that you can see its inside
+[18:52:08] director: 9. brown handle, top and bottom. dark brown middle session
+[18:52:33] director: 10. short laundry basket
+[18:53:31] director: 11. brown basket with contour shaped top
+
+
+======================================================================
+ROUND 3 (Group 38)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=B
+
+MATCHER METRICS:
+  Score (Accuracy): 25.00%
+  Attention Checks: Round Q=B
+
+CHAT TRANSCRIPT:
+[18:54:38] matcher: describe
+[18:56:10] director: 1. handle, top and bottom is brown. middle side is dark brown
+[18:56:46] director: 2. white stripe on handle and middle session
+[18:57:09] director: 3. rat shaped basket front facing
+[18:57:28] director: 4. rabbit shaped facing right
+[18:57:55] director: 5. contour shaped top of basket
+[18:58:24] director: 6. long laundry shaped basket
+[18:58:59] director: 7. looking like a bucket without visible holes in it
+[18:59:56] director: 8. white top and bottom. dark brown middle section
+[19:00:30] director: 9. basket with plated handle
+[19:00:52] director: 10. hamper basket that you can see inside
+[19:01:15] director: 11. short laundry basket
+[19:01:45] director: 12. basket with 2 lids with right side open
+[19:02:27] director: You seeing all these?
+
+
+======================================================================
+ROUND 4 (Group 42)
+======================================================================
+
+
+DIRECTOR METRICS:
+
+MATCHER METRICS:
+  Score (Accuracy): 83.33%
+
+CHAT TRANSCRIPT:
+[19:04:26] director: You not paying attention
+[19:04:40] director: every round getting worse than before
+[19:04:57] director: Dont pick randomly
+[19:05:13] director: You making me waste my time writing
+[19:05:22] director: Not easy to repeat myself
+[19:05:44] director: If you dont understand ask me questions
+[19:06:03] director: 1. hamper basket that you can see inside
+[19:06:23] director: 3. rabbit basket
+[19:06:31] director: 9. rat basket
+[19:06:53] director: 10. white stripe on handle
+[19:07:09] director: 2. plated handle
+[19:07:14] matcher: you aren't explaining well
+[19:07:42] matcher: i have 18 basket to choose from here
+[19:08:11] matcher: there are 3 basket i could see  the inside
+[19:08:29] director: the round wide one
+[19:08:42] matcher: 2?
+[19:08:57] matcher: 4?
+[19:08:58] director: 1
+[19:09:40] director: 1. is hamper basket, round and wide to see inside
+[19:09:58] director: Not deep but round and wide
+[19:10:17] matcher: continue
+[19:10:51] director: 4. dark middle with brown handle,top and bottom
+[19:11:05] director: 5. short laundry basket
+[19:11:14] director: 6. basket without holes
+[19:11:27] director: shaped like a bucket
+[19:13:06] matcher: what is short laundry basket
+[19:13:16] matcher: describe shape
+[19:13:23] matcher: not usage
+[19:13:36] director: hard to explain
+[19:13:49] matcher: but you expect me to get it
+[19:13:53] director: but with short handle in both sides
+[19:14:50] director: 7. like a laundry basket but longer with very short handles on both sides
+[19:15:11] director: 8. picnic basket with right lid open
+[19:15:41] director: 9. rat shaped basket looking straight at you
+[19:16:13] matcher: 5
+[19:16:18] director: 10. white stripe on handle
+[19:16:25] matcher: describe or i guess
+[19:16:31] director: guess
+[19:16:54] matcher: is it half closed?
+[19:16:54] director: 11. contour shaped top of basket
+[19:17:19] director: 5 is open with no lid or cover
+[19:17:56] director: 12. white top side and bottom side with dark brown middle section
+[19:19:23] director: You there?
+[19:19:49] matcher: yes
+

@@ -1,0 +1,232 @@
+Session: knco59ak
+Group ID (canonical): 44
+Raw group IDs (by round): 44, 47, 51, 53
+Participants: director: 5kddifip (prolific: 62728a4122289635e97d12f2), matcher: g6k2jo3i (prolific: 682b8071ffc2da7edd49f10c)
+Total Rounds: 4
+Timing:
+  Round 1: 23m 49s
+  Round 2: 16m 52s
+  Round 3: 10m 42s
+  Round 4: 8m 25s
+  Total: 59m 48s
+======================================================================
+
+
+======================================================================
+ROUND 1 (Group 44)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=A
+
+MATCHER METRICS:
+  Score (Accuracy): 91.67%
+  Attention Checks: Round Q=A
+
+CHAT TRANSCRIPT:
+[19:52:39] director: Hello there.
+[19:52:42] matcher: hi
+[19:52:55] director: Basket 1 = basket with a bunny head
+[19:53:18] director: I am going top left to right(1 through 6) and then 7 through 12
+[19:53:41] matcher: okay
+[19:53:42] director: Basket 2(second from top left): Dark brown wicker basket with a thick handle.
+[19:54:09] matcher: can you describe it some more
+[19:54:19] matcher: i am seeing 18 baskets
+[19:54:25] director: Basket 3(third from top left): Looks like a traditional picnic basket with a closed lid on the left and an open lid on the right.
+[19:54:32] director: Which Basket do you need me to describe more of?
+[19:54:36] matcher: basket 2
+[19:55:16] matcher: i identified basket 3
+[19:55:18] director: Ok.  It is a darker brown with the bottom right portion looking shaded.  The handle is curved over the top and is thick.
+[19:55:25] director: Awesome.
+[19:56:11] matcher: okay, i think I got basket 2
+[19:56:15] matcher: what is basket 4
+[19:56:24] director: Basket 4: The bottom part of the basket is brown at the bottom with white lines on the upper half.  The handle has 2 white wrappings and then it splits into two branches on each side.
+[19:57:10] matcher: okay, i got that one
+[19:57:15] matcher: basket 5
+[19:57:18] matcher: what is basket 5
+[19:57:35] director: Basket 5: It is a wicker basket with thick pieces, the handle looks woven like a braid.
+[19:58:02] matcher: can you describe it some more?
+[19:58:44] director: The bottom part of the basket has light brown pieces vertical, with thicker dark brown pieces horizontal.  At the edge of the top of the basket it is light brown with thick pieces of the wicker.
+[19:59:12] matcher: okay, i think i got it
+[19:59:18] director: The basket has a very woven look to it.  Kind of like if you were putting a belt in and out of loops.
+[19:59:21] matcher: next please
+[20:00:23] director: Basket 6: It is light brown, the bottom has 2 very small pieces that stick out like feet.  There is a face of an animal, possibly a bunny or other small mammal.  1 ear is present on the right side.  The eyes have red in the bottom parts.  There are whiskers on each side of the nose.
+[20:00:39] director: The face is looking straight towards you.
+[20:00:40] matcher: okay, i got that one
+[20:00:50] director: Ok,  moving to the bottom left.
+[20:02:01] director: Basket 7: The very bottom is a light brown.  The middle has about 8 wicker pieces that are vertical.  In between those the color is like a dark green/brown.  The top rim is light brown.  The handle is thin, light brown, and connects to each side.
+[20:02:53] matcher: okay, got it
+[20:04:16] director: Basket 8: The bottom is light brown, almost beige in color.  The middle portion of the basket is a dark brown with 3 or 4 wicker pieces that are vertical and visible.  The top rim is beige in color and on top of that there is a thick brown piece that looks braided.  The handle is dark brown and almost forms spheres where it connects to the basket.
+[20:04:50] matcher: okay, got that one
+[20:06:03] director: Basket 9: It is cylindrical in shape, and is a taller basket like a clothes hamper.  You can see inside the basket at the top and there are 5 visible white lines.  It has two handles on each side of the top of the basket.
+[20:06:33] director: The white lines are thick, and I think these are actually openings in the basket.
+[20:06:58] matcher: is that the tallest basket among all of them?
+[20:07:14] director: It is the tallest basket that I have on my screen.
+[20:07:21] matcher: okay, got it
+[20:07:24] director: Ok.
+[20:08:14] director: Basket 10: A wide basket that is very shallow.  The bottom is a light brown.  The rim is a dark brown.  The handle is light brown and thin.  Inside the basket it looks like a woven circular pattern with a brown spot in the middle.
+[20:09:07] matcher: is it the shallowest basket on your screen?
+[20:09:10] director: Yes
+[20:09:17] matcher: okay, got it
+[20:10:59] director: Basket 11:  The wicker on this basket looks like it is diagonal.  If the wicker were the hands of a clock they would be pointed towards 11.  The left handle is brown and thick, with what looks like a small handle below that.  On the right side the handle looks like it is 2 handles very close together.  You can see slightly inside the basket and it almost looks like there is a second basket within it.  You can see a small light brown line that looks like the rim of another basket.
+[20:12:31] matcher: okay, does it look like it has multiple handles on each side?
+[20:12:48] director: Yes, the right side looks like it has 2 handles very close together.
+[20:12:56] matcher: got it
+[20:13:00] matcher: okay, last one
+[20:13:55] director: Basket 12: It is brown, and looks like it expands in the middle portions.  The rim looks like it has an indentation in the middle.  The handle is light brown.
+[20:14:46] director: The rim does look slightly woven/braided.  The handle connection to the basket looks like they are clamping down on the rim.
+[20:14:47] matcher: can you describe it some more?
+[20:14:59] matcher: can you see the inside of this basket?
+[20:15:24] director: You can see a little inside the basket.  You can also see small amounts of light on the far side of the inner basket.
+[20:15:54] matcher: it is just pure brown, right?
+[20:16:01] director: Yes, just pure brown.
+[20:16:11] matcher: okay, got it
+[20:16:19] director: Ok, cool.  That was the last one.
+[20:16:25] matcher: i'll submit now
+[20:16:28] director: Ok
+
+
+======================================================================
+ROUND 2 (Group 47)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=C
+
+MATCHER METRICS:
+  Score (Accuracy): 100.00%
+  Attention Checks: Round Q=C
+
+CHAT TRANSCRIPT:
+[20:17:18] matcher: hello
+[20:17:33] director: Hi.  Going from the top left to right, 1-6
+[20:17:51] matcher: okay
+[20:18:08] director: Basket 1: Looks like a traditional picnic basket.  It is light brown with a thick handle in the middle.  The lid on the left is closed.  The lid on the right is open and at an angle touching the handle and rim of the basket.
+[20:18:28] matcher: got it
+[20:19:33] director: Basket 2: It is a tall basket, potentially the tallest on the screen.  It is brown.  You can see inside the basket and see 4 thick white lines that are probably light shining in.  You can also see a small thick white line on the left inner portion too.  It has 2 handles that are thin on either side of the basket.
+[20:19:46] matcher: got it
+[20:21:11] director: Basket 3: It is brown, it almost has a flower pot look to it.  It is shaded on the bottom right so it looks darker brown there than the rest of the basket.  The rim looks like one thick solid piece that is brown with some black lines going across it horizontally.  One in the middle, and one towards the top.  You can see slightly into the top.  The handle  looks like one thick piece and is dark brown.
+[20:23:08] director: The basket almost looks like it is solid compared to the rest of the wicker baskets.
+[20:24:07] matcher: so it is darker brown in color and almost cylindrical in shape?
+[20:24:29] director: It is a darker brown, but it is not cylindrical.
+[20:24:58] director: From the bottom it widens out with a slight outward curve.
+[20:25:08] matcher: okay, got it
+[20:25:11] director: Basket 4: The handle is light brown and looks braided.  The rim looks like 3 pieces of wicker going horizontally with about 8 pices of wicker going vertical.  The basket itself looks like it is woven, similar to a belt through belt loops.  With thin brown pieces going vertical and thicker darker brown pieces going horizontally.
+[20:26:42] matcher: okay, got it
+[20:26:45] director: Basket 5: Beige bottom, Beige rim with a spiraled dark brown piece on top of that.  The handle is a thicker piece where it looks like spheres when it connects to the basket.  The middle portion of the basket has dark brown pieces going horizontally, with 4 or 5 pieces going vertically on the outside of the horizontal pieces.
+[20:27:15] matcher: okay, got it
+[20:27:16] director: Basket 6: The top portion looks like a bunny facing the right.  You can see 1 black eye and the ears are behind the head.
+[20:27:46] matcher: got it
+[20:27:59] director: Starting at the bottom left with # 7.  The bottom portion has 2 tiny pieces that represent feet.  It has the face of a small animal with some red eyes and whiskers facing you.
+[20:28:15] matcher: got that one
+[20:28:35] director: Basket 8: It is shallow and light brown.  The rim is a darker brown.  The handle is a thin light brown.  Inside the basket is a circular pattern with a brown spot in the middle.
+[20:28:53] matcher: is it the shallowest basket?
+[20:28:57] director: Yes
+[20:29:03] matcher: okay, got that
+[20:29:40] director: Basket 9:  The bottom is brown and looks woven.  There are 8 wicker pieces that go from bottom to just under the top rim.  The horizontal pieces look like a dark brown/green.  The rim is brown and looks woven.  The handle is one piece and connects to each side.
+[20:30:13] matcher: okay, got that
+[20:30:38] director: Basket 10: The wicker pattern is diagonal.  The right side looks like it has multiple handles next to each other.  The left side looks like there is a handle at the top of the rim and another handle below that on the inside.  You can see inside the basket and see what looks like a light brown rim of another basket.
+[20:30:58] matcher: okay, got it
+[20:31:43] director: Basket 11: The rim is indented, basically curved downwards.  It is the only basket I have that looks like that.  The handle is light brown and the attachments look like they are clamping down on the rim.  The rim looks braided or woven.  You can see inside the basket, but really only the top portion.
+[20:32:16] matcher: okay, i think i got that
+[20:32:39] director: Basket 12: Bottom is brown.  The top part of the basket has white horizontal lines.  The handle has what looks a white wrapping on the left and right side.  Below these wrappings the handle branches out in a Y shape until it connects to the rim.
+[20:33:50] matcher: okay, got it
+[20:33:58] director: ok
+[20:34:07] matcher: i will submit now
+[20:34:10] director: ok
+
+
+======================================================================
+ROUND 3 (Group 51)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=B
+
+MATCHER METRICS:
+  Score (Accuracy): 100.00%
+  Attention Checks: Round Q=B
+
+CHAT TRANSCRIPT:
+[20:34:40] matcher: hello
+[20:34:49] director: Hello! Beginning with Top left to right 1-6
+[20:35:25] matcher: ok
+[20:35:54] director: Basket 1: The bottom rim is light brown and looks braided/woven.  The middle part of the basket has 8 brown pieces of wicker going vertical from the top of the bottom rim to the bottom of the top rim.  Under those are horizontal pieces that look dark brown/green.  The top rim is light brown and looks woven/braided.  The handle is brown.  You cannot see inside the basket.
+[20:36:48] matcher: got it
+[20:36:50] director: Basket 2:  The handle has white wrappings and then splits into a Y shape until it connects to the top rim.  The top rim is brown.  The top part of the basket has white horizontal lines.  The bottom of the basket is brown.
+[20:37:27] matcher: got it
+[20:37:28] director: Basket 3: Looks like a small animal looking straight ahead at you.  You can see 2 eyes with red, whiskers, ears, and two small pieces of wood at the bottom that are probably feet.
+[20:37:40] matcher: okay
+[20:37:42] matcher: i got that
+[20:37:45] director: Basket 4: Looks like a bunny looking to the right.  You can see an eye and ears pointed backwards.
+[20:37:57] matcher: got it
+[20:38:39] director: Basket 5: The handle is brown and looks like it is clamping down on the rim.  The rim is light brown and looks braided/woven.  The rim is also curved downwards, like an indentation in the middle.  You can see see inside the basket.
+[20:39:03] matcher: okay, got that
+[20:39:33] director: Basket 6: Cylindrical in shape with small handles on each side of the basket rim.  There are 5 thick white lines on the inside of the basket.
+[20:39:59] matcher: the tallest basket?
+[20:40:05] director: Yes, the tallest basket.
+[20:40:14] matcher: okay, got that
+[20:41:03] director: Bottom Left: Basket 7: Dark brown handle.  You can see slightly into the top.  The rim looks like a thick solid piece with 2 black lines that go across it horizontally.  The bottom piece is brown and looks more solid than the rest of the baskets.  There is a darker shade on the bottom right of it.  It is shaped like a bowl or flowerpot.
+[20:41:40] matcher: okay
+[20:41:49] matcher: got it
+[20:42:02] director: Basket 8: Bottom is beige in color.  Middle has about 5 pieces going vertical with a darker brown for the pieces under it that are horizontal.  The top rim is beige with another part on top of it that is darker brown.  The handle is dark brown and looks like spheres where it attaches to the rim.
+[20:42:33] matcher: okay, i think i got that
+[20:43:07] director: Basket 9: The handle looks braided and is light brown.  You can see slightly into the top of the basket.  The top rim looks like 3 pieces of wicker going horizontal, with vertical pieces over it.  The basket itself looks woven like a belt through belt loops.
+[20:43:29] matcher: okay, i think i got it
+[20:43:37] director: Basket 10: It is the most shallow basket.  The handle is light brown.  The rim is a darker brown.  Inside the basket at the bottom it has a circular pattern with a brown spot in the middle.
+[20:43:50] matcher: okay, got it
+[20:44:12] director: Basket 11: It looks like there are two handles on the right, and 2 handles on the left.  The wicker pattern is diagonal.  It almost looks like there is a basket inside of the basket.
+[20:44:31] matcher: okay
+[20:44:48] director: Basket 12:  Looks like a traditional picnic basket with a closed lid on the top left and an open lid on the top right.  The lid on the right is at an angle, touching the handle and the rim of the basket.  You can see inside the basket on the right side where the lid is open.
+[20:45:10] matcher: got it
+[20:45:13] director: Awesome.
+[20:45:20] matcher: i'll submit now
+[20:45:22] director: ok
+
+
+======================================================================
+ROUND 4 (Group 53)
+======================================================================
+
+
+DIRECTOR METRICS:
+
+MATCHER METRICS:
+  Score (Accuracy): 100.00%
+
+CHAT TRANSCRIPT:
+[20:45:50] director: Hello!
+[20:45:53] matcher: hi
+[20:46:03] director: Going from Top Left to right.  Basket 1-7.
+[20:46:08] matcher: ok
+[20:46:26] director: Basket 1: The most shallow basket.  Light brown handle, darker brown rim.  You can see inside the basket, and it looks like a circular pattern with a brown spot in the middle.
+[20:46:36] matcher: got it
+[20:47:05] director: Basket 2: The handle looks braided and is light brown.  The rim looks like 3 pieces of wicker going horizontal with other pieces going vertical.  The basket itself looks like it is woven, almost like a belt through belt loops.
+[20:47:25] matcher: okay
+[20:47:27] director: Basket 3: Looks like a bunny looking to the right.  You can see an ear and a black eye.
+[20:47:44] matcher: got that
+[20:48:28] director: Basket 4: Brown handle. The top rim is brown and looks braided/woven.  The main part of the basket has about 8 pieces of wicker going vertical.  The wicker behind that is horizontal and looks dark brown/green.  The bottom rim is brown and looks braided/woven.  You cannot see inside the basket.
+[20:49:03] matcher: okay, got it
+[20:49:16] director: Basket 5:  Looks like there are two handles on the left with one higher than the other.  It looks like there are 2 handles on the right very close to eachother.  You can see inside the basket and it looks like there is a thin brown rim inside it - almost like there are 2 baskets.  The wicker pattern is diagonal.
+[20:49:33] matcher: okay, got that one
+[20:50:05] director: Basket 6: Dark brown handle. You can see very little into the top of the basket.  The top rim looks like one thick piece with 2 dark lines going horizontally.  The basket itself looks almost solid, and the most solid out of all of the baskets.  Its shape is similar to a bowl or flower pot.
+[20:50:37] matcher: got it
+[20:50:51] director: Bottom Left: Basket 7: It is cylindrical, the tallest basket.  It has 5 thick white lines on the inside that look like light coming from outside the basket.  There are small handles on both sides of the basket's top rim.
+[20:51:02] matcher: yep, got it
+[20:51:23] director: Basket 8:  Looks like a traditional picnic basket.  The lid on the left is closed.  The lid on the right is at an angle touching the top of the handle and rim.  You can see inside the basket on the right side.
+[20:51:37] matcher: okay, i got that
+[20:51:47] director: Basket 9: Looks like a small mammal looking straight at you.  It has red in the eyes, some whiskers, ears, and at the bottom are two small pieces that are supposed to be feet.
+[20:51:58] matcher: sure, got that one too
+[20:52:29] director: Basket 10: The handle has two white bands on either side.  The handle splits into a Y shape where it connects to the rim.  You can see inside the basket.  The top rim is light brown.  The basket is brown at the bottom and has white horizontal lines at the top.
+[20:52:49] matcher: okay, got it
+[20:53:05] director: Basket 11: Brown handle that looks like it is clamping down on the rim.  The rim is curved inwards, basically an indentation right in the middle.  You can see inside it.  The main part of the basket is brown.
+[20:53:23] matcher: okay, got that one too
+[20:53:54] director: Basket 12: The bottom is beige.  The middle has pieces going vertical and darker brown pieces going horizontal.  The top rim is beige with a darker brown piece on top of it that looks braided.  The handle is dark brown and looks like spheres where it attaches to the rim.
+[20:54:07] matcher: got it, thanks!
+[20:54:13] director: Awesome.
+[20:54:14] matcher: i'll submit now
+[20:54:15] director: Ok.
+

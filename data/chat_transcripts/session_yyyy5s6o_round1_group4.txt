@@ -1,0 +1,66 @@
+Session: yyyy5s6o
+Round: 1
+Group: 4
+Participants: director: d3txu4wq, matcher: noyk85mb
+======================================================================
+
+[21:47:25] director: first basket looks like a horn
+[21:47:43] matcher: I think I got it
+[21:48:28] director: second is a single handle, looks like a bowl with a dip in the middle
+[21:49:04] director: 3rd is the bigger basket with a lid
+[21:50:03] director: 4th, big handle, picture shows the basket at a slant
+[21:50:05] matcher: Can you describe the second one some more? What is the edge like?
+[21:50:10] director: okay
+[21:50:26] director: its shaped like a heart kind of
+[21:50:58] matcher: I think I see it, the middle is the lowest point then both sides go upwards a bit
+[21:51:01] director: a heast with the handle in the middle going diagnally
+[21:51:06] director: *heart
+[21:51:14] director: yes that one
+[21:51:26] matcher: 3rd is the largest one with a lid, got that
+[21:51:35] director: 4th, big handle, picture shows the basket at a slant
+[21:52:03] matcher: So you can see the bottom of the inside of the basket
+[21:52:19] director: yes, and it has a handle
+[21:52:31] matcher: Is it more circular or big and ovalish
+[21:52:53] director: ovalish, actually you can see the inside of it, but not the bottom
+[21:53:43] matcher: Does the handle start at the smaller sides of the oval or the larger sides
+[21:54:09] director: yes
+[21:54:14] director: smaller
+[21:54:20] matcher: I think I got it
+[21:54:44] director: 5th, has two short handles on each side
+[21:55:00] matcher: I see two like that
+[21:55:11] matcher: Is it equal size from top to bottom or is the bottom wider than the top
+[21:55:38] director: yes, equal size
+[21:55:42] matcher: Got it
+[21:56:15] director: the top half has a see through woven pattern line
+[21:56:25] matcher: Perfect, that's the one
+[21:56:26] director: 6th has black in the design
+[21:56:39] director: no handles
+[21:56:57] matcher: So there are stripes on the side
+[21:57:25] matcher: Do you see a large black stripe in the top middle, or do you see some that look like black triangles
+[21:58:25] director: it has black straight lines that go up and down
+[21:58:39] director: i small black trangle on the top right of it
+[21:58:50] director: upside down black triangle
+[21:58:55] matcher: Got it
+[21:59:34] director: 7th single handle taller basket, looks like a wire loop on is by the left side handle
+[21:59:50] director: same size from top to bottom
+[21:59:55] matcher: Got it, perfect
+[22:00:24] director: 8th, looks like a flower, small can see inside and its slanted
+[22:00:56] matcher: I think I got it
+[22:01:06] director: its a lighter tan color
+[22:01:26] matcher: And the gaps are much more visible?
+[22:02:02] director: a bit. the inside you can see horizontal lines at the bottom of it
+[22:02:24] matcher: Yes got it
+[22:02:29] director: how many flower ones do you see? maybe i can help differentiate
+[22:02:40] director: oh okay
+[22:03:01] director: 9th looks like an elephant with black beady eyes
+[22:03:11] matcher: Got it
+[22:03:59] director: 10th it a normal basket. facing the same direction as  the 7th backet but this one is shorter with a woven top going around the rim
+[22:04:16] director: typos, sorry
+[22:05:08] matcher: I think I got that one, it seems a bit small too like for carrying a few apples
+[22:05:19] director: yes exactly
+[22:05:35] director: 11th is facing the side and looks like a house
+[22:05:55] director: it has a slim handle
+[22:06:02] matcher: Yup got it, the sides slant downwards
+[22:06:07] director: yes
+[22:06:26] director: 12th, is the smaller round basket with a lid
+[22:06:44] matcher: Alright, I think we got them all pretty well

@@ -1,0 +1,56 @@
+Session: 3kk7u0fy
+Group ID (canonical): 109
+Raw group IDs (by round): 109, 66, 77, 93
+Participants: director: 2oojnsca (prolific: 615239af65358edf57e7a095), matcher: 3nm0yqix (prolific: 6614a5298c82365421d9b0b9)
+Total Rounds: 4
+Timing: No timing data available
+======================================================================
+
+
+======================================================================
+ROUND 1 (Group 66)
+======================================================================
+
+
+DIRECTOR METRICS:
+
+MATCHER METRICS:
+
+(No data for this round)
+
+
+======================================================================
+ROUND 2 (Group 77)
+======================================================================
+
+
+DIRECTOR METRICS:
+
+MATCHER METRICS:
+
+(No data for this round)
+
+
+======================================================================
+ROUND 3 (Group 93)
+======================================================================
+
+
+DIRECTOR METRICS:
+
+MATCHER METRICS:
+
+(No data for this round)
+
+
+======================================================================
+ROUND 4 (Group 109)
+======================================================================
+
+
+DIRECTOR METRICS:
+
+MATCHER METRICS:
+
+(No data for this round)
+

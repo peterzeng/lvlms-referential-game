@@ -6,37 +6,9 @@ from .models import Constants, Player
 class ParticipantID(Page):
     """Collect Prolific participant ID at the very start."""
     template_name = 'onboarding/ParticipantID.html'
-
+    
     form_model = 'player'
     form_fields = ['prolific_participant_id']
-
-    def vars_for_template(self):
-        """
-        Enable a developer/testing-only skip button when running locally or when configured.
-        Mirrors the logic used in PreTaskWizard so the same flag/environment
-        controls both entry points.
-        """
-        # Default: disabled
-        testing_skip = False
-        # Allow enabling via session config
-        try:
-            cfg = self.session.config if hasattr(self, 'session') and self.session else {}
-        except Exception:
-            cfg = {}
-        if cfg:
-            testing_skip = bool(cfg.get('testing_skip_enabled', False))
-
-        # Also auto-enable if DEBUG env var is set (handy for local demos)
-        try:
-            import os as _os
-            if _os.environ.get('DEBUG', '').lower() in ('1', 'true', 'yes'):
-                testing_skip = True
-        except Exception:
-            pass
-
-        return {
-            'testing_skip_enabled': testing_skip,
-        }
 
     def error_message(self, values):
         """Validate that a Prolific participant ID was entered."""
@@ -52,23 +24,7 @@ class ParticipantID(Page):
         return None
 
     def before_next_page(self, timeout_happened=False):
-        """Store participant ID and optionally mark onboarding as skipped for demos."""
-        # Handle demo/testing skip: triggered by a hidden field posted from the template
-        try:
-            request = getattr(self, 'request', None)
-            skip_flag = request.POST.get('demo_skip_to_task') if request is not None else None
-        except Exception:
-            skip_flag = None
-
-        if skip_flag:
-            # Mark a lightweight flag so later onboarding pages can auto-skip
-            self.participant.vars['demo_skip_to_task'] = True
-            # Ensure any flows that gate on these vars see onboarding as "passed"
-            self.participant.vars['attention_passed'] = True
-            self.participant.vars['comprehension_passed'] = True
-            self.participant.vars['onboarding_complete'] = True
-
-        # Store participant ID in participant vars for persistence across apps.
+        """Store participant ID in participant vars for persistence across apps."""
         if self.player.prolific_participant_id:
             self.participant.vars['prolific_participant_id'] = self.player.prolific_participant_id
         
@@ -82,15 +38,6 @@ class ParticipantID(Page):
 class DeviceCheck(Page):
     """Check if user is on a desktop/laptop computer before allowing them to proceed."""
     template_name = 'onboarding/DeviceCheck.html'
-
-    def is_displayed(self):
-        """
-        For demo/testing runs where the first page's skip button was used, skip
-        this page entirely so participants go straight to the main task.
-        """
-        if self.participant.vars.get('demo_skip_to_task'):
-            return False
-        return True
 
     def vars_for_template(self):
         prolific_url = None
@@ -121,6 +68,54 @@ class DeviceCheck(Page):
         return {player.id_in_group: {'success': False}}
 
 
+class AttentionCheck(Page):
+    """DEPRECATED: Pre-task attention check replaced by per-round checks."""
+    template_name = 'onboarding/AttentionCheck.html'
+
+    form_model = 'player'
+    form_fields = ['attention_q1', 'attention_q2', 'attention_q3']
+
+    def is_displayed(self):
+        # DISABLED: Attention checks now happen after each round in main task
+        # Always mark as passed for backward compatibility
+        self.participant.vars['attention_passed'] = True
+        return False
+
+    def error_message(self, values):
+        return None
+
+    def before_next_page(self, timeout_happened=False):
+        """Mark participant for pass/fail."""
+        correct_q1 = 'A'  # Q1 correct: Red
+        correct_q2 = 'C'  # Q2 correct: Duck
+        correct_q3 = 'B'  # Q3 correct: 5
+        selected_q1 = (self.player.attention_q1 or '').strip()
+        selected_q2 = (self.player.attention_q2 or '').strip()
+        selected_q3 = (self.player.attention_q3 or '').strip()
+        passed = (selected_q1 == correct_q1) and (selected_q2 == correct_q2) and (selected_q3 == correct_q3)
+        self.participant.vars['attention_passed'] = passed
+        self.participant.vars['attention_selected'] = {'q1': selected_q1, 'q2': selected_q2, 'q3': selected_q3}
+
+
+class Disqualify(Page):
+    """DEPRECATED: Pre-task disqualification replaced by per-round checks."""
+    template_name = 'onboarding/Disqualify.html'
+
+    def is_displayed(self):
+        # DISABLED
+        return False
+
+    def vars_for_template(self):
+        prolific_url = None
+        try:
+            prolific_url = self.session.config.get('prolific_return_url')
+        except Exception:
+            prolific_url = None
+        return {
+            'prolific_return_url': prolific_url,
+        }
+
+
 class PreTaskWizard(Page):
     """Single-page, client-side wizard for pre-task steps: consent & instructions."""
     template_name = 'onboarding/PreTaskWizard.html'
@@ -131,7 +126,7 @@ class PreTaskWizard(Page):
     def vars_for_template(self):
         # Enable a developer/testing-only skip button when running locally or when configured
         try:
-            cfg = self.session.config if hasattr(self, 'session') and self.session else {}
+            cfg = self.session.config if hasattr(self, 'session') else {}
         except Exception:
             cfg = {}
         testing_skip = bool(cfg.get('testing_skip_enabled', False))
@@ -162,10 +157,6 @@ class PreTaskWizard(Page):
         }
 
     def is_displayed(self):
-        # If the participant used the demo skip from the first page, skip this wizard.
-        if self.participant.vars.get('demo_skip_to_task'):
-            return False
-
         # Hide for shapes demo; otherwise show if attention was passed
         if getattr(self.session.config, 'get', None):
             if self.session.config.get('director_view', 'grid') == 'shapes_demo':
@@ -201,17 +192,7 @@ class PreTaskWizard(Page):
     
     def before_next_page(self, timeout_happened=False):
         """Allow developer testing skip and mark onboarding complete."""
-        # Handle testing skip. If the template posted the special hidden field,
-        # persist it into participant.vars so future checks can see it.
-        try:
-            request = getattr(self, 'request', None)
-            posted_skip = request.POST.get('__testing_skip_triggered') if request is not None else None
-        except Exception:
-            posted_skip = None
-
-        if posted_skip:
-            self.participant.vars['testing_skip_triggered'] = True
-
+        # Handle testing skip
         if bool(self.participant.vars.get('testing_skip_triggered')):
             self.participant.vars['attention_passed'] = True
             self.participant.vars['comprehension_passed'] = True
@@ -223,6 +204,8 @@ class PreTaskWizard(Page):
 page_sequence = [
     ParticipantID,
     DeviceCheck,
+    AttentionCheck,  # DEPRECATED (not displayed)
+    Disqualify,      # DEPRECATED (not displayed)
     PreTaskWizard,
 ]
 

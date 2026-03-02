@@ -1,0 +1,8 @@
+Session: yyyy5s6o
+Round: 1
+Group: 2
+Participants: director: zbqqmua2, matcher: sst4nk0m
+======================================================================
+
+[21:25:45] matcher: Tell me which basket is first
+[21:26:59] matcher: Hello?

@@ -1,0 +1,146 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Task Instructions
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <!-- Instructions Section -->
+            <div id="instructions-section">
+                <ol class="text-muted">
+                    <li>
+                        You are on a team with a partner. Your goal is to work with your teammate to match the correct order of a set of baskets. The game consists of 4 rounds, and in each round, your team must correctly order 12 baskets.
+                    </li>
+                    <li>
+                        There are two distinct roles in this task: the Director and the Matcher.
+                        <ul>
+                            <li>
+                                <strong>Director</strong>: Will see the correct sequence for the 12 target baskets and needs to type clear descriptions of each basket each <em>one by one</em> (in order starting with the upper-left basket) to the Matcher via a live chat.
+                            </li>
+                            <li>
+                                <strong>Matcher</strong>: Will see these 12 target baskets plus some other baskets. As the Director describes each basket, the Matcher should interpret the Director's description, ask clarifying questions if needed, and select the correct target basket by clicking on it.
+                            </li>
+                        </ul>
+                        <p class="mt-2 mb-0">
+                            The two of you can communicate back and forth as much as needed to do the task. If you discover an error, it is fine to make corrections within a round. When the round is finished, the Matcher should submit the sequence of 12 baskets, and you'll both see your score. The study consists of 4 rounds in total.
+                    </li>
+                    <li>
+                        Please have your sound on; you'll hear a chime when your partner types something.
+                    </li>
+                    <li>
+                        Make sure your screen is maximized so you can see all the task details.
+                    </li>
+                    <li>
+                        Please don't navigate off this site until you've completed the task.
+                    </li>
+                </ol>
+
+                <div class="d-flex justify-content-end mt-4">
+                    <button type="button" class="btn btn-primary" id="show-check-btn">Continue to Comprehension Check</button>
+                </div>
+            </div>
+
+            <!-- Comprehension Check Section -->
+            <div id="comprehension-section" style="display:none;">
+                <div class="alert alert-info">
+                    <strong>Comprehension Check</strong>
+                    <p class="mb-0">Please answer the following question to ensure you understand the task instructions.</p>
+                </div>
+
+                {% if failed_once and not failed_twice %}
+                <div class="alert alert-warning">
+                    <strong>First Attempt Incorrect</strong>
+                    <p class="mb-0">Please read the instructions carefully. You have one more chance to answer correctly.</p>
+                </div>
+                {% endif %}
+
+                {% if failed_twice %}
+                <div class="alert alert-danger">
+                    <strong>Comprehension Check Failed</strong>
+                    <p class="mb-0">Unfortunately, you did not pass the comprehension check after two attempts. According to Prolific's policy, please return your submission by clicking "Cancel participation" on Prolific. This will not affect your approval rate.</p>
+                    {% if prolific_return_url %}
+                    <a href="{{ prolific_return_url }}" class="btn btn-danger mt-2">Return to Prolific</a>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                {% formfield player.comprehension_check %}
+
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="button" class="btn btn-outline-secondary" id="back-to-instructions-btn">Back to Instructions</button>
+                    {% if not failed_twice %}
+                    <button type="button" class="btn btn-primary" id="submit-check-btn">Submit Answer</button>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div style="display:none">{% next_button %}</div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var instructionsSection = document.getElementById('instructions-section');
+    var comprehensionSection = document.getElementById('comprehension-section');
+    var showCheckBtn = document.getElementById('show-check-btn');
+    var backToInstructionsBtn = document.getElementById('back-to-instructions-btn');
+    var submitCheckBtn = document.getElementById('submit-check-btn');
+
+    function submitForm() {
+        var form = document.querySelector('form');
+        if (form && typeof form.requestSubmit === 'function') { 
+            form.requestSubmit(); 
+            return; 
+        }
+        if (form) { 
+            form.submit(); 
+            return; 
+        }
+        var next = document.querySelector('button[type="submit"], input[type="submit"], .otree-next');
+        if (next) next.click();
+    }
+
+    // Show comprehension check when button is clicked
+    if (showCheckBtn) {
+        showCheckBtn.addEventListener('click', function() {
+            instructionsSection.style.display = 'none';
+            comprehensionSection.style.display = 'block';
+            window.scrollTo(0, 0);
+        });
+    }
+
+    // Go back to instructions
+    if (backToInstructionsBtn) {
+        backToInstructionsBtn.addEventListener('click', function() {
+            comprehensionSection.style.display = 'none';
+            instructionsSection.style.display = 'block';
+            window.scrollTo(0, 0);
+        });
+    }
+
+    // Submit comprehension check answer
+    if (submitCheckBtn) {
+        submitCheckBtn.addEventListener('click', function() {
+            var radioButtons = document.querySelectorAll('input[name="comprehension_check"]');
+            var isChecked = Array.from(radioButtons).some(function(radio) { return radio.checked; });
+            
+            if (!isChecked) {
+                alert('Please select an answer before submitting.');
+                return;
+            }
+            
+            submitForm();
+        });
+    }
+});
+</script>
+{% endblock %}
+
+

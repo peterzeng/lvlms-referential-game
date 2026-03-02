@@ -1,0 +1,130 @@
+Session: 3kk7u0fy
+Group ID (canonical): 26
+Raw group IDs (by round): 26, 31, 35, 39
+Participants: director: 2ufp1p17 (prolific: 592dc86c61bcd8000107c131), matcher: 5hdgb4bn (prolific: 677bdabbdcaf99b4cd8c86a5)
+Total Rounds: 4
+Timing:
+  Round 1: 8m 1s
+  Round 2: 5m 38s
+  Round 3: 5m 2s
+  Round 4: 3m 55s
+  Total: 22m 36s
+======================================================================
+
+
+======================================================================
+ROUND 1 (Group 26)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=A
+
+MATCHER METRICS:
+  Score (Accuracy): 75.00%
+  Attention Checks: Round Q=A
+
+CHAT TRANSCRIPT:
+[17:40:53] matcher: How should I arrange them?
+[17:41:31] director: the rabbit faced one first
+[17:42:06] director: the rabbit with long hair first
+[17:42:39] director: then the smooth round basket
+[17:43:06] director: the basket that has one side of its lid open is number 3
+[17:44:00] director: the basket with white and brown stripes on both handle and the body is number 4
+[17:44:33] director: number 5 is all brown and looks like number 4
+[17:45:11] director: the second rabbit shaped basket is number 6 (the white one)
+[17:46:39] director: 7 is brown handle and brown base with dark colour in the middle
+[17:47:24] director: 8 has dark in the middle but the handle and base are somewhat white and it looks like 7
+[17:47:26] director: 9 is the long basket
+[17:47:48] director: 10 is the round white and brown basket
+[17:48:15] director: 11 is like 9 but not very long
+[17:48:34] director: then 12 is all brown
+[17:48:54] director: thats all
+
+
+======================================================================
+ROUND 2 (Group 31)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=C
+
+MATCHER METRICS:
+  Score (Accuracy): 58.33%
+  Attention Checks: Round Q=C
+
+CHAT TRANSCRIPT:
+[17:51:00] matcher: How should I proceed
+[17:51:11] director: number 1 is the basket with one lid open
+[17:51:20] director: 2 is the very long basket
+[17:51:37] director: 3 the basket that looks smooth
+[17:52:28] director: 4 is the all brown basket with space between the handle and the body
+[17:53:18] director: 5 is the dark colour in the middle with somewhat white base and top
+[17:54:02] director: 6 is the rabbit faced basket that is looking towards your right
+[17:54:21] director: 7 is the white rabbit faced basket
+[17:54:51] director: 8 is the basket that is very round and has a white handle
+[17:55:30] director: 9 is the rectangled shaped basket with brown top and base with dark in the middle
+[17:55:55] director: 10 is like the number 2 own but not as long as number 2
+[17:56:19] director: 11 is the one with a u shaped top
+[17:56:34] director: the white and brown striped basket is 12
+[17:56:38] director: thats all
+
+
+======================================================================
+ROUND 3 (Group 35)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=B
+
+MATCHER METRICS:
+  Score (Accuracy): 58.33%
+  Attention Checks: Round Q=B
+
+CHAT TRANSCRIPT:
+[17:58:05] director: ok you got the bean shaped one wrong the round bottom one wrong and the twisted handle one wrong
+[17:58:31] director: 1 is the one with the green
+[17:58:38] director: 2 is the one with the white bands on the handle
+[17:58:44] director: 3 is the strange animal
+[17:58:47] director: 4 is the rabbit
+[17:59:25] director: 5 is the bean shaped one you got wrong, the body of this one bows out in the middle, the rim isnt straight, its almost like a bean shape
+[17:59:38] director: 6 is the tall one you got right last time
+[18:00:38] director: 7 is the one you were confused about last round that you got wrong twice now, the rim almost looks like a belt wrapped around it, handle is a perfect half circle, darker handle than body, tight weave
+[18:00:53] director: 8 is the one with the blue with the white parts above and below the blue part
+[18:02:10] director: 9 is the twisted handle one you got wrong, this basket is pretty shallow, for the ones i see its the second most shallow basket, the center of the body is a different color than the handle and the upper and lower part of the body, its like a brown brown where the rest is like a golden brown
+[18:02:20] director: 10 is the shallow basket you got right
+[18:03:00] director: 11 is the one with the 2 small handles on the top with the textured weave
+[18:03:07] director: 12 is the basket witht he half open lid
+
+
+======================================================================
+ROUND 4 (Group 39)
+======================================================================
+
+
+DIRECTOR METRICS:
+
+MATCHER METRICS:
+  Score (Accuracy): 66.67%
+
+CHAT TRANSCRIPT:
+[18:04:04] director: hm that didnt go well
+[18:04:26] matcher: Yeah.. we will do better hence forth
+[18:04:35] director: 1 is the most shallow basket
+[18:05:09] director: 2s body has 2 different colors, the middle is like brown brown and the rest of it including the handle is like golden brown
+[18:05:13] director: 3 is the rabbit
+[18:05:26] director: 4 is the greenish one
+[18:05:50] director: 5 is the one with the 2 small handles on the side with the tight weave
+[18:06:01] director: 6 is that god forsaken basket thats never been right
+[18:06:23] director: the rim almost looks like a belt wrapped around it
+[18:06:40] director: its like the color of a wood desk
+[18:06:54] director: 7 is the tallest basket
+[18:07:03] director: 8 is the one thats half open
+[18:07:05] director: 9 is mystery animal
+[18:07:14] director: 10 is the one with the white bands on the handle
+[18:07:33] director: 11 is the bulging one where the rim is almost bean shaped
+[18:07:41] director: 12 is the blue and white one
+[18:07:59] director: questions?
+

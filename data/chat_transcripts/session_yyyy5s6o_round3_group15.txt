@@ -1,0 +1,27 @@
+Session: yyyy5s6o
+Round: 3
+Group: 15
+Participants: director: m80jm5xg, matcher: bkkrxy6a
+======================================================================
+
+[22:24:41] director: 1 is flat jar shaped with lid
+[22:25:00] matcher: k
+[22:25:33] director: 2 is standard short round basket with small rim on top. One handle
+[22:25:45] director: front facing
+[22:25:50] matcher: k
+[22:25:52] director: 3 is elephant
+[22:25:56] matcher: k
+[22:26:10] director: 4 is bucket with lid
+[22:26:41] director: 5 is side facing, one handle and both sides go down
+[22:26:52] matcher: k
+[22:27:00] director: 6 is round jar with lid
+[22:27:29] director: 7 is tall cyllinder with handles on both sides
+[22:27:48] director: 8 is bowl with brown f pattern
+[22:27:59] matcher: k
+[22:28:34] director: 9 is side facing and goes up on both sides. 1 handle
+[22:28:54] director: 10 is honeycomb/flower
+[22:29:15] director: 11 is angled narrow basket with thick braided rim
+[22:29:30] director: 12 is cone shaped
+[22:30:01] matcher: ok.  go back to #2 does it have handle
+[22:30:13] director: Yes
+[22:30:22] matcher: ok think im good. ill submit.

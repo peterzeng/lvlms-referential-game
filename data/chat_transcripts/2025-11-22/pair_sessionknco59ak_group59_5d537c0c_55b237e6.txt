@@ -1,0 +1,292 @@
+Session: knco59ak
+Group ID (canonical): 59
+Raw group IDs (by round): 59, 65, 69, 70
+Participants: director: p3z9x797 (prolific: 5d537c0cecc84200153075e9), matcher: w6eqf2bc (prolific: 55b237e6fdf99b19ea79d2f7)
+Total Rounds: 4
+Timing:
+  Round 1: 23m 8s
+  Round 2: 11m 27s
+  Round 3: 6m 29s
+  Round 4: 5m 40s
+  Total: 46m 44s
+======================================================================
+
+
+======================================================================
+ROUND 1 (Group 59)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=A
+
+MATCHER METRICS:
+  Score (Accuracy): 100.00%
+  Attention Checks: Round Q=A
+
+CHAT TRANSCRIPT:
+[21:08:38] director: The top left basket looks like a rabbit
+[21:09:08] matcher: TY! left rabbit or right rabbit?
+[21:09:16] director: It's facing to the right
+[21:09:52] matcher: So glad I got a partner. Waited forever to be paired. :)
+[21:09:56] matcher: What's next?
+[21:10:45] director: the second one on the top is all brown and kind of round looking. you can't see the weaving of the basket very well.
+[21:11:23] matcher: hoping that's it
+[21:11:31] director: It almost looks like it is made of wood
+[21:11:58] director: if that helps. i dunno.
+[21:12:23] matcher: that's the only other one that has a sort of smooth weave
+[21:12:33] director: The next one looks like a picnic basket, and the left side is open but not the right side
+[21:12:49] director: oh, whoops. the right side is open. my bad.
+[21:12:52] matcher: lol
+[21:13:02] matcher: I literally had a puzzled face
+[21:13:06] director: lol
+[21:13:43] director: so if you got that one, the next one has a white stripe.
+[21:14:01] director: and it looks like white tape on the handles
+[21:14:14] matcher: ohh. okay not that one. i know which one now
+[21:14:21] director: k
+[21:14:42] matcher: Does it let you see the ones that I pick, or no?
+[21:14:49] director: i can't see what you pick
+[21:15:02] matcher: interesting! okay I'll let you know after I pick one then
+[21:15:06] director: ok
+[21:15:18] matcher: now on #5
+[21:15:58] director: yes. this one is very short it is facing exactly forward and the handle is taller than the actual basket part.
+[21:16:30] matcher: is the basket part round, or is it more oval?
+[21:16:37] director: oval
+[21:17:07] matcher: Does the handle look like it's braided/twisted?
+[21:17:14] director: yes
+[21:17:21] matcher: okay got it
+[21:17:34] director: k. the next one looks like a hamster, or a mouse.
+[21:17:40] director: not sure what it is
+[21:17:56] matcher: got it. yep, same here..mouse or rabbit not sure
+[21:18:20] director: cool. ok. so first one on the bottom left is mostly green
+[21:18:36] director: the handle is brown
+[21:18:43] matcher: Green on the basket part, rectangle shape with handle?
+[21:18:49] director: yep
+[21:18:56] matcher: done!
+[21:19:25] director: next one i think it might be blue, or maybe grey
+[21:19:52] matcher: hm. what is the shape? Not sure i see a blue one or grey
+[21:19:54] director: the bottom part looks white
+[21:20:05] director: it's round
+[21:20:06] matcher: round bottom, with dark brown handle?
+[21:20:31] matcher: does it hae a light beige strip at top of basket, and a light beige strip at bottom, too?
+[21:20:36] matcher: *have
+[21:20:36] director: yea. the middle part is much darker than the bottom
+[21:21:11] matcher: oh wait.  but does it have a lighter beige stripe near the top and ALSO the bottom?
+[21:21:15] director: yes
+[21:21:19] matcher: got it
+[21:21:39] director: okay. next one is really tall. and it has two handles. it looks like there are holes in the back of it.
+[21:21:53] matcher: looks like a laundry basket?
+[21:22:09] matcher: and the holes on back are rectangles?
+[21:22:15] director: yes
+[21:22:18] matcher: got it
+[21:22:42] director: ok. next one. short, round, at an angle in the picture.
+[21:22:57] director: like maybe  you could put plates in it
+[21:23:25] matcher: very, very short, with cream colored handle, and darker brown strip around the rim of the basket?
+[21:23:33] director: yep. you got it
+[21:24:00] matcher: Just to make sure..this one is short..and ou mentioned #5 was short, too
+[21:24:16] director: yes. but this one is round and shorter than 5
+[21:24:27] matcher: ahh..perfect
+[21:24:34] matcher: got it
+[21:25:07] director: next one has two handles. and if you zoom in it looks like there is another basket inside it. you can see like 6 handles. it's round and fairly tall.
+[21:25:51] matcher: Oh wow. I didn't realize one has baskets inside it. Nice catch!
+[21:25:59] matcher: done
+[21:26:37] matcher: WE also may need to double-check #2 as well
+[21:26:40] director: thanks. last one looks like a basket you might take shopping. it has a braid around the top of the basket part. and it's oval-ish.
+[21:26:45] matcher: oops didn't mean to use caps
+[21:27:26] matcher: What is color? Completely solid?
+[21:27:32] director: solid
+[21:27:54] matcher: And the rim is not very straight? It sort of dips down, in the middle of the oval?
+[21:27:59] director: yep
+[21:28:41] matcher: got it. okay let's double check #2. ou mentioned that one loosk like it's made of wood, and you can't see the weave well. Is that one completely facing forward?
+[21:28:52] matcher: ignore typos
+[21:29:25] matcher: Becuae there is one just like it, but it is not facing fully forward.. it's sort of angled to the left...just  a wee bit
+[21:29:36] director: yea that one
+[21:29:44] director: it  looks like an acorn to me
+[21:30:00] matcher: both of these look like acorns
+[21:30:18] director: it's forward a little on the left side
+[21:30:32] matcher: but one is facing fully forward...no angle. and the 2nd one is just like it but it's just slightly facing the left more..instead of straight on
+[21:30:45] director: it's that one. not straight on
+[21:30:58] matcher: oh good. that means they threw in a trick one. changing it
+[21:31:13] director: k
+[21:31:33] matcher: okay done. I think it is right now. I submit I think
+[21:31:39] director: all right
+[21:31:46] matcher: ty, btw!
+
+
+======================================================================
+ROUND 2 (Group 65)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=C
+
+MATCHER METRICS:
+  Score (Accuracy): 100.00%
+  Attention Checks: Round Q=C
+
+CHAT TRANSCRIPT:
+[21:32:26] director: ugh. more baskets
+[21:32:32] matcher: lol
+[21:32:45] director: first is the picnic basket with the right side open
+[21:32:47] matcher: ARe you the same person I just played with? Did we just talk about acorns?
+[21:32:50] director: yep
+[21:32:58] matcher: cool. okay...looking
+[21:33:14] director: i think it is the exact same baskets as last time, just in a different order
+[21:33:17] matcher: done
+[21:33:25] matcher: looks like it. hm. i wonder why they didn't change them
+[21:33:38] director: second is the tall baset with two handles and the rectangle holes in the back
+[21:33:46] director: laundry basket
+[21:33:52] matcher: done
+[21:34:01] director: third is the acorn basket. same as last time
+[21:34:10] matcher: angled to the left a little?
+[21:34:13] director: yes
+[21:34:18] matcher: done
+[21:34:31] director: ok. short basket, but not the round one, the oval one.
+[21:34:40] director: braided handle
+[21:35:08] matcher: stripe around rim of basket is exact same color as the braided handle? and darker brown on bottom?
+[21:35:41] director: you got it
+[21:35:45] matcher: done
+[21:36:11] director: next is the one i think looks blue. it is much lighter on the top and the bottom than in the middle
+[21:36:46] matcher: sort of green blue, rectangle shape, and has light brown braids on top rim and also bottom?
+[21:37:24] director: no. it's round. it's not the green one.
+[21:37:40] matcher: ohh hmm. thinking
+[21:38:10] director: it has like a white stripe at the top, then a big blue/grey dark looking stripe. then white at the bottom
+[21:38:24] matcher: white or do you mean light beige?
+[21:38:29] director: probably
+[21:38:36] matcher: done
+[21:38:43] director: ok. rabbit faciing right
+[21:38:50] matcher: done
+[21:38:58] director: next is weird hamster thing
+[21:39:03] matcher: lollol
+[21:39:17] matcher: done. its eyes are jacked up
+[21:39:21] director: for real
+[21:39:29] matcher: i'm laughing
+[21:39:46] director: okay, round, very short. you can see into the basket.
+[21:40:24] matcher: i have more than one like that. is it light cream in the middle, and darker brown strip at top AND at bottom?
+[21:40:43] matcher: is it facing right? (your right)
+[21:40:47] director: yes
+[21:40:56] matcher: done
+[21:41:08] director: next is green rectangle one. facing forward
+[21:41:24] matcher: with brown braid at top rim and at bottom?
+[21:41:29] director: yep
+[21:41:36] matcher: done
+[21:41:47] director: basket with baskets in it. lots of handles
+[21:41:57] matcher: Done
+[21:42:17] director: shopping basket. braid around the rim, swoopy, not straight.
+[21:42:55] matcher: done. hm..ineresting that they didn't use any of the other baskets on my screen that we didn't use last time
+[21:43:10] director: yea. it's exactly the same ones
+[21:43:21] matcher: "swoopy" that's perfect
+[21:43:27] matcher: for the other
+[21:43:28] director: last one is the one with the white stripe and the white tape on the handles.
+[21:43:29] director: lol
+[21:43:50] matcher: okay done. i'll submit
+[21:43:53] director: ok
+
+
+======================================================================
+ROUND 3 (Group 69)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=B
+
+MATCHER METRICS:
+  Score (Accuracy): 100.00%
+  Attention Checks: Round Q=B
+
+CHAT TRANSCRIPT:
+[21:44:23] matcher: interesting, i'm still matcher
+[21:44:31] director: it's the same ones again. same baskets
+[21:44:48] matcher: yeah strange. maybe they're hoping we get better with time or something lol
+[21:44:54] director: i guess
+[21:45:00] director: so. green rectangle
+[21:45:06] matcher: done
+[21:45:12] director: white stripe. tape on handles
+[21:45:20] matcher: done
+[21:45:24] director: creepy hamster
+[21:45:28] matcher: bahaha
+[21:45:37] matcher: done
+[21:45:38] director: right facing rabbit
+[21:45:49] matcher: done
+[21:45:53] director: swoopy shopping basket
+[21:46:00] matcher: done
+[21:46:05] matcher: Wow, we did get better!
+[21:46:09] director: laundry basket with rectangle holes
+[21:46:12] director: yep
+[21:46:15] matcher: done
+[21:46:24] director: acorn rurned left
+[21:46:27] director: turned
+[21:46:39] matcher: done
+[21:47:00] director: light beige at top, dark in middle, light at bottom.
+[21:47:21] matcher: round, facing forward?
+[21:47:26] director: yes
+[21:47:50] matcher: wait...what the heck. why am io confused about this one. i have extras that you do't hvae but still
+[21:48:05] director: it's the same one as last time. nothing new
+[21:48:37] matcher: is it th eone that you thought looked blue or grey?
+[21:48:42] director: yep
+[21:48:48] matcher: got it
+[21:48:59] matcher: brain cramp lol
+[21:49:00] director: i'll just call it the blue one if we have to do it again, okay?
+[21:49:05] matcher: kk
+[21:49:30] director: next one is short oval with braided handle. handle is taller than the basket part
+[21:49:45] matcher: done
+[21:49:59] director: k. round short one. you can see into the basket.
+[21:50:13] matcher: done
+[21:50:21] director: basket with a million handles
+[21:50:31] matcher: done
+[21:50:38] director: picnic basket open on right side
+[21:50:49] matcher: done! submitting
+[21:50:52] director: k
+
+
+======================================================================
+ROUND 4 (Group 70)
+======================================================================
+
+
+DIRECTOR METRICS:
+
+MATCHER METRICS:
+  Score (Accuracy): 100.00%
+
+CHAT TRANSCRIPT:
+[21:51:24] director: last one! same baskets again
+[21:51:28] matcher: all same again, even my extras
+[21:51:34] director: all the same
+[21:51:50] director: okay. let's go. short basket. you can see into the basket.
+[21:51:57] matcher: done
+[21:52:06] director: short basket with braided handle. oval
+[21:52:14] matcher: done
+[21:52:18] director: rabbit right
+[21:52:25] matcher: done
+[21:52:29] director: green rectangle
+[21:52:38] matcher: done
+[21:52:43] director: lots of handles
+[21:52:48] matcher: done
+[21:52:52] director: acorn left
+[21:53:06] matcher: done
+[21:53:16] director: laundry basket. rectangle holes
+[21:53:57] matcher: Are you still there?
+[21:54:05] matcher: oos. I forgot to say "done" derp!
+[21:54:09] matcher: *oops
+[21:54:13] director: no worries.
+[21:54:19] director: picnic basket is next
+[21:54:45] matcher: i have more than one like that. picnic basket that is open on the right?
+[21:54:51] director: yes
+[21:54:56] matcher: done
+[21:55:01] director: creepy hamster
+[21:55:18] matcher: was hoping you'd mention the creepiness again so I could laugh lol
+[21:55:19] matcher: done
+[21:55:36] director: haha. white stripe, white tape on handles
+[21:55:46] matcher: done
+[21:55:52] director: swoopy shopping basket
+[21:56:02] matcher: done
+[21:56:06] director: blue basket
+[21:56:30] matcher: done! I guess that's it. Thanks for being a good partner. This was fune
+[21:56:42] matcher: *fun
+[21:56:45] director: it was. you are a good partner as well.
+[21:56:59] matcher: have a good rest of the day! submitting. :)
+[21:57:04] director: thanks you too.
+

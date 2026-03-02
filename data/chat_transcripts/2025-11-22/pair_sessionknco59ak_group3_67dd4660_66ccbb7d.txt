@@ -1,0 +1,60 @@
+Session: knco59ak
+Group ID (canonical): 3
+Participants: director: oa9l01qn (prolific: 67dd46602623d4bf857f7fa2), matcher: qe0valp3 (prolific: 66ccbb7d4109382e498e3c82)
+Total Rounds: 4
+Timing:
+  Round 1: 8m 17s
+  Round 2: No data
+  Round 3: No data
+  Round 4: No data
+  Total: 8m 17s
+======================================================================
+
+
+======================================================================
+ROUND 1 (Group 3)
+======================================================================
+
+
+DIRECTOR METRICS:
+
+MATCHER METRICS:
+
+CHAT TRANSCRIPT:
+[17:04:24] director: hi
+[17:04:43] matcher: hi, ready to find the right baskets!
+[17:04:56] director: lets dig in then
+[17:06:10] director: which one do you think is the right basket
+[17:07:02] matcher: do you not have a list or descriptions? it was my understanding that you would describe them to me one by one and I have to select the matching basket
+[17:07:22] director: one looks like rabbit
+[17:07:40] matcher: is the rabbit facing the camera or a bit to the right?
+[17:07:51] director: a bit right
+[17:09:19] director: did you see it
+[17:09:34] matcher: yes, I entered it, thought you could see it. number two?
+[17:09:52] director: no one
+[17:10:05] matcher: I entered number one already, the rabbit facing right
+[17:10:14] director: ok
+[17:10:50] matcher: ready for description for number two
+[17:12:41] matcher: are you there?
+
+
+======================================================================
+ROUND 2
+======================================================================
+
+(No data for this round)
+
+
+======================================================================
+ROUND 3
+======================================================================
+
+(No data for this round)
+
+
+======================================================================
+ROUND 4
+======================================================================
+
+(No data for this round)
+
