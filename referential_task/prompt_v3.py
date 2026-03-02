@@ -89,7 +89,7 @@ def build_v3_cot_prompt_messages(
             '    "shared_features": ["features this basket shares with others in the grid"],\n'
             '    "distinctive_features": ["features that uniquely identify THIS basket from similar ones"],\n'
             '    "likely_confusions": <array of integers 1-12 for OTHER positions in YOUR grid that the MATCHER might confuse with the target; MUST NOT include target_position>,\n'
-            '    "discriminative_strategy":   "which specific features you will emphasize to distinguish the target from the likely confusions"\n'
+            '    "discriminative_strategy": "which specific features you will emphasize to distinguish the target from the likely confusions"\n'
             "  },\n"
             '  "utterance": "a single concise, natural-language message you will SAY to the MATCHER in the chat. Focus on features that discriminate the target basket from similar-looking ones. Do NOT reveal you are an AI."\n'
             "}\n\n"
@@ -113,9 +113,9 @@ def build_v3_cot_prompt_messages(
         history_messages = history_messages[-max_history:]
 
     chat_messages: List[Dict[str, Any]] = system_messages + history_messages
-    # NOTE: latest_message is already included in all_history (appended to
-    # grid_messages before _generate_ai_reply is called), so we do NOT
-    # append it again here to avoid duplicate messages in the API call.
+
+    if latest_message:
+        chat_messages.append({"role": "user", "content": latest_message})
 
     return chat_messages
 

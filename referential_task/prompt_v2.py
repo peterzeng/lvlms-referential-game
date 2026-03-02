@@ -138,9 +138,10 @@ def build_weiling_prompt_messages(
         history_messages = history_messages[-max_history:]
 
     chat_messages: List[Dict[str, Any]] = [system_message] + history_messages
-    # NOTE: latest_message is already included in all_history (appended to
-    # grid_messages before _generate_ai_reply is called), so we do NOT
-    # append it again here to avoid duplicate messages in the API call.
+
+    # Ensure the latest human message is present as the final user turn
+    if latest_message:
+        chat_messages.append({"role": "user", "content": latest_message})
 
     return chat_messages
 

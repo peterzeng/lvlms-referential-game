@@ -1,0 +1,1038 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+{% load basket_filters %}
+
+{% block title %}AI vs AI Observation{% endblock %}
+
+{% block global_styles %}
+<link rel="stylesheet" href="{% static 'css/basket-selection.css' %}">
+<style>
+    :root {
+        --primary: #2d3748;
+        --secondary: #4a5568;
+        --accent: #3182ce;
+        --success: #38a169;
+        --danger: #e53e3e;
+        --warning: #d69e2e;
+        --bg-dark: #1a202c;
+        --bg-card: #2d3748;
+        --text-primary: #f7fafc;
+        --text-secondary: #a0aec0;
+        --border-color: #4a5568;
+    }
+
+    body {
+        background: linear-gradient(135deg, var(--bg-dark) 0%, #2d3748 100%);
+        color: var(--text-primary);
+        min-height: 100vh;
+    }
+
+    .observation-header {
+        background: linear-gradient(90deg, var(--accent) 0%, #2b6cb0 100%);
+        padding: 1rem 1.5rem;
+        border-radius: 12px;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 4px 20px rgba(49, 130, 206, 0.3);
+    }
+
+    .observation-header h2 {
+        margin: 0;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+    }
+
+    .stats-badge {
+        background: rgba(255,255,255,0.15);
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        font-weight: 600;
+    }
+
+    .control-panel {
+        background: var(--bg-card);
+        border-radius: 12px;
+        padding: 1.25rem;
+        margin-bottom: 1.5rem;
+        border: 1px solid var(--border-color);
+    }
+
+    .btn-control {
+        padding: 0.75rem 1.5rem;
+        font-weight: 600;
+        border-radius: 8px;
+        transition: all 0.2s ease;
+    }
+
+    .btn-control:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    .btn-control:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .btn-next-turn {
+        background: var(--accent);
+        border: none;
+        color: white;
+    }
+
+    .btn-next-turn:hover:not(:disabled) {
+        background: #2b6cb0;
+        color: white;
+    }
+
+    .btn-auto-play {
+        background: var(--success);
+        border: none;
+        color: white;
+    }
+
+    .btn-auto-play:hover:not(:disabled) {
+        background: #2f855a;
+        color: white;
+    }
+
+    .btn-auto-play.playing {
+        background: var(--warning);
+    }
+
+    .btn-run-all-rounds {
+        background: #805ad5;
+        border: none;
+        color: white;
+    }
+
+    .btn-run-all-rounds:hover:not(:disabled) {
+        background: #6b46c1;
+        color: white;
+    }
+
+    .btn-run-all {
+        background: var(--secondary);
+        border: none;
+        color: white;
+    }
+
+    .btn-run-all:hover:not(:disabled) {
+        background: #718096;
+        color: white;
+    }
+
+    .grid-panel {
+        background: var(--bg-card);
+        border-radius: 12px;
+        padding: 1.25rem;
+        border: 1px solid var(--border-color);
+        height: 100%;
+    }
+
+    .grid-panel h5 {
+        color: var(--text-secondary);
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .grid-panel h5::before {
+        content: '';
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+    }
+
+    .director-grid-panel h5::before {
+        background: var(--accent);
+    }
+
+    .matcher-grid-panel h5::before {
+        background: var(--success);
+    }
+
+    .basket-grid-display {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 8px;
+    }
+
+    .grid-slot-display {
+        aspect-ratio: 1;
+        background: var(--bg-dark);
+        border-radius: 8px;
+        overflow: hidden;
+        position: relative;
+        border: 2px solid transparent;
+    }
+
+    .grid-slot-display img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .grid-slot-display .position-badge {
+        position: absolute;
+        top: 4px;
+        left: 4px;
+        background: rgba(0,0,0,0.7);
+        color: white;
+        font-size: 0.7rem;
+        font-weight: 700;
+        padding: 2px 6px;
+        border-radius: 4px;
+    }
+
+    .grid-slot-display.filled {
+        border-color: var(--success);
+    }
+
+    .grid-slot-display.empty {
+        border-color: var(--border-color);
+        border-style: dashed;
+    }
+
+    .chat-panel-ai {
+        background: var(--bg-card);
+        border-radius: 12px;
+        border: 1px solid var(--border-color);
+        display: flex;
+        flex-direction: column;
+        height: 500px;
+    }
+
+    .chat-header {
+        padding: 1rem 1.25rem;
+        border-bottom: 1px solid var(--border-color);
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .chat-header h5 {
+        margin: 0;
+        font-size: 1rem;
+    }
+
+    .turn-counter {
+        background: var(--accent);
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+
+    .chat-messages-ai {
+        flex: 1;
+        overflow-y: auto;
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .message-ai {
+        max-width: 90%;
+        padding: 0.75rem 1rem;
+        border-radius: 12px;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .message-director {
+        background: linear-gradient(135deg, #3182ce 0%, #2b6cb0 100%);
+        color: white;
+        align-self: flex-start;
+        border-bottom-left-radius: 4px;
+    }
+
+    .message-matcher {
+        background: linear-gradient(135deg, #38a169 0%, #2f855a 100%);
+        color: white;
+        align-self: flex-end;
+        border-bottom-right-radius: 4px;
+    }
+
+    .message-system {
+        background: var(--secondary);
+        color: var(--text-secondary);
+        align-self: center;
+        font-size: 0.85rem;
+        text-align: center;
+    }
+
+    .message-label {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        opacity: 0.8;
+        margin-bottom: 0.25rem;
+        font-weight: 600;
+    }
+
+    .status-bar {
+        padding: 0.75rem 1.25rem;
+        border-top: 1px solid var(--border-color);
+        background: rgba(0,0,0,0.2);
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        font-size: 0.85rem;
+    }
+
+    .status-indicator {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        animation: pulse 2s infinite;
+    }
+
+    .status-dot.active {
+        background: var(--success);
+    }
+
+    .status-dot.waiting {
+        background: var(--warning);
+    }
+
+    .status-dot.complete {
+        background: var(--accent);
+        animation: none;
+    }
+
+    @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+    }
+
+    .completion-banner {
+        background: linear-gradient(135deg, var(--success) 0%, #2f855a 100%);
+        padding: 1.5rem;
+        border-radius: 12px;
+        text-align: center;
+        margin-top: 1.5rem;
+        animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+    }
+
+    .accuracy-display {
+        font-size: 3rem;
+        font-weight: 800;
+        margin: 0.5rem 0;
+    }
+
+    .loading-spinner {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 2px solid rgba(255,255,255,0.3);
+        border-radius: 50%;
+        border-top-color: white;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+
+    /* Staging pool display */
+    .staging-display {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 6px;
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px dashed var(--border-color);
+    }
+
+    .staging-slot-display {
+        aspect-ratio: 1;
+        background: var(--bg-dark);
+        border-radius: 6px;
+        overflow: hidden;
+        position: relative;
+        opacity: 0.6;
+        transition: opacity 0.2s;
+    }
+
+    .staging-slot-display:hover {
+        opacity: 1;
+    }
+
+    .staging-slot-display img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .staging-slot-display .pool-number {
+        position: absolute;
+        bottom: 2px;
+        right: 2px;
+        background: rgba(0,0,0,0.7);
+        color: white;
+        font-size: 0.6rem;
+        padding: 1px 4px;
+        border-radius: 3px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-3">
+    <!-- Header -->
+    <div class="observation-header d-flex justify-content-between align-items-center flex-wrap gap-3">
+        <div>
+            <h2>🤖 AI vs AI Observation Mode</h2>
+            <p class="mb-0 opacity-75">Watch two VLM agents collaborate on the basket matching task</p>
+        </div>
+        <div class="d-flex gap-3">
+            <div class="stats-badge">Round {{ round_number }}/{{ total_rounds }}</div>
+            <div class="stats-badge" id="accuracy-badge" style="display: none;">
+                Accuracy: <span id="accuracy-value">--</span>%
+            </div>
+        </div>
+    </div>
+
+    <!-- Control Panel -->
+    <div class="control-panel">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+            <div class="d-flex gap-2 flex-wrap">
+                <button type="button" class="btn btn-control btn-next-turn" id="next-turn-btn">
+                    <span class="btn-text">▶ Next Turn</span>
+                    <span class="loading-spinner" style="display: none;"></span>
+                </button>
+                <button type="button" class="btn btn-control btn-auto-play" id="auto-play-btn">
+                    ⏵⏵ Auto-Play
+                </button>
+                <button type="button" class="btn btn-control btn-run-all" id="run-all-btn">
+                    ⏩ Run Round
+                </button>
+                <button type="button" class="btn btn-control btn-run-all-rounds" id="run-all-rounds-btn" style="background: #805ad5;">
+                    🚀 Run All Rounds
+                </button>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+                <label class="mb-0 small text-muted" title="Delay between API calls (helps avoid rate limits)">
+                    Delay: 
+                    <input type="range" id="delay-slider" min="1" max="10" step="0.5" value="3" style="width: 120px; vertical-align: middle;">
+                    <span id="delay-value">3</span>s
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="row g-4">
+        <!-- Left: Grids -->
+        <div class="col-lg-7">
+            <div class="row g-3">
+                <!-- Director's Grid (Ground Truth) -->
+                <div class="col-12">
+                    <div class="grid-panel director-grid-panel">
+                        <h5>Director's View (Target Sequence)</h5>
+                        <div class="basket-grid-display" id="director-grid">
+                            {% for slot in shared_grid %}
+                            <div class="grid-slot-display filled" data-position="{{ forloop.counter }}">
+                                <img src="{% static slot.image %}" alt="Basket {{ forloop.counter }}">
+                                <span class="position-badge">{{ forloop.counter }}</span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Matcher's Sequence (Current State) -->
+                <div class="col-12">
+                    <div class="grid-panel matcher-grid-panel">
+                        <h5>Matcher's Sequence (<span id="filled-count">{{ filled_count }}</span>/12 filled)</h5>
+                        <div class="basket-grid-display" id="matcher-grid">
+                            {% for i in "123456789012" %}
+                            <div class="grid-slot-display empty" data-position="{{ forloop.counter }}" id="matcher-slot-{{ forloop.counter }}">
+                                <span class="position-badge">{{ forloop.counter }}</span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        
+                        <!-- Staging Pool (smaller) -->
+                        <div class="staging-display" id="staging-pool">
+                            <!-- Will be populated by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: Chat -->
+        <div class="col-lg-5">
+            <div class="chat-panel-ai">
+                <div class="chat-header">
+                    <h5>💬 AI Dialogue</h5>
+                    <span class="turn-counter">Turn <span id="turn-count">{{ messages|length }}</span></span>
+                </div>
+                <div class="chat-messages-ai" id="chat-messages">
+                    {% for msg in messages %}
+                    <div class="message-ai message-{{ msg.sender_role }}">
+                        <div class="message-label">{{ msg.sender_role }}</div>
+                        {{ msg.text }}
+                    </div>
+                    {% empty %}
+                    <div class="message-ai message-system">
+                        Click "Next Turn" to start the AI conversation
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="status-bar">
+                    <div class="status-indicator">
+                        <span class="status-dot" id="status-dot"></span>
+                        <span id="status-text">Ready</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Completion Banner (hidden initially) -->
+    <div class="completion-banner" id="completion-banner" style="display: none;">
+        <h3>🎉 Round Complete!</h3>
+        <div class="accuracy-display" id="final-accuracy">--</div>
+        <p class="mb-0">baskets correctly placed</p>
+        <button type="button" class="btn btn-light mt-3" id="next-round-btn">Continue to Next Round →</button>
+    </div>
+
+    <!-- Hidden next button for oTree -->
+    <div style="display: none;">{% next_button %}</div>
+</div>
+
+<!-- Set up js_vars for live method communication -->
+<script>window.js_vars = window.js_vars || {}; js_vars.my_id = "{{ player.id_in_group }}";</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // State
+    let isAutoPlaying = false;
+    let autoPlayInterval = null;
+    let isProcessing = false;
+    let isComplete = {% if is_complete %}true{% else %}false{% endif %};
+    let isPaused = false;  // Flag to interrupt runToCompletion
+
+    // Elements
+    const nextTurnBtn = document.getElementById('next-turn-btn');
+    const autoPlayBtn = document.getElementById('auto-play-btn');
+    const runAllBtn = document.getElementById('run-all-btn');
+    const runAllRoundsBtn = document.getElementById('run-all-rounds-btn');
+    const delaySlider = document.getElementById('delay-slider');
+    const delayValue = document.getElementById('delay-value');
+    const chatMessages = document.getElementById('chat-messages');
+    const turnCount = document.getElementById('turn-count');
+    const filledCount = document.getElementById('filled-count');
+    const statusDot = document.getElementById('status-dot');
+    const statusText = document.getElementById('status-text');
+    const completionBanner = document.getElementById('completion-banner');
+    const accuracyBadge = document.getElementById('accuracy-badge');
+    const stagingPool = document.getElementById('staging-pool');
+
+    // Initialize staging pool
+    const stagingBaskets = {{ staging_baskets_json|safe }};
+    stagingBaskets.forEach((basket, index) => {
+        const slot = document.createElement('div');
+        slot.className = 'staging-slot-display';
+        slot.innerHTML = `
+            <img src="/static/${basket.image}" alt="Pool ${index + 1}">
+            <span class="pool-number">${index + 1}</span>
+        `;
+        stagingPool.appendChild(slot);
+    });
+
+    // Initialize existing matcher sequence
+    const initialSequence = {{ partial_sequence|safe }};
+    updateMatcherGrid(initialSequence);
+
+    // Delay slider
+    delaySlider.addEventListener('input', function() {
+        delayValue.textContent = this.value;
+        if (isAutoPlaying) {
+            // Restart auto-play with new delay
+            stopAutoPlay();
+            startAutoPlay();
+        }
+    });
+
+    // Next Turn button
+    nextTurnBtn.addEventListener('click', async function() {
+        if (isProcessing || isComplete) return;
+        isPaused = false;  // Clear pause state when manually advancing
+        await executeTurn();
+    });
+
+    // Auto-play / Pause button
+    autoPlayBtn.addEventListener('click', function() {
+        if (isAutoPlaying || isProcessing) {
+            // Pause whatever is running (auto-play or runToCompletion)
+            isPaused = true;
+            stopAutoPlay();
+            // Clear auto-continue so we don't auto-start next round
+            sessionStorage.removeItem('ai_vs_ai_auto_continue');
+            sessionStorage.removeItem('ai_vs_ai_delay');
+            setStatus('active', 'Paused - click Next Turn or Auto-Play to continue');
+        } else {
+            isPaused = false;
+            startAutoPlay();
+        }
+    });
+
+    // Run All button - runs current round to completion
+    runAllBtn.addEventListener('click', async function() {
+        if (isProcessing || isComplete) return;
+        isPaused = false;  // Clear pause state
+        await runToCompletion(false);
+    });
+
+    // Run All Rounds button - runs all remaining rounds automatically
+    runAllRoundsBtn.addEventListener('click', async function() {
+        if (isProcessing || isComplete) return;
+        isPaused = false;  // Clear pause state
+        await runToCompletion(true);
+    });
+
+    // Run All Rounds function - CLIENT-SIDE POLLING
+    // This runs turns one-at-a-time on the client, allowing the server to handle
+    // other requests between turns. Previously this used a blocking server-side loop
+    // which caused the entire server to become unresponsive.
+    async function runToCompletion(autoContinue = false) {
+        if (isProcessing || isComplete || isPaused) return;
+        
+        // Store auto-continue preference if enabled
+        if (autoContinue) {
+            sessionStorage.setItem('ai_vs_ai_auto_continue', 'true');
+            sessionStorage.setItem('ai_vs_ai_delay', delaySlider.value);
+        }
+        
+        // Show pause button during run
+        autoPlayBtn.textContent = '⏸ Pause';
+        autoPlayBtn.classList.add('playing');
+        autoPlayBtn.disabled = false;  // Enable pause button
+        
+        const delay = parseFloat(delaySlider.value) * 1000 || 1500;  // Convert to ms
+        const maxTurns = {{ max_turns }};
+        let turnsRun = 0;
+        
+        setStatus('waiting', `Running to completion (${delay/1000}s delay between turns)...`);
+        
+        // Run turns one at a time with client-side delays
+        while (turnsRun < maxTurns && !isComplete && !isPaused) {
+            setProcessing(true);
+            setStatus('waiting', `Turn ${turnsRun + 1} - AI thinking...`);
+            
+            try {
+                // Execute single turn
+                const response = await liveSend({ action: 'next_turn' });
+                
+                if (response.success && response.turn_result) {
+                    const result = response.turn_result;
+                    turnsRun++;
+                    
+                    if (result.error) {
+                        addMessage('system', `Error: ${result.error}`);
+                        break;
+                    }
+                    
+                    if (result.message) {
+                        addMessage(result.speaker, result.message);
+                        
+                        // Update grid if matcher made a selection
+                        if (result.speaker === 'matcher' && result.selection) {
+                            const sel = result.selection;
+                            if (sel.position && sel.image) {
+                                updateSingleSlot(sel.position, sel.image);
+                            }
+                        }
+                        
+                        updateUIFromStatus(response.status);
+                    }
+                    
+                    if (result.is_complete) {
+                        handleCompletion(response.status.accuracy);
+                        
+                        // Auto-continue to next round if flag is set (and not paused)
+                        if (sessionStorage.getItem('ai_vs_ai_auto_continue') === 'true') {
+                            const currentRound = {{ round_number }};
+                            const totalRounds = {{ total_rounds }};
+                            
+                            if (currentRound < totalRounds) {
+                                setStatus('complete', `Round complete! Moving to round ${currentRound + 1} in 3s...`);
+                                setTimeout(() => {
+                                    if (!isPaused) {
+                                        document.querySelector('form').submit();
+                                    }
+                                }, 3000);
+                            } else {
+                                // Final round - clear flags
+                                sessionStorage.removeItem('ai_vs_ai_auto_continue');
+                                sessionStorage.removeItem('ai_vs_ai_delay');
+                                setStatus('complete', 'All rounds complete! Generating AI perceptions...');
+                                setTimeout(() => {
+                                    if (!isPaused) {
+                                        document.querySelector('form').submit();
+                                    }
+                                }, 2000);
+                            }
+                        }
+                        break;  // Exit the loop
+                    }
+                } else {
+                    console.warn('[runToCompletion] Unexpected response:', response);
+                    break;
+                }
+                
+                setProcessing(false);
+                
+                // Wait before next turn (allows server to handle other requests)
+                if (!isComplete && !isPaused && turnsRun < maxTurns) {
+                    setStatus('waiting', `Turn ${turnsRun} complete. Next turn in ${delay/1000}s...`);
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                }
+                
+            } catch (error) {
+                console.error('[runToCompletion] Error on turn:', error);
+                addMessage('system', 'Connection error: ' + error.message);
+                // Clear auto-continue on error
+                sessionStorage.removeItem('ai_vs_ai_auto_continue');
+                break;
+            }
+        }
+        
+        setProcessing(false);
+        
+        // Reset pause button if not paused
+        if (!isPaused) {
+            autoPlayBtn.textContent = '⏵⏵ Auto-Play';
+            autoPlayBtn.classList.remove('playing');
+        }
+        
+        if (isPaused) {
+            setStatus('active', `Paused after turn ${turnsRun} - click Next Turn or Auto-Play to continue`);
+        } else if (!isComplete) {
+            setStatus('active', 'Ready');
+        }
+    }
+
+    // Next round button
+    document.getElementById('next-round-btn').addEventListener('click', function() {
+        document.querySelector('form').submit();
+    });
+
+    // Functions
+    async function executeTurn() {
+        console.log('[executeTurn] Starting turn...');
+        setProcessing(true);
+        setStatus('active', 'AI thinking...');
+        
+        try {
+            console.log('[executeTurn] Calling liveSend...');
+            const response = await liveSend({ action: 'next_turn' });
+            console.log('[executeTurn] Got response:', response);
+            
+            if (response.success && response.turn_result) {
+                const result = response.turn_result;
+                console.log('[executeTurn] Turn result:', result);
+                
+                if (result.error) {
+                    addMessage('system', `Error: ${result.error}`);
+                } else if (result.message) {
+                    console.log('[executeTurn] Adding message:', result.speaker, result.message);
+                    addMessage(result.speaker, result.message);
+                    updateUIFromStatus(response.status);
+                    
+                    if (result.is_complete) {
+                        handleCompletion(response.status.accuracy);
+                    }
+                }
+            } else {
+                console.warn('[executeTurn] Response missing success or turn_result:', response);
+            }
+        } catch (error) {
+            console.error('[executeTurn] Error:', error);
+            addMessage('system', 'Connection error: ' + error.message);
+        }
+        
+        setProcessing(false);
+        setStatus('active', 'Ready');
+    }
+
+    function startAutoPlay() {
+        isAutoPlaying = true;
+        autoPlayBtn.textContent = '⏸ Pause';
+        autoPlayBtn.classList.add('playing');
+        
+        const delay = parseFloat(delaySlider.value) * 1000;
+        
+        async function tick() {
+            if (!isAutoPlaying || isComplete) {
+                stopAutoPlay();
+                return;
+            }
+            
+            await executeTurn();
+            
+            if (isAutoPlaying && !isComplete) {
+                autoPlayInterval = setTimeout(tick, delay);
+            }
+        }
+        
+        tick();
+    }
+
+    function stopAutoPlay() {
+        isAutoPlaying = false;
+        autoPlayBtn.textContent = '⏵⏵ Auto-Play';
+        autoPlayBtn.classList.remove('playing');
+        
+        if (autoPlayInterval) {
+            clearTimeout(autoPlayInterval);
+            autoPlayInterval = null;
+        }
+    }
+
+    function setProcessing(processing) {
+        isProcessing = processing;
+        nextTurnBtn.disabled = processing || isComplete;
+        // Keep pause button enabled during processing so user can pause
+        autoPlayBtn.disabled = isComplete;
+        runAllBtn.disabled = processing || isComplete;
+        runAllRoundsBtn.disabled = processing || isComplete;
+        
+        const spinner = nextTurnBtn.querySelector('.loading-spinner');
+        const text = nextTurnBtn.querySelector('.btn-text');
+        if (processing) {
+            spinner.style.display = 'inline-block';
+            text.style.opacity = '0.5';
+        } else {
+            spinner.style.display = 'none';
+            text.style.opacity = '1';
+        }
+    }
+
+    function setStatus(state, text) {
+        statusDot.className = 'status-dot ' + state;
+        statusText.textContent = text;
+    }
+
+    function addMessage(role, text) {
+        const msg = document.createElement('div');
+        msg.className = `message-ai message-${role}`;
+        msg.innerHTML = `
+            <div class="message-label">${role.toUpperCase()}</div>
+            ${escapeHtml(text)}
+        `;
+        chatMessages.appendChild(msg);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        
+        // Update turn count
+        const currentCount = parseInt(turnCount.textContent) || 0;
+        turnCount.textContent = currentCount + 1;
+    }
+
+    function updateMatcherGrid(sequence) {
+        // Clear all slots first
+        for (let i = 1; i <= 12; i++) {
+            const slot = document.getElementById(`matcher-slot-${i}`);
+            if (slot) {
+                slot.innerHTML = `<span class="position-badge">${i}</span>`;
+                slot.classList.remove('filled');
+                slot.classList.add('empty');
+            }
+        }
+        
+        // Fill in sequence
+        let filled = 0;
+        sequence.forEach(item => {
+            if (item.position && item.image) {
+                const slot = document.getElementById(`matcher-slot-${item.position}`);
+                if (slot) {
+                    slot.innerHTML = `
+                        <img src="/static/${item.image}" alt="Basket">
+                        <span class="position-badge">${item.position}</span>
+                    `;
+                    slot.classList.remove('empty');
+                    slot.classList.add('filled');
+                    filled++;
+                }
+            }
+        });
+        
+        filledCount.textContent = filled;
+    }
+
+    function updateSingleSlot(position, image) {
+        const slot = document.getElementById(`matcher-slot-${position}`);
+        if (slot) {
+            slot.innerHTML = `
+                <img src="/static/${image}" alt="Basket">
+                <span class="position-badge">${position}</span>
+            `;
+            slot.classList.remove('empty');
+            slot.classList.add('filled');
+            
+            // Flash animation to highlight new placement
+            slot.style.transition = 'transform 0.2s, box-shadow 0.2s';
+            slot.style.transform = 'scale(1.1)';
+            slot.style.boxShadow = '0 0 15px var(--success)';
+            setTimeout(() => {
+                slot.style.transform = 'scale(1)';
+                slot.style.boxShadow = 'none';
+            }, 300);
+            
+            // Update filled count
+            const currentFilled = document.querySelectorAll('.matcher-grid-panel .grid-slot-display.filled').length;
+            filledCount.textContent = currentFilled;
+        }
+    }
+
+    function updateUIFromStatus(status) {
+        if (status.partial_sequence) {
+            updateMatcherGrid(status.partial_sequence);
+        }
+        if (status.turn_count !== undefined) {
+            turnCount.textContent = status.turn_count;
+        }
+        if (status.filled_count !== undefined) {
+            filledCount.textContent = status.filled_count;
+        }
+    }
+
+    function handleCompletion(accuracy) {
+        isComplete = true;
+        stopAutoPlay();
+        setStatus('complete', 'Round complete');
+        
+        // Show completion banner
+        document.getElementById('final-accuracy').textContent = 
+            accuracy !== null ? `${Math.round(accuracy)}%` : '--';
+        completionBanner.style.display = 'block';
+        
+        // Show accuracy badge
+        if (accuracy !== null) {
+            document.getElementById('accuracy-value').textContent = Math.round(accuracy);
+            accuracyBadge.style.display = 'block';
+        }
+        
+        // Disable controls
+        nextTurnBtn.disabled = true;
+        autoPlayBtn.disabled = true;
+        runAllBtn.disabled = true;
+        runAllRoundsBtn.disabled = true;
+    }
+
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    // LiveSend helper
+    function liveSend(data) {
+        console.log('[liveSend] Sending data:', data);
+        console.log('[liveSend] window.liveSend exists:', typeof window.liveSend);
+        
+        return new Promise((resolve, reject) => {
+            if (typeof window.liveSend === 'function') {
+                window._pendingResolve = resolve;
+                console.log('[liveSend] Set _pendingResolve, calling window.liveSend...');
+                window.liveSend(data);
+                console.log('[liveSend] window.liveSend called, waiting for liveRecv...');
+            } else {
+                console.error('[liveSend] window.liveSend is not a function!');
+                reject(new Error('liveSend not available'));
+            }
+        });
+    }
+
+    // LiveRecv handler
+    window.liveRecv = function(data) {
+        console.log('[liveRecv] Received data:', data);
+        console.log('[liveRecv] _pendingResolve exists:', !!window._pendingResolve);
+        console.log('[liveRecv] js_vars.my_id:', js_vars.my_id);
+        
+        if (window._pendingResolve) {
+            // oTree wraps response in {player_id: response_data}
+            // Extract the actual response for this player
+            const myId = js_vars.my_id || Object.keys(data)[0];
+            const myData = data[myId] || data;
+            console.log('[liveRecv] Extracted myData:', myData);
+            window._pendingResolve(myData);
+            window._pendingResolve = null;
+        } else {
+            console.warn('[liveRecv] No pending resolve - data received without request');
+        }
+    };
+
+    // Initialize status
+    if (isComplete) {
+        handleCompletion({{ accuracy_js }});
+    } else {
+        setStatus('active', 'Ready');
+        
+        // Check if auto-continue is enabled from a previous round
+        if (sessionStorage.getItem('ai_vs_ai_auto_continue') === 'true') {
+            const savedDelay = sessionStorage.getItem('ai_vs_ai_delay');
+            if (savedDelay) {
+                delaySlider.value = savedDelay;
+                delayValue.textContent = savedDelay;
+            }
+            
+            // Show that auto-continue is active, but let user pause before it starts
+            setStatus('waiting', 'Auto-continue active - click Pause to stop');
+            autoPlayBtn.textContent = '⏸ Pause';
+            autoPlayBtn.classList.add('playing');
+            
+            // Auto-start after a brief delay to let the page render
+            // User can click Pause during this delay to cancel
+            setTimeout(async () => {
+                if (isPaused) {
+                    // User clicked pause during the delay
+                    setStatus('active', 'Paused - click Next Turn or Auto-Play to continue');
+                    autoPlayBtn.textContent = '⏵⏵ Auto-Play';
+                    autoPlayBtn.classList.remove('playing');
+                    return;
+                }
+                const currentRound = {{ round_number }};
+                const totalRounds = {{ total_rounds }};
+                setStatus('waiting', `Auto-continuing round ${currentRound}/${totalRounds}...`);
+                await runToCompletion(true);
+            }, 1500);  // Give user 1.5s to click Pause
+        }
+    }
+});
+</script>
+{% endblock %}
+

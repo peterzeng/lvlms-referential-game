@@ -11,79 +11,15 @@ from .ai_utils import (
     _generate_ai_reply,
     _update_ai_partial_sequence,
     generate_ai_partner_perceptions,
+    generate_ai_vs_ai_perceptions,
+    is_ai_vs_ai_session,
+    run_ai_vs_ai_turn,
+    get_ai_vs_ai_status,
 )
 
 
 class MyPage(Page):
     pass
-
-
-class HumanAIGroupingPage(WaitPage):
-    """Form single-player groups for human-AI sessions.
-
-    This WaitPage uses group_by_arrival_time to dynamically form groups as
-    participants arrive from Prolific. Each participant is placed in their
-    own single-player group, ensuring they have isolated group-level data
-    (ai_messages, shared_grid, etc.) for their AI partner interaction.
-
-    IMPORTANT: Must be FIRST in page_sequence for round 1 due to oTree
-    requirement that group_by_arrival_time pages come before other pages.
-    """
-
-    group_by_arrival_time = True
-    # No template needed - participants pass through immediately
-    template_name = "referential_task/HumanAIGrouping.html"
-
-    @staticmethod
-    def is_displayed(player: Player):
-        # Only show on round 1 - subsequent rounds keep the same grouping
-        return player.round_number == 1
-
-    def after_all_players_arrive(self):
-        """Initialize the player's role and group data."""
-        import random
-        import logging
-
-        group = self.group
-        players = group.get_players()
-        if not players:
-            return
-
-        player = players[0]  # Single-player group
-
-        # Determine the human's role for this session
-        try:
-            cfg_role = self.session.config.get('human_role')
-        except Exception:
-            cfg_role = None
-        if isinstance(cfg_role, str):
-            cfg_role = cfg_role.strip().lower()
-        if cfg_role not in ['director', 'matcher']:
-            cfg_role = random.choice(['director', 'matcher'])
-        role = cfg_role
-
-        player.player_role = role
-        player.participant.vars['role'] = role
-
-        # Persist basic identifiers for convenience/analysis
-        player.participant.vars['group_id'] = getattr(group, 'id', None)
-        player.participant.vars['id_in_group'] = player.id_in_group
-
-        # Store AI partner role metadata for downstream use
-        player.participant.vars['partner_role'] = (
-            'matcher' if role == 'director' else 'director'
-        )
-
-        # Create the shared grid for this group's first round
-        group.create_shared_grid(round_number=self.round_number)
-
-        logging.info(
-            "[HUMAN_AI_GROUPING] Initialized: session=%s participant=%s group_id=%s role=%s",
-            getattr(self.session, "code", None),
-            getattr(player.participant, "code", None),
-            getattr(group, "id", None),
-            role,
-        )
 
 
 class GridTaskWaitPage(WaitPage):
@@ -323,6 +259,10 @@ class DraggableGridPage(Page):
         if player.participant.vars.get("exited_waiting_room", False):
             return False
 
+        # Skip for AI vs AI sessions - use AIvsAIObservationPage instead
+        if is_ai_vs_ai_session(player):
+            return False
+
         # Default view is the grid view unless session config requests sequential
         view = (
             player.session.config.get("director_view", "grid")
@@ -333,8 +273,6 @@ class DraggableGridPage(Page):
 
     @staticmethod
     def vars_for_template(player: Player):
-        import logging
-        
         # Ensure we have a safe, consistent role value.
         role_value = player.field_maybe_none("player_role") or player.participant.vars.get(
             "role"
@@ -359,18 +297,6 @@ class DraggableGridPage(Page):
             player.participant.vars["partner_role"] = (
                 "matcher" if role_value == "director" else "director"
             )
-            logging.info(
-                "[PLAYER_INIT] Initialized player: session=%s participant=%s group_id=%s role=%s",
-                getattr(player.session, "code", None),
-                getattr(player.participant, "code", None),
-                getattr(player.group, "id", None),
-                role_value,
-            )
-        
-        # Persist group identifiers for analytics and exports
-        if "group_id" not in player.participant.vars:
-            player.participant.vars["group_id"] = getattr(player.group, "id", None)
-            player.participant.vars["id_in_group"] = player.id_in_group
 
         # Load shared grid that both players see (MUST happen before AI auto-start
         # so the grid image can be generated for the AI director)
@@ -496,17 +422,17 @@ class DraggableGridPage(Page):
 
         # Load preset full list for matcher extra baskets
         preset_full_list: list[str] = []
-        set_num = 5
+        set_num = 1
         try:
             # Respect session-configured basket set for the reference list as well
             try:
                 set_num = (
-                    int(player.session.config.get("basket_set", 5))
+                    int(player.session.config.get("basket_set", 1))
                     if hasattr(player, "session") and player.session
-                    else 5
+                    else 1
                 )
             except Exception:
-                set_num = 5
+                set_num = 1
             if set_num == 2:
                 preset_filename = "grids_presets2.json"
             elif set_num == 3:
@@ -1013,8 +939,40 @@ class DraggableGridPage(Page):
                 except Exception:
                     sequence = []
                 if sequence:
-                    DraggableGridPage._persist_matcher_sequence(player, sequence)
-                    auto_advance = True
+                    # Fail-safe: do not allow auto-submit unless all 12 logical positions
+                    # are filled with a non-null image.
+                    complete = True
+                    try:
+                        by_pos: dict[int, dict] = {}
+                        for item in sequence or []:
+                            if not isinstance(item, dict):
+                                continue
+                            try:
+                                p_int = int(item.get("position"))
+                            except Exception:
+                                continue
+                            if 1 <= p_int <= 12:
+                                by_pos[p_int] = item
+                        for p in range(1, 13):
+                            img = (by_pos.get(p) or {}).get("image")
+                            if not img:
+                                complete = False
+                                break
+                    except Exception:
+                        complete = False
+
+                    if complete:
+                        DraggableGridPage._persist_matcher_sequence(player, sequence)
+                        auto_advance = True
+                    else:
+                        import logging
+
+                        logging.info(
+                            "[AI_MATCHER] Ignoring ready_to_submit (sequence incomplete): session=%s round=%s sequence=%s",
+                            getattr(getattr(player, "session", None), "code", None),
+                            getattr(player, "round_number", None),
+                            sequence,
+                        )
             except Exception:
                 auto_advance = False
 
@@ -1111,6 +1069,10 @@ class RoundAttentionCheck(Page):
 
     @staticmethod
     def is_displayed(player: Player):
+        # Skip for AI vs AI mode (no human to answer)
+        if is_ai_vs_ai_session(player):
+            return False
+
         # Skip if this was an invalid match (partner exited)
         if player.participant.vars.get("invalid_match", False):
             return False
@@ -1218,6 +1180,9 @@ class Results(Page):
 
     @staticmethod
     def is_displayed(player: Player):
+        # Skip for AI vs AI mode (no human to show results to)
+        if is_ai_vs_ai_session(player):
+            return False
         # Hide for shapes demo; otherwise show only on final round
         try:
             if player.session.config.get("director_view", "grid") == "shapes_demo":
@@ -1258,6 +1223,9 @@ class Debriefing(Page):
 
     @staticmethod
     def is_displayed(player: Player):
+        # Skip for AI vs AI mode (no human to debrief)
+        if is_ai_vs_ai_session(player):
+            return False
         # Show only once, after the final round; hide for shapes demo
         try:
             if player.session.config.get("director_view", "grid") == "shapes_demo":
@@ -1281,6 +1249,9 @@ class PartnerPerceptions(Page):
 
     @staticmethod
     def is_displayed(player: Player):
+        # Skip for AI vs AI mode (perceptions generated via API instead)
+        if is_ai_vs_ai_session(player):
+            return False
         # Show after final round and skip shapes demo
         try:
             if player.session.config.get("director_view", "grid") == "shapes_demo":
@@ -1300,6 +1271,9 @@ class PartnerTypePerception(Page):
 
     @staticmethod
     def is_displayed(player: Player):
+        # Skip for AI vs AI mode (both are AIs, no human perception question needed)
+        if is_ai_vs_ai_session(player):
+            return False
         # Show after final round and skip shapes demo
         try:
             if player.session.config.get("director_view", "grid") == "shapes_demo":
@@ -1320,6 +1294,9 @@ class AIExperience(Page):
 
     @staticmethod
     def is_displayed(player: Player):
+        # Skip for AI vs AI mode (no human to ask about AI experience)
+        if is_ai_vs_ai_session(player):
+            return False
         # Show after final round and skip shapes demo
         try:
             if player.session.config.get("director_view", "grid") == "shapes_demo":
@@ -1359,6 +1336,10 @@ class DraggableSequentialPage(DraggableGridPage):
 
         # Skip if participant exited the waiting room
         if player.participant.vars.get("exited_waiting_room", False):
+            return False
+
+        # Skip for AI vs AI sessions - use AIvsAIObservationPage instead
+        if is_ai_vs_ai_session(player):
             return False
 
         view = (
@@ -1431,6 +1412,227 @@ class ShapesDemoPage(DraggableGridPage):
         }
 
 
+class AIvsAIObservationPage(Page):
+    """Observation page for AI vs AI sessions.
+
+    This page allows researchers to watch two AI agents (Director and Matcher)
+    play the basket matching game against each other. The conversation unfolds
+    in real-time, and the observer can control the pace.
+    """
+
+    template_name = "referential_task/AIvsAIObservation.html"
+
+    @staticmethod
+    def is_displayed(player: Player):
+        # Only show for AI vs AI sessions
+        return is_ai_vs_ai_session(player)
+
+    @staticmethod
+    def vars_for_template(player: Player):
+        import logging
+
+        # Load shared grid
+        try:
+            shared_grid = json.loads(player.group.shared_grid)
+        except (json.JSONDecodeError, TypeError):
+            shared_grid = []
+
+        # Safety fallback: create grid on-demand if missing (same as DraggableGridPage)
+        if not shared_grid:
+            try:
+                player.group.create_shared_grid(round_number=player.round_number)
+                shared_grid = json.loads(player.group.shared_grid or "[]")
+                logging.info("[AI_VS_AI] Created shared_grid on-demand with %d items", len(shared_grid))
+            except Exception as e:
+                logging.warning("[AI_VS_AI] Failed to create shared_grid on-demand: %s", e)
+                shared_grid = []
+
+        # Get current status
+        status = get_ai_vs_ai_status(player)
+
+        # Load preset full list for matcher pool display
+        preset_full_list = []
+        set_num = 1
+        try:
+            try:
+                set_num = int(player.session.config.get("basket_set", 1))
+            except Exception:
+                set_num = 1
+            if set_num == 2:
+                preset_filename = "grids_presets2.json"
+            elif set_num == 3:
+                preset_filename = "grids_presets3.json"
+            elif set_num == 4:
+                preset_filename = "grids_presets4.json"
+            elif set_num == 5:
+                preset_filename = "grids_presets5.json"
+            else:
+                preset_filename = "grids_presets1.json"
+            preset_path = os.path.join(os.path.dirname(__file__), preset_filename)
+            with open(preset_path, "r") as f:
+                presets = json.load(f)
+            for item in presets.get("rounds", []):
+                if isinstance(item, dict) and "fullList" in item:
+                    preset_full_list = [f"images/{img}" for img in item.get("fullList", [])]
+                    break
+        except Exception:
+            preset_full_list = []
+
+        # Build the staging baskets using the same shuffle as the human matcher page
+        # (DraggableGridPage) so the observation shows the same view.
+        staging_baskets_json = "[]"
+        try:
+            import random as _random
+
+            director_baskets = []
+            for slot in shared_grid or []:
+                if not isinstance(slot, dict):
+                    continue
+                img = (slot.get("image") or "").strip()
+                if not img:
+                    continue
+                director_baskets.append({
+                    "image": img,
+                    "position": slot.get("position"),
+                    "basket_id": slot.get("basket_id"),
+                })
+
+            director_set = {b.get("image") for b in director_baskets if b.get("image")}
+            candidate_extras = []
+            for img in preset_full_list or []:
+                img = (img or "").strip()
+                if not img or img in director_set:
+                    continue
+                candidate_extras.append(img)
+
+            extras = [{"image": img, "position": f"extra_{i}", "basket_id": 100 + i}
+                      for i, img in enumerate(candidate_extras[:6])]
+
+            all_baskets = director_baskets + extras
+
+            # Use the same deterministic shuffle as DraggableGridPage
+            round_num = int(getattr(player, "round_number", 1) or 1)
+            seed = 4242 + (set_num * 100) + round_num
+            rng = _random.Random(seed)
+            rng.shuffle(all_baskets)
+
+            staging_baskets_json = json.dumps(all_baskets)
+        except Exception:
+            staging_baskets_json = "[]"
+
+        # Session config for auto-play settings
+        try:
+            auto_play_delay = float(player.session.config.get("ai_vs_ai_delay", 0))
+        except Exception:
+            auto_play_delay = 0
+
+        try:
+            max_turns = int(player.session.config.get("ai_vs_ai_max_turns", 50))
+        except Exception:
+            max_turns = 50
+
+        # Get accuracy and format for JavaScript (number or "null" string)
+        accuracy = status.get("accuracy")
+        accuracy_js = "null" if accuracy is None else str(accuracy)
+
+        return {
+            "shared_grid": shared_grid,
+            "round_number": player.round_number,
+            "total_rounds": Constants.num_rounds,
+            "messages": status.get("messages", []),
+            "partial_sequence": json.dumps(status.get("partial_sequence", [])),
+            "filled_count": status.get("filled_count", 0),
+            "is_complete": status.get("is_complete", False),
+            "accuracy": accuracy,
+            "accuracy_js": accuracy_js,
+            "staging_baskets_json": staging_baskets_json,
+            "current_grid_state": json.dumps(shared_grid),
+            "auto_play_delay": auto_play_delay,
+            "max_turns": max_turns,
+            "session_code": getattr(player.session, "code", ""),
+            "group_id_for_debug": getattr(player.group, "id", None),
+        }
+
+    @staticmethod
+    def live_method(player: Player, data):
+        """Handle live interactions for AI vs AI observation."""
+        import logging
+
+        action = data.get("action")
+
+        if action == "next_turn":
+            # Execute one turn
+            result = run_ai_vs_ai_turn(player)
+            status = get_ai_vs_ai_status(player)
+
+            response = {
+                "success": True,
+                "turn_result": result,
+                "status": status,
+            }
+            return {player.id_in_group: response}
+
+        elif action == "get_status":
+            # Get current game status
+            status = get_ai_vs_ai_status(player)
+            return {
+                player.id_in_group: {
+                    "success": True,
+                    "status": status,
+                }
+            }
+
+        elif action == "run_to_completion":
+            # DEPRECATED: This action used to run all turns in a blocking loop,
+            # which caused server-wide blocking. Now handled client-side.
+            # Kept for backwards compatibility but just runs a single turn.
+            logging.warning(
+                "[AI_VS_AI] run_to_completion is deprecated - use client-side polling. "
+                "Running single turn instead."
+            )
+            result = run_ai_vs_ai_turn(player)
+            status = get_ai_vs_ai_status(player)
+
+            return {
+                player.id_in_group: {
+                    "success": True,
+                    "turns_run": 1,
+                    "is_complete": result.get("is_complete", False),
+                    "results": [result],
+                    "status": status,
+                }
+            }
+
+        return {
+            player.id_in_group: {
+                "success": False,
+                "error": f"Unknown action: {action}",
+            }
+        }
+
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        """Ensure the round is properly recorded before moving on."""
+        import logging
+
+        # If the round wasn't completed, mark it as such
+        if not player.task_completed:
+            import datetime
+            player.completion_time = datetime.datetime.now().isoformat()
+
+        # Generate AI vs AI perceptions on the final round
+        if is_last_round(player):
+            group = player.group
+            # Only generate if not already done
+            if group.field_maybe_none('ai_director_partner_capable') is None:
+                logging.info("[AI_VS_AI] Generating AI vs AI perceptions on final round...")
+                perceptions = generate_ai_vs_ai_perceptions(player)
+                if perceptions:
+                    logging.info("[AI_VS_AI] Successfully generated perceptions for both roles")
+                else:
+                    logging.warning("[AI_VS_AI] Failed to generate AI vs AI perceptions")
+
+
 class RoundFeedback(Page):
     """Feedback screen shown after every round (including the final round).
 
@@ -1444,6 +1646,10 @@ class RoundFeedback(Page):
 
     @staticmethod
     def is_displayed(player: Player):
+        # Skip for AI vs AI mode (feedback is already injected into AI context)
+        if is_ai_vs_ai_session(player):
+            return False
+
         # Skip if this was an invalid match (partner exited)
         if player.participant.vars.get("invalid_match", False):
             return False
@@ -1558,13 +1764,13 @@ class RoundFeedback(Page):
 
 
 page_sequence = [
-    # Human–AI mode: form single-player groups dynamically as participants arrive
-    # This MUST be first due to oTree's group_by_arrival_time requirement
-    HumanAIGroupingPage,
+    # Human–AI mode: participants arrive directly at the task pages;
+    # we do not use a waiting room or dynamic human–human matching.
     # Task pages
     ShapesDemoPage,
     DraggableGridPage,
     DraggableSequentialPage,
+    AIvsAIObservationPage,  # AI vs AI mode observation page
     RoundFeedback,
     RoundAttentionCheck,  # One question per round (rounds 1-3)
     ResultsWaitPage,

@@ -2,4 +2,4 @@
 from .models import Constants, Subsession, Group, Player
 
 # Import pages
-from .pages import HumanAIGroupingPage, GridTaskWaitPage, DraggableGridPage, ResultsWaitPage, Results, page_sequence
+from .pages import GridTaskWaitPage, DraggableGridPage, ResultsWaitPage, Results, page_sequence

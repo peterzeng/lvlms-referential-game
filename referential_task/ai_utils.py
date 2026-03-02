@@ -29,23 +29,151 @@ __all__ = [
     "_inject_visual_grid_context",
     "_should_log_v3_reasoning",
     "_get_ai_client",
+    "_api_call_with_retry",
     "_build_ai_messages_from_history",
     "_get_max_history_turns",
     "_get_prompt_strategy_name",
     "_generate_ai_reply",
     "_update_ai_partial_sequence",
-    "_is_reasoning_model",
+    "_is_gpt_5_2_model",
     "_get_ai_model",
-    "_get_ai_reasoning_effort",
-    "_build_model_params",
+    "_get_reasoning_effort",
+    "GPT_5_2_MODELS",
     "TASK_BACKGROUND",
-    "REASONING_MODELS",
-    "DEFAULT_MODEL",
-    "DEFAULT_REASONING_EFFORT",
 ]
 
 
 from openai import OpenAI
+
+# ---------------------------------------------------------------------------
+# GPT Model Configuration Helpers
+# ---------------------------------------------------------------------------
+
+# Models that support the reasoning_effort parameter (GPT-5.2+)
+GPT_5_2_MODELS = frozenset({
+    "gpt-5.2",
+    "gpt-5.2-mini",
+    "gpt-5.2-chat-latest",
+    "gpt-5.2-pro",
+})
+
+
+def _is_gpt_5_2_model(model: str) -> bool:
+    """Check if a model supports GPT-5.2 API features (reasoning_effort).
+    
+    Returns True for GPT-5.2 and later models that support reasoning_effort.
+    """
+    if not model:
+        return False
+    # Exact match in known set
+    if model in GPT_5_2_MODELS:
+        return True
+    # Pattern match for future 5.2+ variants (e.g., gpt-5.2-2025-01-01)
+    model_lower = model.lower()
+    return model_lower.startswith("gpt-5.2")
+
+
+def _uses_max_completion_tokens(model: str) -> bool:
+    """Check if a model requires max_completion_tokens instead of max_tokens.
+    
+    OpenAI's o1, o3, and gpt-5.x series models use max_completion_tokens.
+    """
+    if not model:
+        return False
+    model_lower = model.lower()
+    # o1, o3 series models
+    if model_lower.startswith(("o1", "o3")):
+        return True
+    # GPT-5.x series models
+    if model_lower.startswith("gpt-5"):
+        return True
+    return False
+
+
+def _get_ai_model(player: Player | None = None) -> str:
+    """Get the AI model to use from session config or environment.
+    
+    Priority:
+    1. Session config 'ai_model' (if player provided)
+    2. Environment variable OPENAI_MODEL
+    3. Default: 'gpt-5.2'
+    """
+    if player is not None:
+        try:
+            if hasattr(player, "session") and player.session:
+                cfg = player.session.config or {}
+                model = cfg.get("ai_model")
+                if model:
+                    return model
+        except Exception:
+            pass
+    return os.environ.get("OPENAI_MODEL", "gpt-5.2")
+
+
+def _get_reasoning_effort(player: Player | None = None) -> str:
+    """Get the reasoning effort level for GPT-5.2+ models.
+    
+    Priority:
+    1. Session config 'ai_reasoning_effort' (if player provided)
+    2. Default: 'none'
+    """
+    if player is not None:
+        try:
+            if hasattr(player, "session") and player.session:
+                cfg = player.session.config or {}
+                effort = cfg.get("ai_reasoning_effort")
+                if effort:
+                    return effort
+        except Exception:
+            pass
+    return "none"
+
+
+def _build_api_call_kwargs(
+    model: str,
+    messages: list,
+    player: Player | None = None,
+    temperature: float | None = None,
+    max_tokens: int | None = None,
+    response_format: dict | None = None,
+) -> dict:
+    """Build the kwargs dict for an OpenAI API call, handling GPT-5.2+ specifics.
+    
+    Automatically adds reasoning_effort for GPT-5.2+ models.
+    Uses max_completion_tokens for o1/o3/gpt-5.x models instead of max_tokens.
+    Skips temperature for reasoning models (o1/o3 or GPT-5.2+ with reasoning enabled).
+    """
+    kwargs = {
+        "model": model,
+        "messages": messages,
+    }
+    
+    # Determine if this is a reasoning model that doesn't support custom temperature
+    model_lower = model.lower() if model else ""
+    is_o_series = model_lower.startswith(("o1", "o3"))
+    reasoning_effort = _get_reasoning_effort(player) if _is_gpt_5_2_model(model) else "none"
+    is_reasoning_mode = is_o_series or (reasoning_effort != "none")
+    
+    # Only add temperature for non-reasoning models (reasoning models only support temperature=1)
+    if temperature is not None and not is_reasoning_mode:
+        kwargs["temperature"] = temperature
+    
+    if max_tokens is not None:
+        # Use max_completion_tokens for models that require it (o1, o3, gpt-5.x)
+        if _uses_max_completion_tokens(model):
+            kwargs["max_completion_tokens"] = max_tokens
+        else:
+            kwargs["max_tokens"] = max_tokens
+    
+    if response_format is not None:
+        kwargs["response_format"] = response_format
+    
+    # Add reasoning_effort for GPT-5.2+ models only
+    if _is_gpt_5_2_model(model):
+        kwargs["reasoning_effort"] = reasoning_effort
+    
+    return kwargs
+
 
 # Static image cache for VLM context images
 _STATIC_IMAGE_CACHE: dict[str, str] = {}
@@ -277,36 +405,11 @@ def _build_ai_director_grid_composite(player: Player) -> str | None:
     if not hasattr(player, "group"):
         return None
 
-    # Ensure the shared grid is created/refreshed for the current round
-    # This is critical for AI vs AI observation mode where rounds may advance
-    # without the normal page flow that refreshes the grid
+    # Load the 12 target baskets from the shared grid
     try:
-        current_round = int(getattr(player, "round_number", 1) or 1)
-        # Refresh grid if missing or if we're in a new round
-        # (safety check: ensure grid exists for current round)
-        try:
-            shared_grid = json.loads(getattr(player.group, "shared_grid", "") or "[]")
-            if not shared_grid:
-                # Grid is empty, create it for current round
-                import logging
-                logging.info("[AI_DIRECTOR_GRID] Empty grid detected, creating for round %d", current_round)
-                player.group.create_shared_grid(round_number=current_round)
-                shared_grid = json.loads(getattr(player.group, "shared_grid", "") or "[]")
-        except Exception:
-            # Grid parsing failed, recreate it
-            import logging
-            logging.warning("[AI_DIRECTOR_GRID] Failed to parse grid, recreating for round %d", current_round)
-            player.group.create_shared_grid(round_number=current_round)
-            try:
-                shared_grid = json.loads(getattr(player.group, "shared_grid", "") or "[]")
-            except Exception:
-                shared_grid = []
+        shared_grid = json.loads(getattr(player.group, "shared_grid", "") or "[]")
     except Exception:
-        # Fallback: try to load existing grid
-        try:
-            shared_grid = json.loads(getattr(player.group, "shared_grid", "") or "[]")
-        except Exception:
-            shared_grid = []
+        shared_grid = []
 
     if not shared_grid:
         return None
@@ -341,8 +444,11 @@ def _build_ai_director_grid_composite(player: Player) -> str | None:
     font_label = _load_font(18)
     font_instruction = _load_font(14)
 
-    # --- Header ---
-    heading = "TARGET SEQUENCE (Baskets 1–12)"
+    # Get round number for header
+    round_num = getattr(player, "round_number", 1) or 1
+
+    # --- Header with ROUND NUMBER to distinguish from feedback images ---
+    heading = f"ROUND {round_num} TARGET SEQUENCE (Baskets 1–12)"
     if font_header is not None:
         try:
             draw.text(
@@ -355,7 +461,7 @@ def _build_ai_director_grid_composite(player: Player) -> str | None:
             pass
 
     # --- Instruction line ---
-    instruction = "Describe in order: top row (1->6) then bottom row (7->12). Focus on one basket at a time."
+    instruction = f"ROUND {round_num}: Describe in order: top row (1->6) then bottom row (7->12). Focus on one basket at a time."
     if font_instruction is not None:
         try:
             draw.text(
@@ -424,8 +530,11 @@ def _build_ai_director_grid_composite(player: Player) -> str | None:
                 min_width=36,
             )
 
-    # Save debug image (best-effort, errors are logged but don't break the flow)
-    _debug_save_ai_director_grid_image(player, img_canvas)
+    # Save debug image
+    try:
+        _debug_save_ai_director_grid_image(player, img_canvas)
+    except Exception:
+        pass
 
     # Encode as data URL
     try:
@@ -443,45 +552,32 @@ def _debug_save_ai_director_grid_image(player: Player, img_canvas: Image.Image) 
 
     This lets researchers visually confirm the image context sent to the director AI.
     """
-    import logging
-    import datetime
-    
-    logging.info("[AI_DEBUG] _debug_save_ai_director_grid_image called")
-    
     try:
         app_dir = os.path.dirname(__file__)
         project_root = os.path.dirname(app_dir)
         debug_dir = os.path.join(project_root, "_static", "ai_debug")
-        
-        logging.info("[AI_DEBUG] Creating debug dir: %s", debug_dir)
         os.makedirs(debug_dir, exist_ok=True)
 
         session_code = ""
         try:
             if hasattr(player, "session") and player.session:
                 session_code = getattr(player.session, "code", "") or ""
-        except Exception as e:
-            logging.warning("[AI_DEBUG] Failed to get session_code: %s", e)
+        except Exception:
             session_code = ""
 
         group_id = ""
         try:
             if hasattr(player, "group") and player.group:
                 group_id = str(getattr(player.group, "id", "") or "")
-        except Exception as e:
-            logging.warning("[AI_DEBUG] Failed to get group_id: %s", e)
+        except Exception:
             group_id = ""
 
         round_num = ""
         try:
             round_num = str(getattr(player, "round_number", "") or "")
-        except Exception as e:
-            logging.warning("[AI_DEBUG] Failed to get round_num: %s", e)
+        except Exception:
             round_num = ""
 
-        # Add timestamp to make filenames unique and traceable
-        timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-        
         parts = ["ai_director_grid"]
         if session_code:
             parts.append(session_code)
@@ -489,16 +585,12 @@ def _debug_save_ai_director_grid_image(player: Player, img_canvas: Image.Image) 
             parts.append(f"g{group_id}")
         if round_num:
             parts.append(f"r{round_num}")
-        parts.append(timestamp)
         filename = "_".join(parts) + ".png"
 
         path = os.path.join(debug_dir, filename)
-        logging.info("[AI_DEBUG] Saving image to: %s", path)
         img_canvas.save(path, format="PNG")
-        logging.info("[AI_DEBUG] Successfully saved director grid image to: %s", path)
-    except Exception as e:
-        import traceback
-        logging.error("[AI_DEBUG] Failed to save director grid image: %s: %s\n%s", type(e).__name__, e, traceback.format_exc())
+    except Exception:
+        pass
 
 
 def _build_ai_matcher_grid_composite(player: Player) -> str | None:
@@ -617,8 +709,11 @@ def _build_ai_matcher_grid_composite(player: Player) -> str | None:
     font_small = _load_font(14)
     font_empty = _load_font(32)  # large "?" for empty slots
 
-    # --- Section Header: Current Sequence ---
-    heading1 = "YOUR CURRENT SEQUENCE (Positions 1–12)"
+    # Get round number for header
+    round_num = getattr(player, "round_number", 1) or 1
+
+    # --- Section Header: Current Sequence with ROUND NUMBER ---
+    heading1 = f"ROUND {round_num} - YOUR CURRENT SEQUENCE (Positions 1–12)"
     if font_header is not None:
         try:
             draw.text(
@@ -699,9 +794,9 @@ def _build_ai_matcher_grid_composite(player: Player) -> str | None:
                 min_width=36,
             )
 
-    # --- Section Header: Candidate Pool ---
+    # --- Section Header: Candidate Pool with ROUND NUMBER ---
     staging_origin_y = target_origin_y + target_height + PADDING + HEADER_H
-    heading2 = "CANDIDATE POOL (Choose from these baskets)"
+    heading2 = f"ROUND {round_num} - CANDIDATE POOL (Choose from these baskets)"
     if font_header is not None:
         try:
             draw.text(
@@ -1092,45 +1187,32 @@ def _debug_save_ai_matcher_grid_image(player: Player, img_canvas: Image.Image) -
     This lets researchers open a static URL or file and visually confirm that the
     image context sent to GPT‑4o matches the AI matcher debug view and human UI.
     """
-    import logging
-    import datetime
-    
-    logging.info("[AI_DEBUG] _debug_save_ai_matcher_grid_image called")
-    
     try:
         app_dir = os.path.dirname(__file__)
         project_root = os.path.dirname(app_dir)
         debug_dir = os.path.join(project_root, "_static", "ai_debug")
-        
-        logging.info("[AI_DEBUG] Creating debug dir: %s", debug_dir)
         os.makedirs(debug_dir, exist_ok=True)
 
         session_code = ""
         try:
             if hasattr(player, "session") and player.session:
                 session_code = getattr(player.session, "code", "") or ""
-        except Exception as e:
-            logging.warning("[AI_DEBUG] Failed to get session_code: %s", e)
+        except Exception:
             session_code = ""
 
         group_id = ""
         try:
             if hasattr(player, "group") and player.group:
                 group_id = str(getattr(player.group, "id", "") or "")
-        except Exception as e:
-            logging.warning("[AI_DEBUG] Failed to get group_id: %s", e)
+        except Exception:
             group_id = ""
 
         round_num = ""
         try:
             round_num = str(getattr(player, "round_number", "") or "")
-        except Exception as e:
-            logging.warning("[AI_DEBUG] Failed to get round_num: %s", e)
+        except Exception:
             round_num = ""
 
-        # Add timestamp to make filenames unique and traceable
-        timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-        
         parts = ["ai_matcher_grid"]
         if session_code:
             parts.append(session_code)
@@ -1138,16 +1220,13 @@ def _debug_save_ai_matcher_grid_image(player: Player, img_canvas: Image.Image) -
             parts.append(f"g{group_id}")
         if round_num:
             parts.append(f"r{round_num}")
-        parts.append(timestamp)
         filename = "_".join(parts) + ".png"
 
         path = os.path.join(debug_dir, filename)
-        logging.info("[AI_DEBUG] Saving matcher image to: %s", path)
         img_canvas.save(path, format="PNG")
-        logging.info("[AI_DEBUG] Successfully saved matcher grid image to: %s", path)
-    except Exception as e:
-        import traceback
-        logging.error("[AI_DEBUG] Failed to save matcher grid image: %s: %s\n%s", type(e).__name__, e, traceback.format_exc())
+    except Exception:
+        # Strictly best-effort; ignore any filesystem errors.
+        return None
 
 
 def _load_shared_grid_image_urls(player: Player) -> list[dict[str, Any]]:
@@ -1197,15 +1276,14 @@ def _load_matcher_pool_image_urls(player: Player) -> list[dict[str, Any]]:
             seen_paths.add(img_path)
 
     # Load preset fullList for this basket_set, mirroring DraggableGridPage.vars_for_template
-    set_num = 5  # Default; updated below if session config is available
     try:
         if hasattr(player, "session") and player.session:
             try:
-                set_num = int(player.session.config.get("basket_set", 5))
+                set_num = int(player.session.config.get("basket_set", 1))
             except Exception:
-                set_num = 5
+                set_num = 1
         else:
-            set_num = 5
+            set_num = 1
         if set_num == 2:
             preset_filename = "grids_presets2.json"
         elif set_num == 3:
@@ -1249,18 +1327,17 @@ def _load_matcher_pool_image_urls(player: Player) -> list[dict[str, Any]]:
             }
         )
 
-    # Shuffle the combined pool using the same deterministic seed as the human
-    # matcher's staging area (see DraggableGridPage.vars_for_template).
-    # This ensures the AI matcher sees baskets in the exact same order.
-    import random
+    # Use the same deterministic shuffle as DraggableGridPage.vars_for_template
+    # so the AI matcher sees the exact same basket arrangement as the human matcher.
     combined = base + extras
     try:
+        import random
         round_num = int(getattr(player, "round_number", 1) or 1)
+        seed = 4242 + (set_num * 100) + round_num
+        rng = random.Random(seed)
+        rng.shuffle(combined)
     except Exception:
-        round_num = 1
-    seed = 4242 + (set_num * 100) + round_num
-    rng = random.Random(seed)
-    rng.shuffle(combined)
+        pass  # If shuffle fails, return unshuffled
     return combined
 
 
@@ -1298,15 +1375,9 @@ def _inject_visual_grid_context(player: Player, messages: list[dict[str, Any]]):
         return messages
     
     import logging
-    # Log a short hash of the image so we can verify different rounds get different images
-    # (without flooding logs with 700KB of base64)
-    img_hash = hashlib.md5(composite_url.encode()).hexdigest()[:12] if composite_url else "none"
     logging.info(
-        "[VISUAL_CONTEXT] Generated composite image for %s, round=%s, URL length: %d bytes, hash=%s",
-        ai_role, 
-        getattr(player, "round_number", "?"),
-        len(composite_url) if composite_url else 0, 
-        img_hash
+        "[VISUAL_CONTEXT] Generated composite image for %s, URL length: %d bytes",
+        ai_role, len(composite_url) if composite_url else 0
     )
 
     # Get current round number for explicit context
@@ -1314,23 +1385,24 @@ def _inject_visual_grid_context(player: Player, messages: list[dict[str, Any]]):
 
     if ai_role == "director":
         intro_text = (
-            f"ROUND {current_round} TARGET GRID: This image shows the 12 baskets you must describe for the CURRENT round. "
-            f"Previous round feedback shows DIFFERENT baskets - use that to learn from mistakes, "
-            f"but describe ONLY the baskets in THIS image.\n\n"
-            "The grid shows 2 rows × 6 columns with Baskets 1–6 on the top row and Baskets 7–12 on the bottom row. "
-            "IMPORTANT: Describe ONE BASKET PER MESSAGE, not all at once. Wait for your partner to confirm before moving to the next basket. "
-            "Your MATCHER partner sees these 12 baskets mixed with additional distractors in their pool."
+            f"*** ROUND {current_round} TARGET GRID ***\n"
+            f"This image (labeled 'ROUND {current_round} TARGET SEQUENCE') shows the 12 baskets you must describe for THIS round.\n\n"
+            f"⚠️ CRITICAL: The baskets in Round {current_round} are in a DIFFERENT order than previous rounds. "
+            f"Do NOT confuse these with baskets from earlier rounds (shown in 'Feedback' images with green/red borders). "
+            f"ONLY describe the baskets in THIS image, labeled 'ROUND {current_round} TARGET SEQUENCE'.\n\n"
+            "Layout: 2 rows × 6 columns with Baskets 1–6 on the top row and Baskets 7–12 on the bottom row. "
+            "IMPORTANT: Describe ONE BASKET PER MESSAGE, in order. Wait for your partner to confirm before moving to the next basket."
         )
     else:
         intro_text = (
-            f"ROUND {current_round} MATCHER VIEW: This image shows your current sequence state for the CURRENT round. "
-            f"Previous round feedback shows DIFFERENT baskets - use that to learn from mistakes, "
-            f"but select ONLY from the baskets in THIS image.\n\n"
-            "In the composite image, the TOP TWO ROWS show your CURRENT 12‑position sequence as the MATCHER "
-            "(positions 1–12), and the BOTTOM THREE ROWS show your CANDIDATE POOL of baskets you can choose from. "
-            "Positions with baskets in the top grid are your current guesses; empty positions are still unfilled or were "
-            "cleared when you moved a basket. Every basket the DIRECTOR describes is one of the 12 true targets "
-            "hidden within this candidate pool."
+            f"*** ROUND {current_round} MATCHER VIEW ***\n"
+            f"This image shows your current sequence state for THIS round.\n\n"
+            f"⚠️ CRITICAL: The baskets in Round {current_round} are in a DIFFERENT order than previous rounds. "
+            f"Do NOT confuse these with baskets from earlier rounds (shown in 'Feedback' images with green/red borders). "
+            f"ONLY select from the candidates shown in THIS image.\n\n"
+            "Layout: TOP TWO ROWS show your CURRENT 12-position sequence (positions 1–12). "
+            "BOTTOM THREE ROWS show your CANDIDATE POOL of 18 baskets to choose from. "
+            "Match the DIRECTOR's descriptions to candidates in THIS image only."
         )
 
     multimodal_content: list[dict[str, Any]] = [
@@ -1383,126 +1455,83 @@ def _get_ai_client():
 
     We fail gracefully when the library or API key is missing so the app
     can still run (the chat will simply not have an AI partner reply).
+    
+    Supports local VLM servers (vLLM, SGLang, Ollama) via OPENAI_API_BASE env var.
+    When OPENAI_API_BASE is set, points to that endpoint instead of OpenAI.
     """
     if OpenAI is None:
         return None
+    
+    # Check for local/custom API endpoint (vLLM, SGLang, Ollama, etc.)
+    base_url = os.environ.get("OPENAI_API_BASE") or os.environ.get("OPENAI_BASE_URL")
     api_key = os.environ.get("OPENAI_API_KEY")
+    
+    if base_url:
+        # Local endpoint - API key may be optional (use dummy if not provided)
+        return OpenAI(
+            base_url=base_url,
+            api_key=api_key or "not-needed",
+        )
+    
+    # Remote OpenAI - requires real API key
     if not api_key:
         return None
     return OpenAI(api_key=api_key)
 
 
-# ---------------------------------------------------------------------------
-# Model Configuration Helpers
-# ---------------------------------------------------------------------------
+def _api_call_with_retry(api_func, max_retries: int = 3, base_delay: float = 2.0):
+    """Execute an API call with exponential backoff retry on rate limit errors.
 
-# Reasoning models use reasoning_effort parameter instead of temperature
-REASONING_MODELS = frozenset([
-    "gpt-5", "gpt-5.1", "gpt-5.2", "gpt-5.2-pro", "gpt-5.2-chat-latest",
-    "o1", "o1-mini", "o1-preview", "o3", "o3-mini",
-])
+    Args:
+        api_func: A callable that makes the API request (no arguments)
+        max_retries: Maximum number of retry attempts (default 3)
+        base_delay: Initial delay in seconds (doubles each retry)
 
-# Default model and reasoning effort
-DEFAULT_MODEL = "gpt-5.2"
-DEFAULT_REASONING_EFFORT = "none"  # Options: "none", "low", "medium", "high"
+    Returns:
+        The result of api_func() if successful
 
-
-def _is_reasoning_model(model: str) -> bool:
-    """Check if the model is a reasoning model that uses reasoning_effort parameter.
-    
-    Reasoning models (GPT-5+, o1, o3) use `reasoning_effort` instead of `temperature`.
-    Traditional models (GPT-4o, GPT-4) use `temperature`.
+    Raises:
+        The last exception if all retries are exhausted
     """
-    if not model:
-        return False
-    model_lower = model.lower().strip()
-    # Check exact matches first
-    if model_lower in REASONING_MODELS:
-        return True
-    # Check prefixes for versioned models
-    for prefix in ("gpt-5", "o1", "o3"):
-        if model_lower.startswith(prefix):
-            return True
-    return False
+    import logging
+    import time
 
+    last_exception = None
 
-def _get_ai_model(player: Player | None) -> str:
-    """Get the AI model to use for this session.
-    
-    Priority:
-    1. session.config['ai_model']
-    2. OPENAI_MODEL environment variable
-    3. DEFAULT_MODEL (gpt-5.2)
-    """
-    # Session-level override
-    try:
-        if player and hasattr(player, "session") and player.session:
-            cfg_model = player.session.config.get("ai_model")
-            if isinstance(cfg_model, str) and cfg_model.strip():
-                return cfg_model.strip()
-    except Exception:
-        pass
-    
-    # Environment variable
-    env_model = os.environ.get("OPENAI_MODEL", "").strip()
-    if env_model:
-        return env_model
-    
-    return DEFAULT_MODEL
+    for attempt in range(max_retries + 1):
+        try:
+            return api_func()
+        except Exception as e:
+            last_exception = e
+            err_name = type(e).__name__
 
+            # Check if it's a rate limit or server error worth retrying
+            is_retryable = any(x in err_name.lower() for x in ['ratelimit', 'rate_limit', 'timeout', 'connection', 'server'])
+            # Also check error message for rate limit indicators
+            err_msg = str(e).lower()
+            if 'rate' in err_msg or '429' in err_msg or '503' in err_msg or '502' in err_msg:
+                is_retryable = True
 
-def _get_ai_reasoning_effort(player: Player | None) -> str | None:
-    """Get the reasoning effort level for reasoning models.
-    
-    Priority:
-    1. session.config['ai_reasoning_effort']
-    2. AI_REASONING_EFFORT environment variable
-    3. DEFAULT_REASONING_EFFORT ("none")
-    
-    Returns None for traditional models that don't support reasoning_effort.
-    Valid values: "none", "low", "medium", "high"
-    """
-    # Session-level override
-    try:
-        if player and hasattr(player, "session") and player.session:
-            cfg_effort = player.session.config.get("ai_reasoning_effort")
-            if isinstance(cfg_effort, str) and cfg_effort.strip():
-                return cfg_effort.strip().lower()
-    except Exception:
-        pass
-    
-    # Environment variable
-    env_effort = os.environ.get("AI_REASONING_EFFORT", "").strip().lower()
-    if env_effort:
-        return env_effort
-    
-    return DEFAULT_REASONING_EFFORT
+            if not is_retryable or attempt >= max_retries:
+                # Non-retryable error or exhausted retries
+                if attempt > 0:
+                    logging.warning("[API_RETRY] All %d retries exhausted for %s: %s", max_retries, err_name, e)
+                raise
 
+            # Calculate exponential backoff delay
+            delay = base_delay * (2 ** attempt)
+            # Add jitter (±20%)
+            jitter = delay * 0.2 * (2 * random.random() - 1)
+            delay = delay + jitter
 
-def _build_model_params(player: Player | None, response_format: dict | None = None) -> dict[str, Any]:
-    """Build model-specific parameters for the OpenAI API call.
-    
-    Returns a dict with model-appropriate parameters:
-    - For reasoning models (GPT-5+, o1, o3): uses reasoning_effort
-    - For traditional models (GPT-4o): uses temperature
-    """
-    model = _get_ai_model(player)
-    params: dict[str, Any] = {"model": model}
-    
-    if _is_reasoning_model(model):
-        # Reasoning models use reasoning_effort instead of temperature
-        effort = _get_ai_reasoning_effort(player)
-        if effort:
-            params["reasoning_effort"] = effort
-    else:
-        # Traditional models use temperature
-        params["temperature"] = 0
-    
-    # Add response format if specified (works for both model types)
-    if response_format is not None:
-        params["response_format"] = response_format
-    
-    return params
+            logging.warning(
+                "[API_RETRY] %s on attempt %d/%d, retrying in %.1fs: %s",
+                err_name, attempt + 1, max_retries + 1, delay, str(e)[:100]
+            )
+            time.sleep(delay)
+
+    # Should not reach here, but just in case
+    raise last_exception
 
 
 def _ai_debug_enabled(player: Player | None) -> bool:
@@ -1613,19 +1642,50 @@ def _build_ai_messages_from_history(player: Player, history):
     - Human messages are mapped to role='user'
     - AI messages are mapped to role='assistant'
     - Feedback/system messages are mapped to role='user' (shared context info)
-    - Feedback messages with images become multimodal content
+    - Round boundary markers are inserted when the round changes (for cross-round history)
     """
     messages: list[dict[str, Any]] = []
     human_role = (
         player.field_maybe_none("player_role") or player.participant.vars.get("role")
     )
     ai_role = "matcher" if human_role == "director" else "director"
+    
+    # Get current round to distinguish past rounds from current round
+    current_round = getattr(player, "round_number", 1) or 1
+    
+    # Track the last round we saw to insert boundary markers
+    last_seen_round = None
 
     for msg in history:
+        msg_round = msg.get("round_number")
         sender = msg.get("sender_role")
         text = (msg.get("text") or "").strip()
         if not text:
             continue
+        
+        # Insert a round boundary marker when entering a new round's messages
+        # This helps the model understand that basket arrangements differ per round
+        if msg_round is not None and msg_round != last_seen_round:
+            if last_seen_round is not None or msg_round < current_round:
+                # Insert marker for previous round history
+                if msg_round < current_round:
+                    boundary_text = (
+                        f"═══ ROUND {msg_round} HISTORY (PAST - DIFFERENT BASKETS) ═══\n"
+                        f"The following messages are from Round {msg_round}, which had a DIFFERENT basket arrangement. "
+                        f"Learn from the communication strategies and terminology that worked, but do NOT reuse "
+                        f"descriptions literally - the baskets are in different positions now."
+                    )
+                    messages.append({"role": "user", "content": boundary_text})
+                elif msg_round == current_round and last_seen_round is not None:
+                    # Entering current round after seeing past history
+                    boundary_text = (
+                        f"═══ ROUND {msg_round} (CURRENT ROUND - ACTIVE) ═══\n"
+                        f"The following messages are from the CURRENT round. "
+                        f"Use the image labeled 'ROUND {msg_round}' to see the actual basket arrangement."
+                    )
+                    messages.append({"role": "user", "content": boundary_text})
+            last_seen_round = msg_round
+        
         if sender == ai_role:
             role = "assistant"
         elif sender == "system" or msg.get("is_feedback"):
@@ -1635,17 +1695,11 @@ def _build_ai_messages_from_history(player: Player, history):
         else:
             role = "user"
 
-        # Handle multimodal feedback messages with images
-        image_url = msg.get("image_url")
-        if image_url and msg.get("is_feedback"):
-            # Create multimodal content for feedback with visual
-            content = [
-                {"type": "text", "text": text},
-                {"type": "image_url", "image_url": {"url": image_url}},
-            ]
-            messages.append({"role": role, "content": content})
-        else:
-            messages.append({"role": role, "content": text})
+        # NOTE: We intentionally DO NOT include feedback images in the prompt.
+        # Including feedback images (with green/red borders from previous rounds)
+        # confuses the model - it describes baskets from feedback images instead of
+        # the current round's target grid. The text description of results is sufficient.
+        messages.append({"role": role, "content": text})
     return messages
 
 
@@ -1768,31 +1822,6 @@ def _generate_ai_reply(player: Player, latest_message):
     This function is intentionally conservative and fails silently if the
     OpenAI client is not available or any error occurs.
     """
-    # Safety check: Ensure the shared grid is refreshed for the current round
-    # This is critical for AI vs AI observation mode where rounds may advance
-    # without the normal page flow that refreshes the grid
-    try:
-        if hasattr(player, "group") and hasattr(player, "round_number"):
-            current_round = int(getattr(player, "round_number", 1) or 1)
-            # Check if grid exists and is valid
-            try:
-                shared_grid = json.loads(getattr(player.group, "shared_grid", "") or "[]")
-                if not shared_grid:
-                    # Grid is empty, refresh it for current round
-                    import logging
-                    logging.info("[AI_REPLY] Empty grid detected at round %d, refreshing...", current_round)
-                    player.group.create_shared_grid(round_number=current_round)
-            except Exception:
-                # Grid parsing failed, refresh it
-                import logging
-                logging.warning("[AI_REPLY] Failed to parse grid at round %d, refreshing...", current_round)
-                try:
-                    player.group.create_shared_grid(round_number=current_round)
-                except Exception:
-                    pass  # Continue anyway, let _build_ai_director_grid_composite handle it
-    except Exception:
-        pass  # Non-fatal, continue with reply generation
-    
     client = _get_ai_client()
     if client is None:
         # Optional: surface a visible debug message instead of failing silently.
@@ -2005,24 +2034,23 @@ def _generate_ai_reply(player: Player, latest_message):
                             m["round_number"] = round_num
                         ai_msgs.append(m)
                 
-                # For completed rounds (before current), inject feedback summary
-                # This mirrors what the human sees on the RoundFeedback screen
+                # For completed rounds (before current), inject feedback summary (text only)
+                # NOTE: We intentionally do NOT include feedback images because they
+                # confuse the model - it describes baskets from feedback images instead
+                # of the current round's target grid.
                 if round_num is not None and round_num < current_round:
                     correct_count = _compute_round_correct_count(p_round)
                     if correct_count is not None:
-                        # Generate visual feedback image (same as human sees)
-                        feedback_image_url = _build_round_feedback_image(p_round)
                         feedback_msgs.append({
                             "text": (
-                                f"[ROUND {round_num} FEEDBACK: We got {correct_count}/12 baskets correct. "
-                                f"Green borders = correct placements, Red borders = mistakes. "
-                                f"Use this feedback to learn what went wrong and improve your communication/selection strategy. "
-                                f"NOTE: This image shows Round {round_num}'s baskets which are DIFFERENT from the current round.]"
+                                f"[ROUND {round_num} COMPLETE: {correct_count}/12 correct. "
+                                f"NOTE: The baskets have been RESHUFFLED for the next round - "
+                                f"position numbers no longer correspond to the same baskets. "
+                                f"Learn from communication strategies, but describe baskets fresh from the new image.]"
                             ),
                             "sender_role": "system",
                             "round_number": round_num,
-                            "is_feedback": True,  # Used for sort ordering
-                            "image_url": feedback_image_url,  # Visual feedback (may be None)
+                            "is_feedback": True,
                         })
         else:
             # Single-round history (no cross-round context)
@@ -2110,7 +2138,7 @@ def _generate_ai_reply(player: Player, latest_message):
                     f"START OF ROUND {current_round}: This is a NEW round with the baskets in a DIFFERENT ORDER. "
                     f"The basket positions have been reshuffled - Basket 1 in this round is NOT the same as Basket 1 from previous rounds. "
                     f"Please describe ONLY Basket 1 (top-left in the grid) for now. "
-                    f"Do NOT describe multiple baskets - just Basket 1. Wait for a response before moving to Basket 2."
+                    f"Do NOT describe multiple baskets - just Basket 1. Wait for my response before moving to Basket 2."
                 )
             })
             logging.info("[AI_DIRECTOR] Added explicit start prompt for round %d", current_round)
@@ -2217,14 +2245,21 @@ def _generate_ai_reply(player: Player, latest_message):
             # Best-effort debug only; never break the main flow.
             pass
 
-        # Build model-specific parameters (handles reasoning vs traditional models)
+        # Moderate temperature for consistent, focused responses from both roles
         response_format = None
         if ai_role == "matcher":
             response_format = {"type": "json_object"}
 
-        # Get model parameters based on configured model type
-        completion_kwargs = _build_model_params(player, response_format)
-        completion_kwargs["messages"] = chat_messages
+        base_temperature = 0
+        model = _get_ai_model(player)
+        completion_kwargs = _build_api_call_kwargs(
+            model=model,
+            messages=chat_messages,
+            player=player,
+            temperature=base_temperature,
+            response_format=response_format,
+        )
+        logging.info("[AI_REPLY] Using model: %s (is_gpt_5_2=%s)", model, _is_gpt_5_2_model(model))
 
         # Debug: log message structure to verify image is included
         for i, msg in enumerate(chat_messages):
@@ -2250,7 +2285,9 @@ def _generate_ai_reply(player: Player, latest_message):
                 logging.info("[API_MSG %d] role=%s, content: %s...", i, role, content_preview)
         
         try:
-            completion = client.chat.completions.create(**completion_kwargs)
+            completion = _api_call_with_retry(
+                lambda: client.chat.completions.create(**completion_kwargs)
+            )
         except Exception as api_err:
             logging.error("[AI_DEBUG] OpenAI API call failed: %s: %s", type(api_err).__name__, api_err)
             raise
@@ -2608,12 +2645,18 @@ def generate_ai_partner_perceptions(player: Player) -> dict[str, Any] | None:
             {"role": "user", "content": conversation_text},
         ]
 
-        # Call the API with model-specific parameters
-        perception_params = _build_model_params(player)
-        perception_params["messages"] = messages
-        perception_params["max_tokens"] = 500
-        
-        response = client.chat.completions.create(**perception_params)
+        # Call the API with retry logic
+        model = _get_ai_model(player)
+        api_kwargs = _build_api_call_kwargs(
+            model=model,
+            messages=messages,
+            player=player,
+            temperature=0.3,
+            max_tokens=500,
+        )
+        response = _api_call_with_retry(
+            lambda: client.chat.completions.create(**api_kwargs)
+        )
 
         reply = response.choices[0].message.content
         if not reply:
@@ -2668,6 +2711,808 @@ def generate_ai_partner_perceptions(player: Player) -> dict[str, Any] | None:
             type(e).__name__, e, traceback.format_exc()
         )
         return None
+
+
+# ---------------------------------------------------------------------------
+# AI vs AI Partner Perceptions
+# ---------------------------------------------------------------------------
+# In AI vs AI mode, we generate perceptions for both AI Director and AI Matcher
+# about each other, storing them separately for analysis.
+# ---------------------------------------------------------------------------
+
+AI_VS_AI_PERCEPTION_PROMPT = """
+You just completed a collaborative basket-ordering task with an AI partner across {num_rounds} rounds.
+In this task, you and your partner worked together to correctly order 12 baskets.
+
+YOUR ROLE: {my_role}
+YOUR PARTNER'S ROLE: {partner_role}
+
+Based on the complete conversation history below, please evaluate your AI partner
+by answering these questions. Even though your partner is also an AI, please provide
+thoughtful ratings based on how effectively they communicated and collaborated.
+
+For each statement, provide a rating from 1 to 5 where:
+1 = strongly disagree
+2 = disagree
+3 = neutral
+4 = agree
+5 = strongly agree
+
+Please respond with a JSON object in the following format:
+{{
+    "partner_capable": <1-5>,
+    "partner_helpful": <1-5>,
+    "partner_understood": <1-5>,
+    "partner_adapted": <1-5>,
+    "collaboration_improved": <1-5>,
+    "partner_comment": "<your comment about how your partner performed>"
+}}
+
+The questions are:
+- partner_capable: "My partner was capable of doing their task"
+- partner_helpful: "My partner was helpful to me for completing my task"
+- partner_understood: "My partner understood what I was trying to communicate"
+- partner_adapted: "My partner adapted to the way I communicated over time"
+- collaboration_improved: "Our collaboration improved over time"
+- partner_comment: "Please comment about how your partner did the task"
+
+Be honest and thoughtful in your evaluation based on the conversation history.
+""".strip()
+
+
+def generate_ai_vs_ai_perceptions(player: Player) -> dict[str, dict[str, Any]] | None:
+    """Generate perceptions for both AI Director and AI Matcher about each other.
+
+    This is used in AI vs AI mode where both participants are AI agents.
+    We generate perceptions from both perspectives to analyze AI-AI collaboration.
+
+    Returns a dict with:
+        - director: Director's perceptions of Matcher
+        - matcher: Matcher's perceptions of Director
+    Or None if generation fails completely.
+    """
+    import logging
+
+    client = _get_ai_client()
+    if client is None:
+        logging.warning("[AI_VS_AI_PERCEPTIONS] No OpenAI client available")
+        return None
+
+    try:
+        # Gather complete chat history across all rounds
+        all_messages = []
+        num_rounds = Constants.num_rounds
+
+        # For AI vs AI, messages are stored in group.ai_messages
+        for round_num in range(1, num_rounds + 1):
+            round_player = player.in_round(round_num)
+            try:
+                ai_msgs = json.loads(round_player.group.ai_messages or "[]")
+                for msg in ai_msgs:
+                    if isinstance(msg, dict):
+                        msg["round"] = round_num
+                        all_messages.append(msg)
+            except (json.JSONDecodeError, TypeError, AttributeError):
+                pass
+
+        # Sort messages
+        def _ts_key(m):
+            return (
+                m.get("round", 0),
+                m.get("server_ts") or m.get("timestamp") or "",
+            )
+        all_messages.sort(key=_ts_key)
+
+        if not all_messages:
+            logging.warning("[AI_VS_AI_PERCEPTIONS] No messages found in history")
+            return None
+
+        # Format conversation history
+        def _format_conversation(my_role: str, partner_role: str) -> str:
+            text = f"=== COMPLETE CONVERSATION HISTORY ===\n\n"
+            current_round = 0
+            for msg in all_messages:
+                msg_round = msg.get("round", 0)
+                if msg_round != current_round:
+                    current_round = msg_round
+                    text += f"\n--- Round {current_round} ---\n\n"
+
+                sender = msg.get("sender_role", "unknown")
+                content = msg.get("text", "")
+                if content:
+                    if sender == my_role:
+                        label = f"YOU ({my_role})"
+                    elif sender == partner_role:
+                        label = f"YOUR PARTNER ({partner_role})"
+                    else:
+                        label = sender.upper()
+                    text += f"{label}: {content}\n"
+            return text
+
+        # Generate perceptions for both roles
+        results = {}
+        model = _get_ai_model(None)  # No player context, use env var
+
+        for my_role, partner_role in [("director", "matcher"), ("matcher", "director")]:
+            try:
+                prompt = AI_VS_AI_PERCEPTION_PROMPT.format(
+                    num_rounds=num_rounds,
+                    my_role=my_role.upper(),
+                    partner_role=partner_role.upper(),
+                )
+                conversation = _format_conversation(my_role, partner_role)
+
+                messages = [
+                    {"role": "system", "content": prompt},
+                    {"role": "user", "content": conversation},
+                ]
+
+                api_kwargs = _build_api_call_kwargs(
+                    model=model,
+                    messages=messages,
+                    player=None,
+                    temperature=0.3,
+                    max_tokens=500,
+                )
+                response = _api_call_with_retry(
+                    lambda: client.chat.completions.create(**api_kwargs)
+                )
+
+                reply = response.choices[0].message.content
+                if not reply:
+                    logging.warning("[AI_VS_AI_PERCEPTIONS] Empty response for %s", my_role)
+                    continue
+
+                # Parse JSON response
+                reply = reply.strip()
+                if "```json" in reply:
+                    start = reply.find("```json") + 7
+                    end = reply.find("```", start)
+                    if end > start:
+                        reply = reply[start:end].strip()
+                elif "```" in reply:
+                    start = reply.find("```") + 3
+                    end = reply.find("```", start)
+                    if end > start:
+                        reply = reply[start:end].strip()
+
+                perceptions = json.loads(reply)
+
+                # Validate and clamp values
+                result = {}
+                for key in ["partner_capable", "partner_helpful", "partner_understood",
+                            "partner_adapted", "collaboration_improved"]:
+                    val = perceptions.get(key)
+                    if isinstance(val, (int, float)):
+                        result[key] = max(1, min(5, int(val)))
+                    else:
+                        result[key] = 3  # Default to neutral
+
+                result["partner_comment"] = str(perceptions.get("partner_comment", ""))[:2000]
+                result["raw"] = json.dumps(perceptions)
+                results[my_role] = result
+
+                logging.info("[AI_VS_AI_PERCEPTIONS] Generated %s perceptions: %s",
+                             my_role, {k: v for k, v in result.items() if k != "raw"})
+
+            except Exception as e:
+                logging.error("[AI_VS_AI_PERCEPTIONS] Error generating %s perceptions: %s", my_role, e)
+                continue
+
+        if not results:
+            return None
+
+        # Store in the group (use final round's group)
+        group = player.group
+        if "director" in results:
+            d = results["director"]
+            group.ai_director_partner_capable = d.get("partner_capable")
+            group.ai_director_partner_helpful = d.get("partner_helpful")
+            group.ai_director_partner_understood = d.get("partner_understood")
+            group.ai_director_partner_adapted = d.get("partner_adapted")
+            group.ai_director_collaboration_improved = d.get("collaboration_improved")
+            group.ai_director_partner_comment = d.get("partner_comment", "")
+            group.ai_director_perceptions_raw = d.get("raw", "")
+
+        if "matcher" in results:
+            m = results["matcher"]
+            group.ai_matcher_partner_capable = m.get("partner_capable")
+            group.ai_matcher_partner_helpful = m.get("partner_helpful")
+            group.ai_matcher_partner_understood = m.get("partner_understood")
+            group.ai_matcher_partner_adapted = m.get("partner_adapted")
+            group.ai_matcher_collaboration_improved = m.get("collaboration_improved")
+            group.ai_matcher_partner_comment = m.get("partner_comment", "")
+            group.ai_matcher_perceptions_raw = m.get("raw", "")
+
+        return results
+
+    except Exception as e:
+        import traceback
+        logging.error(
+            "[AI_VS_AI_PERCEPTIONS] Error: %s: %s\n%s",
+            type(e).__name__, e, traceback.format_exc()
+        )
+        return None
+
+
+# ---------------------------------------------------------------------------
+# AI vs AI Orchestration
+# ---------------------------------------------------------------------------
+# These functions allow running both Director and Matcher as AI agents,
+# enabling VLM performance evaluation on the basket matching task.
+# ---------------------------------------------------------------------------
+
+__all__.extend([
+    "generate_ai_vs_ai_reply",
+    "run_ai_vs_ai_turn",
+    "is_ai_vs_ai_session",
+    "get_ai_vs_ai_status",
+    "generate_ai_vs_ai_perceptions",
+])
+
+
+def is_ai_vs_ai_session(player: Player) -> bool:
+    """Check if the current session is configured for AI vs AI mode."""
+    try:
+        if hasattr(player, "session") and player.session:
+            return bool(player.session.config.get("ai_vs_ai_mode", False))
+    except Exception:
+        pass
+    return False
+
+
+def generate_ai_vs_ai_reply(
+    player: Player,
+    role: str,
+    latest_message: str | None,
+) -> dict[str, Any] | None:
+    """Generate an AI reply for a specific role in AI vs AI mode.
+
+    This function is similar to _generate_ai_reply but allows explicit
+    specification of which role (director/matcher) to generate for,
+    rather than inferring from the player's human role.
+    
+    Supports multiple AI providers (OpenAI, Gemini) per role via session config:
+    - ai_director_model / ai_director_provider: Director's model config
+    - ai_matcher_model / ai_matcher_provider: Matcher's model config
+
+    Args:
+        player: The oTree Player object (used for group/session context)
+        role: Either "director" or "matcher" - the AI role to generate for
+        latest_message: The most recent message from the other AI, or None for start
+
+    Returns:
+        A dict with "text" (utterance) and "selection" (for matcher) fields,
+        or None on failure.
+    """
+    import logging
+    from .ai_providers import (
+        get_model_config_for_role,
+        call_ai_api,
+        has_ai_client_for_role,
+    )
+
+    if role not in ("director", "matcher"):
+        logging.error("[AI_VS_AI] Invalid role: %s", role)
+        return None
+
+    # Get role-specific model configuration
+    model_config = get_model_config_for_role(player, role)
+    
+    if not has_ai_client_for_role(player, role):
+        logging.warning("[AI_VS_AI] No AI client available for %s (provider=%s)", 
+                       role, model_config.get("provider"))
+        return None
+
+    try:
+        # Build chat history from group's AI messages
+        human_msgs = []
+        ai_msgs = []
+
+        # In AI vs AI mode, both sets of messages are in ai_messages
+        # We need to load messages and attribute them to the correct role
+        try:
+            all_ai_msgs = json.loads(player.group.ai_messages or "[]")
+        except Exception:
+            all_ai_msgs = []
+
+        # Get current round info
+        current_round = getattr(player, "round_number", 1) or 1
+
+        # If using cross-round history, gather from all rounds
+        use_cross_round_history = False
+        try:
+            if hasattr(player, "session") and player.session:
+                use_cross_round_history = bool(
+                    player.session.config.get("cross_round_history", False)
+                )
+        except Exception:
+            use_cross_round_history = False
+
+        feedback_msgs = []
+        if use_cross_round_history:
+            try:
+                all_round_players = player.in_all_rounds()
+            except Exception:
+                all_round_players = [player]
+
+            for p_round in all_round_players:
+                round_num = getattr(p_round, "round_number", None)
+                try:
+                    round_msgs = json.loads(p_round.group.ai_messages or "[]")
+                except Exception:
+                    round_msgs = []
+
+                for m in round_msgs:
+                    if isinstance(m, dict):
+                        m_copy = dict(m)
+                        if round_num is not None and "round_number" not in m_copy:
+                            m_copy["round_number"] = round_num
+                        ai_msgs.append(m_copy)
+
+                # Add feedback for completed rounds (text only - no images)
+                # NOTE: We intentionally do NOT include feedback images because they
+                # confuse the model - it describes baskets from feedback images instead
+                # of the current round's target grid.
+                if round_num is not None and round_num < current_round:
+                    correct_count = _compute_round_correct_count(p_round)
+                    if correct_count is not None:
+                        feedback_msgs.append({
+                            "text": (
+                                f"[ROUND {round_num} COMPLETE: {correct_count}/12 correct. "
+                                f"NOTE: The baskets have been RESHUFFLED for the next round - "
+                                f"position numbers no longer correspond to the same baskets. "
+                                f"Learn from communication strategies, but describe baskets fresh from the new image.]"
+                            ),
+                            "sender_role": "system",
+                            "round_number": round_num,
+                            "is_feedback": True,
+                        })
+        else:
+            ai_msgs = all_ai_msgs
+
+        # Merge and sort all history
+        all_history = ai_msgs + feedback_msgs
+        all_history.sort(
+            key=lambda m: (
+                m.get("round_number") or 0,
+                1 if m.get("is_feedback") else 0,
+                m.get("server_ts") or "",
+                m.get("timestamp") or "",
+            )
+        )
+
+        # Determine prompt strategy
+        strategy_name = _get_prompt_strategy_name(player)
+
+        # Map strategy aliases
+        if strategy_name in ("director_visual", "visual_director", "matcher_visual", "visual_matcher"):
+            strategy_for_prompt = "v2"
+        else:
+            strategy_for_prompt = strategy_name
+
+        # Build messages using the appropriate prompt strategy
+        # For AI vs AI, we need to temporarily set the player's "role" perspective
+        # so the prompt builder generates the correct system prompt
+        original_role = player.field_maybe_none("player_role")
+        original_participant_role = player.participant.vars.get("role")
+
+        # Set the "human role" to the opposite of what we want the AI to play
+        # This tricks the prompt builder into generating for the correct AI role
+        fake_human_role = "matcher" if role == "director" else "director"
+        player.player_role = fake_human_role
+        player.participant.vars["role"] = fake_human_role
+
+        try:
+            from . import prompt_v1, prompt_v2, prompt_v3
+
+            if strategy_for_prompt in ("weiling", "v2"):
+                chat_messages = prompt_v2.build_weiling_prompt_messages(
+                    player, latest_message, all_history
+                )
+                use_v3_cot = False
+            elif strategy_for_prompt in ("v3", "v3_cot"):
+                chat_messages = prompt_v3.build_v3_cot_prompt_messages(
+                    player, latest_message, all_history
+                )
+                use_v3_cot = True
+            else:
+                chat_messages = prompt_v1.build_simple_prompt_messages(
+                    player, latest_message, all_history
+                )
+                use_v3_cot = False
+
+            # Inject task background
+            chat_messages = _inject_task_background(chat_messages)
+
+            # Inject visual context
+            chat_messages = _inject_visual_grid_context(player, chat_messages)
+
+            # For Director at round start, add explicit start message
+            if role == "director" and latest_message is None:
+                chat_messages.append({
+                    "role": "user",
+                    "content": (
+                        f"═══ START OF ROUND {current_round} ═══\n"
+                        f"This is a NEW round with the baskets in a COMPLETELY DIFFERENT ORDER.\n"
+                        f"⚠️ IMPORTANT: The basket at position 1 in Round {current_round} is NOT the same basket "
+                        f"that was at position 1 in previous rounds. ALL positions have been reshuffled.\n"
+                        f"Look at the image labeled 'ROUND {current_round} TARGET SEQUENCE' to see the ACTUAL baskets for this round.\n"
+                        f"Please describe ONLY Basket 1 (top-left in the grid) for now. "
+                        f"Do NOT describe multiple baskets - just Basket 1. Wait for my response before moving to Basket 2."
+                    )
+                })
+
+            # For Matcher, inject sequence state and JSON instructions
+            if role == "matcher":
+                try:
+                    seq_state = _build_matcher_current_sequence_state_for_prompt(player)
+                    seq_state_text = (
+                        "AUTHORITATIVE CURRENT MATCHER SEQUENCE STATE:\n"
+                        f"{json.dumps(seq_state, ensure_ascii=False)}"
+                    )
+                    insert_idx = 0
+                    while (
+                        insert_idx < len(chat_messages)
+                        and isinstance(chat_messages[insert_idx], dict)
+                        and chat_messages[insert_idx].get("role") == "system"
+                    ):
+                        insert_idx += 1
+                    chat_messages.insert(insert_idx, {"role": "system", "content": seq_state_text})
+                except Exception:
+                    pass
+
+                # Add JSON format instruction for matcher
+                if not use_v3_cot:
+                    # Get current sequence state to show which positions are empty
+                    try:
+                        seq = json.loads(player.group.ai_partial_sequence or "[]")
+                        filled_positions = set()
+                        for item in seq:
+                            if isinstance(item, dict):
+                                try:
+                                    p = int(item.get("position"))
+                                    if 1 <= p <= 12 and item.get("image"):
+                                        filled_positions.add(p)
+                                except Exception:
+                                    pass
+                        empty_positions = [p for p in range(1, 13) if p not in filled_positions]
+                        empty_str = ", ".join(str(p) for p in empty_positions) if empty_positions else "NONE - all filled!"
+                    except Exception:
+                        empty_str = "unknown"
+
+                    matcher_instr = (
+                        f"CRITICAL: Empty positions that still need baskets: [{empty_str}]\n"
+                        f"You have {12 - len(empty_positions) if empty_positions else 12}/12 positions filled.\n\n"
+                        "You MUST respond with valid JSON:\n"
+                        "{\n"
+                        '  "utterance": "<your response to show in chat>",\n'
+                        '  "selection": {\n'
+                        '    "candidate_index": <1-18 or null if no selection this turn>,\n'
+                        '    "position": <1-12 or null if no selection this turn>,\n'
+                        '    "ready_to_submit": <true ONLY when ALL 12 positions are filled, false otherwise>\n'
+                        "  }\n"
+                        "}\n\n"
+                        "IMPORTANT: If there are empty positions, you should ask the Director about them! "
+                        "Do NOT set ready_to_submit to true until all 12 positions have baskets."
+                    )
+                    insert_idx = 0
+                    while (
+                        insert_idx < len(chat_messages)
+                        and chat_messages[insert_idx].get("role") == "system"
+                    ):
+                        insert_idx += 1
+                    chat_messages.insert(insert_idx, {"role": "system", "content": matcher_instr})
+
+        finally:
+            # Restore original role settings
+            player.player_role = original_role
+            if original_participant_role:
+                player.participant.vars["role"] = original_participant_role
+            elif "role" in player.participant.vars:
+                del player.participant.vars["role"]
+
+        # Make API call using multi-provider system
+        base_temperature = 0
+        response_format = None
+        # Use JSON format for matcher always, and for director when using v3
+        if role == "matcher" or use_v3_cot:
+            response_format = {"type": "json_object"}
+
+        provider = model_config.get("provider", "openai")
+        model = model_config.get("model", "gpt-5.2")
+        
+        logging.info("[AI_VS_AI] Generating %s reply using %s/%s, %d messages in context", 
+                    role.upper(), provider.upper(), model, len(chat_messages))
+
+        # Use the multi-provider call_ai_api function
+        text = _api_call_with_retry(
+            lambda: call_ai_api(
+                messages=chat_messages,
+                model_config=model_config,
+                temperature=base_temperature,
+                response_format=response_format,
+            )
+        )
+        
+        if text is None:
+            logging.warning("[AI_VS_AI] API call returned None for %s", role)
+            return None
+        
+        text = text.strip()
+
+        # Parse response
+        utterance = None
+        selection = None
+
+        if role == "matcher":
+            # Parse JSON response
+            try:
+                start = text.find("{")
+                end = text.rfind("}") + 1
+                if start != -1 and end > start:
+                    data = json.loads(text[start:end])
+                    utterance = (data.get("utterance") or "").strip() or None
+
+                    sel = data.get("selection")
+                    if isinstance(sel, dict):
+                        cand_raw = sel.get("candidate_index")
+                        pos = sel.get("position")
+                        try:
+                            cand_int = int(cand_raw) if cand_raw is not None else None
+                        except Exception:
+                            cand_int = None
+                        try:
+                            pos_int = int(pos) if pos is not None else None
+                        except Exception:
+                            pos_int = None
+                        ready = bool(sel.get("ready_to_submit", False))
+                        selection = {
+                            "candidate_index": cand_int,
+                            "position": pos_int,
+                            "ready_to_submit": ready,
+                        }
+            except Exception as e:
+                logging.warning("[AI_VS_AI] Failed to parse matcher JSON: %s", e)
+                utterance = text
+        else:
+            # Director response - parse JSON if v3, otherwise plain text
+            if use_v3_cot:
+                try:
+                    start = text.find("{")
+                    end = text.rfind("}") + 1
+                    if start != -1 and end > start:
+                        data = json.loads(text[start:end])
+                        utterance = (data.get("utterance") or "").strip() or None
+                        if not utterance:
+                            # Fallback to raw text if utterance is empty
+                            utterance = text
+                    else:
+                        utterance = text
+                except Exception as e:
+                    logging.warning("[AI_VS_AI] Failed to parse director v3 JSON: %s", e)
+                    utterance = text
+            else:
+                utterance = text
+
+        logging.info("[AI_VS_AI] %s response: %s", role.upper(), (utterance or "")[:100])
+        return {"text": utterance, "selection": selection}
+
+    except Exception as e:
+        import traceback
+        logging.error(
+            "[AI_VS_AI] Error generating %s reply: %s: %s\n%s",
+            role, type(e).__name__, e, traceback.format_exc()
+        )
+        return None
+
+
+def run_ai_vs_ai_turn(player: Player) -> dict[str, Any]:
+    """Execute one turn of AI vs AI dialogue.
+
+    This function determines whose turn it is (Director or Matcher),
+    generates the appropriate response, stores it, and updates game state.
+
+    Returns a dict with:
+        - turn_number: The turn number (1-indexed)
+        - speaker: "director" or "matcher"
+        - message: The generated message text
+        - selection: Matcher's selection (if applicable)
+        - is_complete: Whether the round is complete (all 12 matched)
+        - error: Error message if something went wrong
+    """
+    import logging
+
+    if not is_ai_vs_ai_session(player):
+        return {"error": "Not an AI vs AI session"}
+
+    try:
+        # Load current messages to determine turn order
+        try:
+            messages = json.loads(player.group.ai_messages or "[]")
+        except Exception:
+            messages = []
+
+        turn_number = len(messages) + 1
+
+        # Determine speaker: Director starts, then they alternate
+        # But in practice: Director describes, Matcher responds (confirms or asks)
+        # If last message was from Director, it's Matcher's turn (and vice versa)
+        if not messages:
+            speaker = "director"
+            latest_message = None
+        else:
+            last_msg = messages[-1]
+            last_speaker = last_msg.get("sender_role", "director")
+            speaker = "matcher" if last_speaker == "director" else "director"
+            latest_message = last_msg.get("text")
+
+        # Generate the AI response
+        reply = generate_ai_vs_ai_reply(player, speaker, latest_message)
+
+        if reply is None:
+            return {
+                "turn_number": turn_number,
+                "speaker": speaker,
+                "error": "Failed to generate AI response",
+            }
+
+        utterance = reply.get("text")
+        selection = reply.get("selection")
+
+        if not utterance:
+            return {
+                "turn_number": turn_number,
+                "speaker": speaker,
+                "error": "AI generated empty response",
+            }
+
+        # Store the message
+        now_iso = datetime.datetime.now().isoformat()
+        new_message = {
+            "text": utterance,
+            "timestamp": now_iso,
+            "sender_role": speaker,
+            "server_ts": now_iso,
+        }
+        messages.append(new_message)
+        player.group.ai_messages = json.dumps(messages)
+
+        # If Matcher made a selection, update the partial sequence
+        is_complete = False
+        if speaker == "matcher" and selection:
+            _update_ai_partial_sequence(player, selection)
+
+        # Helper function to force submission with current sequence
+        def _force_submit() -> bool:
+            nonlocal is_complete
+            try:
+                sequence = json.loads(player.group.ai_partial_sequence or "[]")
+                by_pos = {}
+                for item in sequence:
+                    if isinstance(item, dict):
+                        try:
+                            p = int(item.get("position"))
+                            img = item.get("image")
+                            if 1 <= p <= 12 and img:
+                                by_pos[p] = item
+                        except Exception:
+                            pass
+
+                filled_count = len(by_pos)
+                missing_positions = [p for p in range(1, 13) if p not in by_pos]
+
+                if filled_count > 0:  # Submit as long as we have at least some positions
+                    is_complete = True
+                    player.group.matcher_sequence = json.dumps(list(by_pos.values()))
+
+                    # Calculate accuracy (missing positions count as wrong)
+                    try:
+                        shared_grid = json.loads(player.group.shared_grid or "[]")
+                        correct_count = 0
+                        for pos in range(1, 13):
+                            correct_img = shared_grid[pos - 1].get("image") if pos - 1 < len(shared_grid) else None
+                            submitted_img = by_pos.get(pos, {}).get("image")
+                            if correct_img and submitted_img and correct_img == submitted_img:
+                                correct_count += 1
+                        player.sequence_accuracy = (correct_count / 12) * 100
+                        player.task_completed = True
+                        player.completion_time = now_iso
+                        logging.info(
+                            "[AI_VS_AI] Forced submit! %d/12 filled, missing: %s, Accuracy: %.1f%%",
+                            filled_count, missing_positions, player.sequence_accuracy
+                        )
+                    except Exception as e:
+                        logging.warning("[AI_VS_AI] Failed to calculate accuracy: %s", e)
+                    return True
+                else:
+                    logging.warning("[AI_VS_AI] Cannot submit - no positions filled!")
+                    return False
+            except Exception as e:
+                logging.warning("[AI_VS_AI] Failed to force submit: %s", e)
+                return False
+
+        # Check if matcher signaled ready to submit via JSON
+        if speaker == "matcher" and selection and selection.get("ready_to_submit"):
+            _force_submit()
+
+        # Regex fallback: detect "submit" intent in matcher's utterance even if JSON didn't have ready_to_submit
+        # This catches cases where the matcher says "I'm ready to submit" but didn't set the flag
+        if not is_complete and speaker == "matcher" and utterance:
+            import re
+            submit_patterns = [
+                r"ready to submit",
+                r"submitting (the |my )?sequence",
+                r"submit (the |my )?(final |complete )?sequence",
+                r"i('ll| will) submit",
+                r"going to submit",
+                r"let me submit",
+                r"all \d+ (positions?|baskets?) (are |have been )?(filled|placed|complete)",
+                r"sequence is complete",
+                r"completed? (the |my )?sequence",
+            ]
+            combined_pattern = "|".join(f"({p})" for p in submit_patterns)
+            if re.search(combined_pattern, utterance.lower()):
+                logging.info("[AI_VS_AI] Detected submit intent in utterance: %s", utterance[:80])
+                _force_submit()
+
+        return {
+            "turn_number": turn_number,
+            "speaker": speaker,
+            "message": utterance,
+            "selection": selection,
+            "is_complete": is_complete,
+        }
+
+    except Exception as e:
+        import traceback
+        logging.error(
+            "[AI_VS_AI] Error in turn: %s: %s\n%s",
+            type(e).__name__, e, traceback.format_exc()
+        )
+        return {"error": str(e)}
+
+
+def get_ai_vs_ai_status(player: Player) -> dict[str, Any]:
+    """Get the current status of an AI vs AI game.
+
+    Returns a dict with:
+        - round_number: Current round
+        - turn_count: Number of turns so far
+        - messages: List of all messages
+        - partial_sequence: Current matcher sequence state
+        - is_complete: Whether the round is finished
+        - accuracy: Accuracy if complete
+    """
+    try:
+        messages = json.loads(player.group.ai_messages or "[]")
+    except Exception:
+        messages = []
+
+    try:
+        partial_sequence = json.loads(player.group.ai_partial_sequence or "[]")
+    except Exception:
+        partial_sequence = []
+
+    # Count filled positions
+    filled_count = 0
+    for item in partial_sequence:
+        if isinstance(item, dict) and item.get("image"):
+            filled_count += 1
+
+    # Use field_maybe_none() for fields that might be None
+    task_completed = player.field_maybe_none("task_completed") or False
+    sequence_accuracy = player.field_maybe_none("sequence_accuracy")
+
+    return {
+        "round_number": getattr(player, "round_number", 1),
+        "turn_count": len(messages),
+        "messages": messages,
+        "partial_sequence": partial_sequence,
+        "filled_count": filled_count,
+        "is_complete": task_completed,
+        "accuracy": sequence_accuracy,
+    }
 
 
 
