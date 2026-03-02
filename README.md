@@ -1,4 +1,4 @@
-# Human-LVLM Director-Matcher Game
+# Human-VLM Director-Matcher Game
 
 This repository contains an interactive director-matcher game experiment implemented with [oTree](https://www.otree.org/). The experiment is designed to study communication and reference in a collaborative visual task.
 
@@ -14,14 +14,12 @@ In this game, two participants are paired as the **Director** and the **Matcher*
 ## Experimental Design
 
 ### Staging Area
-
 - Located at the bottom of the matcher's interface
 - Contains all 18 baskets in a 3x6 grid layout
 - Baskets are clickable and become greyed out when selected
 - Selected baskets appear in the target area in the order they were clicked
 
-### Target Area
-
+### Target Area  
 - Located above the staging area
 - Contains 12 empty cells arranged in 2 rows of 6
 - Fills with selected baskets in the order they were clicked from the staging area
@@ -30,9 +28,9 @@ In this game, two participants are paired as the **Director** and the **Matcher*
 ## Running and Managing Sessions
 
 - Start the server:
-
   - Activate env and run: `otree devserver`
   - Open `http://localhost:8000`
+
 - Number of rounds: 3. Each round re-randomizes the matcher's staging area (18 baskets: 12 from director’s grid + 6 distractors) and preserves the director's 2x6 grid.
 
 ## Collecting Results (Experimenter)
@@ -40,13 +38,12 @@ In this game, two participants are paired as the **Director** and the **Matcher*
 You have 2 ways to retrieve results after participants finish:
 
 1) Admin report (web UI, one-click export)
-
    - Go to `http://localhost:8000/admin` → Sessions → your session → Monitor → `referential_task` → choose a round
    - The Admin Report shows per-group summary and provides download buttons:
      - Download JSON: compact JSON with `round_number`, per-group `correct_sequence`, `submitted_sequence`, `accuracy`, `submitted_at`, and `matcher_id_in_group`.
      - Download CSV: compact CSV with the same fields for the selected round.
-2) CSV export (full data)
 
+2) CSV export (full data)
    - In the session page, click “Data / Download”. You will get:
      - Player CSV: includes `sequence_accuracy`, `selected_sequence`, `task_completed`, `completion_time`, `grid_messages`.
      - Group CSV: includes `shared_grid`, `target_baskets`, `matcher_sequence`.
@@ -78,6 +75,7 @@ The experiment is run in real time, with both participants interacting through a
    git clone https://github.com/yourusername/Human-VLM-Game.git
    cd Human-VLM-Game
    ```
+
 2. **Set up your Python environment** (recommended: conda)
 
    ```bash
@@ -85,6 +83,7 @@ The experiment is run in real time, with both participants interacting through a
    conda activate langviscog
    pip install -r requirements.txt
    ```
+
 3. **Run the oTree server**
 
    ```bash
@@ -96,22 +95,21 @@ The experiment is run in real time, with both participants interacting through a
    ```bash
    otree runprodserver 8000
    ```
+
 4. **Access the experiment**
 
    Open your browser and go to `http://localhost:8000/`.
+
 5. **Static files**
 
    Basket images are in `_static/images/` and `baskets-internet/`. CSS and JS are in `_static/css/` and `_static/js/`.
 
-## Human–AI and AI–Human Mode and GPT‑5.2 Integration
+## Human–AI (Human–VLM) Mode and GPT‑4o Integration
 
-This branch (human-human) runs the referential task **purely as an ai-ai interaction**. There is **no human–AI mode/AI-human** nor **human–human mode** in this branch.
+This branch (`grid-ai`) runs the referential task **purely as a human–VLM (human–AI) interaction**:
 
-To run human-ai or ai-human, switch to *main* branch, and for human-human, switch to *human-human* branch.
-
-In this setup, each oTree group contains exactly **one human participant**.
-
-- The “partner” is always an AI agent (a VLM back-end using OpenAI's `gpt-5.2` model).
+- There is **no human–human mode** in this branch; each oTree group contains exactly **one human participant**.
+- The “partner” is always an AI agent (a VLM back-end using OpenAI’s `gpt-4o` model).
 - The human UI (Director/Matcher views, chat, feedback) remains the same as in the original human–human setup, but the other role is always played by the AI.
 
 To enable the AI partner:
@@ -121,6 +119,7 @@ To enable the AI partner:
    ```bash
    pip install -r requirements.txt
    ```
+
 2. Set your OpenAI API key in the environment (for example on macOS/Linux):
 
    ```bash
@@ -132,6 +131,7 @@ To enable the AI partner:
    ```powershell
    $env:OPENAI_API_KEY="sk-..."
    ```
+
 3. Run the oTree server as usual and create a session for `referential_task`.
 
 If no API key is set or the OpenAI client is unavailable, the experiment will still run, but the partner will not send AI-generated replies.
@@ -155,18 +155,17 @@ All of these use the same **visual 12‑basket grid** as context for the AI when
 For the basket tasks, the `prompt_strategy` controls how the AI partner is prompted. The main variants are:
 
 - **`v1` – Simple baseline**
-
   - Short, generic system prompt that just explains the role (Director or Matcher) and high-level task.
   - No explicit knowledge-base (KB) hints and no structured reasoning format.
   - Still sees the full 12‑basket grid visually via GPT‑4o.
-- **`v2` – Weiling-style rich prompt**
 
+- **`v2` – Weiling-style rich prompt**
   - Detailed, role-specific system prompt with round number and game-state context.
   - Optionally includes KB-based basket hints when `use_kb=True` in the session config.
   - Emphasizes distinctive visual features, comparative language, and avoiding basket IDs.
   - Also sees the same visual 12‑basket grid as v1.
-- **`v3` – CoT / JSON reasoning on top of v2**
 
+- **`v3` – CoT / JSON reasoning on top of v2**
   - Uses the same rich Weiling-style system prompt as v2 (including optional KB hints).
   - Adds an extra instruction that the model must reply in **strict JSON** with:
     - `"reasoning"` – a structured, step-by-step discriminative analysis.
@@ -210,19 +209,9 @@ Example structure:
 - To change the basket images, add/remove files in the `_static/images/` or `baskets-internet/` folders and update the presets as needed.
 - To modify the UI, edit the templates in `referential_task/templates/referential_task/` and the JS/CSS in `_static/js/` and `_static/css/`.
 
-## Analysis & Helper Scripts
-
-The `scripts/` directory contains useful utilities for working with the experimental data and development:
-
-- `calculate_round_times.py`: Calculates timing metrics for each round from exported data.
-- `format_chat_transcript.py`: Formats chat logs into readable transcripts.
-- `test_director_grid.py`: Local testing script for the director's grid view.
-- `generate_knowledge_base.py`: Helper script to generate knowledge base JSON data for the AI.
-
 ## Contact
 
 For questions or contributions, please open an issue or contact the maintainer.
 
 ### Admin Report
-
 The admin report now summarizes each group's accuracy and provides CSV/JSON downloaders (AdminReport page).

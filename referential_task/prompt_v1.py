@@ -68,9 +68,9 @@ def build_simple_prompt_messages(
     }
 
     history_messages = _build_ai_messages_from_history(player, all_history)
-    # NOTE: latest_message is already included in all_history (appended to
-    # grid_messages before _generate_ai_reply is called), so we do NOT
-    # append it again here to avoid duplicate messages in the API call.
+    # Ensure the latest human message is present at the end
+    if latest_message:
+        history_messages.append({"role": "user", "content": latest_message})
 
     return [system_message] + history_messages
 

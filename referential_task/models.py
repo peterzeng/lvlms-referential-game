@@ -19,47 +19,111 @@ Your app description
 class Constants(BaseConstants):
     name_in_url = 'referential_task'
     # In this branch we run exclusively human–AI sessions.
-    # Each participant works alone with an AI partner.
-    # oTree does not allow players_per_group = 1, so we use None
-    # and form single-player groups via group_by_arrival_time in
-    # the HumanAIGroupingPage WaitPage.
+    # oTree does not allow players_per_group = 1, so we set it to None
+    # and form one-player groups manually in Subsession.creating_session
+    # using set_group_matrix.
     players_per_group = None
     num_rounds = 4
 
 
 class Subsession(BaseSubsession):
-    
-    def group_by_arrival_time_method(self, waiting_players):
-        """Form single-player groups for human-AI mode.
-        
-        Each participant gets their own group immediately when they arrive.
-        This ensures each person has isolated group-level data (ai_messages,
-        shared_grid, etc.) for their AI partner interaction.
-        
-        Returns a single list of players to form one group, or None.
-        oTree calls this repeatedly until all waiting players are grouped.
-        """
-        if waiting_players:
-            # Return just the first waiting player in their own group
-            return [waiting_players[0]]
-        return None
-
     def creating_session(self):
-        """Per-round setup for human–VLM (human–AI) sessions.
+        """Per-round setup for human–VLM (human–AI) and AI vs AI sessions.
 
-        NOTE: With players_per_group = None and asynchronous Prolific arrivals,
-        participants are grouped dynamically via HumanAIGroupingPage (WaitPage
-        with group_by_arrival_time=True). This method runs at session creation
-        when no players exist yet, so initialization happens in the WaitPage's
-        after_all_players_arrive method instead.
+        GROUPING:
+        - Each participant is placed in their own one-player group.
+        - This is critical for both human–AI mode (where each human plays with an AI)
+          and AI vs AI mode (where each observer watches their own AI pair).
+        - Round 1: explicitly set one-player groups via set_group_matrix.
+        - Round 2+: copy grouping from round 1 via group_like_round.
 
-        For rounds 2+, we restore roles from participant vars since oTree
-        creates new Player objects each round.
+        ROLES:
+        - In human–AI mode: the human's role is set via config or randomized.
+        - In AI vs AI mode: both director and matcher are AIs; the human is just observing.
+
+        IMPORTANT: This method runs ONCE when the session is created.
+        All participant slots already exist at this point, so we can safely
+        iterate over all players and assign them to separate groups.
         """
         import random
+        import logging
 
-        if self.round_number > 1:
-            # Restore roles from participant vars for subsequent rounds
+        # Check if this is an AI vs AI session
+        try:
+            is_ai_vs_ai = bool(self.session.config.get('ai_vs_ai_mode', False))
+        except Exception:
+            is_ai_vs_ai = False
+
+        # Ensure that each participant is in their own one-player group.
+        # With players_per_group = None, we must define the group matrix
+        # explicitly on round 1. Later rounds copy this grouping.
+        if self.round_number == 1:
+            players = self.get_players()
+
+            # CRITICAL: Create one group per player to ensure isolation.
+            # This prevents the bug where all participants end up in the same group.
+            group_matrix = [[p] for p in players]
+            self.set_group_matrix(group_matrix)
+
+            logging.info(
+                "[GROUPING] Round 1: Created %d one-player groups for %d players (ai_vs_ai=%s)",
+                len(group_matrix), len(players), is_ai_vs_ai
+            )
+
+            # Initial role assignment and grid creation
+            for group in self.get_groups():
+                players_in_group = group.get_players()
+                if not players_in_group:
+                    continue
+                player = players_in_group[0]
+
+                # In AI vs AI mode, the human is just an observer - set a marker role
+                if is_ai_vs_ai:
+                    # For AI vs AI, we mark the player as "observer" but they don't
+                    # actively participate. The AI Director and Matcher roles are
+                    # handled by the AI agents, not the human player.
+                    player.player_role = 'observer'
+                    player.participant.vars['role'] = 'observer'
+                    player.participant.vars['partner_role'] = None  # No human partner
+                else:
+                    # Determine the human's role for this session.
+                    # Prefer an explicit session config override, otherwise randomize.
+                    try:
+                        cfg_role = self.session.config.get('human_role')
+                    except Exception:
+                        cfg_role = None
+                    if isinstance(cfg_role, str):
+                        cfg_role = cfg_role.strip().lower()
+                    if cfg_role not in ['director', 'matcher']:
+                        cfg_role = random.choice(['director', 'matcher'])
+                    role = cfg_role
+
+                    player.player_role = role
+                    player.participant.vars['role'] = role
+
+                    # Store AI partner role metadata for downstream use (e.g., exports)
+                    player.participant.vars['partner_role'] = (
+                        'matcher' if role == 'director' else 'director'
+                    )
+
+                # Persist basic identifiers for convenience/analysis
+                player.participant.vars['group_id'] = getattr(group, 'id', None)
+                player.participant.vars['id_in_group'] = player.id_in_group
+
+                # Create the shared grid for this group's first round
+                group.create_shared_grid(round_number=self.round_number)
+
+                logging.info(
+                    "[GROUPING] Group %s: player=%s role=%s",
+                    getattr(group, 'id', None),
+                    getattr(player.participant, 'code', None),
+                    player.player_role
+                )
+        else:
+            # Keep groups consistent across rounds (one player per group)
+            self.group_like_round(1)
+
+            # Restore roles from participant vars if needed
             for group in self.get_groups():
                 for player in group.get_players():
                     if not player.field_maybe_none('player_role'):
@@ -67,7 +131,8 @@ class Subsession(BaseSubsession):
                         if stored_role:
                             player.player_role = stored_role
 
-                # Create/refresh the shared grid for this round
+            # Create/refresh the shared grid for this round
+            for group in self.get_groups():
                 group.create_shared_grid(round_number=self.round_number)
 
 
@@ -109,7 +174,25 @@ class Group(BaseGroup):
     ai_partner_comment = models.LongStringField(blank=True)
     # Raw JSON response from AI for debugging/analysis
     ai_partner_perceptions_raw = models.LongStringField(blank=True)
-    
+
+    # AI vs AI mode: Director's perceptions of Matcher
+    ai_director_partner_capable = models.IntegerField(blank=True, null=True)
+    ai_director_partner_helpful = models.IntegerField(blank=True, null=True)
+    ai_director_partner_understood = models.IntegerField(blank=True, null=True)
+    ai_director_partner_adapted = models.IntegerField(blank=True, null=True)
+    ai_director_collaboration_improved = models.IntegerField(blank=True, null=True)
+    ai_director_partner_comment = models.LongStringField(blank=True)
+    ai_director_perceptions_raw = models.LongStringField(blank=True)
+
+    # AI vs AI mode: Matcher's perceptions of Director
+    ai_matcher_partner_capable = models.IntegerField(blank=True, null=True)
+    ai_matcher_partner_helpful = models.IntegerField(blank=True, null=True)
+    ai_matcher_partner_understood = models.IntegerField(blank=True, null=True)
+    ai_matcher_partner_adapted = models.IntegerField(blank=True, null=True)
+    ai_matcher_collaboration_improved = models.IntegerField(blank=True, null=True)
+    ai_matcher_partner_comment = models.LongStringField(blank=True)
+    ai_matcher_perceptions_raw = models.LongStringField(blank=True)
+
     def assign_roles(self):
         """Assign Director and Matcher roles to players"""
         import random
@@ -163,9 +246,9 @@ class Group(BaseGroup):
             return grid, []
         # Choose preset file based on session config `basket_set` (supports 1, 2, 3)
         try:
-            set_num = int(self.session.config.get('basket_set', 5))
+            set_num = int(self.session.config.get('basket_set', 1))
         except Exception:
-            set_num = 5
+            set_num = 1
         if set_num == 2:
             preset_filename = 'grids_presets2.json'
         elif set_num == 3:
@@ -241,8 +324,8 @@ class Player(BasePlayer):
     experiment_start_time = models.StringField(blank=True)  # ISO timestamp when experiment started
     experiment_end_time = models.StringField(blank=True)    # ISO timestamp when experiment ended
     
-    # Player role: 'director' or 'matcher'
-    player_role = models.StringField(choices=['director', 'matcher'], blank=True)
+    # Player role: 'director', 'matcher', or 'observer' (AI vs AI mode)
+    player_role = models.StringField(choices=['director', 'matcher', 'observer'], blank=True)
     
     # Communication messages for grid task
     grid_messages = models.LongStringField(blank=True, initial='[]')
@@ -466,6 +549,19 @@ def custom_export(players):
         'ai_partner_adapted',
         'ai_collaboration_improved',
         'ai_partner_comment',
+        # AI vs AI mode perceptions (final round only)
+        'ai_director_partner_capable',
+        'ai_director_partner_helpful',
+        'ai_director_partner_understood',
+        'ai_director_partner_adapted',
+        'ai_director_collaboration_improved',
+        'ai_director_partner_comment',
+        'ai_matcher_partner_capable',
+        'ai_matcher_partner_helpful',
+        'ai_matcher_partner_understood',
+        'ai_matcher_partner_adapted',
+        'ai_matcher_collaboration_improved',
+        'ai_matcher_partner_comment',
     ]
 
     for p in players:
@@ -626,4 +722,17 @@ def custom_export(players):
             getattr(getattr(p, 'group', None), 'ai_partner_adapted', None) if is_final_round else None,
             getattr(getattr(p, 'group', None), 'ai_collaboration_improved', None) if is_final_round else None,
             getattr(getattr(p, 'group', None), 'ai_partner_comment', None) if is_final_round else None,
+            # AI vs AI mode perceptions (final round only)
+            getattr(getattr(p, 'group', None), 'ai_director_partner_capable', None) if is_final_round else None,
+            getattr(getattr(p, 'group', None), 'ai_director_partner_helpful', None) if is_final_round else None,
+            getattr(getattr(p, 'group', None), 'ai_director_partner_understood', None) if is_final_round else None,
+            getattr(getattr(p, 'group', None), 'ai_director_partner_adapted', None) if is_final_round else None,
+            getattr(getattr(p, 'group', None), 'ai_director_collaboration_improved', None) if is_final_round else None,
+            getattr(getattr(p, 'group', None), 'ai_director_partner_comment', None) if is_final_round else None,
+            getattr(getattr(p, 'group', None), 'ai_matcher_partner_capable', None) if is_final_round else None,
+            getattr(getattr(p, 'group', None), 'ai_matcher_partner_helpful', None) if is_final_round else None,
+            getattr(getattr(p, 'group', None), 'ai_matcher_partner_understood', None) if is_final_round else None,
+            getattr(getattr(p, 'group', None), 'ai_matcher_partner_adapted', None) if is_final_round else None,
+            getattr(getattr(p, 'group', None), 'ai_matcher_collaboration_improved', None) if is_final_round else None,
+            getattr(getattr(p, 'group', None), 'ai_matcher_partner_comment', None) if is_final_round else None,
         ]

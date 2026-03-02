@@ -22,14 +22,17 @@ except Exception:
 # ]
 
 SESSION_CONFIGS = [
-    # --- Core AI–human grid configs (Set 5 by default) ---
+    # =========================================================================
+    # AI vs AI Configurations
+    # =========================================================================
+    # These sessions run both Director AND Matcher as AI agents.
+    # A human observer watches the AIs play and can control the pace.
+    # Useful for evaluating VLM performance on the basket matching task.
     #
-    # Prompt strategies (all of these see the same visual 12‑basket grid via
-    # `_inject_visual_grid_context` in `referential_task/pages.py` whenever
-    # images are available):
+    # Prompt strategies:
     # - v1  = Simple baseline prompt:
     #         short role description, no explicit KB hints, no JSON reasoning.
-    # - v2  = “Weiling‑style” rich prompt:
+    # - v2  = "Weiling‑style" rich prompt:
     #         detailed role + round context, optional KB basket hints when
     #         `use_kb=True`.
     # - v3  = CoT / JSON reasoning on top of v2:
@@ -37,93 +40,168 @@ SESSION_CONFIGS = [
     #         {"reasoning": {...}, "utterance": "..."}; only `utterance`
     #         is shown to the human; reasoning can be logged when
     #         `log_v3_reasoning=True`.
-    #
-    # Visual context is therefore NOT unique to any one strategy; differences
-    # between v1 / v2 / v3 are in text instructions, KB usage, and whether
-    # JSON reasoning is requested.
-    
-    # Baseline V1: simple prompt (visual grid), human is Matcher
+    # =========================================================================
+
+    # AI vs AI with V1 (simple) prompts
     dict(
-        name='referential_task_grid_human_matcher',
-        display_name="Basket Grid Human–VLM (Set 5, Human = Matcher, V1 simple)",
-        app_sequence=['onboarding', 'referential_task'],
+        name='ai_vs_ai_v1',
+        display_name="AI vs AI (Set 5, V1 Simple)",
+        app_sequence=['referential_task'],  # Skip onboarding for AI vs AI
         num_demo_participants=1,
         director_view='grid',
         basket_set=5,
-        human_role='matcher',
+        ai_vs_ai_mode=True,  # Key flag for AI vs AI mode
         prompt_strategy='v1',
-        testing_skip_enabled=False, 
         testing_debug_enabled=True,
-        ai_debug_enabled=True
-    ),
-    # V2: Weiling-style rich prompt (visual grid) + optional KB hints, human is Matcher
-    dict(
-        name='referential_task_grid_human_matcher_v2',
-        display_name="Basket Grid Human–VLM (Set 5, Human = Matcher, V2 Weiling)",
-        app_sequence=['onboarding', 'referential_task'],
-        num_demo_participants=1,
-        director_view='grid',
-        basket_set=5,
-        human_role='matcher',
-        testing_debug_enabled=True,
-        prompt_strategy='v2',
-        testing_skip_enabled=False, 
-    ),
-    # V3: CoT prompt on top of V2 (JSON reasoning + utterance, visual grid), human is Matcher
-    dict(
-        name='referential_task_grid_human_matcher_v3',
-        display_name="Basket Grid Human–VLM (Set 5, Human = Matcher, V3 CoT)",
-        app_sequence=['onboarding', 'referential_task'],
-        num_demo_participants=1,
-        director_view='grid',
-        basket_set=5,
-        human_role='matcher',
-        prompt_strategy='v3',
-        testing_debug_enabled=True,
-        log_v3_reasoning=True,
-        testing_skip_enabled=False, 
+        testing_skip_enabled=True,
+        ai_debug_enabled=True,
+        ai_vs_ai_delay=0,  # Seconds between turns in auto-play mode
+        ai_vs_ai_max_turns=60,  # Max turns per round before stopping
     ),
 
-    # Baseline V1: simple prompt (visual grid), human is Director
+    # AI vs AI with V2 (Weiling-style) prompts
     dict(
-        name='referential_task_grid_human_director',
-        display_name="Basket Grid Human–VLM (Set 5, Human = Director, V1 simple)",
-        app_sequence=['onboarding', 'referential_task'],
+        name='ai_vs_ai_v2',
+        display_name="AI vs AI (Set 5, V2 Weiling)",
+        app_sequence=['referential_task'],
         num_demo_participants=1,
         director_view='grid',
         basket_set=5,
-        human_role='director',
-        prompt_strategy='v1',
-        testing_debug_enabled=True,
-        testing_skip_enabled=False, 
-        ai_debug_enabled=True
-    ),
-    # V2: Weiling-style rich prompt (visual grid) + optional KB hints, human is Director
-    dict(
-        name='referential_task_grid_human_director_v2',
-        display_name="Basket Grid Human–VLM (Set 5, Human = Director, V2 Weiling)",
-        app_sequence=['onboarding', 'referential_task'],
-        num_demo_participants=1,
-        director_view='grid',
-        basket_set=5,
-        human_role='director',
+        ai_vs_ai_mode=True,
         prompt_strategy='v2',
         testing_debug_enabled=True,
-        testing_skip_enabled=False,
+        testing_skip_enabled=True,
+        ai_debug_enabled=True,
+        ai_vs_ai_delay=0,
+        ai_vs_ai_max_turns=60,
     ),
-    # V3: CoT prompt on top of V2 (JSON reasoning + utterance, visual grid), human is Director
+
+    # AI vs AI with V3 (CoT) prompts
     dict(
-        name='referential_task_grid_human_director_v3',
-        display_name="Basket Grid Human–VLM (Set 5, Human = Director, V3 CoT)",
-        app_sequence=['onboarding', 'referential_task'],
+        name='ai_vs_ai_v3',
+        display_name="AI vs AI (Set 5, V3 CoT)",
+        app_sequence=['referential_task'],
         num_demo_participants=1,
         director_view='grid',
         basket_set=5,
-        human_role='director',
+        ai_vs_ai_mode=True,
         prompt_strategy='v3',
         log_v3_reasoning=True,
         testing_debug_enabled=True,
-        testing_skip_enabled=False, 
+        testing_skip_enabled=True,
+        ai_debug_enabled=True,
+        ai_vs_ai_delay=0,
+        ai_vs_ai_max_turns=60,
+    ),
+
+    # =========================================================================
+    # Mixed AI vs AI Configurations (Different models playing different roles)
+    # =========================================================================
+    # These sessions allow different AI models to play Director and Matcher.
+    # Useful for cross-model evaluation and comparison studies.
+    #
+    # Per-role configuration keys:
+    # - ai_director_model: Model for Director role
+    # - ai_matcher_model: Model for Matcher role
+    # - ai_director_reasoning_effort: Reasoning for Director (GPT-5.2+)
+    # - ai_matcher_reasoning_effort: Reasoning for Matcher (GPT-5.2+)
+    # - ai_director_thinking_budget: Thinking budget for Director (Gemini)
+    # - ai_matcher_thinking_budget: Thinking budget for Matcher (Gemini)
+    # =========================================================================
+
+    # GPT-5.2 Director vs Gemini 2.5 Pro Matcher
+    dict(
+        name='ai_vs_ai_gpt_vs_gemini',
+        display_name="AI vs AI: GPT-5.2 Director vs Gemini-3-Flash Matcher V3",
+        app_sequence=['referential_task'],
+        num_demo_participants=1,  
+        director_view='grid',
+        basket_set=5,
+        ai_vs_ai_mode=True,
+        prompt_strategy='v3',
+        # Director uses GPT-5.2
+        ai_director_model='gpt-5.2',
+        ai_director_reasoning_effort='none',
+        # Matcher uses Gemini 3 Flash
+        ai_matcher_model='gemini-3-flash-preview',
+        ai_matcher_thinking_level='low',  # Minimal thinking
+        testing_debug_enabled=True,
+        testing_skip_enabled=True,
+        ai_debug_enabled=True,
+        ai_vs_ai_delay=0,
+        ai_vs_ai_max_turns=60,
+    ),
+
+    # Gemini 3 Flash Director vs GPT-5.2 Matcher
+    dict(
+        name='ai_vs_ai_gemini_vs_gpt',
+        display_name="AI vs AI: Gemini-3-Flash Director vs GPT-5.2 Matcher",
+        app_sequence=['referential_task'],
+        num_demo_participants=1,
+        director_view='grid',
+        basket_set=5,
+        ai_vs_ai_mode=True,
+        prompt_strategy='v2',
+        # Director uses Gemini 3 Flash
+        ai_director_model='gemini-3-flash-preview',
+        ai_director_thinking_level='low',  # Minimal thinking
+        # Matcher uses GPT-5.2
+        ai_matcher_model='gpt-5.2',
+        ai_matcher_reasoning_effort='none',
+        testing_debug_enabled=True,
+        testing_skip_enabled=True,
+        ai_debug_enabled=True,
+        ai_vs_ai_delay=0,
+        ai_vs_ai_max_turns=60,
+    ),
+
+    # Gemini 3 Flash vs Gemini 3 Flash (both roles)
+    dict(
+        name='ai_vs_ai_gemini_v2',
+        display_name="AI vs AI: Gemini-3-Flash (V2 Weiling)",
+        app_sequence=['referential_task'],
+        num_demo_participants=1,
+        director_view='grid',
+        basket_set=5,
+        ai_vs_ai_mode=True,
+        prompt_strategy='v2',
+        # Both roles use Gemini 3 Flash
+        ai_model='gemini-3-flash-preview',
+        ai_thinking_level='low',  # Minimal thinking (equivalent to "none" reasoning)
+        testing_debug_enabled=True,
+        testing_skip_enabled=True,
+        ai_debug_enabled=True,
+        ai_vs_ai_delay=0,
+        ai_vs_ai_max_turns=60,
+    ),
+
+    # =========================================================================
+    # Data Collection Configurations (No Debug Output)
+    # =========================================================================
+    # Clean sessions for running parallel data collection experiments.
+    # All debug/testing UI disabled for production-quality data.
+    # =========================================================================
+
+    # GPT-5.2 vs GPT-5.2 - Data Collection (V3 CoT)
+    dict(
+        name='ai_52_vs_52_data',
+        display_name="[Data] GPT-5.2 vs GPT-5.2 (V3 CoT)",
+        app_sequence=['referential_task'],
+        num_demo_participants=1,
+        director_view='grid',
+        basket_set=5,
+        ai_vs_ai_mode=True,
+        prompt_strategy='v3',
+        log_v3_reasoning=True,  # Log reasoning for analysis
+        # Both roles use GPT-5.2
+        ai_model='gpt-5.2',
+        ai_reasoning_effort='none',
+        # Debug/testing UI disabled for clean data collection
+        testing_debug_enabled=False,
+        testing_skip_enabled=False,
+        ai_debug_enabled=False,
+        ai_vs_ai_delay=0,
+        ai_vs_ai_max_turns=60,
     ),
 ]
 
@@ -148,32 +226,59 @@ SESSION_CONFIG_DEFAULTS = dict(
     # With cross_round_history=True, 200 turns covers ~4 rounds of rich dialogue.
     # GPT-4o supports 128K tokens (~500+ turns). Adjust as needed.
     ai_max_history_turns=200,
-    # ---------------------------------------------------------------------------
+    
+    # =========================================================================
     # AI Model Configuration
-    # ---------------------------------------------------------------------------
-    # AI model to use. Defaults to 'gpt-5.2' (latest reasoning model).
-    # Other options: 'gpt-5', 'gpt-5.1', 'gpt-4o', 'o1', 'o3', etc.
-    # Can also be set via OPENAI_MODEL environment variable.
-    ai_model='gpt-5.2',
-    # Reasoning effort for reasoning models (gpt-5+, o1, o3).
-    # Options: 'none' (fastest), 'low', 'medium', 'high' (slowest, most thorough).
-    # Ignored for traditional models (gpt-4o) which use temperature=0 instead.
-    # Can also be set via AI_REASONING_EFFORT environment variable.
-    ai_reasoning_effort='none',
+    # =========================================================================
+    # Global AI model (applies to both roles if role-specific not set).
+    # Supported providers and models:
+    #   OpenAI:
+    #   - GPT-5.2+: "gpt-5.2", "gpt-5.2-mini" (supports reasoning_effort param)
+    #   - Pre-5.2: "gpt-4o", "gpt-4o-mini", "gpt-4-turbo", "o1", "o1-mini", etc.
+    #   Google Gemini:
+    #   - Gemini 3: "gemini-3-flash-preview", "gemini-3-pro-preview" (supports thinking_level)
+    #   - Gemini 2.5: "gemini-2.5-pro" (supports thinking_budget)
+    #   - Legacy: "gemini-2.0-flash", "gemini-1.5-pro", etc.
+    #
+    # Environment variables:
+    #   - OPENAI_API_KEY: Required for OpenAI models
+    #   - GEMINI_API_KEY or GOOGLE_API_KEY: Required for Gemini models
+    #   - OPENAI_MODEL: Default model (session config takes priority)
+    ai_model=environ.get('OPENAI_MODEL', 'gpt-5.2'),
+    
+    # Reasoning effort for GPT-5.2+ models only. Ignored for pre-5.2 models.
+    # Valid values: "none", "low", "medium", "high" (controls depth of reasoning)
+    ai_reasoning_effort="none",
+    
+    # Thinking budget for Gemini models (0 = minimal, higher = more reasoning)
+    # Only applies to Gemini 2.5+ models with thinking support.
+    ai_thinking_budget=0,
+    
+    # =========================================================================
+    # Per-Role AI Configuration (for mixed model experiments)
+    # =========================================================================
+    # These override the global ai_model/ai_reasoning_effort for specific roles.
+    # Useful for testing GPT-5.2 Director vs Gemini Matcher, etc.
+    #
+    # ai_director_model: Model for Director role (e.g., "gpt-5.2", "gemini-3-flash-preview")
+    # ai_director_reasoning_effort: Reasoning for Director (GPT-5.2+)
+    # ai_director_thinking_level: Thinking level for Director (Gemini 3+: "low", "medium", "high")
+    # ai_director_thinking_budget: Thinking budget for Director (Gemini 2.5, legacy)
+    #
+    # ai_matcher_model: Model for Matcher role
+    # ai_matcher_reasoning_effort: Reasoning for Matcher (GPT-5.2+)
+    # ai_matcher_thinking_level: Thinking level for Matcher (Gemini 3+)
+    # ai_matcher_thinking_budget: Thinking budget for Matcher (Gemini 2.5, legacy)
 )
 
-# Rooms let you share one stable link per condition (e.g., /room/grid_matcher_v1/)
-# Each of these maps 1:1 to a session config above, so you can hand out
-# persistent URLs for that specific prompt/role variant.
+# Rooms let you share one stable link like /room/basket_room/
 ROOMS = [
-    dict(name='basket_room', display_name='Basket Room'),
-    dict(name='grid_matcher_v1', display_name='Grid Human = Matcher (v1 simple)'),
-    dict(name='grid_matcher_v2', display_name='Grid Human = Matcher (v2 Weiling)'),
-    dict(name='grid_matcher_v3', display_name='Grid Human = Matcher (v3 CoT)'),
-    dict(name='grid_director_v1', display_name='Grid Human = Director (v1 simple)'),
-    dict(name='grid_director_v2', display_name='Grid Human = Director (v2 Weiling)'),
-    dict(name='grid_director_v3', display_name='Grid Human = Director (v3 CoT)'),
-    # Add participant_label_file/use_secure_urls here if you need named IDs or secure links.
+    dict(
+        name='basket_room',
+        display_name='Basket Room',
+        # participant_label_file='participant_labels.txt',  # optional
+        # use_secure_urls=True,  # set True when recruiting externally
+    ),
 ]
 
 ROOM_DEFAULTS = dict(participation_fee=0)

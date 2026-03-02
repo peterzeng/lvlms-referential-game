@@ -343,8 +343,8 @@ async def analyze(
             )
 
         completion = client.chat.completions.create(
-            # model="gpt-4o",
-            model = "gpt-5",
+            # model="gpt-5",
+            model="gpt-4o-mini",
             messages=[
                 {
                     "role": "system",
