@@ -15,7 +15,7 @@ import os
 from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
-    from .models import Player
+    from .state import Player
 
 
 # ---------------------------------------------------------------------------

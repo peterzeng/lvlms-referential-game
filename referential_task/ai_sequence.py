@@ -16,7 +16,7 @@ import logging
 from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
-    from .models import Player
+    from .state import Player
 
 
 def _update_ai_partial_sequence(player: "Player", selection: dict[str, Any] | None):

@@ -1,0 +1,5 @@
+*.otreezip
+.specstory/
+.env
+main/
+_static/ai_debug/

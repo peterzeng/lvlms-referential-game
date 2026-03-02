@@ -13,8 +13,8 @@ kept separate from the main oTree page and live-method logic.
 
 from typing import Any, Dict, List
 
-from .models import Constants
-from .pages import (  # type: ignore
+from .state import Constants
+from .ai_utils import (  # type: ignore
     _build_ai_messages_from_history,
     _get_max_history_turns,
 )

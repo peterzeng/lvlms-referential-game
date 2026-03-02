@@ -13,7 +13,7 @@ from typing import Any, List, Dict
 # Internal helper imported from the main pages module. We import from
 # `.pages` rather than duplicating logic so that history handling stays
 # centralised in one place.
-from .pages import _build_ai_messages_from_history  # type: ignore
+from .ai_utils import _build_ai_messages_from_history  # type: ignore
 
 
 def build_simple_prompt_messages(

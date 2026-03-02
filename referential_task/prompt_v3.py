@@ -10,7 +10,7 @@ from `pages.py` so that the long prompt text is factored out.
 
 from typing import Any, Dict, List
 
-from .pages import (  # type: ignore
+from .ai_utils import (  # type: ignore
     _build_ai_messages_from_history,
     _get_max_history_turns,
 )
