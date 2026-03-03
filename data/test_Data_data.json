@@ -1,0 +1,261 @@
+[
+  {
+    "session_id": "test_Data",
+    "round_number": 1,
+    "updated_at": "2026-03-03 14:11:49",
+    "config": {
+      "ai_vs_ai_mode": true,
+      "director_view": "grid",
+      "basket_set": 5,
+      "prompt_strategy": "v3",
+      "ai_director_model": "gpt-4o-mini",
+      "ai_matcher_model": "gpt-4o-mini",
+      "ai_model": "gpt-4o-mini",
+      "ai_reasoning_effort": "none",
+      "ai_vs_ai_delay": 0,
+      "ai_vs_ai_max_turns": 60
+    },
+    "status": {
+      "round_number": 1,
+      "turn_count": 11,
+      "messages": [
+        {
+          "text": "The current basket is shaped like a rabbit, with a smooth, light brown surface. It has ears that stick up from the top, making it quite distinctive compared to the other baskets.",
+          "timestamp": "2026-03-03T09:10:28.873514",
+          "sender_role": "director",
+          "server_ts": "2026-03-03T09:10:28.873514"
+        },
+        {
+          "text": "I think I found the basket shaped like a rabbit with ears on top. Can you confirm that it has a rabbit shape with ears sticking up?",
+          "timestamp": "2026-03-03T09:10:37.068984",
+          "sender_role": "matcher",
+          "server_ts": "2026-03-03T09:10:37.068984"
+        },
+        {
+          "text": "Yes, that's correct! It has a rabbit shape with ears sticking up.",
+          "timestamp": "2026-03-03T09:10:43.776970",
+          "sender_role": "director",
+          "server_ts": "2026-03-03T09:10:43.776970"
+        },
+        {
+          "text": "I’m placing the rabbit-shaped basket in position 1. Can you describe the next basket?",
+          "timestamp": "2026-03-03T09:10:51.747001",
+          "sender_role": "matcher",
+          "server_ts": "2026-03-03T09:10:51.747001"
+        },
+        {
+          "text": "The next basket is taller and more cylindrical than the rabbit-shaped one. It has a darker woven texture and features a handle that arches over the top.",
+          "timestamp": "2026-03-03T09:10:59.213534",
+          "sender_role": "director",
+          "server_ts": "2026-03-03T09:10:59.213534"
+        },
+        {
+          "text": "I think I found the taller, cylindrical basket with a darker woven texture and an arched handle. Can you confirm if the handle is more of a straight arch or a rounded arch?",
+          "timestamp": "2026-03-03T09:11:07.610878",
+          "sender_role": "matcher",
+          "server_ts": "2026-03-03T09:11:07.610878"
+        },
+        {
+          "text": "The handle of this basket is a rounded arch, giving it a softer appearance compared to a straight arch.",
+          "timestamp": "2026-03-03T09:11:14.945814",
+          "sender_role": "director",
+          "server_ts": "2026-03-03T09:11:14.945814"
+        },
+        {
+          "text": "I think I found the taller, cylindrical basket with a rounded arch handle. Does it have a smooth or rough texture on the surface?",
+          "timestamp": "2026-03-03T09:11:24.219018",
+          "sender_role": "matcher",
+          "server_ts": "2026-03-03T09:11:24.219018"
+        },
+        {
+          "text": "Yes, it has a darker woven texture and a rounded arch handle. The surface is relatively smooth.",
+          "timestamp": "2026-03-03T09:11:33.135106",
+          "sender_role": "director",
+          "server_ts": "2026-03-03T09:11:33.135106"
+        },
+        {
+          "text": "I’m placing the taller, cylindrical basket with the rounded arch handle in position 2. Can you describe the next basket?",
+          "timestamp": "2026-03-03T09:11:41.571077",
+          "sender_role": "matcher",
+          "server_ts": "2026-03-03T09:11:41.571077"
+        },
+        {
+          "text": "The next basket is more rectangular in shape and has two handles on the sides. It has a lighter color compared to the previous basket and a woven texture.",
+          "timestamp": "2026-03-03T09:11:49.259133",
+          "sender_role": "director",
+          "server_ts": "2026-03-03T09:11:49.259133"
+        }
+      ],
+      "partial_sequence": [
+        { "position": 1, "image": "images/009.png", "originalPosition": "14" },
+        { "position": 2, "image": "images/037.png", "originalPosition": "31" }
+      ],
+      "filled_count": 2,
+      "is_complete": false,
+      "accuracy": null
+    },
+    "shared_grid": [
+      {
+        "position": "11",
+        "row": 1,
+        "col": 1,
+        "image": "images/076.png",
+        "basket_id": 1
+      },
+      {
+        "position": "12",
+        "row": 1,
+        "col": 2,
+        "image": "images/001.png",
+        "basket_id": 2
+      },
+      {
+        "position": "13",
+        "row": 1,
+        "col": 3,
+        "image": "images/015.png",
+        "basket_id": 3
+      },
+      {
+        "position": "14",
+        "row": 1,
+        "col": 4,
+        "image": "images/009.png",
+        "basket_id": 4
+      },
+      {
+        "position": "21",
+        "row": 2,
+        "col": 1,
+        "image": "images/022.png",
+        "basket_id": 5
+      },
+      {
+        "position": "22",
+        "row": 2,
+        "col": 2,
+        "image": "images/033.png",
+        "basket_id": 6
+      },
+      {
+        "position": "23",
+        "row": 2,
+        "col": 3,
+        "image": "images/012.png",
+        "basket_id": 7
+      },
+      {
+        "position": "24",
+        "row": 2,
+        "col": 4,
+        "image": "images/040.png",
+        "basket_id": 8
+      },
+      {
+        "position": "31",
+        "row": 3,
+        "col": 1,
+        "image": "images/037.png",
+        "basket_id": 9
+      },
+      {
+        "position": "32",
+        "row": 3,
+        "col": 2,
+        "image": "images/019.png",
+        "basket_id": 10
+      },
+      {
+        "position": "33",
+        "row": 3,
+        "col": 3,
+        "image": "images/065.png",
+        "basket_id": 11
+      },
+      {
+        "position": "34",
+        "row": 3,
+        "col": 4,
+        "image": "images/017.png",
+        "basket_id": 12
+      }
+    ],
+    "target_baskets": [],
+    "ai_partial_sequence": [
+      { "position": 1, "image": "images/009.png", "originalPosition": "14" },
+      { "position": 2, "image": "images/037.png", "originalPosition": "31" }
+    ],
+    "matcher_sequence": [],
+    "ai_messages": [
+      {
+        "text": "The current basket is shaped like a rabbit, with a smooth, light brown surface. It has ears that stick up from the top, making it quite distinctive compared to the other baskets.",
+        "timestamp": "2026-03-03T09:10:28.873514",
+        "sender_role": "director",
+        "server_ts": "2026-03-03T09:10:28.873514"
+      },
+      {
+        "text": "I think I found the basket shaped like a rabbit with ears on top. Can you confirm that it has a rabbit shape with ears sticking up?",
+        "timestamp": "2026-03-03T09:10:37.068984",
+        "sender_role": "matcher",
+        "server_ts": "2026-03-03T09:10:37.068984"
+      },
+      {
+        "text": "Yes, that's correct! It has a rabbit shape with ears sticking up.",
+        "timestamp": "2026-03-03T09:10:43.776970",
+        "sender_role": "director",
+        "server_ts": "2026-03-03T09:10:43.776970"
+      },
+      {
+        "text": "I’m placing the rabbit-shaped basket in position 1. Can you describe the next basket?",
+        "timestamp": "2026-03-03T09:10:51.747001",
+        "sender_role": "matcher",
+        "server_ts": "2026-03-03T09:10:51.747001"
+      },
+      {
+        "text": "The next basket is taller and more cylindrical than the rabbit-shaped one. It has a darker woven texture and features a handle that arches over the top.",
+        "timestamp": "2026-03-03T09:10:59.213534",
+        "sender_role": "director",
+        "server_ts": "2026-03-03T09:10:59.213534"
+      },
+      {
+        "text": "I think I found the taller, cylindrical basket with a darker woven texture and an arched handle. Can you confirm if the handle is more of a straight arch or a rounded arch?",
+        "timestamp": "2026-03-03T09:11:07.610878",
+        "sender_role": "matcher",
+        "server_ts": "2026-03-03T09:11:07.610878"
+      },
+      {
+        "text": "The handle of this basket is a rounded arch, giving it a softer appearance compared to a straight arch.",
+        "timestamp": "2026-03-03T09:11:14.945814",
+        "sender_role": "director",
+        "server_ts": "2026-03-03T09:11:14.945814"
+      },
+      {
+        "text": "I think I found the taller, cylindrical basket with a rounded arch handle. Does it have a smooth or rough texture on the surface?",
+        "timestamp": "2026-03-03T09:11:24.219018",
+        "sender_role": "matcher",
+        "server_ts": "2026-03-03T09:11:24.219018"
+      },
+      {
+        "text": "Yes, it has a darker woven texture and a rounded arch handle. The surface is relatively smooth.",
+        "timestamp": "2026-03-03T09:11:33.135106",
+        "sender_role": "director",
+        "server_ts": "2026-03-03T09:11:33.135106"
+      },
+      {
+        "text": "I’m placing the taller, cylindrical basket with the rounded arch handle in position 2. Can you describe the next basket?",
+        "timestamp": "2026-03-03T09:11:41.571077",
+        "sender_role": "matcher",
+        "server_ts": "2026-03-03T09:11:41.571077"
+      },
+      {
+        "text": "The next basket is more rectangular in shape and has two handles on the sides. It has a lighter color compared to the previous basket and a woven texture.",
+        "timestamp": "2026-03-03T09:11:49.259133",
+        "sender_role": "director",
+        "server_ts": "2026-03-03T09:11:49.259133"
+      }
+    ],
+    "ai_reasoning_log": [],
+    "ai_director_reasoning": [],
+    "ai_matcher_reasoning": []
+  }
+]

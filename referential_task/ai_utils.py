@@ -3254,6 +3254,28 @@ def generate_ai_vs_ai_reply(
                     data = json.loads(text[start:end])
                     utterance = (data.get("utterance") or "").strip() or None
 
+                    if use_v3_cot and data.get("reasoning") is not None and hasattr(player, "group"):
+                        try:
+                            try:
+                                existing = json.loads(getattr(player.group, "ai_reasoning_log", "[]") or "[]")
+                            except Exception:
+                                existing = []
+                            if not isinstance(existing, list):
+                                existing = []
+                            existing.append({
+                                "round_number": getattr(player, "round_number", None),
+                                "timestamp": datetime.datetime.now().isoformat(),
+                                "strategy_name": strategy_for_prompt,
+                                "human_role": original_role or "observer",
+                                "ai_role": role,
+                                "reasoning": data.get("reasoning"),
+                                "utterance": utterance,
+                                "raw_text": text,
+                            })
+                            player.group.ai_reasoning_log = json.dumps(existing, ensure_ascii=False)
+                        except Exception:
+                            pass
+
                     sel = data.get("selection")
                     if isinstance(sel, dict):
                         cand_raw = sel.get("candidate_index")
@@ -3284,6 +3306,29 @@ def generate_ai_vs_ai_reply(
                     if start != -1 and end > start:
                         data = json.loads(text[start:end])
                         utterance = (data.get("utterance") or "").strip() or None
+                        
+                        if use_v3_cot and data.get("reasoning") is not None and hasattr(player, "group"):
+                            try:
+                                try:
+                                    existing = json.loads(getattr(player.group, "ai_reasoning_log", "[]") or "[]")
+                                except Exception:
+                                    existing = []
+                                if not isinstance(existing, list):
+                                    existing = []
+                                existing.append({
+                                    "round_number": getattr(player, "round_number", None),
+                                    "timestamp": datetime.datetime.now().isoformat(),
+                                    "strategy_name": strategy_for_prompt,
+                                    "human_role": original_role or "observer",
+                                    "ai_role": role,
+                                    "reasoning": data.get("reasoning"),
+                                    "utterance": utterance,
+                                    "raw_text": text,
+                                })
+                                player.group.ai_reasoning_log = json.dumps(existing, ensure_ascii=False)
+                            except Exception:
+                                pass
+                                
                         if not utterance:
                             # Fallback to raw text if utterance is empty
                             utterance = text

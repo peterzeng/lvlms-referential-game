@@ -478,9 +478,30 @@
                 delayValue.textContent = this.value;
             });
 
-            exportBtn.addEventListener('click', () => {
+            exportBtn.addEventListener('click', async () => {
                 if (!currentSessionId) return;
-                window.location.href = `/api/game/export?session_id=${currentSessionId}`;
+                exportBtn.disabled = true;
+                const originalText = exportBtn.innerHTML;
+                exportBtn.innerHTML = '⏳ Exporting...';
+                try {
+                    const res = await fetch(`/api/game/export?session_id=${currentSessionId}`);
+                    if (!res.ok) throw new Error('Export failed');
+                    const blob = await res.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `${currentSessionId}_data.json`;
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                } catch (e) {
+                    console.error('Export error:', e);
+                    alert('Failed to export data.');
+                } finally {
+                    exportBtn.innerHTML = originalText;
+                    exportBtn.disabled = false;
+                }
             });
 
             startSimBtn.addEventListener('click', async () => {
@@ -570,6 +591,17 @@
                 if (!currentSessionId) return;
                 try {
                     const res = await fetch(`/api/game/state?session_id=${currentSessionId}`);
+                    if (!res.ok) {
+                        const err = await res.json();
+                        if (res.status === 404) {
+                            document.getElementById('status-text').textContent = "Session Lost (Server Restarted)";
+                            document.getElementById('status-dot').className = "status-dot waiting";
+                            if (isAutoPlaying) {
+                                autoPlayBtn.click(); // Toggle off
+                            }
+                        }
+                        return;
+                    }
                     const state = await res.json();
                     renderState(state);
                 } catch (e) {
