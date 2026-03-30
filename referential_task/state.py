@@ -15,6 +15,7 @@ class SessionConfig:
 class Session:
     def __init__(self, config_dict=None):
         self.config = config_dict or {}
+        self.players = []
 
 class Group:
     def __init__(self, shared_grid="[]", target_baskets="[]"):
@@ -54,6 +55,14 @@ class Player:
         self.session = session or Session()
         self.round_number = round_number
         self.participant = Participant(role)
+        
+        # Link this player instance into the session's cross-round list
+        if self not in self.session.players:
+            self.session.players.append(self)
 
     def field_maybe_none(self, field_name):
         return getattr(self, field_name, None)
+        
+    def in_all_rounds(self):
+        # Filter to players up to the current round number
+        return [p for p in self.session.players if p.round_number <= self.round_number]

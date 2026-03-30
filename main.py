@@ -197,7 +197,7 @@ async def start_game(data: dict):
         "ai_vs_ai_mode": True,
         "director_view": "grid",
         "basket_set": 5,
-        "prompt_strategy": "v3",
+        "prompt_strategy": data.get("prompt_strategy", "v4"),
         "ai_director_model": data.get("director_model") or os.environ.get("AI_DIRECTOR_MODEL", "gpt-4o-mini"),
         "ai_matcher_model": data.get("matcher_model") or os.environ.get("AI_MATCHER_MODEL", "gpt-4o-mini"),
         "ai_model": data.get("model", "gpt-4o-mini"),
@@ -237,6 +237,38 @@ async def play_turn(data: dict):
     try:
         run_ai_vs_ai_turn(player)
         save_state_to_db(session_id, player)
+        
+        # Auto-advance to the next round if the current one is completely finished
+        if getattr(player, "task_completed", False):
+            current_round = player.round_number
+            if current_round < 4:
+                next_round = current_round + 1
+                
+                # Initialize new game state for the next round
+                new_group = Group()
+                new_grid = get_preset_grid(round_number=next_round)
+                new_group.shared_grid = json.dumps(new_grid)
+                
+                new_player = Player(role="observer", group=new_group, session=player.session, round_number=next_round)
+                
+                # Overwrite active simulation with the new round's player
+                active_simulations[session_id]["player"] = new_player
+                active_simulations[session_id]["round"] = next_round
+                
+                # Save the fresh next round to DB immediately
+                save_state_to_db(session_id, new_player)
+                
+                # Update the active reference so the status returned matches the new round
+                player = new_player
+            else:
+                # Round 4 complete: Evaluate mutual perceptions
+                if not getattr(player, "perceptions_generated", False):
+                    player.perceptions_generated = True
+                    logger.info("Round 4 finished! Fetching AI vs AI mutual perceptions.")
+                    from referential_task.ai_perceptions import generate_ai_vs_ai_perceptions
+                    generate_ai_vs_ai_perceptions(player)
+                    save_state_to_db(session_id, player)
+
         status = get_ai_vs_ai_status(player)
         return JSONResponse({"status": "Turn executed", "game_status": status})
     except Exception as e:
@@ -282,6 +314,9 @@ async def get_state(session_id: str):
     return JSONResponse({
         "status": status,
         "round_number": player.round_number,
+        "prompt_strategy": player.session.config.get("prompt_strategy", "v4"),
+        "director_model": player.session.config.get("ai_director_model", "unknown"),
+        "matcher_model": player.session.config.get("ai_matcher_model", "unknown"),
         "ai_messages": ai_messages,
         "partial_sequence": partial_sequence,
         "reasoning_log": reasoning_log,
