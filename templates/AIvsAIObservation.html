@@ -368,6 +368,7 @@
                 <div class="input-group" style="width: auto;">
                     <span class="input-group-text">Strategy</span>
                     <select class="form-select" id="prompt-strategy-select">
+                        <option value="v5" selected>v5 (Entrainment)</option>
                         <option value="v4">v4 (Common Ground)</option>
                         <option value="v3">v3 (CoT)</option>
                         <option value="v2">v2 (Weiling)</option>
@@ -575,6 +576,7 @@
                 isProcessing = true;
                 nextTurnBtn.disabled = true;
                 document.getElementById('status-text').textContent = "Thinking...";
+                let shouldStop = false;
                 try {
                     const res = await fetch('/api/game/turn', {
                         method: 'POST',
@@ -584,20 +586,34 @@
                     const data = await res.json();
                     console.log("Turn result:", data);
                     await pollState();
+                    if (data.game_status && data.game_status.is_complete && data.game_status.round_number >= 4) {
+                        shouldStop = true;
+                    }
                 } catch (e) {
                     console.error("Turn failed", e);
                 }
                 isProcessing = false;
                 nextTurnBtn.disabled = false;
                 document.getElementById('status-text').textContent = "Ready";
+                return shouldStop;
             }
 
             async function playLoop() {
                 if (!isAutoPlaying) return;
-                await executeTurn();
+                const shouldStop = await executeTurn();
+                
+                if (shouldStop) {
+                    isAutoPlaying = false;
+                    autoPlayBtn.textContent = '⏵⏵ Auto-Play';
+                    autoPlayBtn.classList.remove('playing');
+                    document.getElementById('status-text').textContent = "Simulation Complete! 🎉";
+                    document.getElementById('status-dot').className = "status-dot complete";
+                    return;
+                }
+                
                 if (isAutoPlaying) {
                     const delayMs = parseFloat(delaySlider.value) * 1000;
-                    setTimeout(playLoop, delayMs);
+                    autoPlayInterval = setTimeout(playLoop, delayMs);
                 }
             }
 

@@ -1,0 +1,570 @@
+session_id,round_1_conversation,round_1_accuracy,round_2_conversation,round_2_accuracy,round_3_conversation,round_3_accuracy,round_4_conversation,round_4_accuracy,director_perception_capable,director_perception_helpful,director_perception_understood,director_perception_adapted,director_perception_improved,director_perception_comment,matcher_perception_capable,matcher_perception_helpful,matcher_perception_understood,matcher_perception_adapted,matcher_perception_improved,matcher_perception_comment
+v5-test-6,"[2026-03-30T20:10:40.278909] DIRECTOR:
+Basket 1 is a woven wicker basket shaped like a duck: oval body with a lid, and a duck head on the right side (little beak and a blue eye).
+
+[2026-03-30T20:10:49.944245] MATCHER:
+Done. Go to Basket 2
+
+[2026-03-30T20:10:59.695823] DIRECTOR:
+Basket 2: a deep, rounded bucket-shaped brown wicker basket with one thick very dark (almost black) arched handle; rim has a banded look with a lighter strip just under the top.
+
+[2026-03-30T20:11:11.407030] MATCHER:
+Placed it. Go to Basket 3
+
+[2026-03-30T20:11:27.777967] DIRECTOR:
+Basket 3: rectangular picnic basket with a tall center handle, and a hinged lid that’s open/flipped up to the right side.
+
+[2026-03-30T20:11:39.536457] MATCHER:
+Is it the one with the lid already flipped open to the right (not the fully closed lidded box)?
+
+[2026-03-30T20:11:49.509772] DIRECTOR:
+Yes—basket 3 is the rectangular picnic basket with the tall center handle and the lid already flipped open to the right (not the fully closed one).
+
+[2026-03-30T20:12:00.834475] MATCHER:
+Done. Go to Basket 4
+
+[2026-03-30T20:12:11.711826] DIRECTOR:
+Basket 4: the light tan/cream oval “boat-shaped” wicker basket with one arched handle that has white-wrapped sections (and small reddish bands where it attaches).
+
+[2026-03-30T20:12:21.959283] MATCHER:
+Placed it. Go to Basket 5
+
+[2026-03-30T20:12:31.463118] DIRECTOR:
+Basket 5: a squat rectangular wicker basket with a very thick twisted-rope handle; tight square weave and a darker band around the middle.
+
+[2026-03-30T20:12:41.436723] MATCHER:
+Is it the low, rectangular basket with a chunky braided handle (not the taller greenish rectangular one)?
+
+[2026-03-30T20:12:51.134436] DIRECTOR:
+Yes—pick the low/squat rectangular basket with the chunky braided/twisted handle (not the taller greenish rectangular one).
+
+[2026-03-30T20:13:01.549499] MATCHER:
+Done. Go to Basket 6
+
+[2026-03-30T20:13:11.683451] DIRECTOR:
+Basket 6: the round lidded wicker basket shaped like a CAT face—ears on top, painted whiskers/nose, little feet.
+
+[2026-03-30T20:13:23.455359] MATCHER:
+Done. Go to Basket 7
+
+[2026-03-30T20:13:33.070719] DIRECTOR:
+Basket 7: rectangular basket with one arched handle; body is green/teal woven with vertical striping, and it has a thick braided warm-brown rim/top edge.
+
+[2026-03-30T20:13:43.113152] MATCHER:
+Done. Go to Basket 8
+
+[2026-03-30T20:13:55.084121] DIRECTOR:
+Basket 8: oval basket with a thick dark (black/charcoal) arched handle; body is dark gray wicker with a lighter tan band around the bottom and a pale rim at the top.
+
+[2026-03-30T20:14:04.830014] MATCHER:
+Placed. Go to Basket 9
+
+[2026-03-30T20:14:15.458074] DIRECTOR:
+Basket 9: tall dark-brown cylindrical wicker basket, open top, with TWO small loop handles on the rim (no big arched handle).
+
+[2026-03-30T20:14:27.038235] MATCHER:
+Done. Go to Basket 10
+
+[2026-03-30T20:14:37.672384] DIRECTOR:
+Basket 10: a shallow, wide round tray-like wicker basket with one arched handle over the top; the base shows a clear spiral/coil weave (light tan with a bit of reddish-brown).
+
+[2026-03-30T20:14:50.079721] MATCHER:
+Placed. Go to Basket 11
+
+[2026-03-30T20:15:02.299373] DIRECTOR:
+Basket 11: deep round tub/bucket basket with TWO small loop handles on the sides (no arch handle), thick rim, diagonal chevron weave—darker brown near the top fading to lighter tan below.
+
+[2026-03-30T20:15:14.941508] MATCHER:
+Done. Go to Basket 12
+
+[2026-03-30T20:15:25.580120] DIRECTOR:
+Basket 12: light tan wicker basket with one arched handle; rounded-rectangle shape with a slightly pinched/waisted top opening and open lattice sides (no lid).
+
+[2026-03-30T20:15:38.539540] MATCHER:
+Is it the pale basket with a narrow waist near the rim (not the round shallow tray and not the two-tone banded one)?
+
+[2026-03-30T20:15:48.647930] DIRECTOR:
+Yes—that’s Basket 12: the pale tan handled basket with the narrow “waist” right near the rim (open lattice sides), not the shallow round tray and not the green two-tone banded one.
+
+[2026-03-30T20:16:01.098043] MATCHER:
+Done. Go to Basket 1",83.33333333333334,"[2026-03-30T20:16:08.641741] DIRECTOR:
+1: light tan picnic basket; tall center handle + diagonal brace; one side has hinged lid/flap (partly open).
+
+[2026-03-30T20:16:16.461010] MATCHER:
+Placed. Go to Basket 2
+
+[2026-03-30T20:16:23.983539] DIRECTOR:
+2: tall cylinder hamper; open top; 2 small loop handles at rim
+
+[2026-03-30T20:16:32.085553] MATCHER:
+Done. Go to Basket 3
+
+[2026-03-30T20:16:39.441129] DIRECTOR:
+3: round pot/bowl; single thick dark arch handle
+
+[2026-03-30T20:16:49.223954] MATCHER:
+Handle same color as basket, or noticeably darker/black?
+
+[2026-03-30T20:16:57.348339] DIRECTOR:
+3: handle noticeably darker (dark brown/near-black), body lighter brown
+
+[2026-03-30T20:17:07.771863] MATCHER:
+Placed. Go to Basket 4
+
+[2026-03-30T20:17:18.569208] DIRECTOR:
+4: twisted-rope handle (thick), shallow oval, golden checker weave
+
+[2026-03-30T20:17:28.914454] MATCHER:
+Handle single thick twisted rope (not two thin)?
+
+[2026-03-30T20:17:37.474968] DIRECTOR:
+Yes—single thick twisted-rope handle (one piece), not two thin.
+
+[2026-03-30T20:17:47.930469] MATCHER:
+Placed. Go to Basket 5
+
+[2026-03-30T20:17:57.479037] DIRECTOR:
+5: dark gray/black two-tone (pale base band), single arch handle.
+
+[2026-03-30T20:18:07.823351] MATCHER:
+Done. Go to Basket 6
+
+[2026-03-30T20:18:16.419453] DIRECTOR:
+6: duck basket (lidded), head/neck handle.
+
+[2026-03-30T20:18:27.356660] MATCHER:
+Placed. Go to Basket 7
+
+[2026-03-30T20:18:35.796820] DIRECTOR:
+7: cat basket
+
+[2026-03-30T20:18:46.248021] MATCHER:
+Placed. Go to Basket 8
+
+[2026-03-30T20:19:00.206987] DIRECTOR:
+8: shallow round tray w/ spiral base + thin pale handle
+
+[2026-03-30T20:19:10.483845] MATCHER:
+Placed. Go to Basket 9
+
+[2026-03-30T20:19:18.480134] DIRECTOR:
+9: boxy rectangle, green/teal sides, braided rim, single arch handle
+
+[2026-03-30T20:19:29.205459] MATCHER:
+Done. Go to Basket 10
+
+[2026-03-30T20:19:39.023637] DIRECTOR:
+10: round tub w/ TWO side loop handles (no arch handle)
+
+[2026-03-30T20:19:50.480936] MATCHER:
+Placed. Go to Basket 11
+
+[2026-03-30T20:20:01.311378] DIRECTOR:
+11: white-rim oval w/ red strap handle connectors
+
+[2026-03-30T20:20:13.036044] MATCHER:
+Done. Go to Basket 12
+
+[2026-03-30T20:20:24.357209] DIRECTOR:
+12: plain light-brown handled (squat rounded-rect)
+
+[2026-03-30T20:20:35.437002] MATCHER:
+Any white/blue weave or uniform light-brown?
+
+[2026-03-30T20:20:47.008554] DIRECTOR:
+uniform light-brown; no white/blue weave
+
+[2026-03-30T20:21:00.020390] MATCHER:
+Placed. Go to Basket 12",100.0,"[2026-03-30T20:21:09.125899] DIRECTOR:
+Basket 1: rectangular tote w/ thick arch handle; tan/brown rim+handle but the main body is green/teal weave; braided band running along the top front just under rim.
+
+[2026-03-30T20:21:18.517585] MATCHER:
+Placed. Go to Basket 2
+
+[2026-03-30T20:21:27.308355] DIRECTOR:
+2: tall arch handle w/ white wrap at top; little red connector bits at sides; pale/white weave body w tan inner rim.
+
+[2026-03-30T20:21:37.457526] MATCHER:
+Done. Go to Basket 3
+
+[2026-03-30T20:21:47.395273] DIRECTOR:
+3: cat-face lidded (round), ears/whiskers on top.
+
+[2026-03-30T20:21:57.737603] MATCHER:
+Cat-face upright round (not sideways animal)?
+
+[2026-03-30T20:22:06.128675] DIRECTOR:
+yes—upright round cat-face (lidded), not sideways animal
+
+[2026-03-30T20:22:16.782729] MATCHER:
+Placed. Go to Basket 4
+
+[2026-03-30T20:22:26.510576] DIRECTOR:
+4: sideways mouse/rat basket—pointy snout + one eye; top handle/opening on back.
+
+[2026-03-30T20:22:36.322676] MATCHER:
+Done. Go to Basket 5
+
+[2026-03-30T20:22:49.025932] DIRECTOR:
+5: light tan oval basket, single thick arch handle (simple, no animal).
+
+[2026-03-30T20:23:00.147534] MATCHER:
+Handle dark/black or same light tan?
+
+[2026-03-30T20:23:09.224153] DIRECTOR:
+5 handle = same light tan (not dark/black).
+
+[2026-03-30T20:23:21.168669] MATCHER:
+Need Basket 6 desc.
+
+[2026-03-30T20:23:30.515024] DIRECTOR:
+light tan oval
+
+[2026-03-30T20:23:40.666803] MATCHER:
+Handle? none / single arch / tall thin arch
+
+[2026-03-30T20:23:49.358992] DIRECTOR:
+pos5 light tan oval = single arch handle (not tall thin), oval body
+
+[2026-03-30T20:23:59.699806] MATCHER:
+Basket 6 desc? tray/cyl/dark/picnic?
+
+[2026-03-30T20:24:07.955762] DIRECTOR:
+light tan oval
+
+[2026-03-30T20:24:18.601369] MATCHER:
+Shallow oval tray w/ black pattern?
+
+[2026-03-30T20:24:28.166347] DIRECTOR:
+pos5 = open oval tote, single arch handle. NOT flat tray (that’s pos11).
+
+[2026-03-30T20:24:39.941192] MATCHER:
+Handle thin pale cane or thick brown? Any green/blue band on rim?
+
+[2026-03-30T20:24:50.932770] DIRECTOR:
+pos5: thick brown handle; no green/blue rim band.
+
+[2026-03-30T20:25:02.924690] MATCHER:
+Placed. Go to Basket 6
+
+[2026-03-30T20:25:13.509794] DIRECTOR:
+6: tall dark cylinder; 2 small loop handles at rim (no big arch handle).
+
+[2026-03-30T20:25:24.056454] MATCHER:
+Done. Go to Basket 7
+
+[2026-03-30T20:25:37.528102] DIRECTOR:
+7: deep round bowl; thick dark arch handle (single).
+
+[2026-03-30T20:25:47.736993] MATCHER:
+Placed. Go to Basket 8
+
+[2026-03-30T20:25:57.118337] DIRECTOR:
+5: light tan oval
+
+[2026-03-30T20:26:07.194941] MATCHER:
+Is it the shallow oval tray w/ dark pattern?
+
+[2026-03-30T20:26:18.103951] DIRECTOR:
+No—NOT tray. Pos5 = light tan oval tote, single big arch handle.
+
+[2026-03-30T20:26:30.668957] MATCHER:
+Placing cand14. Done. Go to Basket 8
+
+[2026-03-30T20:26:40.467944] DIRECTOR:
+8 = dark gray oval w/ thick handle + pale rim band
+
+[2026-03-30T20:26:50.649168] MATCHER:
+Placed. Go to Basket 9
+
+[2026-03-30T20:27:00.849278] DIRECTOR:
+9 = low rectangular, single tall arch handle, chunky square-weave
+
+[2026-03-30T20:27:15.599808] MATCHER:
+Open-top (not lidded) + not picnic-box lid?
+
+[2026-03-30T20:27:28.194353] DIRECTOR:
+yes: open-top, no lid; single tall arch handle (not picnic-box)
+
+[2026-03-30T20:27:39.976820] MATCHER:
+Shallow wide round or deep bucket?
+
+[2026-03-30T20:27:49.093047] DIRECTOR:
+9 = low rectangular; shallow (not deep bucket).
+
+[2026-03-30T20:27:59.119482] MATCHER:
+Placed. Go to Basket 10
+
+[2026-03-30T20:28:10.171654] DIRECTOR:
+10 = deep round tub w/ 2 side loop handles
+
+[2026-03-30T20:28:20.381217] MATCHER:
+Done. Go to Basket 11
+
+[2026-03-30T20:28:30.854027] DIRECTOR:
+11: shallow round tray + single arch handle (spiral base)
+
+[2026-03-30T20:28:43.428824] MATCHER:
+Placed. Go to Basket 12
+
+[2026-03-30T20:28:53.139458] DIRECTOR:
+12: lidded picnic basket (hinged top) w/ tall center handle
+
+[2026-03-30T20:29:05.912799] MATCHER:
+Done. Submit.",83.33333333333334,"[2026-03-30T20:29:13.862809] DIRECTOR:
+Basket 1: shallow oval tray basket; single tall arch handle wrapped light/cream; spiral weave base; darker brown sides.
+
+[2026-03-30T20:29:23.594965] MATCHER:
+Placed. Go to Basket 2
+
+[2026-03-30T20:29:32.232253] DIRECTOR:
+2: rectangular low basket; thick twisted-rope handle; chunky checker weave.
+
+[2026-03-30T20:29:41.578878] MATCHER:
+Done. Go to Basket 3
+
+[2026-03-30T20:29:50.095268] DIRECTOR:
+3: duck lidded
+
+[2026-03-30T20:30:02.201592] MATCHER:
+Placed. Go to Basket 4
+
+[2026-03-30T20:30:10.451162] DIRECTOR:
+4: dark green rectangular tote, tan rim+tan bottom band, single arch handle
+
+[2026-03-30T20:30:19.919597] MATCHER:
+Done. Go to Basket 5
+
+[2026-03-30T20:30:28.354738] DIRECTOR:
+5: round tub + 2 side ears
+
+[2026-03-30T20:30:39.268011] MATCHER:
+Side ears = small rim loops, no tall arch handle?
+
+[2026-03-30T20:30:48.963063] DIRECTOR:
+yes—round tub w/ 2 small rim loop handles; no tall arch handle
+
+[2026-03-30T20:30:58.827501] MATCHER:
+Placed. Go to Basket 6
+
+[2026-03-30T20:31:08.146319] DIRECTOR:
+6: dark thick arch-handle bucket
+
+[2026-03-30T20:31:18.921114] MATCHER:
+Placed. Go to Basket 7
+
+[2026-03-30T20:31:28.321561] DIRECTOR:
+7: tall cylinder hamper, 2 small loop handles
+
+[2026-03-30T20:31:38.356532] MATCHER:
+Done. Go to Basket 8
+
+[2026-03-30T20:31:46.960992] DIRECTOR:
+8: picnic lidded, tall center handle + extra angled handle
+
+[2026-03-30T20:31:56.685229] MATCHER:
+Placed. Go to Basket 9
+
+[2026-03-30T20:32:05.944975] DIRECTOR:
+cat lidded
+
+[2026-03-30T20:32:16.838979] MATCHER:
+Placed. Go to Basket 10
+
+[2026-03-30T20:32:26.287859] DIRECTOR:
+10: white handle w/ colored bands
+
+[2026-03-30T20:32:36.880788] MATCHER:
+Done. Go to Basket 11
+
+[2026-03-30T20:32:46.658637] DIRECTOR:
+plain tan squat handle
+
+[2026-03-30T20:32:58.791316] MATCHER:
+Handle thick dark arch or light thin tan? round bowl or oval?
+
+[2026-03-30T20:33:09.292222] DIRECTOR:
+11 = light thin tan handle; squat oval bowl (not round); plain tan, no lid.
+
+[2026-03-30T20:33:20.559544] MATCHER:
+Placed. Go to Basket 12
+
+[2026-03-30T20:33:30.694801] DIRECTOR:
+12 = dark thick arch-handle
+
+[2026-03-30T20:33:42.401187] MATCHER:
+Handle same thick dark as pos6, or more tan/orange?
+
+[2026-03-30T20:33:53.886865] DIRECTOR:
+More tan/orange? no—dark like pos6 but thinner; body dark gray w/ light bands near base.
+
+[2026-03-30T20:34:06.532399] MATCHER:
+Placed. Submit.
+
+[2026-03-30T20:34:24.415160] DIRECTOR:
+6: dark thick arch-handle
+
+[2026-03-30T20:34:37.618437] MATCHER:
+Confirm: deep round dark, super-thick handle?
+
+[2026-03-30T20:34:50.062548] DIRECTOR:
+Yes—deep round dark bucket + super-thick dark arch handle (no lid).
+
+[2026-03-30T20:35:03.064550] MATCHER:
+Placed. Go to Basket 7
+
+[2026-03-30T20:35:13.516682] DIRECTOR:
+tall cylinder
+
+[2026-03-30T20:35:28.763453] MATCHER:
+Done. Go to Basket 8
+
+[2026-03-30T20:35:40.263363] DIRECTOR:
+picnic lidded
+
+[2026-03-30T20:35:56.768649] MATCHER:
+Done. Go to Basket 10
+
+[2026-03-30T20:36:06.656548] DIRECTOR:
+white handle
+
+[2026-03-30T20:36:18.537301] MATCHER:
+Placed. Go to Basket 11
+
+[2026-03-30T20:36:30.894799] DIRECTOR:
+Need basket 12: dark thick. (You asked 11 but 11 already done: light thin tan.)
+
+[2026-03-30T20:36:44.443597] MATCHER:
+Done. Go to Basket 1
+
+[2026-03-30T20:36:54.001378] DIRECTOR:
+shallow oval
+
+[2026-03-30T20:37:07.026504] MATCHER:
+Placed. Go to Basket 2
+
+[2026-03-30T20:37:17.319001] DIRECTOR:
+rectangular low
+
+[2026-03-30T20:37:28.681704] MATCHER:
+Done. Go to Basket 3
+
+[2026-03-30T20:37:37.289132] DIRECTOR:
+duck lidded
+
+[2026-03-30T20:37:50.003075] MATCHER:
+Placed. Go to Basket 4
+
+[2026-03-30T20:38:02.171418] DIRECTOR:
+dark green rectangular
+
+[2026-03-30T20:38:15.900448] MATCHER:
+Done. Go to Basket 5
+
+[2026-03-30T20:38:24.696531] DIRECTOR:
+round tub
+
+[2026-03-30T20:38:36.670398] MATCHER:
+Round tub = 2 side handles, no arch?
+
+[2026-03-30T20:38:47.636039] DIRECTOR:
+not round tub. pos12 = dark gray rectangular + pale rim band + arch handle.
+
+[2026-03-30T20:39:00.022745] MATCHER:
+Done. Round complete.
+
+[2026-03-30T20:39:11.648361] DIRECTOR:
+ack
+
+[2026-03-30T20:39:26.236817] MATCHER:
+All set. Submit now.
+
+[2026-03-30T20:39:37.095973] DIRECTOR:
+Submit.
+
+[2026-03-30T20:39:48.973904] MATCHER:
+Ready. Submit.
+
+[2026-03-30T20:39:59.417871] DIRECTOR:
+Submit.
+
+[2026-03-30T20:40:12.320494] MATCHER:
+All set. Submit.
+
+[2026-03-30T20:40:23.861508] DIRECTOR:
+Submit.
+
+[2026-03-30T20:40:34.835678] MATCHER:
+Submitting now.
+
+[2026-03-30T20:40:46.505330] DIRECTOR:
+Submit.
+
+[2026-03-30T20:40:59.324037] MATCHER:
+Ready. Submit.
+
+[2026-03-30T20:41:11.364091] DIRECTOR:
+Submit.
+
+[2026-03-30T20:41:24.408203] MATCHER:
+All set. Submit.
+
+[2026-03-30T20:41:35.469132] DIRECTOR:
+Submit.
+
+[2026-03-30T20:41:47.045124] MATCHER:
+Submitting now.
+
+[2026-03-30T20:41:57.224287] DIRECTOR:
+Submit.
+
+[2026-03-30T20:42:09.172952] MATCHER:
+Ready. Submitting.
+
+[2026-03-30T20:42:19.289685] DIRECTOR:
+Submit.
+
+[2026-03-30T20:42:33.324149] MATCHER:
+Submitting now.
+
+[2026-03-30T20:42:45.619120] DIRECTOR:
+All set—submit the full sequence.
+
+[2026-03-30T20:43:00.911069] MATCHER:
+Ready. Submitting full sequence.
+
+[2026-03-30T20:43:12.137037] DIRECTOR:
+Yep—submit full sequence now.
+
+[2026-03-30T20:43:24.131277] MATCHER:
+Submitting now.
+
+[2026-03-30T20:43:35.073533] DIRECTOR:
+👍
+
+[2026-03-30T20:43:46.751030] MATCHER:
+All set. Submit.
+
+[2026-03-30T20:43:57.761488] DIRECTOR:
+All 12 done—submit full sequence now.
+
+[2026-03-30T20:44:12.843953] MATCHER:
+Submitting now.
+
+[2026-03-30T20:44:23.820422] DIRECTOR:
+All set.
+
+[2026-03-30T20:44:37.336815] MATCHER:
+Ready to submit.
+
+[2026-03-30T20:44:48.414747] DIRECTOR:
+Submit full sequence now.
+
+[2026-03-30T20:45:04.271075] MATCHER:
+Submitting now.
+
+[2026-03-30T20:48:24.821233] DIRECTOR:
+Submit full sequence now.
+
+[2026-03-30T20:48:38.659380] MATCHER:
+Ready. Submitting full sequence.",83.33333333333334,5,4,4,4,4,"My partner consistently placed the correct basket quickly and kept the rounds moving. They asked good clarifying questions when a description could match multiple options (e.g., lid open vs closed, handle color/thickness, tray vs tote, loop handles vs arched handle), which reduced ambiguity. There were a couple moments of brief confusion in Round 3 (rechecking Basket 5), but they recovered immediately once I clarified. Overall they were capable, communicative, and our coordination got smoother over time.",4,4,4,3,4,"Overall my partner gave clear, distinctive visual descriptions (colors, handle types, lids/animal shapes, bands) that were usually enough to identify the right basket quickly. They responded well to clarifying questions (e.g., handle color, lid vs no lid, tray vs tote) and corrected ambiguity when I flagged potential confusions. A few moments in round 3 had some repetition/misalnumbering (e.g., re-stating “pos5” while I was asking for basket 6/8), which briefly slowed things down, but the coordination still improved across rounds and we finished accurately."

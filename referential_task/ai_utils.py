@@ -2106,7 +2106,7 @@ def _generate_ai_reply(player: Player, latest_message):
             strategy_for_prompt = strategy_name
 
         # Lazily import prompt strategy modules
-        from . import prompt_v1, prompt_v2, prompt_v3, prompt_v4
+        from . import prompt_v1, prompt_v2, prompt_v3, prompt_v4, prompt_v5
 
         if strategy_for_prompt in ("weiling", "v2"):
             chat_messages = prompt_v2.build_weiling_prompt_messages(
@@ -2123,6 +2123,11 @@ def _generate_ai_reply(player: Player, latest_message):
                 player, latest_message, all_history
             )
             use_v3_cot = True  # V4 also uses CoT JSON envelopes
+        elif strategy_for_prompt == "v5":
+            chat_messages = prompt_v5.build_v5_cg_prompt_messages(
+                player, latest_message, all_history
+            )
+            use_v3_cot = True
         else:
             # v1/simple is the default
             chat_messages = prompt_v1.build_simple_prompt_messages(
@@ -2153,7 +2158,7 @@ def _generate_ai_reply(player: Player, latest_message):
             logging.info("[AI_DIRECTOR] Added explicit start prompt for round %d", current_round)
 
         # For V4 Director, inject the Global Game State so they don't lose track of progress
-        if ai_role == "director" and strategy_for_prompt in ("v4", "v4_cg"):
+        if ai_role == "director" and strategy_for_prompt in ("v4", "v4_cg", "v5"):
             try:
                 seq_state = _build_matcher_current_sequence_state_for_prompt(player)
                 indices = seq_state.get("sequence_candidate_indices", [])
@@ -3140,7 +3145,7 @@ def generate_ai_vs_ai_reply(
         player.participant.vars["role"] = fake_human_role
 
         try:
-            from . import prompt_v1, prompt_v2, prompt_v3, prompt_v4
+            from . import prompt_v1, prompt_v2, prompt_v3, prompt_v4, prompt_v5
 
             if strategy_for_prompt in ("weiling", "v2"):
                 chat_messages = prompt_v2.build_weiling_prompt_messages(
@@ -3154,6 +3159,11 @@ def generate_ai_vs_ai_reply(
                 use_v3_cot = True
             elif strategy_for_prompt in ("v4", "v4_cg"):
                 chat_messages = prompt_v4.build_v4_cg_prompt_messages(
+                    player, latest_message, all_history
+                )
+                use_v3_cot = True
+            elif strategy_for_prompt == "v5":
+                chat_messages = prompt_v5.build_v5_cg_prompt_messages(
                     player, latest_message, all_history
                 )
                 use_v3_cot = True
@@ -3185,7 +3195,7 @@ def generate_ai_vs_ai_reply(
                 })
 
             # For V4 Director, inject the Global Game State so they don't lose track of progress
-            if role == "director" and strategy_for_prompt in ("v4", "v4_cg"):
+            if role == "director" and strategy_for_prompt in ("v4", "v4_cg", "v5"):
                 try:
                     seq_state = _build_matcher_current_sequence_state_for_prompt(player)
                     indices = seq_state.get("sequence_candidate_indices", [])

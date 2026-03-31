@@ -197,7 +197,7 @@ async def start_game(data: dict):
         "ai_vs_ai_mode": True,
         "director_view": "grid",
         "basket_set": 5,
-        "prompt_strategy": data.get("prompt_strategy", "v4"),
+        "prompt_strategy": data.get("prompt_strategy", "v5"),
         "ai_director_model": data.get("director_model") or os.environ.get("AI_DIRECTOR_MODEL", "gpt-4o-mini"),
         "ai_matcher_model": data.get("matcher_model") or os.environ.get("AI_MATCHER_MODEL", "gpt-4o-mini"),
         "ai_model": data.get("model", "gpt-4o-mini"),
@@ -268,6 +268,50 @@ async def play_turn(data: dict):
                     from referential_task.ai_perceptions import generate_ai_vs_ai_perceptions
                     generate_ai_vs_ai_perceptions(player)
                     save_state_to_db(session_id, player)
+                    
+                    # --- AUTO-EXPORT DATA ---
+                    try:
+                        logger.info("Auto-exporting full session data to data folder...")
+                        os.makedirs("data", exist_ok=True)
+                        
+                        conn = sqlite3.connect(DB_FILE)
+                        c = conn.cursor()
+                        c.execute("SELECT session_id, round_number, config, shared_grid, target_baskets, ai_partial_sequence, ai_messages, ai_reasoning_log, matcher_sequence, status, ai_director_reasoning, ai_matcher_reasoning, updated_at FROM game_sessions WHERE session_id = ?", (session_id,))
+                        rows = c.fetchall()
+                        conn.close()
+                        
+                        sessions_data = []
+                        for row in rows:
+                            (s_id, r_num, config_txt, shared_grid_txt, target_baskets_txt,
+                             partial_seq_txt, ai_msgs_txt, ai_reasoning_txt, matcher_seq_txt,
+                             status_txt, director_reasoning_txt, matcher_reasoning_txt, updated_at) = row
+                            
+                            def safe_json(val):
+                                try: return json.loads(val) if val else []
+                                except Exception: return val
+
+                            sessions_data.append({
+                                "session_id": s_id,
+                                "round_number": r_num,
+                                "updated_at": updated_at,
+                                "config": safe_json(config_txt),
+                                "status": safe_json(status_txt),
+                                "shared_grid": safe_json(shared_grid_txt),
+                                "target_baskets": safe_json(target_baskets_txt),
+                                "ai_partial_sequence": safe_json(partial_seq_txt),
+                                "matcher_sequence": safe_json(matcher_seq_txt),
+                                "ai_messages": safe_json(ai_msgs_txt),
+                                "ai_reasoning_log": safe_json(ai_reasoning_txt),
+                                "ai_director_reasoning": safe_json(director_reasoning_txt),
+                                "ai_matcher_reasoning": safe_json(matcher_reasoning_txt)
+                            })
+                            
+                        export_path = f"data/{session_id}_data.json"
+                        with open(export_path, 'w', encoding='utf-8') as f:
+                            json.dump(sessions_data, f)
+                        logger.info(f"Successfully auto-exported to {export_path}")
+                    except Exception as export_e:
+                        logger.error(f"Auto-export failed: {export_e}")
 
         status = get_ai_vs_ai_status(player)
         return JSONResponse({"status": "Turn executed", "game_status": status})

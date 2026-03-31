@@ -37,9 +37,20 @@ def get_content_word_count(text):
     return len(words)
 
 def main():
-    data_path = "data/v4 test 1 gpt-5.2_data.json"
-    with open(data_path, 'r') as f:
-        data = json.load(f)
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--filename", required=True, help="Filename of the JSON trace")
+    args = parser.parse_args()
+    
+    data_path = args.filename
+    if not os.path.isabs(data_path) and not data_path.startswith("data/"):
+        data_path = f"data/{data_path}"
+
+    with open(data_path, 'r', encoding='utf-8') as f:
+        content = f.read()
+        if ']' in content:
+            content = content[:content.rindex(']') + 1]
+        data = json.loads(content)
 
     # Initialize OpenAI client 
     from dotenv import load_dotenv
