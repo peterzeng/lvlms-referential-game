@@ -24,10 +24,10 @@ def flatten_log_to_csv(input_json_path: str, output_csv_path: str):
 
     headers = [
         "session_id",
-        "round_1_conversation", "round_1_accuracy",
-        "round_2_conversation", "round_2_accuracy",
-        "round_3_conversation", "round_3_accuracy",
-        "round_4_conversation", "round_4_accuracy",
+        "round_1_conversation", "round_1_ai_reasoning", "round_1_accuracy",
+        "round_2_conversation", "round_2_ai_reasoning", "round_2_accuracy",
+        "round_3_conversation", "round_3_ai_reasoning", "round_3_accuracy",
+        "round_4_conversation", "round_4_ai_reasoning", "round_4_accuracy",
         "director_perception_capable",
         "director_perception_helpful",
         "director_perception_understood",
@@ -79,6 +79,24 @@ def flatten_log_to_csv(input_json_path: str, output_csv_path: str):
                 
             row_data[f"round_{r_num}_conversation"] = conv_str.strip()
             row_data[f"round_{r_num}_accuracy"] = accuracy
+            
+            reasoning_log = rnd.get("ai_reasoning_log", [])
+            reasoning_str = ""
+            for r in reasoning_log:
+                role_str = r.get("ai_role", "unknown").upper()
+                ts = r.get("timestamp", "")
+                reasoning_obj = r.get("reasoning")
+                
+                if reasoning_obj:
+                    # Output the nicely formatted reasoning dictionary if available
+                    body = json.dumps(reasoning_obj, indent=2)
+                else:
+                    # Fallback to the raw text
+                    body = r.get("raw_text", "")
+                    
+                reasoning_str += f"[{ts}] {role_str} REASONING:\n{body}\n\n"
+                
+            row_data[f"round_{r_num}_ai_reasoning"] = reasoning_str.strip()
             
             # Perceptions exist primarily at end of round 4
             d_reasoning = rnd.get("ai_director_reasoning")

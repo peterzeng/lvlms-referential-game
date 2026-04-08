@@ -55,22 +55,25 @@ GPT_5_2_MODELS = frozenset({
     "gpt-5.2-mini",
     "gpt-5.2-chat-latest",
     "gpt-5.2-pro",
+    "gpt-5.4",
+    "gpt-5.4-mini",
 })
 
 
 def _is_gpt_5_2_model(model: str) -> bool:
-    """Check if a model supports GPT-5.2 API features (reasoning_effort).
+    """Check if a model supports GPT-5.x API features (reasoning_effort).
     
-    Returns True for GPT-5.2 and later models that support reasoning_effort.
+    Returns True for GPT-5.2, GPT-5.4, and any future GPT-5.x models that
+    support the reasoning_effort parameter.
     """
     if not model:
         return False
     # Exact match in known set
     if model in GPT_5_2_MODELS:
         return True
-    # Pattern match for future 5.2+ variants (e.g., gpt-5.2-2025-01-01)
+    # Pattern match for gpt-5.x variants (e.g., gpt-5.2-2025-01-01, gpt-5.4-turbo)
     model_lower = model.lower()
-    return model_lower.startswith("gpt-5.2")
+    return model_lower.startswith("gpt-5.2") or model_lower.startswith("gpt-5.4")
 
 
 def _uses_max_completion_tokens(model: str) -> bool:
@@ -1375,10 +1378,10 @@ def _inject_visual_grid_context(player: Player, messages: list[dict[str, Any]]):
         return messages
     
     import logging
-    logging.info(
-        "[VISUAL_CONTEXT] Generated composite image for %s, URL length: %d bytes",
-        ai_role, len(composite_url) if composite_url else 0
-    )
+    # logging.info(
+        # "[VISUAL_CONTEXT] Generated composite image for %s, URL length: %d bytes",
+        # ai_role, len(composite_url) if composite_url else 0
+    # )
 
     # Get current round number for explicit context
     current_round = getattr(player, "round_number", 1) or 1
@@ -1556,6 +1559,110 @@ def _ai_debug_enabled(player: Player | None) -> bool:
         return False
 
 
+import re as _re
+
+
+def _build_director_conversation_state(player: Player) -> dict[str, Any]:
+    """Build the Director's game-progress state from conversation history ONLY.
+
+    Unlike _build_matcher_current_sequence_state_for_prompt (which reads the
+    Matcher's actual selections), this function derives the Director's notion
+    of "completed positions" solely from the chat transcript.  A position is
+    considered completed when:
+      1. The Director sent a message starting with "Basket <N>" (describing it).
+      2. The Matcher subsequently sent a confirmation (contains "Placed",
+         "Done", "Confirmed", "Got it", or "Placing") BEFORE the Director
+         moved on to a different basket number.
+
+    This preserves the information asymmetry required by the experiment: the
+    Director never learns which candidate the Matcher actually selected.
+    """
+    import logging
+
+    # Gather current-round messages
+    group = getattr(player, "group", None)
+    if group is None:
+        return {"completed_positions": [], "next_target": 1}
+
+    try:
+        msgs = json.loads(getattr(group, "ai_messages", "") or "[]")
+    except Exception:
+        msgs = []
+    if not msgs:
+        # Fallback for human+AI mode where messages might be in the group message list
+        try:
+            msgs = json.loads(getattr(group, "messages", "") or "[]")
+        except Exception:
+            msgs = []
+
+    # Confirmation phrases the Matcher uses to signal placement.
+    _CONFIRM_PATTERNS = (
+        "placed", "done", "confirmed", "got it", "placing",
+        "go to basket", "round complete",
+    )
+
+    # Walk through messages in order and track which basket the Director is
+    # currently describing, and whether the Matcher confirmed it.
+    completed: set[int] = set()
+    current_director_basket: int | None = None
+
+    for msg in msgs:
+        if not isinstance(msg, dict):
+            continue
+        sender = (msg.get("sender_role") or "").lower()
+        text = (msg.get("text") or "").strip()
+        if not text:
+            continue
+
+        if sender == "director":
+            # Check if the Director is introducing a new basket number.
+            # Patterns: "Basket 7: ...", "Basket 7 = ...", "Basket 7 —"
+            m = _re.match(r"Basket\s+(\d+)\b", text, _re.IGNORECASE)
+            if m:
+                basket_num = int(m.group(1))
+                if 1 <= basket_num <= 12:
+                    current_director_basket = basket_num
+            # If the Director answers a clarification question (no new
+            # basket number), current_director_basket stays the same.
+
+        elif sender == "matcher":
+            text_lower = text.lower()
+            if current_director_basket is not None:
+                # Check if this message is a confirmation.
+                if any(pat in text_lower for pat in _CONFIRM_PATTERNS):
+                    completed.add(current_director_basket)
+                    current_director_basket = None  # reset for next basket
+                # Otherwise it's a clarification question — don't mark as done.
+
+        elif sender == "system":
+            # Check for notices about vacated positions (from Matcher moving a basket)
+            if "is now EMPTY" in text:
+                m_v = _re.search(r"position (\d+) is now EMPTY", text)
+                if m_v:
+                    vacated_num = int(m_v.group(1))
+                    if vacated_num in completed:
+                        completed.remove(vacated_num)
+
+    completed_sorted = sorted(completed)
+
+    # Next target = lowest position in 1..12 not yet confirmed.
+    next_target = None
+    for i in range(1, 13):
+        if i not in completed:
+            next_target = i
+            break
+
+    logging.debug(
+        "[DIRECTOR_CONV_STATE] completed=%s next_target=%s",
+        completed_sorted, next_target,
+    )
+
+    return {
+        "completed_positions": completed_sorted,
+        "next_target": next_target,
+    }
+
+
 def _build_matcher_current_sequence_state_for_prompt(player: Player) -> dict[str, Any]:
     """Build an explicit 12-slot state for the AI matcher prompt.
 
@@ -1634,6 +1741,34 @@ def _build_matcher_current_sequence_state_for_prompt(player: Player) -> dict[str
         }
 
     return state
+
+
+def _get_pending_refill_positions(player: Player) -> list[int]:
+    """Return completed-in-dialogue positions that are currently empty on the board.
+
+    These are vacancies caused by the matcher reusing/moving a basket. They
+    should be surfaced only as hidden matcher prompt context, not as visible
+    chat messages.
+    """
+    try:
+        conv_state = _build_director_conversation_state(player)
+        completed_positions = {
+            int(pos) for pos in conv_state.get("completed_positions", []) if pos is not None
+        }
+    except Exception:
+        completed_positions = set()
+
+    try:
+        seq_state = _build_matcher_current_sequence_state_for_prompt(player)
+        filled_positions = {
+            int(slot.get("position"))
+            for slot in seq_state.get("sequence_slots", [])
+            if isinstance(slot, dict) and slot.get("image") and slot.get("position") is not None
+        }
+    except Exception:
+        filled_positions = set()
+
+    return sorted(pos for pos in completed_positions if pos not in filled_positions)
 
 
 def _build_ai_messages_from_history(player: Player, history):
@@ -1875,6 +2010,81 @@ def _generate_ai_reply(player: Player, latest_message):
         use_v3_cot: bool,
     ):
         """Parse a JSON-structured reply into (utterance, selection_dict)."""
+        def _is_confirmation_text(msg: str | None) -> bool:
+            if not msg:
+                return False
+            lowered = msg.strip().lower()
+            return lowered.startswith(("placed", "done", "got it", "confirmed"))
+
+        def _looks_like_fragment(msg: str | None) -> bool:
+            if not msg:
+                return False
+            stripped = msg.strip()
+            if not stripped:
+                return True
+            if stripped.endswith(("?", ".", "!")):
+                return False
+            words = stripped.split()
+            return len(words) <= 6
+
+        def _next_empty_position_from_state() -> int | None:
+            try:
+                seq_state = _build_matcher_current_sequence_state_for_prompt(player)
+            except Exception:
+                return None
+            for slot in seq_state.get("sequence_slots", []):
+                if isinstance(slot, dict) and not slot.get("image"):
+                    try:
+                        return int(slot.get("position"))
+                    except Exception:
+                        return None
+            return None
+
+        def _normalize_matcher_utterance(
+            utterance_text: str | None,
+            selection_obj: dict[str, Any] | None,
+            reasoning_obj: dict[str, Any] | None,
+        ) -> tuple[str | None, dict[str, Any] | None]:
+            normalized = utterance_text.strip() if isinstance(utterance_text, str) else None
+            selection_local = selection_obj
+            reasoning_local = reasoning_obj if isinstance(reasoning_obj, dict) else {}
+
+            likely_confusions = reasoning_local.get("likely_confusions")
+            has_confusions = isinstance(likely_confusions, list) and len(likely_confusions) > 0
+            discrim_q = reasoning_local.get("discriminative_question")
+            discrim_q = discrim_q.strip() if isinstance(discrim_q, str) and discrim_q.strip() else None
+
+            if has_confusions and discrim_q:
+                normalized = discrim_q
+                selection_local = {
+                    "candidate_index": None,
+                    "position": None,
+                    "ready_to_submit": False,
+                }
+                return normalized, selection_local
+
+            if selection_local and selection_local.get("candidate_index") is not None:
+                ready = bool(selection_local.get("ready_to_submit", False))
+                if not _is_confirmation_text(normalized):
+                    if ready:
+                        normalized = "Done. Ready to submit."
+                    else:
+                        next_pos = _next_empty_position_from_state()
+                        if next_pos is not None:
+                            normalized = f"Placed it. Go to Basket {next_pos}."
+                        else:
+                            normalized = "Placed it."
+                return normalized, selection_local
+
+            if _looks_like_fragment(normalized) and discrim_q:
+                normalized = discrim_q
+
+            if normalized and not normalized.endswith("?") and not _is_confirmation_text(normalized):
+                if discrim_q:
+                    normalized = discrim_q
+
+            return normalized, selection_local
+
         utterance = None  # Start with None, not raw text
         selection = None
         if not text:
@@ -1898,7 +2108,16 @@ def _generate_ai_reply(player: Player, latest_message):
                 # No JSON found - return the text as plain utterance
                 return (text or "").strip() or None, None
             json_str = text[start:end]
-            data = json.loads(json_str)
+            try:
+                data = json.loads(json_str)
+            except Exception:
+                import re
+                first_json_match = re.match(r"^(\{.*?\})\s*\{", json_str, re.DOTALL)
+                if first_json_match:
+                    data = json.loads(first_json_match.group(1))
+                else:
+                    raise
+                    
             if not isinstance(data, dict):
                 return (text or "").strip() or None, None
 
@@ -1938,47 +2157,18 @@ def _generate_ai_reply(player: Player, latest_message):
                     #     strategy_name,
                     # )
 
+                utterance, selection = _normalize_matcher_utterance(
+                    utterance,
+                    selection,
+                    data.get("reasoning"),
+                )
+
             # Optional: log full reasoning JSON for V3 CoT runs
-            if (
-                use_v3_cot
-                and data.get("reasoning") is not None
-            ):
+            # Optional: log full reasoning JSON for V3 CoT runs
+            if data.get("reasoning") is not None:
                 import logging
                 reasoning_json = json.dumps(data.get("reasoning"), indent=2)
                 logging.info(f"[AI_REASONING] CoT Reasoning for {ai_role.upper()}:\n{reasoning_json}")
-                
-                if hasattr(player, "group"):
-                    try:
-                        try:
-                            existing = json.loads(
-                                getattr(player.group, "ai_reasoning_log", "[]") or "[]"
-                            )
-                        except Exception:
-                            existing = []
-                        if not isinstance(existing, list):
-                            existing = []
-                        human_role = (
-                            player.field_maybe_none("player_role")
-                            or player.participant.vars.get("role")
-                        )
-                        ai_role_local = "matcher" if human_role == "director" else "director"
-                        log_entry = {
-                            "round_number": getattr(player, "round_number", None),
-                            "timestamp": datetime.datetime.now().isoformat(),
-                            "strategy_name": strategy_name,
-                            "human_role": human_role,
-                            "ai_role": ai_role_local,
-                            "reasoning": data.get("reasoning"),
-                            "utterance": utterance,
-                            "raw_text": text,
-                        }
-                        existing.append(log_entry)
-                        player.group.ai_reasoning_log = json.dumps(
-                            existing, ensure_ascii=False
-                        )
-                    except Exception:
-                        # Logging should never break the main flow
-                        pass
 
             return utterance, selection
         except Exception:
@@ -1986,8 +2176,43 @@ def _generate_ai_reply(player: Player, latest_message):
             plain_text = (text or "").strip()
             # Don't return raw JSON as utterance
             if plain_text.startswith("{") and plain_text.endswith("}"):
-                return None, None
-            return plain_text or None, None
+                utterance, selection = None, None
+            else:
+                utterance, selection = plain_text or None, None
+
+        if hasattr(player, "group"):
+            try:
+                try:
+                    existing = json.loads(getattr(player.group, "ai_reasoning_log", "[]") or "[]")
+                except Exception:
+                    existing = []
+                if not isinstance(existing, list):
+                    existing = []
+                human_role = (
+                    player.field_maybe_none("player_role")
+                    or player.participant.vars.get("role")
+                )
+                ai_role_local = "matcher" if human_role == "director" else "director"
+                
+                reasoning_obj = locals().get("data", {}).get("reasoning") if isinstance(locals().get("data"), dict) else None
+                
+                log_entry = {
+                    "round_number": getattr(player, "round_number", None),
+                    "timestamp": datetime.datetime.now().isoformat(),
+                    "strategy_name": strategy_name,
+                    "human_role": human_role,
+                    "ai_role": ai_role_local,
+                    "reasoning": reasoning_obj,
+                    "utterance": utterance,
+                    "raw_text": text,
+                    "selection": selection
+                }
+                existing.append(log_entry)
+                player.group.ai_reasoning_log = json.dumps(existing, ensure_ascii=False)
+            except Exception:
+                pass
+
+        return utterance, selection
 
     try:
         import logging
@@ -2106,7 +2331,7 @@ def _generate_ai_reply(player: Player, latest_message):
             strategy_for_prompt = strategy_name
 
         # Lazily import prompt strategy modules
-        from . import prompt_v1, prompt_v2, prompt_v3, prompt_v4, prompt_v5
+        from . import prompt_v1, prompt_v2, prompt_v3, prompt_v4, prompt_v5, prompt_v6, prompt_v8, prompt_v9
 
         if strategy_for_prompt in ("weiling", "v2"):
             chat_messages = prompt_v2.build_weiling_prompt_messages(
@@ -2125,6 +2350,21 @@ def _generate_ai_reply(player: Player, latest_message):
             use_v3_cot = True  # V4 also uses CoT JSON envelopes
         elif strategy_for_prompt == "v5":
             chat_messages = prompt_v5.build_v5_cg_prompt_messages(
+                player, latest_message, all_history
+            )
+            use_v3_cot = True
+        elif strategy_for_prompt == "v6":
+            chat_messages = prompt_v6.build_v6_cg_prompt_messages(
+                player, latest_message, all_history
+            )
+            use_v3_cot = True
+        elif strategy_for_prompt == "v8":
+            chat_messages = prompt_v8.build_v8_cot_prompt_messages(
+                player, latest_message, all_history
+            )
+            use_v3_cot = True
+        elif strategy_for_prompt == "v9":
+            chat_messages = prompt_v9.build_v9_cot_prompt_messages(
                 player, latest_message, all_history
             )
             use_v3_cot = True
@@ -2157,18 +2397,16 @@ def _generate_ai_reply(player: Player, latest_message):
             })
             logging.info("[AI_DIRECTOR] Added explicit start prompt for round %d", current_round)
 
-        # For V4 Director, inject the Global Game State so they don't lose track of progress
-        if ai_role == "director" and strategy_for_prompt in ("v4", "v4_cg", "v5"):
+        # For V4 Director, inject the Global Game State so they don't lose track of progress.
+        # IMPORTANT: We derive the state from the CONVERSATION only (not from the
+        # Matcher's internal board) to preserve the information asymmetry required
+        # by the experiment.  The Director must not know which candidate images
+        # the Matcher actually selected.
+        if ai_role == "director" and strategy_for_prompt in ("v4", "v4_cg", "v5", "v6"):
             try:
-                seq_state = _build_matcher_current_sequence_state_for_prompt(player)
-                indices = seq_state.get("sequence_candidate_indices", [])
-                filled = [i+1 for i, val in enumerate(indices) if val is not None]
-                
-                next_target = None
-                for i in range(1, 13):
-                    if i not in filled:
-                        next_target = i
-                        break
+                conv_state = _build_director_conversation_state(player)
+                filled = conv_state["completed_positions"]
+                next_target = conv_state["next_target"]
                         
                 game_state_msg = (
                     "=== GLOBAL GAME STATE ===\n"
@@ -2211,6 +2449,33 @@ def _generate_ai_reply(player: Player, latest_message):
                     + [{"role": "system", "content": seq_state_text}]
                     + chat_messages[insert_idx:]
                 )
+            except Exception:
+                pass
+
+            try:
+                pending_refills = _get_pending_refill_positions(player)
+                if pending_refills:
+                    refill_text = (
+                        "PENDING REFILL POSITIONS (HIDDEN STATE):\n"
+                        f"{pending_refills}\n"
+                        "These positions were previously completed in dialogue but are currently empty because a basket was moved.\n"
+                        "After you finish the CURRENT basket, ask the Director in natural language to re-describe the LOWEST-NUMBERED pending refill position.\n"
+                        "If you can place the current basket now, combine the confirmation and refill request in one utterance.\n"
+                        "Example: 'Placed it. Before we move on, can you remind me of Basket 2?'\n"
+                        "Do not mention hidden state, system notices, or internal bookkeeping."
+                    )
+                    insert_idx = 0
+                    while (
+                        insert_idx < len(chat_messages)
+                        and isinstance(chat_messages[insert_idx], dict)
+                        and chat_messages[insert_idx].get("role") == "system"
+                    ):
+                        insert_idx += 1
+                    chat_messages = (
+                        chat_messages[:insert_idx]
+                        + [{"role": "system", "content": refill_text}]
+                        + chat_messages[insert_idx:]
+                    )
             except Exception:
                 pass
 
@@ -2288,7 +2553,7 @@ def _generate_ai_reply(player: Player, latest_message):
 
         # Moderate temperature for consistent, focused responses from both roles
         response_format = None
-        if ai_role == "matcher":
+        if ai_role == "matcher" or use_v3_cot:
             response_format = {"type": "json_object"}
 
         base_temperature = 0
@@ -2387,6 +2652,10 @@ def _update_ai_partial_sequence(player: Player, selection: dict[str, Any] | None
 
     Instead of asking the model for the full 12‑basket sequence on every
     turn, we maintain an incremental sequence in `ai_partial_sequence`.
+
+    Returns a tuple of (updated_partial_sequence, vacated_position).
+    vacated_position is an int if a move caused a previously filled position
+    to become empty, or None otherwise.
     """
     # `selection` must be a dict with fields
     #   {"candidate_index": int|None, "position": int|None, ...}
@@ -2410,9 +2679,9 @@ def _update_ai_partial_sequence(player: Player, selection: dict[str, Any] | None
         try:
             return json.loads(
                 getattr(player.group, "ai_partial_sequence", "") or "[]"
-            )
+            ), None
         except Exception:
-            return None
+            return None, None
 
     group = player.group
     try:
@@ -2448,7 +2717,7 @@ def _update_ai_partial_sequence(player: Player, selection: dict[str, Any] | None
             pos += 1
     if pos < 1 or pos > 12:
         # Already have 12 positions filled; nothing to update.
-        return partial
+        return partial, None
 
     # Map the selected candidate index onto a slot in the matcher's pool.
     try:
@@ -2464,7 +2733,7 @@ def _update_ai_partial_sequence(player: Player, selection: dict[str, Any] | None
         candidate_slot = (pool_items[idx_zero_based] or {}).get("slot") or None
     if not candidate_slot:
         # If we cannot map this candidate index back to a known slot, bail out.
-        return partial
+        return partial, None
 
     selected_image = candidate_slot.get("image")
     selected_original_position = candidate_slot.get("position")
@@ -2539,7 +2808,10 @@ def _update_ai_partial_sequence(player: Player, selection: dict[str, Any] | None
     except Exception:
         # Do not let debug state break the main flow.
         pass
-    return partial_sorted
+    # Return the vacated position (if a basket was moved) so the caller
+    # can notify the Matcher that it needs to ask for a re-description.
+    vacated = previous_pos if previous_pos is not None and previous_pos != pos else None
+    return partial_sorted, vacated
 
 
 # ---------------------------------------------------------------------------
@@ -3145,7 +3417,7 @@ def generate_ai_vs_ai_reply(
         player.participant.vars["role"] = fake_human_role
 
         try:
-            from . import prompt_v1, prompt_v2, prompt_v3, prompt_v4, prompt_v5
+            from . import prompt_v1, prompt_v2, prompt_v3, prompt_v4, prompt_v5, prompt_v6, prompt_v8, prompt_v9
 
             if strategy_for_prompt in ("weiling", "v2"):
                 chat_messages = prompt_v2.build_weiling_prompt_messages(
@@ -3164,6 +3436,21 @@ def generate_ai_vs_ai_reply(
                 use_v3_cot = True
             elif strategy_for_prompt == "v5":
                 chat_messages = prompt_v5.build_v5_cg_prompt_messages(
+                    player, latest_message, all_history
+                )
+                use_v3_cot = True
+            elif strategy_for_prompt == "v6":
+                chat_messages = prompt_v6.build_v6_cg_prompt_messages(
+                    player, latest_message, all_history
+                )
+                use_v3_cot = True
+            elif strategy_for_prompt == "v8":
+                chat_messages = prompt_v8.build_v8_cot_prompt_messages(
+                    player, latest_message, all_history
+                )
+                use_v3_cot = True
+            elif strategy_for_prompt == "v9":
+                chat_messages = prompt_v9.build_v9_cot_prompt_messages(
                     player, latest_message, all_history
                 )
                 use_v3_cot = True
@@ -3194,18 +3481,14 @@ def generate_ai_vs_ai_reply(
                     )
                 })
 
-            # For V4 Director, inject the Global Game State so they don't lose track of progress
-            if role == "director" and strategy_for_prompt in ("v4", "v4_cg", "v5"):
+            # For V4 Director, inject the Global Game State so they don't lose track of progress.
+            # IMPORTANT: We derive the state from the CONVERSATION only (not from the
+            # Matcher's internal board) to preserve information asymmetry.
+            if role == "director" and strategy_for_prompt in ("v4", "v4_cg", "v5", "v6"):
                 try:
-                    seq_state = _build_matcher_current_sequence_state_for_prompt(player)
-                    indices = seq_state.get("sequence_candidate_indices", [])
-                    filled = [i+1 for i, val in enumerate(indices) if val is not None]
-                    
-                    next_target = None
-                    for i in range(1, 13):
-                        if i not in filled:
-                            next_target = i
-                            break
+                    conv_state = _build_director_conversation_state(player)
+                    filled = conv_state["completed_positions"]
+                    next_target = conv_state["next_target"]
                             
                     game_state_msg = (
                         "=== GLOBAL GAME STATE ===\n"
@@ -3236,6 +3519,29 @@ def generate_ai_vs_ai_reply(
                     ):
                         insert_idx += 1
                     chat_messages.insert(insert_idx, {"role": "system", "content": seq_state_text})
+                except Exception:
+                    pass
+
+                try:
+                    pending_refills = _get_pending_refill_positions(player)
+                    if pending_refills:
+                        refill_text = (
+                            "PENDING REFILL POSITIONS (HIDDEN STATE):\n"
+                            f"{pending_refills}\n"
+                            "These positions were previously completed in dialogue but are currently empty because a basket was moved.\n"
+                            "After you finish the CURRENT basket, ask the Director in natural language to re-describe the LOWEST-NUMBERED pending refill position.\n"
+                            "If you can place the current basket now, combine the confirmation and refill request in one utterance.\n"
+                            "Example: 'Placed it. Before we move on, can you remind me of Basket 2?'\n"
+                            "Do not mention hidden state, system notices, or internal bookkeeping."
+                        )
+                        insert_idx = 0
+                        while (
+                            insert_idx < len(chat_messages)
+                            and isinstance(chat_messages[insert_idx], dict)
+                            and chat_messages[insert_idx].get("role") == "system"
+                        ):
+                            insert_idx += 1
+                        chat_messages.insert(insert_idx, {"role": "system", "content": refill_text})
                 except Exception:
                     pass
 
@@ -3328,35 +3634,22 @@ def generate_ai_vs_ai_reply(
                 start = text.find("{")
                 end = text.rfind("}") + 1
                 if start != -1 and end > start:
-                    data = json.loads(text[start:end])
+                    json_str = text[start:end]
+                    try:
+                        data = json.loads(json_str)
+                    except Exception:
+                        import re
+                        first_json_match = re.match(r"^(\{.*?\})\s*\{", json_str, re.DOTALL)
+                        if first_json_match:
+                            data = json.loads(first_json_match.group(1))
+                        else:
+                            raise
                     utterance = (data.get("utterance") or "").strip() or None
 
-                    if use_v3_cot and data.get("reasoning") is not None:
+                    if data.get("reasoning") is not None:
                         import logging
                         reasoning_json = json.dumps(data.get("reasoning"), indent=2)
                         logging.info(f"[AI_REASONING] CoT Reasoning for {role.upper()}:\n{reasoning_json}")
-                        
-                        if hasattr(player, "group"):
-                            try:
-                                try:
-                                    existing = json.loads(getattr(player.group, "ai_reasoning_log", "[]") or "[]")
-                                except Exception:
-                                    existing = []
-                                if not isinstance(existing, list):
-                                    existing = []
-                                existing.append({
-                                    "round_number": getattr(player, "round_number", None),
-                                    "timestamp": datetime.datetime.now().isoformat(),
-                                    "strategy_name": strategy_for_prompt,
-                                    "human_role": original_role or "observer",
-                                    "ai_role": role,
-                                    "reasoning": data.get("reasoning"),
-                                    "utterance": utterance,
-                                    "raw_text": text,
-                                })
-                                player.group.ai_reasoning_log = json.dumps(existing, ensure_ascii=False)
-                            except Exception:
-                                pass
 
                     sel = data.get("selection")
                     if isinstance(sel, dict):
@@ -3386,35 +3679,22 @@ def generate_ai_vs_ai_reply(
                     start = text.find("{")
                     end = text.rfind("}") + 1
                     if start != -1 and end > start:
-                        data = json.loads(text[start:end])
+                        json_str = text[start:end]
+                        try:
+                            data = json.loads(json_str)
+                        except Exception:
+                            import re
+                            first_json_match = re.match(r"^(\{.*?\})\s*\{", json_str, re.DOTALL)
+                            if first_json_match:
+                                data = json.loads(first_json_match.group(1))
+                            else:
+                                raise
                         utterance = (data.get("utterance") or "").strip() or None
                         
-                        if use_v3_cot and data.get("reasoning") is not None:
+                        if data.get("reasoning") is not None:
                             import logging
                             reasoning_json = json.dumps(data.get("reasoning"), indent=2)
                             logging.info(f"[AI_REASONING] CoT Reasoning for {role.upper()}:\n{reasoning_json}")
-                            
-                            if hasattr(player, "group"):
-                                try:
-                                    try:
-                                        existing = json.loads(getattr(player.group, "ai_reasoning_log", "[]") or "[]")
-                                    except Exception:
-                                        existing = []
-                                    if not isinstance(existing, list):
-                                        existing = []
-                                    existing.append({
-                                        "round_number": getattr(player, "round_number", None),
-                                        "timestamp": datetime.datetime.now().isoformat(),
-                                        "strategy_name": strategy_for_prompt,
-                                        "human_role": original_role or "observer",
-                                        "ai_role": role,
-                                        "reasoning": data.get("reasoning"),
-                                        "utterance": utterance,
-                                        "raw_text": text,
-                                    })
-                                    player.group.ai_reasoning_log = json.dumps(existing, ensure_ascii=False)
-                                except Exception:
-                                    pass
                                 
                         if not utterance:
                             # Fallback to raw text if utterance is empty
@@ -3428,6 +3708,34 @@ def generate_ai_vs_ai_reply(
                 utterance = text
 
         logging.info("[AI_VS_AI] %s response: %s", role.upper(), (utterance or "")[:100])
+        
+        # Always log the AI's intermediate response, regardless of strategy
+        if hasattr(player, "group"):
+            try:
+                try:
+                    existing = json.loads(getattr(player.group, "ai_reasoning_log", "[]") or "[]")
+                except Exception:
+                    existing = []
+                if not isinstance(existing, list):
+                    existing = []
+                
+                # Fetch reasoning if it was successfully parsed
+                reasoning_obj = locals().get("data", {}).get("reasoning") if isinstance(locals().get("data"), dict) else None
+                
+                existing.append({
+                    "round_number": getattr(player, "round_number", None),
+                    "timestamp": datetime.datetime.now().isoformat(),
+                    "strategy_name": strategy_for_prompt,
+                    "human_role": original_role or "observer",
+                    "ai_role": role,
+                    "reasoning": reasoning_obj,
+                    "utterance": utterance,
+                    "raw_text": text,
+                    "selection": selection
+                })
+                player.group.ai_reasoning_log = json.dumps(existing, ensure_ascii=False)
+            except Exception:
+                pass
         return {"text": utterance, "selection": selection}
 
     except Exception as e:
@@ -3513,7 +3821,12 @@ def run_ai_vs_ai_turn(player: Player) -> dict[str, Any]:
         # If Matcher made a selection, update the partial sequence
         is_complete = False
         if speaker == "matcher" and selection:
-            _update_ai_partial_sequence(player, selection)
+            _, vacated_position = _update_ai_partial_sequence(player, selection)
+            if vacated_position is not None:
+                logging.info(
+                    "[AI_VS_AI] Matcher moved basket — position %d is now vacant",
+                    vacated_position,
+                )
 
         # Helper function to force submission with current sequence
         def _force_submit() -> bool:
@@ -3645,6 +3958,3 @@ def get_ai_vs_ai_status(player: Player) -> dict[str, Any]:
         "is_complete": task_completed,
         "accuracy": sequence_accuracy,
     }
-
-
-

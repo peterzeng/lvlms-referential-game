@@ -1,0 +1,312 @@
+session_id,round_1_conversation,round_1_ai_reasoning,round_1_accuracy,round_2_conversation,round_2_ai_reasoning,round_2_accuracy,round_3_conversation,round_3_ai_reasoning,round_3_accuracy,round_4_conversation,round_4_ai_reasoning,round_4_accuracy,director_perception_capable,director_perception_helpful,director_perception_understood,director_perception_adapted,director_perception_improved,director_perception_comment,matcher_perception_capable,matcher_perception_helpful,matcher_perception_understood,matcher_perception_adapted,matcher_perception_improved,matcher_perception_comment
+Cameron-Test-Serious,"[2026-04-07T22:28:33.420689] DIRECTOR:
+basket 1 is the animal-shaped one: looks like a woven duck/chicken body with a little head/beak sticking out on the right
+
+[2026-04-07T22:28:41.204105] MATCHER:
+got it — placing the woven duck/chicken-looking basket in position 1. what’s basket 2?
+
+[2026-04-07T22:28:48.180919] DIRECTOR:
+basket 2: classic round bucket basket, tight weave, with a dark brown arched handle (kinda like a little pail)
+
+[2026-04-07T22:28:55.078246] MATCHER:
+ok basket 2 placed — the round bucket/pail with the dark brown arched handle. what’s basket 3?
+
+[2026-04-07T22:29:01.088861] DIRECTOR:
+basket 3: rectangular picnic basket with a hinged lid flipped open, and a tall center handle (like a lunchbox style)
+
+[2026-04-07T22:29:07.724613] MATCHER:
+ok got it — putting the picnic/lunchbox one with the open lid and tall center handle in position 3. what’s basket 4?
+
+[2026-04-07T22:29:13.665820] DIRECTOR:
+basket 4: small oval basket, kinda shallow, with a single handle wrapped in cloth strips (white/red bits) and lighter tan weave
+
+[2026-04-07T22:29:20.019723] MATCHER:
+ok placing the small shallow oval basket w the handle wrapped in cloth strips (white/red) in position 4. what’s basket 5?
+
+[2026-04-07T22:29:25.132432] DIRECTOR:
+basket 5: squat rectangular basket with a thick twisted-rope looking handle (same color as basket), and a chunky checker weave
+
+[2026-04-07T22:29:32.198263] MATCHER:
+for basket 5 — is it the small rectangular one with the thick braided/twisted handle and kind of blocky weave (not the greenish rectangular one)?
+
+[2026-04-07T22:29:37.524466] DIRECTOR:
+yep exactly — the small tan rectangular one w the thick twisted handle + chunky blocky weave (not the greenish one)
+
+[2026-04-07T22:29:44.177980] MATCHER:
+cool, placing that small tan rectangular basket w the thick twisted handle in position 5. what’s basket 6?
+
+[2026-04-07T22:29:49.438778] DIRECTOR:
+basket 6: the round lidded cat-face basket — looks like a kitty head on top w little ears/eyes/whiskers
+
+[2026-04-07T22:29:55.973597] MATCHER:
+got it — putting the round lidded kitty-face basket in position 6. what’s basket 7?
+
+[2026-04-07T22:30:01.666136] DIRECTOR:
+basket 7: rectangular basket w a big arched handle, and the sides are greenish/teal with orange-brown trim (kinda two-tone)
+
+[2026-04-07T22:30:09.042924] MATCHER:
+ok placing the rectangular two-tone one (greenish/teal sides with orange-brown trim) w the big arched handle in position 7. what’s basket 8?
+
+[2026-04-07T22:30:15.106306] DIRECTOR:
+basket 8: short round basket w a gray/black handle, dark weave with a few light/white horizontal stripes near the top
+
+[2026-04-07T22:30:22.579115] MATCHER:
+ok for basket 8 — is it the small dark round one with the black/gray handle and a couple pale bands near the rim? placing that in position 8. what’s basket 9?
+
+[2026-04-07T22:30:28.142930] DIRECTOR:
+yep that’s 8. basket 9: tall cylindrical basket like a little barrel, brown, with two small loop handles near the top (no big handle).
+
+[2026-04-07T22:30:34.919087] MATCHER:
+ok placing the tall brown barrel/cylinder with the two little loop handles (no big handle) in position 9. what’s basket 10?
+
+[2026-04-07T22:30:40.417683] DIRECTOR:
+basket 10: flat round tray-basket w a single arched handle; spiral weave on the base, light tan with some reddish bands
+
+[2026-04-07T22:30:47.260297] MATCHER:
+ok basket 10 sounds like the flat round tray w the spiral base + single arched handle (light tan w some reddish bands) — placing that in position 10. what’s basket 11?
+
+[2026-04-07T22:30:52.775748] DIRECTOR:
+basket 11: big deep round tub basket, no top handle—just two little ear/loop handles on the sides; tight diagonal weave, kind of chunky
+
+[2026-04-07T22:31:00.941755] MATCHER:
+got it — placing the big deep round tub w the two little side ear-handles (no top handle), chunky diagonal weave in position 11. what’s basket 12?
+
+[2026-04-07T22:31:08.100520] DIRECTOR:
+basket 12: medium round basket w one big handle, but the rim is wavy/scalloped (like a flower shape) instead of perfectly round
+
+[2026-04-07T22:31:16.915092] MATCHER:
+hmm i don’t think i’ve got a scalloped/wavy rim one in my remaining options — is it maybe the medium round basket with a single handle and kind of a ruffled/layered rim (two-tone brown), or is it a flat rectangular tray thing? any other detail (color bands / lid / feet)?
+
+[2026-04-07T22:31:23.200698] DIRECTOR:
+yeah it’s that medium round one w a single handle + kinda ruffled/scalloped rim (no lid, no feet). plain brown/tan, not a tray/rectangle.
+
+[2026-04-07T22:31:31.495890] MATCHER:
+ok got it — placing the medium round plain brown/tan basket w the single handle and the ruffled/scalloped rim in position 12. ready to submit if you are.",,91.66666666666666,"[2026-04-07T22:31:37.641913] DIRECTOR:
+basket 1: picnic-style oval wicker w/ a tall center handle and a little flip-up lid on one side
+
+[2026-04-07T22:31:45.012241] MATCHER:
+got it — placing the oval picnic basket w tall center handle + little flip-up lid in spot 1. next?
+
+[2026-04-07T22:31:51.771995] DIRECTOR:
+basket 2: tall cylindrical wicker bin, open top, with two tiny loop handles near the rim
+
+[2026-04-07T22:31:59.288468] MATCHER:
+k, put the tall cylinder bin w the two little loop handles in spot 2. next one?
+
+[2026-04-07T22:32:06.313190] DIRECTOR:
+basket 3: round bulbous bucket basket w one thick dark handle (almost black) and a lighter band around the rim
+
+[2026-04-07T22:32:13.889566] MATCHER:
+ok placing the round bulbous bucket w the thick dark handle + lighter rim band in spot 3. keep going
+
+[2026-04-07T22:32:20.653358] DIRECTOR:
+basket 4: small squat rectangle, tight weave, big twisted rope handle arching high
+
+[2026-04-07T22:32:29.660121] MATCHER:
+ok i’m putting the small squat rectangular one w the big twisted rope handle in spot 4. next?
+
+[2026-04-07T22:32:36.726243] DIRECTOR:
+basket 5: dark gray/black wicker basket w a pale bottom band + chunky gray handle
+
+[2026-04-07T22:32:44.409919] MATCHER:
+ok got it — putting the dark gray/black basket w the pale bottom band + chunky gray handle in spot 5. next?
+
+[2026-04-07T22:32:51.163843] DIRECTOR:
+basket 6: duck-shaped lidded basket (side view), tan wicker w a little beak + eye
+
+[2026-04-07T22:32:58.333147] MATCHER:
+ok placing the duck-shaped lidded tan wicker (side view w beak + eye) in spot 6. next?
+
+[2026-04-07T22:33:04.272155] DIRECTOR:
+basket 7: round lidded basket that’s a cat face from above (ears + whiskers), sitting on 3 little feet
+
+[2026-04-07T22:33:11.731817] MATCHER:
+got it — cat-face lidded basket w 3 little feet in spot 7. next?
+
+[2026-04-07T22:33:17.684745] DIRECTOR:
+basket 8: shallow round tray-basket w a single thin handle, spiral weave inside (like a coiled plate)
+
+[2026-04-07T22:33:24.755704] MATCHER:
+ok placing the shallow round tray w the single thin handle + spiral/coiled weave in spot 8. next?
+
+[2026-04-07T22:33:30.833787] DIRECTOR:
+basket 9: rectangular tote w a braided handle; greenish sides with tan top/bottom trim
+
+[2026-04-07T22:33:37.800351] MATCHER:
+ok putting the rectangular tote w the braided handle + greenish sides w tan trim in spot 9. next?
+
+[2026-04-07T22:33:43.814334] DIRECTOR:
+basket 10: big round tub basket, super tight weave, with two small ear-like handles on the sides
+
+[2026-04-07T22:33:50.912714] MATCHER:
+got it — big round tub w the two little ear handles in spot 10. next?
+
+[2026-04-07T22:33:56.812853] DIRECTOR:
+basket 11: oval basket w tall handle, has those red/purple fabric wraps where the handle meets the sides
+
+[2026-04-07T22:34:04.121030] MATCHER:
+i see the oval one w the tall handle and the little red/purple wraps at the handle joints — placing that in spot 11. last one?
+
+[2026-04-07T22:34:10.050755] DIRECTOR:
+basket 12: light tan rectangular basket w a wavy/scalloped rim and a thick arched handle
+
+[2026-04-07T22:34:17.385703] MATCHER:
+ok placing the light tan rectangular one w the scalloped/wavy rim + thick arched handle in spot 12. ready to submit.",,83.33333333333334,"[2026-04-07T22:34:22.834789] DIRECTOR:
+basket 1: rectangular tote w/ big arched handle, greenish woven sides w/ tan rim/base
+
+[2026-04-07T22:34:29.502811] MATCHER:
+got it — putting the greenish rectangular tote w tan rim/base in slot 1
+
+[2026-04-07T22:34:35.716671] DIRECTOR:
+basket 2: small oval wicker w/ tall handle wrapped in white tape + little red accents on the handle
+
+[2026-04-07T22:34:42.475259] MATCHER:
+ok slot 2 is the small oval one w the tall handle wrapped in white w little red bits
+
+[2026-04-07T22:34:47.609065] DIRECTOR:
+basket 3: round lidded basket that’s a cat face (ears + whiskers)
+
+[2026-04-07T22:34:54.402138] MATCHER:
+k slot 3 is the cat-face lidded one (ears/whiskers)
+
+[2026-04-07T22:34:59.852644] DIRECTOR:
+basket 4: the mouse/rat-shaped basket w a pointy snout + little eye on the side
+
+[2026-04-07T22:35:07.565783] MATCHER:
+ok slot 4 is the mouse/rat shaped one with the pointy snout
+
+[2026-04-07T22:35:13.707943] DIRECTOR:
+basket 5: light tan open basket, kinda rounded-square, with a big smooth arch handle and a little side pocket/compartment on one side
+
+[2026-04-07T22:35:20.257867] MATCHER:
+hmm is it the picnic-style one with a divider/side compartment (like a little extra section) and a smooth handle? any darker banding or is it all light tan?
+
+[2026-04-07T22:35:25.884641] DIRECTOR:
+yep picnic-ish w the little side compartment; mostly light tan, no dark stripes (just slightly darker rim)
+
+[2026-04-07T22:35:32.303784] MATCHER:
+ok got it — placing the light tan picnic-ish basket with the little side compartment in slot 5. what’s basket 6?
+
+[2026-04-07T22:35:37.465246] DIRECTOR:
+basket 6: tall cylindrical wicker bin w/ two small loop handles near the top (like a laundry hamper)
+
+[2026-04-07T22:35:44.171048] MATCHER:
+ok slot 6 is the tall cylindrical hamper/bin with the two little loop handles near the top. what’s basket 7?
+
+[2026-04-07T22:35:50.011281] DIRECTOR:
+basket 7: dark brown round bucket basket w a thick chunky handle (kinda like a cauldron shape)
+
+[2026-04-07T22:35:56.412383] MATCHER:
+ok slot 7 is the dark brown round bucket/cauldron one with the thick chunky handle. what’s basket 8?
+
+[2026-04-07T22:36:03.578673] DIRECTOR:
+basket 8: squat oval basket, dark gray/black weave w lighter tan base + a thick dark handle (more modern looking)
+
+[2026-04-07T22:36:09.721510] MATCHER:
+ok slot 8 is the squat oval one with the dark gray/black weave, lighter tan base, and thick dark handle. what’s basket 9?
+
+[2026-04-07T22:36:15.471269] DIRECTOR:
+basket 9: small rectangular honey-brown basket w a tall twisted rope handle (like a little market basket)
+
+[2026-04-07T22:36:22.081511] MATCHER:
+got it — putting the small rectangular honey-brown one with the tall twisted rope handle in slot 9. what’s basket 10?
+
+[2026-04-07T22:36:27.334765] DIRECTOR:
+basket 10: big round tub basket w two short ear-like handles on the sides, tight brown weave
+
+[2026-04-07T22:36:34.266296] MATCHER:
+ok slot 10 is the big round tub basket with the two little ear handles on the sides. what’s basket 11?
+
+[2026-04-07T22:36:40.021600] DIRECTOR:
+basket 11: super flat round tray basket w a single thin handle arching over it (like a shallow platter w handle)
+
+[2026-04-07T22:36:46.850963] MATCHER:
+gotcha — is it the really shallow round tray with the thin arch handle (kinda like a flat serving tray)? if so i’ll drop that in slot 11. basket 12?
+
+[2026-04-07T22:36:55.643016] DIRECTOR:
+yep that flat tray. basket 12: long rectangular picnic basket w a tall center handle and a slanted lid/cover on one side (kinda like a half-lidded hamper)
+
+[2026-04-07T22:37:02.767180] MATCHER:
+cool — slot 11 is that super flat round tray w the thin arch handle. for slot 12, is it the long rectangular one with the tall center handle and the slanted lid/cover (like a lidded picnic hamper)?
+
+[2026-04-07T22:37:07.680738] DIRECTOR:
+yep exactly — the long rectangle w the tall center handle + that angled lid flap
+
+[2026-04-07T22:37:15.888864] MATCHER:
+sweet — put the flat round tray w thin arch handle in slot 11, and the long rectangular picnic hamper w tall center handle + angled lid flap in slot 12. ready to submit?",,75.0,"[2026-04-07T22:37:21.306381] DIRECTOR:
+basket 1: shallow oval tray basket w/ one tall arched handle, kind of spiral weave inside
+
+[2026-04-07T22:37:27.242769] MATCHER:
+ok got it — placing that shallow oval tray w the tall handle + spiral weave as position 1
+
+[2026-04-07T22:37:33.385263] DIRECTOR:
+basket 2: classic picnic basket—rectangular, chunky weave, big rounded handle, kinda squat
+
+[2026-04-07T22:37:39.753837] MATCHER:
+k placing the squat rectangular picnic basket w the big rounded handle as position 2
+
+[2026-04-07T22:37:46.186566] DIRECTOR:
+basket 3: the lidded duck basket (looks like a bird w a beak + little eye)
+
+[2026-04-07T22:37:52.841184] MATCHER:
+lol yep duck one — putting that as position 3. next?
+
+[2026-04-07T22:37:58.128761] DIRECTOR:
+basket 4: square-ish tote w a braided rim + handle, dark green/black sides w tan trim
+
+[2026-04-07T22:38:03.898471] MATCHER:
+k got it — putting the dark green/black square tote w tan trim + braided rim as position 4. next?
+
+[2026-04-07T22:38:09.325905] DIRECTOR:
+basket 5: round open tub basket w 2 little ear handles sticking up (no big arch handle)
+
+[2026-04-07T22:38:16.109306] MATCHER:
+got it — placing the round open tub w the two little ear handles as position 5. before we move on, can you remind me what basket 2 was again (any extra detail)?
+
+[2026-04-07T22:38:21.513262] DIRECTOR:
+basket 2 was the squat rectangular picnic one w the thick woven sides + a single big rounded arch handle (all tan/brown, no lid)
+
+[2026-04-07T22:38:28.169912] MATCHER:
+perfect, basket 2 locked in. what’s basket 6?
+
+[2026-04-07T22:38:33.561944] DIRECTOR:
+basket 6: round bucket basket w a dark thick handle and a lighter band around the top rim (kinda like a little barrel)
+
+[2026-04-07T22:38:40.252335] MATCHER:
+got it — placing the round bucket w the dark thick handle + light band at the rim as position 6. what’s basket 7?
+
+[2026-04-07T22:38:48.324979] DIRECTOR:
+basket 7: tall cylindrical basket (like a hamper) w 2 small loop handles near the top
+
+[2026-04-07T22:38:54.814020] MATCHER:
+k tall cylindrical hamper w the two little loop handles is position 7. what’s basket 8?
+
+[2026-04-07T22:39:00.424432] DIRECTOR:
+basket 8: long rectangular basket w a hinged lid + one tall handle over the middle (picnic hamper style)
+
+[2026-04-07T22:39:06.877850] MATCHER:
+got it — the long rectangular lidded hamper w the tall middle handle is position 8. what’s basket 9?
+
+[2026-04-07T22:39:12.304729] DIRECTOR:
+basket 9: the cat-face basket (round lidded, little ears + painted whiskers/eyes)
+
+[2026-04-07T22:39:18.813990] MATCHER:
+yep cat-face lidded one — putting that as position 9. what’s basket 10?
+
+[2026-04-07T22:39:24.107802] DIRECTOR:
+basket 10: small oval basket w a light handle and little red/purple wrapped bits where the handle meets the sides
+
+[2026-04-07T22:39:30.852147] MATCHER:
+got it — placing the small oval w the light handle + the little red/purple wraps at the handle joints as position 10. what’s basket 11?
+
+[2026-04-07T22:39:36.162487] DIRECTOR:
+basket 11: chunky oval basket, kinda squat, all light tan weave w a thick smooth arch handle (no colored wraps)
+
+[2026-04-07T22:39:43.026212] MATCHER:
+ok got it — placing the chunky squat oval, all light tan, thick smooth arch handle (no colored wraps) as position 11. what’s basket 12?
+
+[2026-04-07T22:39:48.450984] DIRECTOR:
+basket 12: dark gray/black wicker basket w a big arch handle + lighter cream base/bottom band
+
+[2026-04-07T22:39:55.722664] MATCHER:
+nice — dark gray/black wicker w big arch handle + lighter cream bottom band is position 12. all set?",,75.0,5,5,5,4,4,"My partner (the Matcher) was very capable and consistently placed the correct baskets based on my descriptions. They confirmed understanding succinctly, asked clarifying questions when an item was ambiguous (e.g., scalloped rim, distinguishing similar rectangular baskets), and echoed back key identifying features to reduce errors. Over the rounds they got faster and needed fewer clarifications, while still double-checking when necessary (e.g., briefly re-confirming basket 2 in round 4), which improved accuracy and flow.",5,5,5,4,4,"The director gave clear, distinguishing descriptions (shape, color/trim, handles, lids) and quickly confirmed my clarification questions when there was potential ambiguity (e.g., scalloped rim, twisted-handle rectangle, tray vs basket). They were consistent across rounds and corrected/added details when I asked, which made matching straightforward. Communication was solid throughout and slightly smoother by later rounds."

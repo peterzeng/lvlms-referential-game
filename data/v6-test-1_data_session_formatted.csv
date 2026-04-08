@@ -1,0 +1,433 @@
+session_id,round_1_conversation,round_1_ai_reasoning,round_1_accuracy,round_2_conversation,round_2_ai_reasoning,round_2_accuracy,round_3_conversation,round_3_ai_reasoning,round_3_accuracy,round_4_conversation,round_4_ai_reasoning,round_4_accuracy,director_perception_capable,director_perception_helpful,director_perception_understood,director_perception_adapted,director_perception_improved,director_perception_comment,matcher_perception_capable,matcher_perception_helpful,matcher_perception_understood,matcher_perception_adapted,matcher_perception_improved,matcher_perception_comment
+v6-test-1,"[2026-03-31T11:44:36.792586] DIRECTOR:
+Basket 1 is a lidded wicker basket shaped like a duck/bird—round body with a little head and beak sticking out on one side (with a small eye detail). Let me know when you’ve got it.
+
+[2026-03-31T11:44:47.454914] MATCHER:
+Done. Go to Basket 2
+
+[2026-03-31T11:44:56.700128] DIRECTOR:
+Basket 2 is a deep, rounded bucket-style wicker basket with a single very dark (almost black) thick arched handle; the body is medium-brown with a tight weave. Confirm when you’ve placed it.
+
+[2026-03-31T11:45:05.970274] MATCHER:
+Done. Go to Basket 3
+
+[2026-03-31T11:45:16.423318] DIRECTOR:
+Basket 3 is a rectangular picnic basket with a tall center handle and a hinged lid that’s flipped open to the right side—light tan, tight weave. Let me know when you’ve got it.
+
+[2026-03-31T11:45:26.747685] MATCHER:
+Placed it. Go to Basket 4
+
+[2026-03-31T11:45:36.864077] DIRECTOR:
+Basket 4 is a small boat-shaped oval basket with a whitewashed/light gray weave and a tan rim; it has a single arched handle that looks wrapped in pale material with little reddish bands near where it meets the sides.
+
+[2026-03-31T11:45:48.032377] MATCHER:
+Is it the mostly white/gray oval basket with a tan rim and a pale handle that has small reddish wraps where it meets the sides?
+
+[2026-03-31T11:45:57.614787] DIRECTOR:
+Yes—that’s the one: the mostly white/gray oval “boat” basket with the tan rim and the pale wrapped handle with little reddish wraps where it attaches.
+
+[2026-03-31T11:46:08.141868] MATCHER:
+Done. Go to Basket 5
+
+[2026-03-31T11:46:23.742765] DIRECTOR:
+Basket 5: a rectangular, boxy wicker basket with a chunky twisted-rope handle arching high, and a darker band right under the top rim. Let me know when you’ve got it placed.
+
+[2026-03-31T11:46:33.637989] MATCHER:
+Placed. Go to Basket 6
+
+[2026-03-31T11:46:43.796719] DIRECTOR:
+Basket 6: a round lidded wicker basket with a cat face on top—painted eyes and whiskers—and it sits on little feet.
+
+[2026-03-31T11:46:54.262008] MATCHER:
+Done. Go to Basket 7
+
+[2026-03-31T11:47:04.145446] DIRECTOR:
+Basket 7: a rectangular tote basket with a single wide arched handle, a green/teal woven body, and a tan/brown rim with a braided band just under the top edge.
+
+[2026-03-31T11:47:15.821470] MATCHER:
+Placed. Go to Basket 8
+
+[2026-03-31T11:47:27.638854] DIRECTOR:
+Basket 8: a dark gray/black oval wicker basket with a single thick arched handle, a lighter tan band around the bottom, and a lidded top with a strap-like piece across the front.
+
+[2026-03-31T11:47:39.311501] MATCHER:
+Done. Go to Basket 9
+
+[2026-03-31T11:47:49.853717] DIRECTOR:
+Basket 9: a tall, straight-sided cylindrical wicker basket (like a small hamper) with an open top and two small loop handles right near the rim.","[2026-03-31T11:44:36.792403] DIRECTOR REASONING:
+{
+  ""target_position"": 1,
+  ""shared_features"": [
+    ""woven wicker"",
+    ""light tan color"",
+    ""has a lid/top""
+  ],
+  ""distinctive_features"": [
+    ""animal-shaped basket (looks like a duck/bird)"",
+    ""rounded body with a small head/beak on the right"",
+    ""small colored eye detail""
+  ],
+  ""likely_confusions"": [
+    6
+  ],
+  ""discriminative_strategy"": ""Emphasize it\u2019s a lidded basket shaped like a duck/bird (not a normal handled basket); mention the beak/head profile.""
+}
+
+[2026-03-31T11:44:47.454531] MATCHER REASONING:
+{
+  ""target_position"": 1,
+  ""shared_features"": [
+    ""wicker basket"",
+    ""natural tan color""
+  ],
+  ""distinctive_features"": [
+    ""lidded"",
+    ""shaped like a duck/bird"",
+    ""head and beak protruding"",
+    ""small eye detail""
+  ],
+  ""best_guess_candidate_index"": 2,
+  ""likely_confusions"": [],
+  ""discriminative_question"": """"
+}
+
+[2026-03-31T11:44:56.699916] DIRECTOR REASONING:
+{
+  ""target_position"": 2,
+  ""shared_features"": [
+    ""woven wicker basket"",
+    ""has a single arched handle""
+  ],
+  ""distinctive_features"": [
+    ""deep rounded bucket shape"",
+    ""very dark (almost black) thick handle"",
+    ""medium-brown body with a tighter weave and a slightly flared rim""
+  ],
+  ""likely_confusions"": [
+    4,
+    5,
+    8,
+    10,
+    12
+  ],
+  ""discriminative_strategy"": ""Emphasize the very dark thick handle and the deep, rounded bucket profile (not shallow/oval).""
+}
+
+[2026-03-31T11:45:05.970028] MATCHER REASONING:
+{
+  ""target_position"": 2,
+  ""shared_features"": [
+    ""wicker basket"",
+    ""single arched handle"",
+    ""rounded/bucket shape""
+  ],
+  ""distinctive_features"": [
+    ""very dark (almost black) thick handle"",
+    ""deep rounded bucket body"",
+    ""medium-brown tight weave""
+  ],
+  ""best_guess_candidate_index"": 6,
+  ""likely_confusions"": [
+    3,
+    13,
+    14,
+    17
+  ],
+  ""discriminative_question"": ""Is the handle noticeably darker than the basket body (almost black), and is the basket a deep bucket rather than a shallow tray?""
+}
+
+[2026-03-31T11:45:16.422975] DIRECTOR REASONING:
+{
+  ""target_position"": 3,
+  ""shared_features"": [
+    ""wicker/picnic-style basket"",
+    ""has a handle"",
+    ""brown/tan natural weave""
+  ],
+  ""distinctive_features"": [
+    ""rectangular picnic basket with a hinged lid flipped open to the right"",
+    ""tall central vertical handle rising from the middle"",
+    ""tight, pale tan weave with squared corners""
+  ],
+  ""likely_confusions"": [
+    4,
+    5,
+    7,
+    12
+  ],
+  ""discriminative_strategy"": ""Emphasize the open hinged lid on the right and the tall center handle on a rectangular picnic basket.""
+}
+
+[2026-03-31T11:45:26.747448] MATCHER REASONING:
+{
+  ""target_position"": 3,
+  ""shared_features"": [
+    ""woven wicker basket"",
+    ""has a handle"",
+    ""light tan/brown tones""
+  ],
+  ""distinctive_features"": [
+    ""rectangular picnic shape"",
+    ""hinged lid flipped open to the right"",
+    ""tall center handle""
+  ],
+  ""best_guess_candidate_index"": 15,
+  ""likely_confusions"": [
+    18,
+    16
+  ],
+  ""discriminative_question"": ""Is it the one with the lid already open (a flap sticking out to the right), not the flat lidded trunk?""
+}
+
+[2026-03-31T11:45:36.863713] DIRECTOR REASONING:
+{
+  ""target_position"": 4,
+  ""shared_features"": [
+    ""wicker weave"",
+    ""has a handle"",
+    ""light brown/tan tones""
+  ],
+  ""distinctive_features"": [
+    ""small oval/boat-shaped basket"",
+    ""whitewashed/light gray weave with tan rim"",
+    ""handle wrapped with pale material and small reddish bands near the sides""
+  ],
+  ""likely_confusions"": [
+    5,
+    8,
+    10,
+    12
+  ],
+  ""discriminative_strategy"": ""Emphasize the whitewashed two-tone weave and the boat/oval shape with the wrapped handle and red accent bands.""
+}
+
+[2026-03-31T11:45:48.031469] MATCHER REASONING:
+{
+  ""target_position"": 4,
+  ""shared_features"": [
+    ""woven wicker basket"",
+    ""single arched handle"",
+    ""oval/boat-shaped profile""
+  ],
+  ""distinctive_features"": [
+    ""whitewashed/light gray weave"",
+    ""tan rim/border"",
+    ""pale-wrapped handle with small reddish bands near the attachment points""
+  ],
+  ""best_guess_candidate_index"": 1,
+  ""likely_confusions"": [
+    10
+  ],
+  ""discriminative_question"": ""Is the body mostly white/gray (not two-tone tan/brown), with a pale handle that has little reddish wraps near the sides?""
+}
+
+[2026-03-31T11:45:57.614451] DIRECTOR REASONING:
+{
+  ""target_position"": 4,
+  ""shared_features"": [
+    ""has a single arched handle"",
+    ""woven wicker basket"",
+    ""oval/rounded form""
+  ],
+  ""distinctive_features"": [
+    ""whitewashed/light gray weave with tan rim"",
+    ""boat-shaped oval profile"",
+    ""pale/cloth-wrapped handle with small reddish wraps near the side attachments""
+  ],
+  ""likely_confusions"": [
+    10,
+    12,
+    8
+  ],
+  ""discriminative_strategy"": ""Confirm the white/gray wash + tan rim combo and the pale wrapped handle with red bands at the attachment points.""
+}
+
+[2026-03-31T11:46:08.141527] MATCHER REASONING:
+{
+  ""target_position"": 4,
+  ""shared_features"": [
+    ""handled basket"",
+    ""oval shape""
+  ],
+  ""distinctive_features"": [
+    ""mostly white/gray body"",
+    ""tan rim"",
+    ""pale handle with small reddish wraps at the attachment points""
+  ],
+  ""best_guess_candidate_index"": 1,
+  ""likely_confusions"": [],
+  ""discriminative_question"": """"
+}
+
+[2026-03-31T11:46:23.742323] DIRECTOR REASONING:
+{
+  ""target_position"": 5,
+  ""shared_features"": [
+    ""woven wicker basket"",
+    ""has a single arched handle"",
+    ""natural brown/tan color""
+  ],
+  ""distinctive_features"": [
+    ""rectangular/boxy shape with flat base"",
+    ""thick twisted-rope style handle"",
+    ""tight checker-weave sides with a darker band near the top rim""
+  ],
+  ""likely_confusions"": [
+    7,
+    12
+  ],
+  ""discriminative_strategy"": ""emphasize the boxy rectangular body and the chunky twisted handle (not a smooth handle), plus the darker rim band""
+}
+
+[2026-03-31T11:46:33.637539] MATCHER REASONING:
+{
+  ""target_position"": 5,
+  ""shared_features"": [
+    ""wicker weave"",
+    ""has an arched handle"",
+    ""brown/tan tones""
+  ],
+  ""distinctive_features"": [
+    ""rectangular/boxy shape (not round)"",
+    ""very chunky twisted-rope style handle"",
+    ""darker band just under the top rim""
+  ],
+  ""best_guess_candidate_index"": 16,
+  ""likely_confusions"": [],
+  ""discriminative_question"": """"
+}
+
+[2026-03-31T11:46:43.796387] DIRECTOR REASONING:
+{
+  ""target_position"": 6,
+  ""shared_features"": [
+    ""wicker/woven basket"",
+    ""light tan color"",
+    ""has a lid/top""
+  ],
+  ""distinctive_features"": [
+    ""round lidded basket shaped like a cat face"",
+    ""painted facial features (eyes/whiskers/nose) on the lid"",
+    ""sits on small little feet/pegs""
+  ],
+  ""likely_confusions"": [
+    1
+  ],
+  ""discriminative_strategy"": ""emphasize it's the cat-face lidded basket (not the duck-shaped one) with painted whiskers and little feet""
+}
+
+[2026-03-31T11:46:54.260975] MATCHER REASONING:
+{
+  ""target_position"": 6,
+  ""shared_features"": [
+    ""wicker material"",
+    ""round basket form""
+  ],
+  ""distinctive_features"": [
+    ""cat face on lid with painted eyes/whiskers"",
+    ""sits on small feet"",
+    ""lidded, spherical/rounded body""
+  ],
+  ""best_guess_candidate_index"": 7,
+  ""likely_confusions"": [
+    2
+  ],
+  ""discriminative_question"": ""Is it the one with a clearly painted cat face (eyes/whiskers) and little feet, not the duck-shaped one?""
+}
+
+[2026-03-31T11:47:04.144661] DIRECTOR REASONING:
+{
+  ""target_position"": 7,
+  ""shared_features"": [
+    ""wicker basket with a handle"",
+    ""rectangular shape similar to some others""
+  ],
+  ""distinctive_features"": [
+    ""rectangular tote with a wide arched handle"",
+    ""two-tone body: greenish/teal vertical weaving with a tan/brown rim and handle"",
+    ""front has a braided band just under the rim""
+  ],
+  ""likely_confusions"": [
+    5,
+    12
+  ],
+  ""discriminative_strategy"": ""emphasize the green/teal woven body and the braided band under the rim plus the single wide handle""
+}
+
+[2026-03-31T11:47:15.820789] MATCHER REASONING:
+{
+  ""target_position"": 7,
+  ""shared_features"": [
+    ""rectangular tote shape"",
+    ""single arched handle"",
+    ""woven wicker""
+  ],
+  ""distinctive_features"": [
+    ""green/teal woven body"",
+    ""tan/brown rim"",
+    ""braided band just under the top edge""
+  ],
+  ""best_guess_candidate_index"": 16,
+  ""likely_confusions"": [],
+  ""discriminative_question"": """"
+}
+
+[2026-03-31T11:47:27.638182] DIRECTOR REASONING:
+{
+  ""target_position"": 8,
+  ""shared_features"": [
+    ""has a single arched handle"",
+    ""woven wicker basket""
+  ],
+  ""distinctive_features"": [
+    ""dark gray/black wicker body with lighter tan base band"",
+    ""oval/rounded shape with a thick dark handle"",
+    ""has a lid/top flap with a strap-like detail across the front""
+  ],
+  ""likely_confusions"": [
+    2,
+    4,
+    5,
+    12
+  ],
+  ""discriminative_strategy"": ""emphasize the dark gray wicker color with the lighter tan bottom band and the lidded top with a front strap""
+}
+
+[2026-03-31T11:47:39.310466] MATCHER REASONING:
+{
+  ""target_position"": 8,
+  ""shared_features"": [
+    ""wicker basket"",
+    ""single arched handle"",
+    ""oval shape""
+  ],
+  ""distinctive_features"": [
+    ""dark gray/black wicker body"",
+    ""lighter tan band around the bottom"",
+    ""has a lid/top with a strap-like piece across the front""
+  ],
+  ""best_guess_candidate_index"": 17,
+  ""likely_confusions"": [],
+  ""discriminative_question"": ""Does it have a lid with a front strap?""
+}
+
+[2026-03-31T11:47:49.852707] DIRECTOR REASONING:
+{
+  ""target_position"": 9,
+  ""shared_features"": [
+    ""wicker basket"",
+    ""brown/tan tones"",
+    ""has handles""
+  ],
+  ""distinctive_features"": [
+    ""tall cylindrical/straight-sided basket like a small hamper"",
+    ""two small loop handles near the rim"",
+    ""open top with vertical slats/rectangular weave panels""
+  ],
+  ""likely_confusions"": [
+    2,
+    11,
+    12
+  ],
+  ""discriminative_strategy"": ""emphasize the tall cylinder shape and the two small side loop handles (not a big arch handle), open top""
+}",,,,,,,,,,,,,,,,,,,,,,

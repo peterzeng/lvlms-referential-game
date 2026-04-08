@@ -2,7 +2,7 @@
 Multi-provider AI client infrastructure.
 
 Supports:
-- OpenAI (GPT-5.2, GPT-4o, etc.)
+- OpenAI (GPT-5.4, GPT-5.2, GPT-4o, etc.)
 - Google Gemini (gemini-3-pro, gemini-3-flash, gemini-2.5-pro, etc.)
 
 Each role (director/matcher) can use a different provider/model combination.
@@ -32,6 +32,8 @@ GPT_5_2_MODELS = frozenset({
     "gpt-5.2-mini",
     "gpt-5.2-chat-latest",
     "gpt-5.2-pro",
+    "gpt-5.4",
+    "gpt-5.4-mini",
 })
 
 # Gemini models (for reference)
@@ -83,12 +85,18 @@ def detect_provider_from_model(model: str) -> str:
 
 
 def is_gpt_5_2_model(model: str) -> bool:
-    """Check if a model supports GPT-5.2 API features (reasoning_effort)."""
+    """Check if a model supports GPT-5.x API features (reasoning_effort).
+    
+    Returns True for GPT-5.2, GPT-5.4, and any future GPT-5.x models that
+    support the reasoning_effort parameter.
+    """
     if not model:
         return False
     if model in GPT_5_2_MODELS:
         return True
-    return model.lower().startswith("gpt-5.2")
+    model_lower = model.lower()
+    # Match any gpt-5.x variant (5.2, 5.4, etc.)
+    return model_lower.startswith("gpt-5.2") or model_lower.startswith("gpt-5.4")
 
 
 def uses_max_completion_tokens(model: str) -> bool:
