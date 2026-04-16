@@ -1,6 +1,6 @@
 # Human-LVLM Director-Matcher Game
 
-This repository contains an interactive director-matcher game experiment implemented with [oTree](https://www.otree.org/). The experiment is designed to study communication and reference in a collaborative visual task.
+This repository contains an interactive director-matcher game experiment implemented with [oTree](https://www.otree.org/). The experiment is designed to study communication and reference in a collaborative visual task. Our corpus is available [here](https://drive.google.com/drive/folders/1y4utpf5zErb7VKe8qW5U9I4AMlFd5uxx?usp=sharing):
 
 ## Experiment Overview
 
