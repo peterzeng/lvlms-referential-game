@@ -1,0 +1,62 @@
+{
+    "Card1":{
+        "Round1":"long, handle, light in middle, woven, brownish ,you could see the far inside, you could see the bottom which is not woven just like a piece of wood, long rectangle type of shape, handle in middle",
+        "Round2":"rectangle, long, handle in middle",
+        "Round3":"rectangular, long, handle right through middle",
+        "Round4":"long rectangular, handle in middle"
+    },
+    "Card2":{
+        "Round1":"reddish color, large round handle, handle's double the size of the basket itself, woven type thing, difference of colors of red and white woven into each other, green back- ground",
+        "Round2":"handle twice the size of basket itself, reddish and white colored, green around handle",
+        "Round3":"you can't see through it, handle's three times larger, green around handle",
+        "Round4":"green handle"
+    },
+    "Card3":{
+        "Round1":"basket bigger than handle, but not by much, handle is circular, interwoven, brownish color, you can see large spaces between each piece of wood, you could see white background through it, bottom is darker, round",
+        "Round2":"woven, holes in middle, you could see white behind it, gets darker on bottom , reddish color, no top, big handle clogging the middle",
+        "Round3":"woven, handle, you could see on top, gets darker on bottom",
+        "Round4":"woven, with handle, gets darker on bottom, reddish, without green handle"
+    },
+    "Card4":{
+        "Round1":"without handle, large, brown color, darker brown, woven, very simple, big uneven cup type thing, piece of wood on top, things are woven off of that going downwards",
+        "Round2":"big cup",
+        "Round3":"large cup",
+        "Round4":"big cup"
+    },
+    "Card5":{
+        "Round1":"without handle, interwoven, spaces in between, slightly smaller, red ribbon going through top",
+        "Round2":"woven, red ribbon through it",
+        "Round3":"red ribbon through top, woven, you could see through it",
+        "Round4":"woven, red ribbon through it, without handle"
+    },
+    "Card6":{
+        "Round1":"without handle, green line through it, golden type thing",
+        "Round2":"green line in middle",
+        "Round3":"green in middle, line, golden",
+        "Round4":"green line"
+    },
+    "Card7":{
+        "Round1":"top, lid, two small handles but doesn't have handle that goes over top, lid with little thing sticking out of it, left handle has some green inside of it",
+        "Round2":"golden, with handle and thing on top , two little handles, left one has greenish color inside",
+        "Round3":"lid, green in left handle, little extra thing on top",
+        "Round4":"lid, with thing on top of lid, left handle a little green on inside"
+    },
+    "Card8":{
+        "Round1":"woman's underwear",
+        "Round2":"woman's underwear",
+        "Round3":"women's underwear",
+        "Round4":"women's underwear"
+    },
+    "Card9":{
+        "Round1":"flat top, round handle, round basket, very simple, handle is more rectangle shape, goes all the way up to top, goes over whole thing, just plain round",
+        "Round2":"smaller of those two baskets with lid and handle, flat top cover, round, smaller",
+        "Round3":"\"same one but smaller one\"",
+        "Round4":"\"same basket, it's just smaller\""
+    },
+    "Card10":{
+        "Round1":"round handle, little bit taller, little bigger handle, flat top, not as straight, crooked a little bit, shaped down to be more square on bottom, and rounds off as it goes higher",
+        "Round2":"big, round on top and it squares off on bottom, flat top, you could see the top is a little bit cracked, it doesn't quite fit right",
+        "Round3":"big, flat lid, round top, square on bottom, rounds off",
+        "Round4":"big, flat lid, square on bottom, rounds off"
+    }
+}

@@ -1,0 +1,56 @@
+Session: 3kk7u0fy
+Group ID (canonical): 107
+Raw group IDs (by round): 107, 65, 76, 90
+Participants: director: 2v3xberz (prolific: 5a0a02fba383a100011b4b5e), matcher: 2f1fnsz2 (prolific: 628d14b52b5bd1d83ed1f7d2)
+Total Rounds: 4
+Timing: No timing data available
+======================================================================
+
+
+======================================================================
+ROUND 1 (Group 65)
+======================================================================
+
+
+DIRECTOR METRICS:
+
+MATCHER METRICS:
+
+(No data for this round)
+
+
+======================================================================
+ROUND 2 (Group 76)
+======================================================================
+
+
+DIRECTOR METRICS:
+
+MATCHER METRICS:
+
+(No data for this round)
+
+
+======================================================================
+ROUND 3 (Group 90)
+======================================================================
+
+
+DIRECTOR METRICS:
+
+MATCHER METRICS:
+
+(No data for this round)
+
+
+======================================================================
+ROUND 4 (Group 107)
+======================================================================
+
+
+DIRECTOR METRICS:
+
+MATCHER METRICS:
+
+(No data for this round)
+

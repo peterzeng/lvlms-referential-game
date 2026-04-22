@@ -1,0 +1,62 @@
+{
+    "Card1":{
+        "Round1":"on bottom row, second to your left",
+        "Round2":"black and golden",
+        "Round3":"big, black and brown",
+        "Round4":"big, brown and black"
+    },
+    "Card2":{
+        "Round1":"sheep dog, scraggly hair, light color, golden",
+        "Round2":"scruffy, golden",
+        "Round3":"scruffy, golden",
+        "Round4":"scruffy, golden"
+    },
+    "Card3":{
+        "Round1":"golden lab, sitting down",
+        "Round2":"golden lab, sitting down",
+        "Round3":"golden lab",
+        "Round4":"lab"
+    },
+    "Card4":{
+        "Round1":"wiener dog",
+        "Round2":"wiener dog",
+        "Round3":"wiener dog",
+        "Round4":"wiener dog"
+    },
+    "Card5":{
+        "Round1":"black poodle",
+        "Round2":"black poodle",
+        "Round3":"black poodle",
+        "Round4":"black poodle"
+    },
+    "Card6":{
+        "Round1":"Doberman pinscher",
+        "Round2":"Doberman pinscher",
+        "Round3":"Doberman",
+        "Round4":"Doberman"
+    },
+    "Card7":{
+        "Round1":"golden colored, with really long ears, floppy ears",
+        "Round2":"floppy eared, golden",
+        "Round3":"golden, floppy eared",
+        "Round4":"floppy ear"
+    },
+    "Card8":{
+        "Round1":"[Missing Data]",
+        "Round2":"boxer",
+        "Round3":"boxer",
+        "Round4":"boxer"
+    },
+    "Card9":{
+        "Round1":"husky, white",
+        "Round2":"husky",
+        "Round3":"husky",
+        "Round4":"husky"
+    },
+    "Card10":{
+        "Round1":"looks like Toto from Wizard of Oz",
+        "Round2":"Toto",
+        "Round3":"Toto",
+        "Round4":"Toto"
+    }
+}

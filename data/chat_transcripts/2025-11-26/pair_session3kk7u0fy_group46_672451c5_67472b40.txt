@@ -1,0 +1,169 @@
+Session: 3kk7u0fy
+Group ID (canonical): 46
+Raw group IDs (by round): 46, 54, 58, 60
+Participants: director: p5uvrh8a (prolific: 672451c5f4e558e08242d746), matcher: mzq0l3en (prolific: 67472b406557adf9044c6e34)
+Total Rounds: 4
+Timing:
+  Round 1: 13m 3s
+  Round 2: 5m 48s
+  Round 3: 6m 45s
+  Round 4: 4m 50s
+  Total: 30m 26s
+======================================================================
+
+
+======================================================================
+ROUND 1 (Group 46)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=A
+
+MATCHER METRICS:
+  Score (Accuracy): 75.00%
+  Attention Checks: Round Q=A
+
+CHAT TRANSCRIPT:
+[18:16:37] matcher: can you see this too?
+[18:17:12] director: Yes, I can
+[18:17:32] director: The first one is the rabbit shaped..
+[18:18:42] director: the second one is the smooth basket..
+[18:19:10] matcher: is it this?
+[18:19:36] director: Yes...
+[18:20:14] director: The third has one side of the basket covered and the other side opened
+[18:21:25] director: the fourth one is the one with band on the handle
+[18:23:45] matcher: hello
+[18:24:01] director: The 5th one is the one with rounded handle that looks like square
+[18:24:48] matcher: is it the picnic basket?
+[18:24:56] director: The 6th one is the one looking like a strange animal
+[18:25:12] matcher: is the 5th the picnic?
+[18:25:25] director: yes
+[18:25:50] matcher: 7th now
+[18:27:23] matcher: you a bit slow man
+[18:27:26] director: 7th has a square shaped basket with dark color at the middle, and brown on the base and handle
+[18:27:56] director: 8th is the basket with white bottom and dark middle
+[18:28:05] director: 9th is the longest basket
+[18:28:20] director: 10th is the most shallow basket
+[18:28:37] director: 11th is the 2nd to longest basket
+[18:29:02] director: 12 is the basket looking like a hand bag
+[18:29:21] matcher: please confirm
+[18:29:26] director: yes
+[18:29:35] matcher: can i submit
+[18:29:40] director: yes
+
+
+======================================================================
+ROUND 2 (Group 54)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=C
+
+MATCHER METRICS:
+  Score (Accuracy): 91.67%
+  Attention Checks: Round Q=C
+
+CHAT TRANSCRIPT:
+[18:30:48] director: The 1st is the basket with one side opened and the other side closed
+[18:30:54] matcher: oh u cant see what i selected , can u?
+[18:30:56] director: the 2nd is the longest basket
+[18:31:05] director: No, I cant see
+[18:31:18] matcher: oh i thought u could  sorry
+[18:31:26] director: the 3rd is the basket with the smoothest base
+[18:32:05] director: 4th is the basket with a perfect square shaped handle
+[18:32:06] matcher: smoothest base , u mean very short and flat?
+[18:32:26] director: I mean smooth body rather
+[18:33:13] matcher: okay
+[18:33:44] director: 5th is the basket with dark middle part and white base and white handle
+[18:33:59] director: 6th is the basket with rabbit shaped
+[18:34:11] director: 7th is the strange animal looking basket
+[18:34:26] director: 8th is the shallowest basket
+[18:35:23] director: 9th is the basket with dark middle part and brown base and handle
+[18:35:42] director: 10th is the 2nd longest basket
+[18:36:09] director: 11th is the women hand bag shape basket
+[18:36:36] director: 12th has white bands on the left and right side of the handle
+
+
+======================================================================
+ROUND 3 (Group 58)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=B
+
+MATCHER METRICS:
+  Score (Accuracy): 100.00%
+  Attention Checks: Round Q=B
+
+CHAT TRANSCRIPT:
+[18:37:36] matcher: hi
+[18:37:51] director: hello
+[18:37:54] matcher: can u see what we missed
+[18:38:00] director: yes
+[18:38:01] matcher: failed only one
+[18:38:09] matcher: lets go
+[18:38:13] director: It is the first basket now
+[18:38:28] director: put it in number 1
+[18:38:28] matcher: describe
+[18:38:41] matcher: i dont know it
+[18:38:51] matcher: the description is hard
+[18:39:26] director: middle dark part, brown base, brown handle
+[18:40:07] director: Got it now?
+[18:40:10] matcher: no
+[18:40:17] matcher: use another description
+[18:40:33] matcher: does it have arrow on the body
+[18:40:43] director: no arrow
+[18:40:57] matcher: oh seen it
+[18:41:03] director: good
+[18:41:18] director: 2nd is the handle with band
+[18:41:19] matcher: 9 straight lines brown on its body
+[18:41:27] matcher: for the first right?
+[18:41:36] director: Yes 9 lines
+[18:41:50] matcher: next
+[18:42:03] director: 3rd is strange animal shit
+[18:42:08] matcher: the rest will be easy
+[18:42:17] director: 4ht is rabbit
+[18:42:35] director: 5th is women hand bag basket
+[18:42:49] director: 6th is longest basket
+[18:43:00] director: 7th is smoothest basket
+[18:43:23] director: 8th is dark middle part and white base and white handle
+[18:43:39] director: 9th is square shaped handle basket
+[18:43:53] director: 10th is shallowest basket
+[18:44:03] director: 11 is 2nd longest basket
+[18:44:21] director: 12 is one side open and one side closed basket
+
+
+======================================================================
+ROUND 4 (Group 60)
+======================================================================
+
+
+DIRECTOR METRICS:
+
+MATCHER METRICS:
+  Score (Accuracy): 100.00%
+
+CHAT TRANSCRIPT:
+[18:46:09] matcher: u good
+[18:46:27] director: We doing good
+[18:46:36] director: Now lets smash this
+[18:46:46] director: 1st shallowest basket
+[18:46:58] director: 2nd square shaped handle basket
+[18:47:08] director: 3rd rabbit basket
+[18:47:40] matcher: good
+[18:47:44] director: 4th 9 lines middle dark part and brown base basket
+[18:47:56] director: 5th, 2nd longest basket
+[18:48:09] director: 6th, smoothest body basket
+[18:48:19] director: 7th, longest basket
+[18:48:37] director: 8th, one side open other side closed basket
+[18:48:51] director: 9th strange animal basket
+[18:49:11] director: 10th white band on handle basket
+[18:49:26] director: 11th women hand bag basket
+[18:49:49] director: 12th, dark middle part and white base and white handle
+[18:50:35] matcher: nice one
+[18:50:48] director: Are we gucci?
+[18:50:59] matcher: yea. submitting now
+

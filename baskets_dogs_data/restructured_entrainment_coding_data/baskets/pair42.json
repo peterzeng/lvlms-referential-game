@@ -1,0 +1,62 @@
+{
+    "Card1":{
+        "Round1":"long, longest",
+        "Round2":"longest, with handle",
+        "Round3":"long, horizontally",
+        "Round4":"long body, horizontal"
+    },
+    "Card2":{
+        "Round1":"looks like you could carry fruit in it or some'n, handle, small",
+        "Round2":"red ribbon with handle",
+        "Round3":"big handle, short",
+        "Round4":"big handle, little"
+    },
+    "Card3":{
+        "Round1":"spaces in between straw, handle",
+        "Round2":"spaces, with handle",
+        "Round3":"spaces, with handle",
+        "Round4":"spaces, handle"
+    },
+    "Card4":{
+        "Round1":"doesn't have handle, big",
+        "Round2":"open, with no handle",
+        "Round3":"open, big, no handle, no lid",
+        "Round4":"big bowl with no lid, no handle"
+    },
+    "Card5":{
+        "Round1":"spaces, doesn't have handle",
+        "Round2":"spaces, with no handle, red ribbon",
+        "Round3":"spaces, red ribbon, no handle",
+        "Round4":"spaces, no handle, red ribbon"
+    },
+    "Card6":{
+        "Round1":"tan, green around it",
+        "Round2":"tan, green around it, within it",
+        "Round3":"green ribbon",
+        "Round4":"green ribbon, no lid"
+    },
+    "Card7":{
+        "Round1":"look like a pot, tan, little",
+        "Round2":"look like a pot",
+        "Round3":"look like a pot",
+        "Round4":"pot"
+    },
+    "Card8":{
+        "Round1":"triangle looking with lil handle",
+        "Round2":"triangular looking",
+        "Round3":"triangle",
+        "Round4":"triangle"
+    },
+    "Card9":{
+        "Round1":"handle look square, short",
+        "Round2":"handle, tan, lid over it, short",
+        "Round3":"shorter with handle",
+        "Round4":"shorter body"
+    },
+    "Card10":{
+        "Round1":"little taller",
+        "Round2":"tan, handle, body tall",
+        "Round3":"long body with handle, lid over it, long vertically",
+        "Round4":"handle, lid, long body vertically, really thin"
+    }
+}

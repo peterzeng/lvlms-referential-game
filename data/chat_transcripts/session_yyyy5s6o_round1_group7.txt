@@ -1,0 +1,46 @@
+Session: yyyy5s6o
+Round: 1
+Group: 7
+Participants: director: m80jm5xg, matcher: bkkrxy6a
+======================================================================
+
+[21:57:34] director: First basket is shaped like a cone
+[21:58:09] matcher: got it
+[21:59:04] director: Second basket is round but goes up on both ends. Kinda looks like an open mouth with a handle in the middle
+[21:59:26] matcher: got it
+[21:59:59] director: Third basket is more jar-like with a lid. The rounder one, not the flatter one
+[22:00:12] matcher: ok
+[22:01:16] director: 4th basket is small and more textured around the top. One handle going across
+[22:01:53] matcher: think i got it
+[22:02:30] director: And the picture is kind of at an angle. Not forward facing
+[22:02:42] matcher: yep got it
+[22:03:31] director: 5th basket is tall and round like  a bucket with 2 handles
+[22:04:05] director: 6th basket is more like a bowl with patterns of brown in it
+[22:04:36] director: 7th basket looks like a bucket and the top is closed
+[22:04:44] matcher: 6th basket 2 of them have patters
+[22:05:17] director: It's got brown zig zags
+[22:05:33] matcher: both of them do.  one is a little wider than other
+[22:05:39] matcher: and shorter
+[22:06:02] matcher: i got 7.  still just not sure on 6
+[22:06:38] matcher: does the zig zag patter one have an upside down triangle looking pattern on top
+[22:07:27] director: No, this one has 3 lines you can see that connect into each other
+[22:08:06] director: the patterns kind of make lower case f's
+[22:09:04] matcher: hmm ok lets skip for now.  i see uppercase F
+[22:09:08] matcher: what about 8
+[22:09:27] director: It could also be uppercase
+[22:09:32] matcher: ok then i think im good
+[22:09:49] director: 8 is a bowl that looks like a flower/honeycomb
+[22:09:54] director: no handle
+[22:10:08] matcher: got it
+[22:10:23] director: 9 is literally an elephant lol
+[22:10:33] matcher: got it
+[22:11:09] director: 10 is more standard basket looking. rim around the top and camera facing
+[22:11:14] director: one handle
+[22:12:01] matcher: ok that can be a few.  is it straight on in pic or at angle
+[22:12:20] director: 11 is a basket with a side view and it goes down on both ends. opposite of #2
+[22:12:26] director: 10 is straight on
+[22:12:40] matcher: got it
+[22:13:10] director: 12 is like #3 but flatter. Jar shaped with a lid
+[22:13:26] matcher: ok i think i have them all
+[22:13:45] matcher: ill submit
+[22:13:51] director: Great!

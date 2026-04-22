@@ -1,0 +1,62 @@
+{
+    "Card1":{
+        "Round1":"yellow, big black spot on center, long ears, wide snout, Labrador, face looks orange and yellow, black spot in middle on nose, eyebrow black, his eyes are dark, tail is yellow on top, black towards end, tail pointed down",
+        "Round2":"largest spot",
+        "Round3":"huge spot on torso",
+        "Round4":"big, yellow, black spot on belly"
+    },
+    "Card2":{
+        "Round1":"curly hair, short ears, terrier, yellow, probably white, traces of white or light color in center",
+        "Round2":"short haired, really curly hair, all white, black spot on his stomach",
+        "Round3":"white, tall, poodle-ish, but not so fro-ey",
+        "Round4":"poodle, with his hair cut off, short hair, curly, white"
+    },
+    "Card3":{
+        "Round1":"short-haired, ears are darker color than his body, tail's long foir the size of him, wearing collar, sitting",
+        "Round2":"beagle face, all yellow, wearing collar, thicker collar, compared to the other dogs, yellow body, black ears, retriever face, skinny, medium sized, sitting, looking towards side, body facing right, he's turning towards left",
+        "Round3":"body is facing right, face is facing left, looking towards something",
+        "Round4":"Labrador, short hair, thick brown chain around neck"
+    },
+    "Card4":{
+        "Round1":"all black, short, very short legs, hair is short, not as curly as the other dog that's on the list, not a poodle, dachshund, long torso, long snout",
+        "Round2":"really short, little, black thing, short hair",
+        "Round3":"very short haired, looks like curly hair, all black, \"very short feet like a basset hound almost, but he's not\", short, longer snout, long body",
+        "Round4":"really short, basset hounds, black"
+    },
+    "Card5":{
+        "Round1":"black poodle, collar, big round charm",
+        "Round2":"black poodle with little charm",
+        "Round3":"poodle with charm, looking to left, black",
+        "Round4":"poodle, black, with little charm around his neck"
+    },
+    "Card6":{
+        "Round1":"very short hair, all black except for his snout, which is part light brown, mean, very shiny coat",
+        "Round2":"all black, except for a little stripe of yellow on his cheek, yellow paws, shiny coat, short fur",
+        "Round3":"very skinny, very shiny coat, all black except for yellow stripe on his face",
+        "Round4":"black, really shiny coat, stripe of gold on face"
+    },
+    "Card7":{
+        "Round1":"long haired, pretty, darker around his torso, lighter around his legs, ears are the lightest part, tan colored, hair almost touching ground, on grass, brown up on top, pointing at something, nose, reaching up",
+        "Round2":"really long haired, retriever face, pointing with his nose",
+        "Round3":"long haired, pointing to sky with his nose",
+        "Round4":"really long hair, almost touching ground, maybe golden retriever, brown, face lighter than his body, pointing to sky, his nose, really long ears"
+    },
+    "Card8":{
+        "Round1":"bulldog, pointy ears, yellow body, black snout that's short compared to the other dogs, big eyes, short tail, chain collar",
+        "Round2":"bulldog, all yellow body, black snout, pointy ears, collar",
+        "Round3":"very short hair, all yellow body, black snout, short snout, really pointy ears, short tail, male dog, little chain collar, \"he's skinnier than the other dogs that are all yellow\", almost running",
+        "Round4":"skinny, looks like he's running, short chain collar, short, stumpy tail, black face"
+    },
+    "Card9":{
+        "Round1":"husky, black and white, sticking tongue out",
+        "Round2":"husky, black and white, really different looking than the other dogs",
+        "Round3":"husky, black and white, tongue hanging out",
+        "Round4":"black and white husky"
+    },
+    "Card10":{
+        "Round1":"hair drapes all the way from his body to ground, very small, short tail, pointy ears, black",
+        "Round2":"terrier, all black, longest haired dog, short little thing, little stumpy tail, hair reaches ground, very hairy,\"like a big mop\"",
+        "Round3":"short little stumpy dog with moppy hair",
+        "Round4":"\"really short, stumpy, little, long haired black dog that we've seen before\", pointy tail, moppy"
+    }
+}

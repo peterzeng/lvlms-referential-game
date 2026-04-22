@@ -1,0 +1,76 @@
+Session: knco59ak
+Group ID (canonical): 10
+Raw group IDs (by round): 10, 11, 12, 9
+Participants: director: l1dlonbg (prolific: 671fb466946348aad9a11d10), matcher: cxoch11s (prolific: 67765e31285547a961cb8636)
+Total Rounds: 4
+Timing:
+  Round 1: 2m 17s
+  Round 2: No data
+  Round 3: No data
+  Round 4: No data
+  Total: 2m 17s
+======================================================================
+
+
+======================================================================
+ROUND 1 (Group 9)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=A
+
+MATCHER METRICS:
+  Score (Accuracy): 100.00%
+  Attention Checks: Round Q=A
+
+CHAT TRANSCRIPT:
+[17:23:13] director: How
+[17:23:18] director: Hello
+[17:23:32] matcher: Please i hope you are good
+[17:24:14] matcher: i am arranging my stuffs
+[17:25:30] matcher: i have arranged it to the best  of my ability
+
+
+======================================================================
+ROUND 2 (Group 10)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=C
+
+MATCHER METRICS:
+  Score (Accuracy): 100.00%
+  Attention Checks: Round Q=C
+
+(No data for this round)
+
+
+======================================================================
+ROUND 3 (Group 11)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=B
+
+MATCHER METRICS:
+  Score (Accuracy): 100.00%
+  Attention Checks: Round Q=B
+
+(No data for this round)
+
+
+======================================================================
+ROUND 4 (Group 12)
+======================================================================
+
+
+DIRECTOR METRICS:
+
+MATCHER METRICS:
+  Score (Accuracy): 100.00%
+
+(No data for this round)
+

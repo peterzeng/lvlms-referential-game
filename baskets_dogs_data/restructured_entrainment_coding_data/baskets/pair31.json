@@ -1,0 +1,62 @@
+{
+    "Card1":{
+        "Round1":"long and rectangular, big rectangle",
+        "Round2":"big rectangle, square-ish rectangle",
+        "Round3":"big box, rectangle, with no cover, big long rectangle",
+        "Round4":"big square"
+    },
+    "Card2":{
+        "Round1":"small, with really big handle, really big top",
+        "Round2":"really big handle",
+        "Round3":"with really big handle",
+        "Round4":"with big handle"
+    },
+    "Card3":{
+        "Round1":"squiggly weaved, squiggly weave, round",
+        "Round2":"round, squiggly weave, with handle",
+        "Round3":"squiggly weave",
+        "Round4":"squiggly weave"
+    },
+    "Card4":{
+        "Round1":"doesn't have handle, big bowl, big round bowl",
+        "Round2":"round, big, without anything, just open",
+        "Round3":"big, open, round, with no cover, no handle",
+        "Round4":"completely round without cover"
+    },
+    "Card5":{
+        "Round1":"red ribbon, square-ish but round on top",
+        "Round2":"weaved with red ribbon",
+        "Round3":"red ribbon",
+        "Round4":"with red ribbon"
+    },
+    "Card6":{
+        "Round1":"golden color, you could see green in it",
+        "Round2":"gold with green in back",
+        "Round3":"with green in back",
+        "Round4":"with green background"
+    },
+    "Card7":{
+        "Round1":"has cover, gold, doesn't have handle, cover with little knob in middle",
+        "Round2":"golden with little knob in middle, with cover",
+        "Round3":"knob with cover",
+        "Round4":"with knob, cover with knob"
+    },
+    "Card8":{
+        "Round1":"triangle bottom",
+        "Round2":"triangle bottom",
+        "Round3":"triangle bottom",
+        "Round4":"with triangle bottom"
+    },
+    "Card9":{
+        "Round1":"cover plus has handle, round on bottom",
+        "Round2":"round bottom and cover and handle",
+        "Round3":"round with cover and handle",
+        "Round4":"very round"
+    },
+    "Card10":{
+        "Round1":"with square bottom",
+        "Round2":"golden with lid on top, with handle, squarer bottom, with square bottom",
+        "Round3":"square bottom with cover, taller than other one, has handle",
+        "Round4":"rounder bottom, taller"
+    }
+}

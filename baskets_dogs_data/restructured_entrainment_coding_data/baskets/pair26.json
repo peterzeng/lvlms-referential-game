@@ -1,0 +1,62 @@
+{
+    "Card1":{
+        "Round1":"long",
+        "Round2":"big",
+        "Round3":"bucket, big",
+        "Round4":"big, bucket"
+    },
+    "Card2":{
+        "Round1":"small, loop on top",
+        "Round2":"red ribbons running through it, handle",
+        "Round3":"the one that you just had",
+        "Round4":"right there on right, middle"
+    },
+    "Card3":{
+        "Round1":"short, fat",
+        "Round2":"wicker type basket",
+        "Round3":"reddish color",
+        "Round4":"wicker"
+    },
+    "Card4":{
+        "Round1":"just a regular open basket",
+        "Round2":"open basket",
+        "Round3":"big open brown basket, with no handles",
+        "Round4":"big, brown"
+    },
+    "Card5":{
+        "Round1":"open wicker basket almost with a red loop through it",
+        "Round2":"ribbon through it",
+        "Round3":"red ribbon, but the one with no handle",
+        "Round4":"ribbon running through it"
+    },
+    "Card6":{
+        "Round1":"yellow and green",
+        "Round2":"golden and green",
+        "Round3":"bottom left",
+        "Round4":"yellow and green"
+    },
+    "Card7":{
+        "Round1":"has top on top of it",
+        "Round2":"yellow with a top in middle",
+        "Round3":"yellow with top on it, big",
+        "Round4":"yellow with top on it"
+    },
+    "Card8":{
+        "Round1":"shaped like a heart",
+        "Round2":"heart shaped",
+        "Round3":"shaped like a heart",
+        "Round4":"heart"
+    },
+    "Card9":{
+        "Round1":"circular, with a loop",
+        "Round2":"top, has a hoop to lift it with",
+        "Round3":"the one that you just had",
+        "Round4":"flat one that looks like that, fat"
+    },
+    "Card10":{
+        "Round1":"big, with hoop on right",
+        "Round2":"handle on top and top on top of it",
+        "Round3":"big, with top, no handle",
+        "Round4":"yellow, lid"
+    }
+}

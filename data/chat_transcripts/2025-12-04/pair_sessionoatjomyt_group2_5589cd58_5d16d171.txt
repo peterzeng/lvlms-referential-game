@@ -1,0 +1,56 @@
+Session: oatjomyt
+Group ID (canonical): 2
+Participants: director: g8alkr5n (prolific: 5589cd58fdf99b18be3203af), matcher: jvyfi4f3 (prolific: 5d16d17119d2ed0015e21360)
+Total Rounds: 4
+Timing:
+  Round 1: 11m 3s
+  Round 2: No data
+  Round 3: No data
+  Round 4: No data
+  Total: 11m 3s
+======================================================================
+
+
+======================================================================
+ROUND 1 (Group 2)
+======================================================================
+
+
+DIRECTOR METRICS:
+
+MATCHER METRICS:
+
+CHAT TRANSCRIPT:
+[15:51:50] director: The first basket sort of looks like a rabbit, with an ear folded back
+[15:52:24] matcher: Was that the correct basket?
+[15:53:45] matcher: ?
+[15:54:22] matcher: Hello?
+[15:55:45] matcher: ?
+[15:59:41] matcher: Hello???
+[16:00:09] matcher: Please pair me with another director
+[16:00:58] matcher: Hello
+[16:01:23] matcher: ?????
+[16:02:12] matcher: This is very disappointing
+[16:02:53] matcher: I'm about to leave.
+
+
+======================================================================
+ROUND 2
+======================================================================
+
+(No data for this round)
+
+
+======================================================================
+ROUND 3
+======================================================================
+
+(No data for this round)
+
+
+======================================================================
+ROUND 4
+======================================================================
+
+(No data for this round)
+

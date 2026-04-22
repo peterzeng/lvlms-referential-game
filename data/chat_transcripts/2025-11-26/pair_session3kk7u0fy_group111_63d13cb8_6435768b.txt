@@ -1,0 +1,56 @@
+Session: 3kk7u0fy
+Group ID (canonical): 111
+Raw group IDs (by round): 111, 67, 78, 95
+Participants: director: 691pu4le (prolific: 63d13cb81a0a88a3ce29e33f), matcher: 48yym97k (prolific: 6435768bb77e91c2a4546f1e)
+Total Rounds: 4
+Timing: No timing data available
+======================================================================
+
+
+======================================================================
+ROUND 1 (Group 67)
+======================================================================
+
+
+DIRECTOR METRICS:
+
+MATCHER METRICS:
+
+(No data for this round)
+
+
+======================================================================
+ROUND 2 (Group 78)
+======================================================================
+
+
+DIRECTOR METRICS:
+
+MATCHER METRICS:
+
+(No data for this round)
+
+
+======================================================================
+ROUND 3 (Group 95)
+======================================================================
+
+
+DIRECTOR METRICS:
+
+MATCHER METRICS:
+
+(No data for this round)
+
+
+======================================================================
+ROUND 4 (Group 111)
+======================================================================
+
+
+DIRECTOR METRICS:
+
+MATCHER METRICS:
+
+(No data for this round)
+

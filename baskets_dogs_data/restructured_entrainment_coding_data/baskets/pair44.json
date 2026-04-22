@@ -1,0 +1,62 @@
+{
+    "Card1":{
+        "Round1":"long with handle",
+        "Round2":"real long with no cover and handle going up",
+        "Round3":"real long",
+        "Round4":"long"
+    },
+    "Card2":{
+        "Round1":"no cover, rectangular",
+        "Round2":"big round handle on top",
+        "Round3":"top row, all the way to right",
+        "Round4":"top right"
+    },
+    "Card3":{
+        "Round1":"round, same wicker things",
+        "Round2":"darker color than that, round, handle going up",
+        "Round3":"top row, third one over",
+        "Round4":"handle going above it"
+    },
+    "Card4":{
+        "Round1":"no handle on top, roundish like bowl",
+        "Round2":"right in dead center",
+        "Round3":"round with no cover, no handle",
+        "Round4":"bigger"
+    },
+    "Card5":{
+        "Round1":"round, no cover, no handle comin' up",
+        "Round2":"round, with no handle on it and completely open",
+        "Round3":"round with no cover and no handle",
+        "Round4":"round, no cover, no handle"
+    },
+    "Card6":{
+        "Round1":"round but goldish",
+        "Round2":"round, no handle and goldish",
+        "Round3":"top row",
+        "Round4":"no cover and no handles"
+    },
+    "Card7":{
+        "Round1":"cover",
+        "Round2":"round with cover, no handle, more gold",
+        "Round3":"bottom row, second one from left",
+        "Round4":"light caramel color, completely round with cover on it but no handle"
+    },
+    "Card8":{
+        "Round1":"pointed bottom",
+        "Round2":"real pointed triangle bottom",
+        "Round3":"triangular bottom",
+        "Round4":"triangular"
+    },
+    "Card9":{
+        "Round1":"round with a handle going up",
+        "Round2":"round and it's got a handle going up",
+        "Round3":"more round",
+        "Round4":"more rounder, handle, cover"
+    },
+    "Card10":{
+        "Round1":"the one to the left that your eye was just on",
+        "Round2":"in second row, to the left of that",
+        "Round3":"has cover and handle, deeper",
+        "Round4":"round with cover and handle, taller"
+    }
+}

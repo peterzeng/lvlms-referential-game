@@ -1,0 +1,32 @@
+Session: yyyy5s6o
+Round: 3
+Group: 6
+Participants: matcher: 0ri7a5dm, director: jdkitnok
+======================================================================
+
+[21:56:26] director: hello there
+[21:56:31] matcher: hello
+[21:56:49] director: Basket #1-oval with a lid, little knob on top of lid
+[21:57:05] matcher: got it
+[21:57:26] director: #2-plain round basket, nothing fancy, handle in the middle
+[21:57:34] matcher: got it
+[21:57:45] director: #3- elephant shaped
+[21:57:51] matcher: got it
+[21:58:13] director: #4-tall, narrow, deep, oval with handle in the middle, light color
+[21:58:26] matcher: got it
+[21:58:42] director: #5- very fancy, lots of weaving, handle in middle
+[21:58:50] matcher: got it
+[21:59:08] director: #6-another closed basket with lid, knob on top is bigger
+[21:59:16] matcher: got it
+[21:59:36] director: #7-tallest and deepest, with two handles on side
+[21:59:44] matcher: got it
+[21:59:58] director: #8 brown swastikas pattern
+[22:00:04] matcher: got it
+[22:00:17] director: #9- upside down helmet with handle
+[22:00:24] matcher: got it
+[22:00:35] director: #10- open flat basket no handles
+[22:00:43] matcher: got it
+[22:00:55] director: #11-oval, double braided with handle
+[22:01:02] matcher: got it
+[22:01:07] director: 12- like a horn
+[22:01:15] matcher: got it

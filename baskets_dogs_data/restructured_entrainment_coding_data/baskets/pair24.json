@@ -1,0 +1,62 @@
+{
+    "Card1":{
+        "Round1":"first basket is longer than the rest, shaped in a rectangle, top of it circular, one handle, long",
+        "Round2":"really wide, with no lid and handle, looks beat up, looks like someone took a bite out of right side",
+        "Round3":"really wide, looks like baby bath, bite mark in side of it",
+        "Round4":"looks like bathtub with bite out of side of it"
+    },
+    "Card2":{
+        "Round1":"not wide, really big handle, really high handle, woven together really tightly, green in handle, no lid, brown woven stuff, then red woven into it",
+        "Round2":"really high handle, short, with red weaving through it",
+        "Round3":"really high handle, short, red and green woven into it",
+        "Round4":"really high handle, really small, with red"
+    },
+    "Card3":{
+        "Round1":"handle, spaces in between weavings, wide, not tight, looks like black thing inside of it",
+        "Round2":"large holes in top of it, short, handle, you can stick your finger through one of the holes in top, in weavings, darker in its color",
+        "Round3":"medium sized handle, holes in top where you could stick your finger through, medium sized basket, flat bottom, black inside",
+        "Round4":"black base, holes in top with medium size handle"
+    },
+    "Card4":{
+        "Round1":"no handle, very wide, it can probably hold a lot of things, woven tightly, border around top of it, got an edge to it, no design, you couldn't stick your finger through one of the weavings",
+        "Round2":"wide, no handle, no lid",
+        "Round3":"wide, deep, no handle, no lid, tight weaving",
+        "Round4":"big, wide, no handle, no lid, tight weaving"
+    },
+    "Card5":{
+        "Round1":"short, with no handle, red ribbon tied through it, woven through top",
+        "Round2":"short, no handle, no lid, red ribbon through it",
+        "Round3":"short, you could stick your finger through holes in it, got red ribbon",
+        "Round4":"short, holes in top, red ribbon through top"
+    },
+    "Card6":{
+        "Round1":"looks Mexican in its design, very tightly woven, but there's a hole right between top and bottom, right in center, where's there's zig-zag, green to backing, triangular, looks like salsa dish",
+        "Round2":"looks like salsa dish",
+        "Round3":"salsa dish",
+        "Round4":"looks like salsa dish"
+    },
+    "Card7":{
+        "Round1":"really big, biggest one with lid, little knobby thing on top",
+        "Round2":"really big, lid, two short handles on either side, little knob on top",
+        "Round3":"really big, with small handles on sides, little knob on top",
+        "Round4":"big, deep, with short handles and knob on top"
+    },
+    "Card8":{
+        "Round1":"looks like purse, bottom shaped like triangle, handle",
+        "Round2":"looks like purse",
+        "Round3":"purse",
+        "Round4":"purse"
+    },
+    "Card9":{
+        "Round1":"handle, wider than other one with flat lid, more round, shorter",
+        "Round2":"square handle on top, round base, round lid, really tightly woven",
+        "Round3":"there's no holes in weaving, you could stick your finger through holes in it, red ribbon",
+        "Round4":"round bottom, flat lid, square handle"
+    },
+    "Card10":{
+        "Round1":"taller, with lid",
+        "Round2":"handle, lid, pretty deep",
+        "Round3":"deep, lid, handle, almost square, weavings are really tight on bottom",
+        "Round4":"big, deep, square handle, lid, tight weaving"
+    }
+}

@@ -1,0 +1,62 @@
+{
+    "Card1":{
+        "Round1":"second row all the way to the left",
+        "Round2":"the one next to it to the right",
+        "Round3":"the one below that",
+        "Round4":"top one"
+    },
+    "Card2":{
+        "Round1":"second row, first one on left",
+        "Round2":"second row to the right",
+        "Round3":"top row, the only one left",
+        "Round4":"second row all the way to the right"
+    },
+    "Card3":{
+        "Round1":"second row, next one in",
+        "Round2":"bottom row to the right",
+        "Round3":"bottom row all the way to the right",
+        "Round4":"hold that one up"
+    },
+    "Card4":{
+        "Round1":"second row all the way to the right",
+        "Round2":"the one right next to that",
+        "Round3":"top row on the right",
+        "Round4":"bottom to the left"
+    },
+    "Card5":{
+        "Round1":"first row all the way to the left",
+        "Round2":"top row all the way to the left",
+        "Round3":"bottom row all the way to the right",
+        "Round4":"top to the right"
+    },
+    "Card6":{
+        "Round1":"bottom row, second one from the left",
+        "Round2":"second row all the way to the left",
+        "Round3":"right where you are looking",
+        "Round4":"open bowl, looks like the last one but doesn't have cover on it, longer"
+    },
+    "Card7":{
+        "Round1":"bottom row, second one from the right",
+        "Round2":"bottom row, all the way to the right",
+        "Round3":"second row, second one from right",
+        "Round4":"long, shaped like those two but it has cover on it"
+    },
+    "Card8":{
+        "Round1":"triangular shaped",
+        "Round2":"top",
+        "Round3":"triangular",
+        "Round4":"triangular"
+    },
+    "Card9":{
+        "Round1":"first row, the left one",
+        "Round2":"second row all the way to the left",
+        "Round3":"cover, small, handle",
+        "Round4":"second row, all the way to the left"
+    },
+    "Card10":{
+        "Round1":"bottom row, the right one",
+        "Round2":"second row, all the way to the left",
+        "Round3":"top row, all the way to the left",
+        "Round4":"second row, all the way to the right"
+    }
+}

@@ -1,0 +1,62 @@
+{
+    "Card1":{
+        "Round1":"a lot of black on it",
+        "Round2":"brown with some black in middle of body",
+        "Round3":"bottom row, one on left",
+        "Round4":"one on the bottom on right hand side"
+    },
+    "Card2":{
+        "Round1":"looks like it's hunched back",
+        "Round2":"your left hand on the top row",
+        "Round3":"middle row, second card to the left",
+        "Round4":"\"Could I see number eight again? Actually--. Oh that's number nine.\""
+    },
+    "Card3":{
+        "Round1":"beige",
+        "Round2":"looks like it's looking back, yellowish color",
+        "Round3":"the one in the bottom row, middle card",
+        "Round4":"the one in the middle to the left"
+    },
+    "Card4":{
+        "Round1":"really brown",
+        "Round2":"looks like a black hotdog",
+        "Round3":"looks like a black hotdog",
+        "Round4":"black hotdog"
+    },
+    "Card5":{
+        "Round1":"poodle",
+        "Round2":"poodle",
+        "Round3":"black poodle",
+        "Round4":"black poodle"
+    },
+    "Card6":{
+        "Round1":"top row, second to the right",
+        "Round2":"mostly black",
+        "Round3":"the one all the way to the right on bottom row",
+        "Round4":"black"
+    },
+    "Card7":{
+        "Round1":"top row, first one",
+        "Round2":"golden retriever",
+        "Round3":"golden retriever",
+        "Round4":"golden retriever"
+    },
+    "Card8":{
+        "Round1":"bulldog",
+        "Round2":"bulldog",
+        "Round3":"bottom left hand corner",
+        "Round4":"bulldog, yellowish color, really really tiny tail"
+    },
+    "Card9":{
+        "Round1":"white",
+        "Round2":"white with some black on it, husky",
+        "Round3":"husky",
+        "Round4":"white husky"
+    },
+    "Card10":{
+        "Round1":"top row, first one on left",
+        "Round2":"second row, last one on right",
+        "Round3":"black, looks like a poodle, small, terrier",
+        "Round4":"left hand corner"
+    }
+}

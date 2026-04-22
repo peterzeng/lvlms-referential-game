@@ -1,0 +1,247 @@
+Session: 3kk7u0fy
+Group ID (canonical): 18
+Raw group IDs (by round): 18, 27, 38, 42
+Participants: director: 2ivt4mpj (prolific: 5fd66ce8aec66457ff73d743), matcher: g7urxzlh (prolific: 5ef1a79464e5837c95df3de8)
+Total Rounds: 4
+Timing:
+  Round 1: 12m 43s
+  Round 2: 13m 44s
+  Round 3: 6m 54s
+  Round 4: 4m 33s
+  Total: 37m 54s
+======================================================================
+
+
+======================================================================
+ROUND 1 (Group 18)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=A
+
+MATCHER METRICS:
+  Score (Accuracy): 75.00%
+  Attention Checks: Round Q=A
+
+CHAT TRANSCRIPT:
+[17:32:41] director: it is a rabbit basket
+[17:33:08] matcher: Did I get it right?
+[17:33:38] director: it is a oval shaped basked with a handle
+[17:33:59] director: it is a oblong basked with a folding lid and a handle in the middle
+[17:34:36] director: it is a 2 color rrectangular shaped basket with a double handle that is attached to make one
+[17:34:58] director: it is an oblong basket with a handle that goes straight up on sided and over the top
+[17:35:03] matcher: Sorry, you are going very fast. I'm still trying to find number 2.
+[17:35:21] director: it is a basket that appears to look like a cat
+[17:35:52] director: #2 has no weaving
+[17:36:16] matcher: Did I get it right?
+[17:36:25] director: i don't know, i can't see what you have
+[17:36:37] matcher: Oh, you cannot see when I put them in their place?
+[17:36:41] director: no
+[17:36:47] matcher: Oh, wow
+[17:36:55] director: #3 has the folding lid
+[17:37:13] matcher: Okay, got number 3
+[17:37:24] director: #4 has white and brown wicker
+[17:37:34] matcher: Got it
+[17:38:06] director: #5 has the double handle but has white pieces toward the top to make it look like one handle
+[17:38:30] matcher: Got it
+[17:38:30] director: nope sorry
+[17:38:34] matcher: hahahah
+[17:38:55] director: #5 is a shorter basket with light and dark brown wicker
+[17:39:14] matcher: got it
+[17:39:28] director: #6 appears to be an animal, maybe a cat
+[17:39:29] matcher: This is so much harder than I imagined, hahaha
+[17:39:39] matcher: got it
+[17:39:57] director: #7 is the basket that has tans and I think dark green wicker
+[17:40:09] matcher: got it
+[17:40:18] director: #8 is the one that appears to have beight and maybe blue wicker
+[17:40:40] matcher: number eight has what?
+[17:40:56] director: beige and blue wicker
+[17:41:06] matcher: shape?
+[17:41:12] director: round
+[17:41:37] matcher: Okay, next.
+[17:41:43] director: #9 is the tallest one
+[17:42:01] matcher: Tall and cylindrical?
+[17:42:05] director: yes
+[17:42:14] matcher: Closed in sides? Very small handles on top?
+[17:42:22] director: yes
+[17:42:27] matcher: got it
+[17:42:41] director: #10 is the short one it is like a bread basket
+[17:42:55] matcher: Um, kind of looks more like a bowl?
+[17:43:02] director: yes
+[17:43:08] matcher: got it
+[17:43:29] director: #11 is a medium size with handle on sides, it looks like another basked is inside it
+[17:44:00] matcher: 2 seperate handles?
+[17:44:03] director: yes
+[17:44:09] matcher: got it
+[17:44:39] director: #12 is a cute shaped basket, it is taller on sides and drops in the middle with one handle
+[17:45:06] matcher: got it
+[17:45:19] matcher: We did our best. I'm going to hit submit. Okay?
+[17:45:24] director: ok
+
+
+======================================================================
+ROUND 2 (Group 27)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=C
+
+MATCHER METRICS:
+  Score (Accuracy): 83.33%
+  Attention Checks: Round Q=C
+
+CHAT TRANSCRIPT:
+[17:46:12] director: #1 has the folding lid
+[17:46:39] matcher: I have more baskets than you.
+[17:46:49] matcher: So I have 2 with folding lids.
+[17:47:06] director: it is solid color
+[17:47:06] matcher: Is the handle wire or more basket weave?
+[17:47:16] director: hadle is weave
+[17:47:24] matcher: got it
+[17:47:28] director: #2 is the tall basket with 2 handles one on each side
+[17:47:37] matcher: got it
+[17:47:52] director: 3 is the oval shaped and doesn't look like wicker
+[17:48:44] matcher: Looks like big round bowl, kind of? Taller, with one handle over the top?
+[17:48:54] director: yes
+[17:49:06] matcher: Oh, shoot, I have 2 of those.
+[17:49:23] matcher: Um, lighter in color, medium, dark?
+[17:49:33] director: its the same one you picked last round
+[17:49:42] director: its a medium to dark
+[17:50:06] matcher: got it
+[17:50:24] director: 4 is a shorter basket and has one handle with looks like an upside down U
+[17:51:09] matcher: shape?
+[17:51:12] director: oval
+[17:51:35] matcher: color?
+[17:51:42] director: tan
+[17:52:30] matcher: got it
+[17:52:36] director: 5 is the basket with the blue wicker
+[17:52:46] director: one handle
+[17:52:48] director: round
+[17:53:00] matcher: got it
+[17:53:00] director: has a bit of white or tan wicker
+[17:53:05] director: 6 is the duck
+[17:53:29] matcher: That's a duck? Maybe a rabbit?
+[17:53:37] director: i meant rabbit, sorry
+[17:53:44] matcher: hahaha, got it
+[17:53:51] director: 7 is the other animal, maybe a cat
+[17:53:58] matcher: got it
+[17:54:12] director: 8 is the short round, size of a plate, bread basket
+[17:54:44] matcher: does it have a handle?
+[17:54:50] director: yes
+[17:54:53] director: just one
+[17:55:05] matcher: got it
+[17:55:21] director: 9 is the tan and green wicker, oblong, one handle
+[17:55:46] matcher: got it
+[17:55:47] director: 10 is the basket that has a basket inside it, 2 handles, one on each side
+[17:56:26] matcher: Think I got it
+[17:56:28] director: 11 is the cute shaped one, higher on sides and drops in the middle, one handle in the center, solid brown/tan
+[17:56:56] matcher: Got it
+[17:57:04] director: 12 is the white and tan wicker, with 2 handles that are taped together
+[17:57:46] matcher: I don't have that....I think you are now describing on I already put up
+[17:58:04] director: this is the only basket that has white
+[17:58:23] matcher: I have more baskets than you
+[17:58:35] director: can you move that one and tell me what number you are missing
+[17:58:55] matcher: Let's go back to number 10, description please
+[17:59:09] director: 10 is the one that has a basket sitting inside it
+[17:59:15] director: a handle on each side
+[17:59:17] director: solid color
+[17:59:51] matcher: Okay, I think I corrected and have it right this time. Ready to submit?
+[17:59:56] director: yes
+
+
+======================================================================
+ROUND 3 (Group 38)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=B
+
+MATCHER METRICS:
+  Score (Accuracy): 100.00%
+  Attention Checks: Round Q=B
+
+CHAT TRANSCRIPT:
+[18:00:43] matcher: Oh, geez, here we are again, haha
+[18:00:46] director: 1 is the basket hat has green and tan, oblong
+[18:01:16] matcher: Got it
+[18:01:17] director: 2 is the last basket from last round
+[18:01:32] director: the one with white and tan, 2 handles that are tapped together
+[18:01:43] matcher: Got it
+[18:01:48] director: 3 is the cat
+[18:01:55] matcher: Got it
+[18:01:59] director: 4 is the rabbit
+[18:02:06] matcher: Got it
+[18:02:17] director: 5 is the basket that is higher on sides and drops in the middle
+[18:02:30] matcher: Got it
+[18:02:44] director: 6 is the tallest basket with a handle on each side, solid color
+[18:03:01] matcher: That cylindar looking one?
+[18:03:08] director: yes
+[18:03:14] matcher: Got it
+[18:03:16] director: 7 is the one that is round and doesn't look like wicker, one handle in center
+[18:03:51] matcher: Think I got it, that's the hardest one because I have a couple look like that
+[18:03:56] director: 8 is the one with blue wicker
+[18:04:14] matcher: Got it, only one I have left with color
+[18:04:29] director: 9 is the oblong short basket with the upside down handle that looks like a U
+[18:04:52] matcher: Think I got it
+[18:04:57] director: 10 is bhe short bread basket, round with handle
+[18:05:32] matcher: Um, I have 2 like that, is it only about an inch high?
+[18:05:42] director: yes, 2 tone
+[18:05:52] director: handle is a light color
+[18:06:24] matcher: handle light and rest darker? Or only dark around top trim of basket?
+[18:06:35] director: only top rim darker
+[18:06:43] matcher: Got it!
+[18:06:45] director: 11 is the one that appears to have a basket inside of it, solid color, handle on each side
+[18:07:05] matcher: Think I got it
+[18:07:06] director: 12 has the folding lid, solid color
+[18:07:19] matcher: Wire handles? Or wicker?
+[18:07:22] director: wicker
+[18:07:34] matcher: Got it! Ready to submit?
+[18:07:37] director: yes
+
+
+======================================================================
+ROUND 4 (Group 42)
+======================================================================
+
+
+DIRECTOR METRICS:
+
+MATCHER METRICS:
+  Score (Accuracy): 100.00%
+
+CHAT TRANSCRIPT:
+[18:08:21] director: bread basket, short, one handle light color, dark rim
+[18:08:23] matcher: We got them all right last round! Yeah!
+[18:08:29] director: i know, awesome job
+[18:08:32] matcher: We shouldn't have to do this round, haha
+[18:08:45] matcher: Got it
+[18:09:04] director: 2 is the basket where the handle looks like upside down U,
+[18:09:38] matcher: Think I got it, I'm starting to see things, haha
+[18:09:41] director: 3 is rabbit
+[18:09:51] matcher: Got it
+[18:09:53] director: 4 is the basket with green wicker
+[18:09:59] matcher: Got it
+[18:10:15] director: 5 is the one that appears to have a basket inside it, solid color, handle on each side
+[18:10:33] matcher: Got it
+[18:10:35] director: 6 is the one that doesn't appear to be wicker, round, one handle
+[18:11:01] matcher: Think I got it
+[18:11:03] director: 7 is the tall one, handle on each side, solid color
+[18:11:18] matcher: Cylindar? Got it
+[18:11:22] director: 8 is the oblong one that has the folding lid, handle in center
+[18:11:24] director: yes
+[18:11:39] matcher: Wicker, not wire, right
+[18:11:43] director: yes
+[18:11:48] matcher: Got it
+[18:11:50] director: 9 is the cat
+[18:11:56] matcher: Got it
+[18:12:07] director: 10 is the tan and white basket, oblong, 2 handles that are tapped together
+[18:12:20] matcher: Got it
+[18:12:24] director: 11 is the oval one where sides are higher and drops in the middle
+[18:12:34] matcher: Got it
+[18:12:36] director: 12 is the one with blue wicker, one handle
+[18:12:52] matcher: Got it! Ready to submit?
+[18:12:54] director: yes
+

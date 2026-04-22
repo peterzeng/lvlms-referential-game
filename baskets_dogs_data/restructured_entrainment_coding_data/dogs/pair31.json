@@ -1,0 +1,62 @@
+{
+    "Card1":{
+        "Round1":"orangish brown, standing to side, black on back, looking to left, you could see one ear, standing up on all fours, complete profile, short hair",
+        "Round2":"dog standing up, looking to same direction as boxer was, orange shiny coat with black, black saddle on back",
+        "Round3":"golden brown with black saddle looking on back, that marking",
+        "Round4":"black saddle thing on back marking"
+    },
+    "Card2":{
+        "Round1":"Scottish, fuzzy nose, very short ears, standing to front but looking to side",
+        "Round2":"standing up, looking to side, very short ears, billy goat gruff on chin",
+        "Round3":"with gold coat, standing up, with billy goat gruff chin",
+        "Round4":"golden, standing up on all four, with short ears and scruffy chin"
+    },
+    "Card3":{
+        "Round1":"very very very short hair, small, beigish color , sitting on hind legs",
+        "Round2":"beagle, sitting down on hind legs, looking to side",
+        "Round3":"beagle, light brown, looking to side, sitting on hind legs, sitting down",
+        "Round4":"beagle with brownish coat, sitting down on back legs"
+    },
+    "Card4":{
+        "Round1":"really really tiny, very dark, fuzzy looking coat, long nose, very short ears, shorter hair",
+        "Round2":"really really short, small, black",
+        "Round3":"little, black, tiny",
+        "Round4":"really really small, black"
+    },
+    "Card5":{
+        "Round1":"poodle with black hair",
+        "Round2":"black poodle",
+        "Round3":"poodle",
+        "Round4":"black poodle"
+    },
+    "Card6":{
+        "Round1":"very skinny, Doberman pinscher, shiny black coat",
+        "Round2":"Doberman pinscher, shiny black coat , standing up, skinny, pointy ears",
+        "Round3":"Doberman pinscher with black silky coat",
+        "Round4":"Doberman pinscher with black silky coat"
+    },
+    "Card7":{
+        "Round1":"cocker spaniel, light brown coat, furry ears",
+        "Round2":"cocker spaniel, long curly-ish hair",
+        "Round3":"cocker spaniel, looking to side, with long goldish coat, shorter",
+        "Round4":"cocker spaniel with gold coat, standing up"
+    },
+    "Card8":{
+        "Round1":"boxer",
+        "Round2":"boxer",
+        "Round3":"boxer",
+        "Round4":"boxer"
+    },
+    "Card9":{
+        "Round1":"white, wolf",
+        "Round2":"white, wolf",
+        "Round3":"white wolf",
+        "Round4":"white wolf"
+    },
+    "Card10":{
+        "Round1":"very short, long hair, black, pointy ears",
+        "Round2":"Scottie, very long hair, pointy tail, pointy ears",
+        "Round3":"Scottie, black with long hair, pointy tail up",
+        "Round4":"short, black, with pointed tail up, pointy ears"
+    }
+}

@@ -1,0 +1,62 @@
+{
+    "Card1":{
+        "Round1":"tan and black, facing to left",
+        "Round2":"black on belly, but legs are brown, black nose",
+        "Round3":"black stomach, tan legs",
+        "Round4":"black stomach"
+    },
+    "Card2":{
+        "Round1":"tan and black, in a weird position, looking over shoulder",
+        "Round2":"weird position, looking over shoulder, terrier",
+        "Round3":"terrier",
+        "Round4":"terrier"
+    },
+    "Card3":{
+        "Round1":"tan, looking to left, floppy ears",
+        "Round2":"tan, looking over shoulder to left, floppy ears",
+        "Round3":"looking over shoulder to the left, tan, floppy ears",
+        "Round4":"floppy ears"
+    },
+    "Card4":{
+        "Round1":"dark brown, facing to right, hotdog",
+        "Round2":"hotdog",
+        "Round3":"hotdog",
+        "Round4":"hotdog, facing to left"
+    },
+    "Card5":{
+        "Round1":"black poodle",
+        "Round2":"black poodle",
+        "Round3":"poodle",
+        "Round4":"poodle"
+    },
+    "Card6":{
+        "Round1":"Doberman, facing to left",
+        "Round2":"Doberman",
+        "Round3":"Doberman",
+        "Round4":"Doberman"
+    },
+    "Card7":{
+        "Round1":"golden retriever, facing to left",
+        "Round2":"golden retriever",
+        "Round3":"golden retriever",
+        "Round4":"golden retriever"
+    },
+    "Card8":{
+        "Round1":"black snout, but it's tan, the rest of it",
+        "Round2":"black snout, tan",
+        "Round3":"black nose",
+        "Round4":"black nose and tan body"
+    },
+    "Card9":{
+        "Round1":"looks like a wolf, white and black",
+        "Round2":"wolf looking",
+        "Round3":"wolf looking",
+        "Round4":"wolf"
+    },
+    "Card10":{
+        "Round1":"small, black with long hair",
+        "Round2":"little, black with hair down to floor",
+        "Round3":"black with hair down to floor",
+        "Round4":"black with hair down to floor"
+    }
+}

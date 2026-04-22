@@ -1,0 +1,62 @@
+{
+    "Card1":{
+        "Round1":"brown and black, standing up, profile shot, long tail",
+        "Round2":"top row, third one from right",
+        "Round3":"bloodhound",
+        "Round4":"bloodhound"
+    },
+    "Card2":{
+        "Round1":"top row, third one to right",
+        "Round2":"the one that you thought was a cocker",
+        "Round3":"Schnauzer",
+        "Round4":"Schnauzer"
+    },
+    "Card3":{
+        "Round1":"looks like a Labrador",
+        "Round2":"Labrador",
+        "Round3":"Labrador",
+        "Round4":"Labrador"
+    },
+    "Card4":{
+        "Round1":"Dachshund",
+        "Round2":"Dachshund, hotdog",
+        "Round3":"Dachshund, hotdog",
+        "Round4":"Dachshund"
+    },
+    "Card5":{
+        "Round1":"poodle, black",
+        "Round2":"poodle",
+        "Round3":"poodle",
+        "Round4":"poodle"
+    },
+    "Card6":{
+        "Round1":"Doberman",
+        "Round2":"Doberman",
+        "Round3":"Doberman",
+        "Round4":"Doberman"
+    },
+    "Card7":{
+        "Round1":"cocker spaniel",
+        "Round2":"cocker spaniel",
+        "Round3":"cocker spaniel",
+        "Round4":"cocker spaniel"
+    },
+    "Card8":{
+        "Round1":"bulldog, pitbull, boxer",
+        "Round2":"boxer",
+        "Round3":"boxer",
+        "Round4":"boxer"
+    },
+    "Card9":{
+        "Round1":"Alaskan husky, wolf looking thing",
+        "Round2":"wolf looking, wolf beast",
+        "Round3":"wolf like thing",
+        "Round4":"wolf like thing"
+    },
+    "Card10":{
+        "Round1":"Scottish terrier",
+        "Round2":"Sottish terrier",
+        "Round3":"Scottish terrier, Scottie",
+        "Round4":"Scottish terrier"
+    }
+}

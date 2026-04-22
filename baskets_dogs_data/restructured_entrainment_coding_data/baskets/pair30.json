@@ -1,0 +1,62 @@
+{
+    "Card1":{
+        "Round1":"no lid, big, long",
+        "Round2":"long with handle",
+        "Round3":"long with handle",
+        "Round4":"long with handle, top"
+    },
+    "Card2":{
+        "Round1":"looks like Easter basket",
+        "Round2":"Easter basket looking",
+        "Round3":"Easter basket",
+        "Round4":"Easter basket"
+    },
+    "Card3":{
+        "Round1":"handle",
+        "Round2":"handle, has weaving that has holes",
+        "Round3":"handle with no cover that the weaving is big, open",
+        "Round4":"the one on the bottom"
+    },
+    "Card4":{
+        "Round1":"doesn't have a handle, pretty big",
+        "Round2":"middle row",
+        "Round3":"no handle, no cover",
+        "Round4":"bottom row in the middle"
+    },
+    "Card5":{
+        "Round1":"top one on right",
+        "Round2":"red ribbon",
+        "Round3":"red ribbon",
+        "Round4":"red ribbon"
+    },
+    "Card6":{
+        "Round1":"no handle, tall, no cover",
+        "Round2":"green band",
+        "Round3":"green ribbon",
+        "Round4":"green ribbon"
+    },
+    "Card7":{
+        "Round1":"the one that was below that one",
+        "Round2":"cup, wok looking thing",
+        "Round3":"middle row, third one in",
+        "Round4":"wider, cover, side handles"
+    },
+    "Card8":{
+        "Round1":"one with the handle that has a pointed bottom , heart shaped",
+        "Round2":"pointed bottom with the handle",
+        "Round3":"pointed bottom",
+        "Round4":"pointed bottom"
+    },
+    "Card9":{
+        "Round1":"cover and a handle",
+        "Round2":"middle row, on the right",
+        "Round3":"cover and a handle",
+        "Round4":"other cover and a handle"
+    },
+    "Card10":{
+        "Round1":"other one",
+        "Round2":"handle and a cover",
+        "Round3":"cover and a handle, taller",
+        "Round4":"taller, with cover and handle"
+    }
+}

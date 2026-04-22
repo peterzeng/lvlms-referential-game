@@ -1,0 +1,62 @@
+{
+    "Card1":{
+        "Round1":"long, not circular, rectangle, you can see bottom of it, handle, makes a cone, lid",
+        "Round2":"long, bar handle, no lid",
+        "Round3":"long, handle, no lid",
+        "Round4":"long open with bar handle"
+    },
+    "Card2":{
+        "Round1":"little, with big handle, small, big loop",
+        "Round2":"small, with big handle, big loop",
+        "Round3":"little with big loop",
+        "Round4":"little with big loop"
+    },
+    "Card3":{
+        "Round1":"medium, handle, wicker's thick on it, light brown, big holes",
+        "Round2":"wickers have big holes, wicker's real thick braided, handle",
+        "Round3":"thick braid wicker with holes, bar handle",
+        "Round4":"thick braided with holes, handle"
+    },
+    "Card4":{
+        "Round1":"round, no lid, no holes in wicker, wide",
+        "Round2":"big round, with no lid, no handles",
+        "Round3":"big round with no lid, no handles",
+        "Round4":"big round with no lid, no handles"
+    },
+    "Card5":{
+        "Round1":"no handle, holes in wicker, red loop",
+        "Round2":"round, with no lid, red ribbon going through",
+        "Round3":"red loop going through",
+        "Round4":"red ribbon going through"
+    },
+    "Card6":{
+        "Round1":"some weird design in middle of it, two little handles, with no lid",
+        "Round2":"circular, with no lid, weird design almost near top, doesn't have handle, brown and round",
+        "Round3":"big, with no lid, two little handles, weird little design runnin' through it, zigzag",
+        "Round4":"round, zigzag design going through it, little handles, little green background behind design"
+    },
+    "Card7":{
+        "Round1":"lid, closed, no holes in wicker, little handle on top, round, two little handles",
+        "Round2":"round, with lid, handles, with little thing on top of it",
+        "Round3":"lid, little thing at top",
+        "Round4":"round, with funny thing on top of lid"
+    },
+    "Card8":{
+        "Round1":"v-shaped with handle",
+        "Round2":"v-shaped",
+        "Round3":"v-shaped",
+        "Round4":"v-shaped"
+    },
+    "Card9":{
+        "Round1":"lid, handle, short, one big handle going over top",
+        "Round2":"nine looks just like five but a smaller version",
+        "Round3":"smaller",
+        "Round4":"smaller"
+    },
+    "Card10":{
+        "Round1":"bigger, lid, handle, on big loop over it",
+        "Round2":"lid, bar handle, round, tall compared to other one that it looks like, bigger",
+        "Round3":"bigger",
+        "Round4":"bigger"
+    }
+}

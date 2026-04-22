@@ -1,0 +1,22 @@
+Session: yyyy5s6o
+Round: 3
+Group: 16
+Participants: matcher: gcezr1xh, director: zxaezcud
+======================================================================
+
+[22:27:17] matcher: hi
+[22:27:21] director: hello
+[22:27:41] matcher: lets start explain vividly
+[22:28:31] director: 1st looks like a food bowl
+[22:28:43] director: 2nd looks like the most normal basket
+[22:28:52] director: 3rd is an elephant
+[22:29:12] matcher: cool
+[22:29:56] director: 4th looks like a food flask
+[22:30:06] director: 5th looks like a helmet
+[22:30:19] director: 6th has like a nipple handle
+[22:30:26] director: 7th looks like a washing basket
+[22:30:40] director: 8th has like a snake and color pattern
+[22:30:58] director: 9th looks like a tortoise shell
+[22:31:08] director: 10th looks like flower
+[22:31:45] director: 11th is cute
+[22:31:57] director: 12th looks like a blowing horn

@@ -1,0 +1,62 @@
+{
+    "Card1":{
+        "Round1":"rectangular shape, long, longest with handle",
+        "Round2":"rectangular, longest with handle",
+        "Round3":"rectangular shaped, with handle to it",
+        "Round4":"rectangular shaped"
+    },
+    "Card2":{
+        "Round1":"colorful, little bit of green, reddish and brown in it, with handle, green in background",
+        "Round2":"colorful, with handle, small, green outline in back",
+        "Round3":"has green background",
+        "Round4":"basket with handle, green on back- ground"
+    },
+    "Card3":{
+        "Round1":"has handle, looks like it's criss-crossin', overlappin', circle, has no tops, round, all brown like straw, oval",
+        "Round2":"with handle, criss-cross, forms a X, not colorful, all brown lookin', only one without all those colors in there, shaped like a oval, you could put eggs in there",
+        "Round3":"intertwines, forms X's, has a handle to it",
+        "Round4":"forms X's, with handle"
+    },
+    "Card4":{
+        "Round1":"oval shape, big, has no handle, brown",
+        "Round2":"large, brown, shaped in a oval",
+        "Round3":"round, with no top to it, no handle, brown",
+        "Round4":"brownish basket by itself with no handle"
+    },
+    "Card5":{
+        "Round1":"red string around",
+        "Round2":"small, with red, looks like string around",
+        "Round3":"red string around",
+        "Round4":"red tape around"
+    },
+    "Card6":{
+        "Round1":"goldish colored, green background in back, no cover",
+        "Round2":"light goldish color with green background, no handle",
+        "Round3":"little green background",
+        "Round4":"other goldish color with green background"
+    },
+    "Card7":{
+        "Round1":"same color as the one previously, top",
+        "Round2":"golden colored like the other one, light color, with top",
+        "Round3":"top, goldish color, with no handle",
+        "Round4":"top, goldish color"
+    },
+    "Card8":{
+        "Round1":"looks like a purse, shape of a diamond, v-shaped",
+        "Round2":"shaped in a V, handle, colorful",
+        "Round3":"v-shaped, looks like it has red in there",
+        "Round4":"v-shaped, with handle"
+    },
+    "Card9":{
+        "Round1":"handle, made like a pot, short, little, goldish, top",
+        "Round2":"small, with top, gold, handle",
+        "Round3":"short, with top and handle",
+        "Round4":"short, with handle and top"
+    },
+    "Card10":{
+        "Round1":"tall, with top",
+        "Round2":"tall, with top",
+        "Round3":"tall, with top and handle",
+        "Round4":"with handle"
+    }
+}

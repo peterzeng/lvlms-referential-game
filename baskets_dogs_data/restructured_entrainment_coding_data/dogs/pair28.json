@@ -1,0 +1,62 @@
+{
+    "Card1":{
+        "Round1":"facing left, brown in middle, sandy color on outside",
+        "Round2":"first one we had problem with before, brown in middle",
+        "Round3":"the one we had problem first time",
+        "Round4":"the one we had problems with in beginning, with brown in middle"
+    },
+    "Card2":{
+        "Round1":"the one you just picked up",
+        "Round2":"light curly hair, tall, weird looking",
+        "Round3":"ugly, curly hair",
+        "Round4":"ugly, curly haired"
+    },
+    "Card3":{
+        "Round1":"sitting down, got a collar on",
+        "Round2":"sitting down",
+        "Round3":"yellow Lab, got a collar on 'm",
+        "Round4":"yellow Lab"
+    },
+    "Card4":{
+        "Round1":"really ugly",
+        "Round2":"black",
+        "Round3":"similar to the first one, but he's facing the other way",
+        "Round4":"right where your hand is"
+    },
+    "Card5":{
+        "Round1":"the one you had up before",
+        "Round2":"same color as last one but he's standing up, facing towards you, curlier hair",
+        "Round3":"blackish color with curly hair, got a collar on with circle on it",
+        "Round4":"black curly hair, looking at you"
+    },
+    "Card6":{
+        "Round1":"really tall and weird looking",
+        "Round2":"tall, gangly",
+        "Round3":"really tall",
+        "Round4":"really ugly, tall"
+    },
+    "Card7":{
+        "Round1":"brown color, like a Lassie dog, curlyish hair",
+        "Round2":"curly hair, brownish color, light brown, grass in picture, small and skinny",
+        "Round3":"Lassie type, facing towards your left, brown",
+        "Round4":"Lassie"
+    },
+    "Card8":{
+        "Round1":"boxer",
+        "Round2":"boxer type, facing towards left",
+        "Round3":"boxer",
+        "Round4":"boxer"
+    },
+    "Card9":{
+        "Round1":"husky",
+        "Round2":"husky",
+        "Round3":"husky",
+        "Round4":"husky"
+    },
+    "Card10":{
+        "Round1":"brown, short, got grass all over the bottom of 'm",
+        "Round2":"brown in grass, darker brown, almost black",
+        "Round3":"facing towards your left, curly hair, dark color",
+        "Round4":"facing towards your left, curly hair, really short, small, blackish colored"
+    }
+}

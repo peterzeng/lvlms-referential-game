@@ -1,0 +1,134 @@
+Session: knco59ak
+Group ID (canonical): 17
+Raw group IDs (by round): 17, 21, 27, 5
+Participants: director: qn2c2cb6 (prolific: 669424e6b661e0a098ec66a4), matcher: m3zcq0wr (prolific: 67e406244bfad9999a051c1e)
+Total Rounds: 4
+Timing:
+  Round 1: 20m 17s
+  Round 2: 6m 58s
+  Round 3: 3m 5s
+  Round 4: 2m 55s
+  Total: 33m 15s
+======================================================================
+
+
+======================================================================
+ROUND 1 (Group 5)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=A
+
+MATCHER METRICS:
+  Score (Accuracy): 16.67%
+  Attention Checks: Round Q=A
+
+CHAT TRANSCRIPT:
+[17:17:01] director: Looks like a lil duck
+[17:17:24] matcher: okay
+[17:17:25] director: #1 that is
+[17:17:59] director: #2 is round and dark brown, the darkest of the ound ones
+[17:19:08] director: #3 the right flap is ajar and you can see inside of it
+[17:20:08] director: #4 is light brown with a white stripe down the middle and is the only basket at an angle from the ones I have here.
+[17:21:54] director: #5 is similar to #4, but there isnt a white stripe and it isnt as deep and it is slightly darker brown. like an almond color brown
+[17:22:54] director: #6 looks like a bunny with whiskers
+[17:24:01] director: #7 is similar to #3 but it doesnt have the flaps on top, if so, you cant see them from the angle of the photo
+[17:24:33] director: it is two shades of brown, the handle and bottom are lighter
+[17:26:03] director: #8 is the same style as #7 but isnt square it is more cylinder shaped and darker in the middle and lighter on the edges
+[17:26:42] director: #9 is taller cylinder shape, look like my laundry basket
+[17:27:27] director: #10 is the lightest shaded one as well as the flattest one, it is round and has no depth
+[17:28:13] director: #11 is similar to #9 it is round and you can see the opening on top, but is fatter and shorter
+[17:29:25] director: #12 is an oblong shape, the lip of the basket has a curve to it and it is a medium shade of brown and short and fat like #11
+[17:29:41] director: any questions? lol
+[17:29:53] matcher: No
+[17:30:03] director: Sweet!
+[17:30:18] matcher: Grate
+[17:32:49] matcher: waiting
+[17:33:08] director: I'm also waiting
+[17:33:25] director: did you submit it?
+[17:33:41] matcher: No
+[17:34:26] director: ok, I think once you do, we can proceed
+[17:36:52] matcher: where do i submit
+[17:37:18] director: maybe we should message the researcher
+
+
+======================================================================
+ROUND 2 (Group 17)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=C
+
+MATCHER METRICS:
+  Score (Accuracy): 50.00%
+  Attention Checks: Round Q=C
+
+CHAT TRANSCRIPT:
+[17:40:58] director: #1 is the basket with the flaps, the right flap is open
+[17:41:26] director: #2 is the tall cylinder that looks like a laundry basket
+[17:41:26] matcher: ok
+[17:42:12] director: # 3 is the very round one that is dark brown
+[17:43:18] director: #4 is the one I said was similar to the basket with the white stripe, but not as deep and two shades of brown
+[17:44:12] director: #5 is cylinder shape, Dark brown in the middle and light brown on top an bottom with a handle
+[17:44:44] director: #6 is the duck shaped one,
+[17:44:55] director: #7 is the rabbit shaped one
+[17:45:20] director: #8 is the very flat light brown round one
+[17:46:18] director: #9 looks like #1 but with no flaps, just rectangle, dark brown in the middle light brown on top and bottom
+[17:47:25] director: #10 looks like the round cylinder laundry basket but shorter and fatter
+[17:47:46] director: #11 is the oblong shaped one with the curved lip
+[17:47:56] director: #12 is the white stripe down the middle
+
+
+======================================================================
+ROUND 3 (Group 21)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=B
+
+MATCHER METRICS:
+  Score (Accuracy): 33.33%
+  Attention Checks: Round Q=B
+
+CHAT TRANSCRIPT:
+[17:50:19] director: #1 is rectangle, Dark brown in the middle, light brown on top and bottom
+[17:50:34] director: #2 is white striped one
+[17:50:47] director: #3 is the rabbit with the whiskers
+[17:50:56] director: #4 is the duck shaped one
+[17:51:11] director: #5 is the oblong one with the curved lip
+[17:51:33] director: #6 is the tall laundry basket one
+[17:51:55] director: #7 is the round dark brown one
+[17:52:26] director: # 8 is the short cylinder one, dark brown in the middle light brown on the edges
+[17:52:42] director: #9 is the one that is like the white striped one
+[17:52:55] director: #10 is the flat round one
+[17:53:09] director: #11 is the short fat laundry basket
+[17:53:24] director: #12 is the one with the flaps
+
+
+======================================================================
+ROUND 4 (Group 27)
+======================================================================
+
+
+DIRECTOR METRICS:
+
+MATCHER METRICS:
+  Score (Accuracy): 25.00%
+
+CHAT TRANSCRIPT:
+[17:59:04] director: #1 is the round flat one
+[17:59:20] director: #2 is like the white striped one
+[17:59:27] director: #3 is the duck
+[18:00:03] director: #4 looks like #2 but taller and dark brown in the middle
+[18:00:18] director: #5 is the small laundy basket
+[18:00:42] director: #6 is the dark brown very round one
+[18:00:46] director: #7 is the tall laundry basket
+[18:01:01] director: #8 is the one with the flaps
+[18:01:12] director: #9 is the bunny
+[18:01:25] director: #10 is the white striped one
+[18:01:37] director: #11 is the curved lip one
+[18:01:59] director: #12 is the dark in the middle and light brown on top and bottom
+

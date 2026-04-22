@@ -1,0 +1,62 @@
+{
+    "Card1":{
+        "Round1":"rectangle shaped, handle in middle, no lid, empty",
+        "Round2":"rectangle shaped with handle in middle, no lid",
+        "Round3":"rectangle shaped with handle in middle",
+        "Round4":"rectangular shaped with handle in middle"
+    },
+    "Card2":{
+        "Round1":"Easter basket, pink things, pink wood, twisted handle, green outlining around the handles especially, squarish type bottom",
+        "Round2":"Easter basket",
+        "Round3":"Easter basket",
+        "Round4":"Easter basket"
+    },
+    "Card3":{
+        "Round1":"circular, criss-cross box, handle, one of them goes straight and rest of them criss-cross, round, shaped like bowl, texture is criss-cross, no lid, lightish brown, a little bit black inside",
+        "Round2":"circular with criss-crosses and little black stuff inside, with round handle and no lid",
+        "Round3":"confusing one that's circular, with criss-cross and black stuff inside",
+        "Round4":"confusing one with black stuff inside"
+    },
+    "Card4":{
+        "Round1":"doesn't have a lid, wide, circle, really tiny like the sewing things, widest one, biggest one, no handles, just like a bowl",
+        "Round2":"widest, bowl shaped, no handles and no lid",
+        "Round3":"most circular and widest, with no lid and no handle",
+        "Round4":"wide bowl, biggest, most circular"
+    },
+    "Card5":{
+        "Round1":"pink ribbon going around it, small, criss-cross things, gets smaller as it goes towards bottom",
+        "Round2":"smallest with pink ribbon going around it, no lid",
+        "Round3":"smallest, pink ribbon going around it",
+        "Round4":"smallest with pink ribbon going around"
+    },
+    "Card6":{
+        "Round1":"light goldish, triangles, greenish background in back, circular on bottom, like a bowl, solid at bottom",
+        "Round2":"no lid, no handle, triangles on bowl, goldish, green in background",
+        "Round3":"green background and triangles and goldish brown",
+        "Round4":"green background with triangles and it's goldish brown"
+    },
+    "Card7":{
+        "Round1":"lid, goldish, two handles on the edge, little things sticking up in middle",
+        "Round2":"lid, goldish brown with two handles and that thing sticking up in middle",
+        "Round3":"goldish brown with two small handles on side and that thing sticking up",
+        "Round4":"two small handles and thing sticking up on lid"
+    },
+    "Card8":{
+        "Round1":"triangle shaped basket, looks almost like heart",
+        "Round2":"heart shaped",
+        "Round3":"heart shaped",
+        "Round4":"heart shaped"
+    },
+    "Card9":{
+        "Round1":"circular, handle in middle",
+        "Round2":"round with lid and handle",
+        "Round3":"roundish with flat lid and square handle,",
+        "Round4":"circular with square handle and flat"
+    },
+    "Card10":{
+        "Round1":"square-ish, gets smaller as you go down, lid is like a black type circle",
+        "Round2":"gets smaller as you go along, square, flat lid",
+        "Round3":"square, gets smaller as you go along, with flat lid, handle",
+        "Round4":"square, gets smaller as you go down, with handle and flat lid"
+    }
+}

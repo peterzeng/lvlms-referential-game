@@ -1,0 +1,86 @@
+Session: 3kk7u0fy
+Group ID (canonical): 102
+Raw group IDs (by round): 102, 119, 52, 85
+Participants: director: lrspazzd (prolific: 66f05e51545ecf68df96f480), matcher: kfixcq4w (prolific: 6531958a74d39ace86a60bd9)
+Total Rounds: 4
+Timing:
+  Round 1: 11m 59s
+  Round 2: No data
+  Round 3: No data
+  Round 4: No data
+  Total: 11m 59s
+======================================================================
+
+
+======================================================================
+ROUND 1 (Group 52)
+======================================================================
+
+
+DIRECTOR METRICS:
+
+MATCHER METRICS:
+  Score (Accuracy): 50.00%
+  Attention Checks: Round Q=A
+
+CHAT TRANSCRIPT:
+[18:28:37] matcher: hello
+[18:29:09] matcher: Please describe the first basket
+[18:29:31] director: Rabbit
+[18:29:42] matcher: okay
+[18:29:51] matcher: second basket?
+[18:30:11] director: Its the most round one
+[18:30:34] matcher: tall round with short handles or medium round with short handles
+[18:30:48] matcher: two handles or one?
+[18:30:57] director: one
+[18:31:05] matcher: is it shallow?
+[18:31:39] matcher: I picked one, what's next?
+[18:31:49] director: It has one handle and not shallow
+[18:32:04] matcher: is the bottom rounded?
+[18:32:08] director: Square with lid, on half of lid is open
+[18:32:38] matcher: next
+[18:32:51] director: The bottom of the round one is kind of rounded
+[18:33:13] director: Are you ready for 4?
+[18:33:16] matcher: yes
+[18:33:54] matcher: please
+[18:34:28] matcher: Could we go faster?
+[18:35:11] matcher: Are you still there?
+[18:37:27] matcher: Hello?
+[18:40:36] matcher: I can't do this without you...
+
+
+======================================================================
+ROUND 2 (Group 85)
+======================================================================
+
+
+DIRECTOR METRICS:
+
+MATCHER METRICS:
+
+(No data for this round)
+
+
+======================================================================
+ROUND 3 (Group 102)
+======================================================================
+
+
+DIRECTOR METRICS:
+
+MATCHER METRICS:
+
+(No data for this round)
+
+
+======================================================================
+ROUND 4 (Group 119)
+======================================================================
+
+
+DIRECTOR METRICS:
+
+MATCHER METRICS:
+
+(No data for this round)
+

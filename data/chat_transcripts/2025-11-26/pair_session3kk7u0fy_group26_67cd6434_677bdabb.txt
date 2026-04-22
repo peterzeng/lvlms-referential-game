@@ -1,0 +1,147 @@
+Session: 3kk7u0fy
+Group ID (canonical): 26
+Raw group IDs (by round): 26, 31, 36, 41
+Participants: director: yzyxz2ce (prolific: 67cd6434d1b2abfc6254c28e), matcher: 5hdgb4bn (prolific: 677bdabbdcaf99b4cd8c86a5)
+Total Rounds: 4
+Timing:
+  Round 1: 8m 1s
+  Round 2: 5m 38s
+  Round 3: 6m 25s
+  Round 4: 6m 46s
+  Total: 26m 50s
+======================================================================
+
+
+======================================================================
+ROUND 1 (Group 26)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=A
+
+MATCHER METRICS:
+  Score (Accuracy): 75.00%
+  Attention Checks: Round Q=A
+
+CHAT TRANSCRIPT:
+[17:40:53] matcher: How should I arrange them?
+[17:41:31] director: the rabbit faced one first
+[17:42:06] director: the rabbit with long hair first
+[17:42:39] director: then the smooth round basket
+[17:43:06] director: the basket that has one side of its lid open is number 3
+[17:44:00] director: the basket with white and brown stripes on both handle and the body is number 4
+[17:44:33] director: number 5 is all brown and looks like number 4
+[17:45:11] director: the second rabbit shaped basket is number 6 (the white one)
+[17:46:39] director: 7 is brown handle and brown base with dark colour in the middle
+[17:47:24] director: 8 has dark in the middle but the handle and base are somewhat white and it looks like 7
+[17:47:26] director: 9 is the long basket
+[17:47:48] director: 10 is the round white and brown basket
+[17:48:15] director: 11 is like 9 but not very long
+[17:48:34] director: then 12 is all brown
+[17:48:54] director: thats all
+
+
+======================================================================
+ROUND 2 (Group 31)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=C
+
+MATCHER METRICS:
+  Score (Accuracy): 58.33%
+  Attention Checks: Round Q=C
+
+CHAT TRANSCRIPT:
+[17:51:00] matcher: How should I proceed
+[17:51:11] director: number 1 is the basket with one lid open
+[17:51:20] director: 2 is the very long basket
+[17:51:37] director: 3 the basket that looks smooth
+[17:52:28] director: 4 is the all brown basket with space between the handle and the body
+[17:53:18] director: 5 is the dark colour in the middle with somewhat white base and top
+[17:54:02] director: 6 is the rabbit faced basket that is looking towards your right
+[17:54:21] director: 7 is the white rabbit faced basket
+[17:54:51] director: 8 is the basket that is very round and has a white handle
+[17:55:30] director: 9 is the rectangled shaped basket with brown top and base with dark in the middle
+[17:55:55] director: 10 is like the number 2 own but not as long as number 2
+[17:56:19] director: 11 is the one with a u shaped top
+[17:56:34] director: the white and brown striped basket is 12
+[17:56:38] director: thats all
+
+
+======================================================================
+ROUND 3 (Group 36)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=B
+
+MATCHER METRICS:
+  Score (Accuracy): 58.33%
+  Attention Checks: Round Q=B
+
+CHAT TRANSCRIPT:
+[17:58:31] director: 1 is the brown handle with black middle and brown base
+[17:58:45] director: 2 is the brown and white striped one
+[17:59:06] director: 3 is the rabbit faced one that is facing you directly
+[17:59:18] matcher: I do not get 1
+[17:59:40] director: 4 is the rabbit shaped one that looks to your right
+[18:00:21] director: 1 has a brown coloured handle and a brown coloured base then the middle is black coloured
+[18:00:23] matcher: I can't see any with brown handle with black middle and brown base
+[18:00:58] matcher: Is it shallow?
+[18:01:12] director: yes it is shallow
+[18:01:16] matcher: Ok
+[18:01:20] matcher: Go on
+[18:01:41] director: 5 is all brown but the top has a u kind of shape
+[18:01:58] director: 6 is the longest of all baskets
+[18:02:13] director: 7 is the one that looks more smooth
+[18:03:06] director: 8 has a white base then black middle then white then a black handle
+[18:03:37] director: 9 is all brown but it has a big space from the handle to the body
+[18:03:56] director: 10 is the one that looks very round
+[18:04:10] director: 11 is like 6 but not as long as it
+[18:04:22] director: 12 is the one with one lid open
+[18:04:33] director: thats all
+[18:04:56] matcher: Ok
+
+
+======================================================================
+ROUND 4 (Group 41)
+======================================================================
+
+
+DIRECTOR METRICS:
+
+MATCHER METRICS:
+  Score (Accuracy): 66.67%
+
+CHAT TRANSCRIPT:
+[18:06:45] director: 1 is the very round one
+[18:07:15] matcher: Without handle?
+[18:07:35] director: white handle
+[18:07:49] matcher: And brown top?
+[18:07:57] director: yes
+[18:08:01] matcher: Ok, go on
+[18:08:25] director: 2 is all brown with space between the handle and body
+[18:08:51] matcher: Is it short? The body
+[18:09:09] director: yes the body is short
+[18:09:22] matcher: go on
+[18:09:27] director: 3 is the rabbit faced one
+[18:09:37] director: facing your right
+[18:09:58] director: 4 is the brown top and base with black middle
+[18:10:33] director: 5 is all brown but the second longest because 7 is the longest basket
+[18:10:46] director: 6 is the one that looks very smooth
+[18:10:54] director: 7 is the longest basket
+[18:11:06] director: 8 has two lids but one is open
+[18:11:18] director: 9 is the white rabbit faced basket
+[18:11:33] director: 10 is the brown and white striped basket
+[18:11:54] director: 11 is all brown but the top has a u kind of shape
+[18:12:06] matcher: Ok
+[18:12:18] director: 12 is white base and white top with black middle
+[18:12:26] director: black handle for 12
+[18:13:22] matcher: Does 10 have white on the handle?
+[18:13:28] director: yes
+[18:13:31] matcher: ok
+

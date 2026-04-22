@@ -1,0 +1,62 @@
+{
+    "Card1":{
+        "Round1":"standing (on) four legs, in middle it's black, facing left, long tail, paws lightish brown, back it's yellow, ears black towards tip",
+        "Round2":"black stomach and back and legs, goldish legs, tail is long, blackish tip on tail",
+        "Round3":"standing up with long tail, blackish stomach and back",
+        "Round4":"standing up, yellowish type dog, with black stomach and back"
+    },
+    "Card2":{
+        "Round1":"furry, looking towards back, one of its leg is standing out, turning around a little bit, yellow, middle it's black",
+        "Round2":"tiny fur, one leg is extended out and it's looking back",
+        "Round3":"small furry, one leg sticking out",
+        "Round4":"one leg extended out"
+    },
+    "Card3":{
+        "Round1":"light beige, standing on grass, sitting, has a leash, looking back, tail sticking out on grass",
+        "Round2":"sitting on grass and it's looking back and has leash",
+        "Round3":"sitting, looking back on grass, tail on grass, long",
+        "Round4":"sitting down, sitting on grass, tail on grass"
+    },
+    "Card4":{
+        "Round1":"dark dark brown, skinny, not a poodle, you can only see three of its legs, really tiny , mouth part sticking out, light more towards head, nose blackish, ears lighter than whole body, almost black, no collar, short, not furry, hotdogs",
+        "Round2":"hotdog",
+        "Round3":"hotdog",
+        "Round4":"hotdog"
+    },
+    "Card5":{
+        "Round1":"poodle with collar, silver type thing, small circle",
+        "Round2":"poodle with circle leash",
+        "Round3":"poodle with round leash",
+        "Round4":"poodle with collar"
+    },
+    "Card6":{
+        "Round1":"German shepherd, black, nose part is goldish brown, paws goldish brown, standing on grass",
+        "Round2":"German shepherd, standing on grass , little bit on mouth part is goldish, really black",
+        "Round3":"German shepherd",
+        "Round4":"German shepherd"
+    },
+    "Card7":{
+        "Round1":"Golden retriever, laying down on grass, stomach area on back is darker brown, legs and head is goldish, nose black",
+        "Round2":"Golden retriever, laying on the ground",
+        "Round3":"laying down, Golden retriever",
+        "Round4":"Golden retriever that's laying down, with curly ears, long floppy ears"
+    },
+    "Card8":{
+        "Round1":"goldish, mouth and nose part is black",
+        "Round2":"black nose and mouth, rest of body is goldish, legs are extended out",
+        "Round3":"black on mouth, two legs extending out, goldish, small tail",
+        "Round4":"two legs extending out, goldish with black nose and mouth part"
+    },
+    "Card9":{
+        "Round1":"wolf, white, blackish on back, tongue hanging out",
+        "Round2":"white, wolf",
+        "Round3":"white, wolf",
+        "Round4":"white"
+    },
+    "Card10":{
+        "Round1":"furry, hair coming down on mouth and stuff, black",
+        "Round2":"sitting down, really furry, hair hanging out, tail sticking up, black, sitting on grass",
+        "Round3":"fur hanging out of mouth, and sitting on grass with tail sticking up",
+        "Round4":"hair hanging out of mouth and tail sticking up"
+    }
+}

@@ -1,0 +1,62 @@
+{
+    "Card1":{
+        "Round1":"beige, big, biggest",
+        "Round2":"biggest",
+        "Round3":"biggest",
+        "Round4":"biggest"
+    },
+    "Card2":{
+        "Round1":"on second row, fourth",
+        "Round2":"all the way on right corner",
+        "Round3":"one that you just picked up and put down",
+        "Round4":"same row, but all the way in your left hand corner"
+    },
+    "Card3":{
+        "Round1":"third one is one on top of it",
+        "Round2":"brownish",
+        "Round3":"one right on top of it, next one",
+        "Round4":"same row that you just got that, on your right hand corner"
+    },
+    "Card4":{
+        "Round1":"fourth one is one right next to it, on left side",
+        "Round2":"on your left hand corner",
+        "Round3":"all the way in front of you, on the corner of your left",
+        "Round4":"in front of you"
+    },
+    "Card5":{
+        "Round1":"in third row, towards your left, all the way upper corner",
+        "Round2":"smallest, little bowl is in middle",
+        "Round3":"in middle",
+        "Round4":"on top of the one you just picked up"
+    },
+    "Card6":{
+        "Round1":"all the way on your right, bottom",
+        "Round2":"bowl, beige color",
+        "Round3":"one on left corner of that one that you just picked up, left upper corner",
+        "Round4":"on right hand side of the one you just picked up"
+    },
+    "Card7":{
+        "Round1":"with cover on it",
+        "Round2":"has cover on it",
+        "Round3":"has cover on it",
+        "Round4":"Does that have cover on it?"
+    },
+    "Card8":{
+        "Round1":"triangle",
+        "Round2":"triangle",
+        "Round3":"triangle",
+        "Round4":"triangle"
+    },
+    "Card9":{
+        "Round1":"has cover on it",
+        "Round2":"all the way on left in front of you",
+        "Round3":"has cover",
+        "Round4":"the one right next to it"
+    },
+    "Card10":{
+        "Round1":"all the way at the end, on your right hand",
+        "Round2":"has cover on it",
+        "Round3":"has cover on it",
+        "Round4":"third one, upper third row"
+    }
+}

@@ -1,0 +1,292 @@
+Session: oatjomyt
+Group ID (canonical): 12
+Raw group IDs (by round): 12, 23, 26, 4
+Participants: director: 1mt2iezs (prolific: 654939d4e23dcdbb14d95661), matcher: ksg9e819 (prolific: 646b776eca37542a899c1de5)
+Total Rounds: 4
+Timing:
+  Round 1: 34m 38s
+  Round 2: 30m 1s
+  Round 3: 17m 33s
+  Round 4: 15m 44s
+  Total: 1h 37m 56s
+======================================================================
+
+
+======================================================================
+ROUND 1 (Group 4)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=A
+
+MATCHER METRICS:
+  Score (Accuracy): 41.67%
+  Attention Checks: Round Q=A
+
+CHAT TRANSCRIPT:
+[16:04:55] director: The first basket looks like a rabbit with no tail
+[16:05:10] matcher: ok, got it.
+[16:05:43] director: The next basket is fully face on, slightly deep, all brown with a round handle.
+[16:06:26] director: it looks more like wood than basket material
+[16:06:59] matcher: ok. I think I got that one.
+[16:07:38] director: the next basket is woven with a handle that is not centered but veers to the right as you look at it..kind of like an upside down v
+[16:08:17] director: the left side is higher than the right
+[16:08:20] matcher: the top is half opened and half closed?
+[16:08:33] director: yes
+[16:08:46] matcher: Got it. Great descriptions by the way.
+[16:09:51] director: you're doing great!  The next basket is not kind of sidways.  It's tan on top with white in the middle.  The handle starts with 2 pieces on each side coming together at the top into one.
+[16:10:16] matcher: Got it.
+[16:10:44] director: The next basket is pictured straight on with a large handle.  It is all one color.
+[16:11:12] matcher: Does it have a bit of shine to it?
+[16:11:19] director: yes
+[16:11:27] matcher: Got it.
+[16:11:47] director: The next basket looks like a sheep looking at you with tiny little feet.
+[16:11:52] director: no handle.
+[16:11:59] matcher: Got it.
+[16:12:34] director: The next basket is face on.  light brown at the top and bottom of the basket with a large portion that looks greenish brown.
+[16:13:02] matcher: Got it.
+[16:13:46] director: The next basket is sort of sideways.  It has a lighter color stripes at the top and bottom and the middle is a darker brown.
+[16:14:07] director: just a tiny bit sideways.
+[16:14:45] matcher: Is it a large round basket with a brown circle in the center of bottom?
+[16:15:28] director: no, it has large weaving, the front of it has lines down the sides
+[16:16:03] director: the brown almost looks blue
+[16:16:50] director: the handle has large knots at each end
+[16:17:14] matcher: I'm looking still. This one's tricky.
+[16:17:55] director: should we eliminate the rest first?
+[16:18:11] matcher: What shape is it? tall and round or square, etc
+[16:19:23] director: it looks like it would be a bit oval, the sides look more like reeds than woven
+[16:19:52] matcher: Having trouble. Let's eliminate the rest if possible.
+[16:20:07] director: ok..the next one is the tallest basket with short handles
+[16:20:31] matcher: Got it.
+[16:20:48] director: the next basket is flat and a light brown color
+[16:20:59] director: round
+[16:21:15] matcher: Got ti
+[16:21:32] director: the next basket is round with two handles that are small
+[16:21:47] director: woven with a lighter stripe at the bottem
+[16:21:53] matcher: Got it.
+[16:22:30] director: the last basket looks more like a tote bag.  It's oval, light brown, the basket is taller than the handle which is just one piece.
+[16:22:49] director: it's not fully facing the front
+[16:23:13] matcher: Got it.
+[16:23:27] matcher: I still have the hard one left for #12.
+[16:23:55] director: so we skipped 8, so all the others would be moved down.
+[16:24:39] director: 8 is not fully facing front.  The basket is bigger than the handle and it has lighter stripes at both the bottom and the top
+[16:26:14] matcher: On my end, it doesn't let me choose numbers - it places them automatically. But yes, it was #8 that was a bit hard for me. So sorry. I don't know why I'm not seeing this basket. Still looking.
+[16:26:49] matcher: It's the stripes that's throwing me off.
+[16:27:05] director: the handles have knots at each end and it looks round to me, but it's a bit off center....kind of looks like wood woven through the front
+[16:27:36] director: like wood stripes down the front of it
+[16:27:47] director: sorry, strips
+[16:28:22] matcher: what shape is it again? Is it oblong with a cream stripe at top, darkest thin stripe in middle and medium brown at the bottom?
+[16:29:16] director: it's more white at the top and the bottom, thin stripes of white with a much darker brown in the middle, I think it's round
+[16:30:09] director: or cream color
+[16:31:22] director: looks like twigs going vertically down
+[16:32:05] matcher: You mentioned a handle earlier but the one with Native design going down does not have a handle. Does it have like a nave arrows going down with no handle?
+[16:32:17] matcher: *Native arrows
+[16:33:21] director: no it definately has a handle.  I'm not describing it right.  It's round, lighter thin stripe at top and bottom, darker wide stripe in the middle, knots at the end of the handle.
+[16:33:56] director: can't tell if it's round, to me it looks a bit oblong because it's not straight on
+[16:35:05] director: the dark brown almost looks like a dark blue
+[16:36:13] matcher: I think I see what you are saying but I thought that was #2.
+[16:36:45] matcher: I can try to delete that one and see if it'll let me add it at the end.
+[16:37:42] director: 2 is all one color, tightly woven, almost looks like wood.  looks like a bowl with a handle the same color.
+[16:38:21] matcher: Yes, I see that. I'll just see if it'll let me switch them.
+[16:38:25] director: ok
+[16:38:51] matcher: Done! It worked. Thanks for your patience.
+[16:39:00] director: no worries..this is hard!
+[16:39:15] matcher: Yes, harder than I thought.
+[16:39:30] matcher: I'll submit now.
+[16:39:33] director: ok
+
+
+======================================================================
+ROUND 2 (Group 12)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=C
+
+MATCHER METRICS:
+  Score (Accuracy): 91.67%
+  Attention Checks: Round Q=C
+
+CHAT TRANSCRIPT:
+[16:40:20] director: the first one is closed on one side, open on the other
+[16:40:28] director: looks like upside down v
+[16:40:35] matcher: Got it.
+[16:40:58] director: second one is the tallest basket with short round handles
+[16:41:08] matcher: got it.
+[16:42:05] director: third is the tightly woven basket.  Almost looks like wood.  The top has bands that make it a bit wider at the top.  The handle is the same color.  Looks like a wood bowl.
+[16:43:24] matcher: Still looking.
+[16:43:53] director: it's a darker brown
+[16:44:16] matcher: The shape?
+[16:44:44] director: round, but a bit tall with a handle that's a bit shorter
+[16:45:35] matcher: So round but tallish iwth a shorter handle. Looks wider at top?
+[16:45:56] director: yes, i should have used the word deep instead of tall
+[16:46:45] matcher: I'll need to re-read your sentences to get this. Hold on.
+[16:47:00] director: the top of the basket has two bands that make it a little wider at top.  the bands are the same color but smooth
+[16:49:02] matcher: Trying to narrow this down. Round but deep with shorter handle. Top of basket has 2 same-color bands so it looks wider. Correct? Still looking.
+[16:49:20] director: yes.  It has a shine to it.
+[16:49:41] matcher: Oh, that one. ok. got it.
+[16:49:53] director: next one...This is a medium-sized, oval wicker basket with a tall twisted handle. It’s made from light golden-brown rattan or split reed
+[16:50:41] director: the handle is larger than the basket
+[16:51:10] matcher: So larger round with tall cream-colored handle and thicker top rim on basket?
+[16:52:21] director: no, it's oval with a taller intertwined handle.  All one color, light tan.  The top of the basket has a band that is smooth and not the same texture as the basket.
+[16:53:08] matcher: Looks like a tote?
+[16:53:14] director: no, it
+[16:53:26] director: it's smaller, less deep
+[16:53:49] director: but not the flat one
+[16:54:15] director: oval handle
+[16:54:48] matcher: So the shortened version is oval with a tall handle, all light tan in color?
+[16:54:59] director: yes
+[16:55:36] director: there's a band around the top in the same color
+[16:56:06] matcher: The one that has the thick band around the top rim?
+[16:56:24] director: yes
+[16:56:30] matcher: Ok, think I got it.
+[16:57:23] director: the next one is the one we had trouble with last time.  It's round, lighter stripes at both the bottom and the top, much darker in the middle, handle has knots at each end.
+[16:57:49] matcher: Very wide dark stripe in middle?
+[16:57:54] director: yes
+[16:58:07] matcher: Got it this time.
+[16:58:20] director: the next one looks like a bunny.  It's off-center
+[16:58:30] matcher: Got it.
+[16:58:45] director: the next one looks like a sheep with tiny little legs
+[16:58:52] matcher: got it.
+[16:59:11] director: the next one is flat and round with a smaller handle..
+[16:59:53] director: not flat, just not deep at all
+[17:00:17] director: the handle is off-center
+[17:00:54] matcher: I hv 2 flat round ones. One w/handle at 12:00 position and one at 2:00 position.
+[17:01:08] director: it's the 2:00 position
+[17:01:24] matcher: Ok, so medium brown with cream colored handle?
+[17:01:37] director: yes
+[17:02:10] matcher: sorry. described wrong. cream colored everything with brown rim stripe?
+[17:02:17] director: yes
+[17:02:21] matcher: Got it.
+[17:03:59] director: the next one is on center.  It's oval with medium tan small strips at both the top and bottom and a darker, almost green thick center.  The handle is medium tan and oval.  The stripes at the top and bottom are braided/intertwined.
+[17:04:36] director: *not oval, thick
+[17:05:23] director: omg...oval...so sorry
+[17:06:05] matcher: ok, so looks rectangular or oval, facing head on, dark wide stripe in  middle, lighter top and bottom rim?
+[17:06:11] director: yes
+[17:06:17] matcher: Got it.
+[17:07:01] director: the next one is round, medium tan with two lighter stripes at the bottom.  The handles are very short.  faces head on.
+[17:07:19] director: looks like it could be a laundry basket
+[17:07:55] matcher: But you can kind of see inside it a bit, correct?
+[17:08:02] director: yes
+[17:08:07] matcher: Okay, got it.
+[17:08:33] director: the next one looks like a tote bag.  slightly off-center, can see inside it a bit.  medium brown, oval.
+[17:08:51] matcher: Tote - got it.
+[17:09:42] director: lol.  last one is light tan on top and bottom, white in the middle.  The handle starts as two on each side and comes together as one in the middle., squarish
+[17:10:05] matcher: got it.
+[17:10:09] director: good job!
+[17:10:21] matcher: Thanks! Same to you. Submitting now.
+
+
+======================================================================
+ROUND 3 (Group 23)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=B
+
+MATCHER METRICS:
+  Score (Accuracy): 100.00%
+  Attention Checks: Round Q=B
+
+CHAT TRANSCRIPT:
+[17:11:40] director: the fist one is front-facing, squarish, light brown strips on the top and bottom, thick darker, almost green in the middle oval handle.
+[17:12:08] director: the stripes at the top and bottom are braded/interrwined
+[17:12:11] matcher: got it.
+[17:13:01] director: the second one is light tan stripes on top and bottom, white in middle, off-center, handles start as two pieces and go to one in the middle.
+[17:13:42] matcher: 2 to 1 handles, got it.
+[17:13:49] director: sheep with little feet
+[17:13:54] director: for the next one
+[17:14:02] matcher: Sheep is now in the pen. Got it.
+[17:14:12] director: lol...bunny, off-center
+[17:14:32] matcher: bunny is now joining his sheep buddy - got it.
+[17:14:47] director: looks like tote bag, can see inside, off-center
+[17:15:13] matcher: The tote - got it.
+[17:15:30] director: tall, laundry basket, round, short little handles on each side.
+[17:15:34] director: dark brown
+[17:15:37] matcher: Got it.
+[17:16:11] director: looks like a wooden bowl, deep, shiny, has oval handle and two bands at the top that make the top a bit wider.
+[17:16:46] matcher: Ok, the "shiny" one that looks smooth. got it.
+[17:17:47] director: the next one is off-center.  cream color stripes at top and bottom, much darker wider stripe in middle.  Off-center, handle is dark with knots at each end.  looks oval.
+[17:18:11] director: the one we had a hard time with first round.
+[17:18:27] matcher: Yes, wide dark middle stripe with cream above and below. got it.
+[17:19:20] director: the next one is shallow, medium tan, longer handle that is braided, one band at the top of the basket that is the same color.  facing front.
+[17:19:33] director: oval shaped
+[17:19:47] matcher: Ok. Give me a second.
+[17:20:07] matcher: The large flat round one with brown top rim?
+[17:20:36] director: no, this one is not as shallow and the band is front-facing...long handle
+[17:20:47] director: it's oval
+[17:20:56] matcher: Ok. Let me read this again. Hold on.
+[17:21:46] matcher: So oval, shallow, med tan, longer with slightly lighter top rim?
+[17:21:54] director: yes
+[17:21:55] matcher: longer handle
+[17:21:59] director: yes
+[17:22:01] matcher: got it
+[17:22:19] director: next one is flat/very shallow, handle off-center, darker stripe at top.
+[17:22:22] director: round
+[17:22:33] matcher: got it
+[17:23:27] director: next one is round, with very short handles on each side, 2 lighter strips at the bottom, round, facing front, can see a bit inside
+[17:23:50] matcher: The tallest one?
+[17:24:20] director: no shorter than that.  looks like a laundry basket.  On the inside you can see a lighter stripe around the top.
+[17:25:18] director: sorry, not the laundry basket
+[17:25:22] director: omg i'm losing it!
+[17:26:09] matcher: Ok, to make it easier than re-reading everything can you try again with just shorter sentences
+[17:27:18] director: ok.  it's round.  darker tan. has 2 lighter colored stripes at the bottom.  Two short handles on each side.  You can see inside the top of it that has a light stripe at the top inside.
+[17:28:35] matcher: Ok, I had put that for the earlier laundry basket. Let me delete and re-add. Hold on.
+[17:28:49] matcher: Got it.
+[17:29:03] director: last one is half open, upside down v
+[17:29:13] matcher: Got it. Submitting.
+
+
+======================================================================
+ROUND 4 (Group 26)
+======================================================================
+
+
+DIRECTOR METRICS:
+
+MATCHER METRICS:
+  Score (Accuracy): 41.67%
+
+CHAT TRANSCRIPT:
+[17:29:46] director: flat/shallow round basket with off-center handle.
+[17:29:54] director: dark strip around top
+[17:29:58] matcher: got it.
+[17:30:51] director: Next one is shallow, oval.  longer oval, braided handle.  Two bands at the top, just a bit lighter.
+[17:31:00] director: facing front
+[17:31:34] matcher: I should know this by now. Hang on.
+[17:32:33] matcher: Think I got it.
+[17:32:44] director: next one is the bunny
+[17:32:55] matcher: Bunny, got it
+[17:33:40] director: next one is oval, tan stripes on the top and bottom, dark, almost green thick band in the middle, handle is the same brown color as the stripes.
+[17:34:42] matcher: Ok, wide dark brown middle stripe and lighter top and bottom stripe?
+[17:34:49] director: yes
+[17:34:53] matcher: got it
+[17:35:49] director: next one is not the laundry basket!  round, tan with two lighter stripes at the bottom.  you can see inside and there's a light strip at the top of the inside, short handles on each side.  round.  front facing.
+[17:37:01] matcher: Ok, shorter laundry basket, lol, with light inside strip. Great description, thanks!
+[17:37:04] matcher: got it
+[17:37:12] director: next one is the laundry basket!
+[17:37:47] matcher: The tallest with 2 short handles?
+[17:37:50] director: yep
+[17:37:54] matcher: got it.
+[17:38:08] director: the next one is half open, upside down v
+[17:38:24] matcher: Love the easy upside down V. Got it.
+[17:38:39] director: next one is the sheep with teeny tiny little feet
+[17:38:50] matcher: Sheep is now in pen. Got it
+[17:39:24] director: next one is the one that's tan stripes on top and bottom, cream in the middle, handle starts as two and goes to one
+[17:40:17] matcher: 2 to 1 handle with cream in the middle - got it.
+[17:40:26] director: next one is the tote bag
+[17:40:37] matcher: Love the tote - got it.
+[17:41:16] director: last one is the one we had a hard time on first round.  off-center, white stripes on top and bottom, thick brown in the middle, handle has knots on each end.
+[17:42:26] matcher: Got it
+[17:42:28] director: you did great!
+[17:43:20] matcher: Oh no. I'm missing one. The shiny one is not listed.
+[17:43:48] director: oh no.... that's number 6
+[17:44:03] director: i think i got excited on the laundry baskets
+[17:44:53] matcher: lol. I'll have to add it to the end because it doesn't let me shift them around.
+[17:44:58] director: ok
+[17:45:22] matcher: Ok, Submitting now. If this is it, you were great to work with.
+[17:45:30] director: you as well!
+

@@ -1,0 +1,62 @@
+{
+    "Card1":{
+        "Round1":"really long, medium brown color, handle",
+        "Round2":"long, handle, blue and white",
+        "Round3":"really long, handle",
+        "Round4":"bottom right"
+    },
+    "Card2":{
+        "Round1":"shorter, with thick handle, more like a box",
+        "Round2":"really weird looking, small, brown, with a whole bunch a different colors",
+        "Round3":"weird looking one with all the colors, small with big handle",
+        "Round4":"really small, with bigger handle, different colors"
+    },
+    "Card3":{
+        "Round1":"weird design",
+        "Round2":"circle, small, handle, pretty designs",
+        "Round3":"handle, designs",
+        "Round4":"handle, designs"
+    },
+    "Card4":{
+        "Round1":"circle without a handle",
+        "Round2":"just round with no lid on it",
+        "Round3":"open circled, large, no green",
+        "Round4":"just open, no lid"
+    },
+    "Card5":{
+        "Round1":"all holes and pretty designs it, with a pink string going through it",
+        "Round2":"pink string running through it",
+        "Round3":"no handle, pink string running through it",
+        "Round4":"pink string running through it"
+    },
+    "Card6":{
+        "Round1":"no handle, really light shade of brown, designs in it, with holes, no lid, green",
+        "Round2":"green, no handle",
+        "Round3":"green",
+        "Round4":"green line running through it, no lid"
+    },
+    "Card7":{
+        "Round1":"lid, without the handles, bigger",
+        "Round2":"circle with two little handles on outside",
+        "Round3":"two little handles on side with lid, pretty round",
+        "Round4":"circle with lid and really small handles"
+    },
+    "Card8":{
+        "Round1":"triangle",
+        "Round2":"triangle",
+        "Round3":"triangular",
+        "Round4":"triangular"
+    },
+    "Card9":{
+        "Round1":"circle with lid and handle",
+        "Round2":"square handle",
+        "Round3":"round with a lid and a square-ish handle",
+        "Round4":"circular with a lid and a square-ish handle"
+    },
+    "Card10":{
+        "Round1":"the one you just picked up",
+        "Round2":"top handle, brown, longer than that",
+        "Round3":"taller, with square handle and lid",
+        "Round4":"tall, handle, lid"
+    }
+}

@@ -1,0 +1,62 @@
+{
+    "Card1":{
+        "Round1":"really long, brown, in the center of it has handle, oldish woodish color, broken on one of those sides",
+        "Round2":"the oldest of them all, really flat, a little broken on side",
+        "Round3":"broken",
+        "Round4":"broken"
+    },
+    "Card2":{
+        "Round1":"curved, handle larger than body, little small holder that's reddish brownish, red weaves and brown weaves, green tint",
+        "Round2":"a lot of red ribbons interweaved, large handle",
+        "Round3":"red ribbons, a lot of them, interweaved with rest of body",
+        "Round4":"green background around top, red ribbon interwoven, carry thing is little bit larger than body"
+    },
+    "Card3":{
+        "Round1":"most circular basket of them all, if you take out the middle it just looks like a big circle, X-weaves, on bottom a little bit black",
+        "Round2":"big circle, lot of holes, pattern is X-like on top",
+        "Round3":"completely circular",
+        "Round4":"pretty much circular, little X's in body"
+    },
+    "Card4":{
+        "Round1":"doesn't have handle, tip of it is thicker than rest of body, brownish color, weaves are in squares if you look at it directly",
+        "Round2":"half circle, no handles, top tip of it is a little bit thicker than rest of body",
+        "Round3":"tip which is a little bit thicker than rest of body",
+        "Round4":"tip that is a little bit larger than body, looks a little bit thicker"
+    },
+    "Card5":{
+        "Round1":"red ribbon interweaved with rest, little with no handles, a lot of holes",
+        "Round2":"red ribbon around, interweaved",
+        "Round3":"one red ribbon, interlaced",
+        "Round4":"one red ribbon interweaved through it"
+    },
+    "Card6":{
+        "Round1":"green background, green little triangles",
+        "Round2":"green background, triangular form",
+        "Round3":"green background, triangular formation",
+        "Round4":"green background, triangular formations"
+    },
+    "Card7":{
+        "Round1":"lid, two handles to the side, and a little pokey thing in middle",
+        "Round2":"two handles on side, lid, with a pokey thing in middle",
+        "Round3":"two handles, lid, little pokey thing in middle",
+        "Round4":"two handles, lid with a pokey thing in middle"
+    },
+    "Card8":{
+        "Round1":"looks like a purse, triangular in nature, heart, half circle for handle",
+        "Round2":"heart-shaped",
+        "Round3":"heart-shaped",
+        "Round4":"heart-shaped"
+    },
+    "Card9":{
+        "Round1":"lid, pretty big, lid's covering most of the carrying area, handle is half square or half rectangle, flattened down to ground",
+        "Round2":"really flat down to ground, handle that's half rectangle, lid",
+        "Round3":"half rectangle handle, lid, large diameter",
+        "Round4":"really low to the ground, rectangular handle, half rectangle, large diameter, lid"
+    },
+    "Card10":{
+        "Round1":"lid, handle a little bit more larger radius than previous",
+        "Round2":"looks like it can hold the most of them all, handle half square, one handle that's going from side to side, lid, highest of them all, between top and bottom it looks like it could hold a lot",
+        "Round3":"highest one off the ground, lid, one handle that looks like a half square, from bottom to top of lid looks like largest one",
+        "Round4":"high, with half square handle, interweaved lid"
+    }
+}

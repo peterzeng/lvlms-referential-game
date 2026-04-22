@@ -1,0 +1,283 @@
+Session: knco59ak
+Group ID (canonical): 25
+Raw group IDs (by round): 25, 37, 41, 43
+Participants: director: tgrya1jj (prolific: 6753519ac83cda11cee58723), matcher: oeqg6ep3 (prolific: 60e49d8302404edb1e133168)
+Total Rounds: 4
+Timing:
+  Round 1: 52m 40s
+  Round 2: 11m 21s
+  Round 3: 9m 51s
+  Round 4: 5m 36s
+  Total: 1h 19m 28s
+======================================================================
+
+
+======================================================================
+ROUND 1 (Group 25)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=A
+
+MATCHER METRICS:
+  Score (Accuracy): 83.33%
+  Attention Checks: Round Q=A
+
+CHAT TRANSCRIPT:
+[17:56:47] matcher: ready when you are to receive your descriptions
+[17:58:47] director: chicken head styled basket
+[17:59:25] matcher: i see 2 rabbit heads..can you describe more?
+[17:59:51] director: the one facing the right
+[18:00:01] matcher: with long ears to the back?
+[18:00:07] director: yes
+[18:00:33] matcher: ok, next pls
+[18:01:40] director: deep round basket with tall handle
+[18:02:01] matcher: how many handles, how many colors?
+[18:02:19] matcher: round bottom or flat bottom>
+[18:02:33] director: round bottom
+[18:02:44] matcher: one handle?  how many colors?
+[18:03:00] director: black color
+[18:03:28] matcher: i don't have a black basket that is tall with a round bottom
+[18:03:50] director: bot black basket, handle
+[18:04:06] director: not black basket
+[18:04:20] matcher: no basket with black handle
+[18:04:50] matcher: all are deep brown, not tall  i have one that is deep brown looks like an acorn maybe
+[18:05:09] director: there is
+[18:05:43] matcher: sorry, no.  no basket with a round bottom that is tall with a black handle.  choose another one please
+[18:07:07] director: small round basket with lid, black patch on the lid and a little lock on the side
+[18:07:18] director: number 3
+[18:08:07] matcher: i don't have that one either. it may be an extra basket?  what does number 3 mean?  i don't think our baskets are ordered the same way
+[18:08:32] director: bro you have 12 basket with you
+[18:08:36] matcher: i only have 2 baskets with a lid and neither have a black patch on the lid
+[18:08:43] director: how can you not see them
+[18:08:44] matcher: no,  i have 18 baskets
+[18:09:06] director: so how are you sure what i describe isn't there
+[18:09:33] matcher: because, like i said, i only have 2 with lids, and neither has a lid with a black patch
+[18:10:10] director: the basket is half covered
+[18:10:13] matcher: what about the other animal one?
+[18:10:21] director: ?
+[18:10:38] matcher: the one that is half covered is all brown
+[18:10:53] matcher: is that perhaps the same one?
+[18:11:06] matcher: it has a vertical weave
+[18:11:27] director: yes
+[18:11:40] matcher: ok, next pls
+[18:12:05] director: 4 right
+[18:12:17] matcher: what does 4 right mean>
+[18:12:28] director: number 4
+[18:12:40] director: are you not arranging it?
+[18:12:56] matcher: we're up to the third basked
+[18:13:04] matcher: *basket
+[18:13:32] matcher: i didn't have a tall round bottom one with the black handle, remember?
+[18:13:57] director: there is
+[18:14:16] director: dome like bottom
+[18:14:54] matcher: i have the acorn looking one, all dark brown.  dome like bottom. is that it?
+[18:15:08] director: yes
+[18:15:20] matcher: okay, next pls
+[18:15:34] director: 4
+[18:15:44] matcher: can you describe it pls
+[18:16:16] director: the basket with handle anchored at the 4 corner
+[18:16:49] matcher: i have 2 like that.  one with a dark stripe horizontally across the middle, and one without
+[18:18:12] matcher: the one WITHOUT the stripe also has some white on the handle. the one WITH the dark stripe has no white on the handle
+[18:19:47] director: we are running out of time
+[18:20:36] matcher: okay, can you try to describe the next one to see if we can get as many as possible?
+[18:21:52] director: basket with bent wooden handle over the top
+[18:22:09] director: shallow basket
+[18:22:30] matcher: what about the one with the 4 anchors?  which one is it?  did you see my questions?
+[18:22:39] director: with the handle facing front.. the handle has the widest radius
+[18:24:37] director: it was anchored on 4 sides
+[18:24:43] director: that is enough
+[18:25:04] matcher: okay, i have 2. does it have the dark horizontal stripe or not?  and do the handles have white on them?
+[18:25:54] director: it has white on the arms, and on the body of the basket
+[18:26:58] matcher: okay, the 5th one....the shallow basket.  i have a few....is it a beige basket with a brown rim?  or a darker exterior and lighter interior?
+[18:27:44] director: the one with side view
+[18:28:16] director: you can't see the interior
+[18:28:29] matcher: color scheme?  i have a few that are side view.  round? rectangular?
+[18:28:30] director: the handle is long
+[18:28:39] matcher: braided handle?
+[18:28:42] director: shallow basket bro
+[18:28:45] matcher: or smooth handle?
+[18:28:56] director: braided
+[18:29:09] director: be fast
+[18:29:09] matcher: okay.  next pls
+[18:29:18] director: we are going 4 rounds
+[18:29:31] matcher: okay, next pls
+[18:29:43] matcher: we still have 7 to finish on this one
+[18:29:51] director: 6 basket with chicken head
+[18:30:14] matcher: rabbit or rat looking?  forward facing?
+[18:30:21] matcher: light colored?
+[18:30:39] director: number 7 ,basket like 5 but not shallow , has black color
+[18:31:00] director: rat looking, forward facing
+[18:31:19] matcher: 5 is the one with the braided hanle.
+[18:31:24] matcher: *handle
+[18:31:40] matcher: i have 2 other shallow ones...both round and can see inside
+[18:32:16] matcher: not shallow, i have a dark brown one with braided edges
+[18:32:27] matcher: ...cannot see inside
+[18:34:17] director: i was describing 7
+[18:34:17] director: are you there
+[18:34:28] matcher: i'm talking about 7
+[18:34:32] matcher: it
+[18:34:44] matcher: it's like 5, but not shallow, cannot see inside
+[18:34:53] director: yes
+[18:34:55] matcher: brown with light braided edges.  no braiding on handle
+[18:35:05] director: rectangle
+[18:35:22] matcher: i also have a more narrow one that looks the same.  is it the same width at #5?
+[18:36:05] director: bro time is gone
+[18:36:42] matcher: what time?  can you just describe #7.  the task will end when we receive notification
+[18:37:15] matcher: is 7 the same width as #5 or noticeably more narrow?
+[18:38:31] director: yes
+[18:38:51] matcher: yes, same width or yes, more narrow?
+[18:39:59] director: width more than 5th
+[18:40:14] matcher: okay.  next one pls
+[18:40:44] director: 8 is like it but round bottom
+[18:41:12] matcher: slightly sideways?
+[18:41:14] director: 8 is like 7 and 5 but black handle and black stripe
+[18:41:39] director: 9 cylindrical with 2 small handle
+[18:41:54] director: 9 shallow basket
+[18:42:22] matcher: 8 has 2 handles or 1?
+[18:42:41] director: 1
+[18:42:47] matcher: the only one with a black stripe i have has 2 handles.
+[18:43:00] matcher: can you see inside 8?
+[18:43:44] matcher: i got 9.  just clarify 8.  can you see inside 8?
+[18:44:15] matcher: and you can do 10, 11 and 12 too so i can extract those by elimination
+[18:44:51] director: no
+[18:45:05] matcher: okay, i got 8.  please do 10, 11 and 12
+[18:45:08] director: bro just submit
+[18:45:26] matcher: submit what?  i can't submit until i have all of them
+[18:45:34] director: guess
+[18:45:52] matcher: pls describe 10 11 and 12
+[18:46:02] director: 10 is shallow
+[18:46:13] director: inside can be seen
+[18:46:42] director: 11 has 2 short handle
+[18:46:57] matcher: does 10 have a handle?
+[18:47:32] matcher: i got 11.  clarify 10 and then describe 12
+[18:48:01] director: white handle
+[18:48:04] director: shallow
+[18:48:16] matcher: okay, now 12 and then i can submit
+[18:48:26] director: 12 is brown with uneven edge
+[18:48:54] matcher: slightly angled?  edge looks like a slight scoop?
+[18:49:20] director: yes
+[18:49:27] matcher: okay, submitting
+
+
+======================================================================
+ROUND 2 (Group 37)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=C
+
+MATCHER METRICS:
+  Score (Accuracy): 91.67%
+  Attention Checks: Round Q=C
+
+CHAT TRANSCRIPT:
+[18:50:10] matcher: here and ready when you are!
+[18:51:21] matcher: please provide descriptions to as many as you can at a time so i can ask additional questions or eliminate
+[18:51:58] director: half closed
+[18:52:11] matcher: okay, next please
+[18:52:26] director: 2. the deepest basket ,cylindrical
+[18:52:39] matcher: got 2, next pls
+[18:52:44] director: 3.pot-like basket
+[18:53:08] matcher: 3 has no handle ?
+[18:53:51] director: it has
+[18:54:19] matcher: more detail please...and if you can describe the next few ones too
+[18:54:21] director: all basket are from previous round
+[18:54:26] matcher: okay
+[18:54:55] director: black handle
+[18:55:05] matcher: okay, got 3, next pls
+[18:55:29] director: 4 is the 7 of the last round
+[18:55:42] director: that looked like 5 of last round
+[18:55:57] matcher: brief description of 4 and 5 from last round?
+[18:56:03] director: damn
+[18:56:08] matcher: the one with the braided handle?
+[18:56:34] director: braided handle
+[18:56:41] matcher: use descriptions of the baskets please, i have more baskets than you
+[18:56:49] matcher: okay, got 5, next pls
+[18:56:57] matcher: pls use same key words as before
+[18:57:20] director: white black white colored basket
+[18:57:30] director: round bottom
+[18:58:14] matcher: okay, next
+[18:58:29] director: rabbit looking basket
+[18:58:39] director: 7 rat looking
+[18:58:46] matcher: okay, on 8
+[18:59:22] director: 8 shallow
+[18:59:37] matcher: okay next pls
+[19:00:10] director: 9 rectangle dark colored
+[19:00:20] matcher: on 10
+[19:00:42] director: basket with body like net
+[19:00:49] director: 2 short handle
+[19:01:01] matcher: okay, next
+[19:01:04] director: 11 is the last basket of the last round
+[19:01:14] director: 12. is anchored on 4 sides
+[19:01:31] matcher: okay submitting
+
+
+======================================================================
+ROUND 3 (Group 41)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=B
+
+MATCHER METRICS:
+  Score (Accuracy): 100.00%
+  Attention Checks: Round Q=B
+
+CHAT TRANSCRIPT:
+[19:02:35] matcher: ready when you are.  please use the same key words. and describe several as quickly as you can so i can eliminate them
+[19:04:38] director: dark body basket, rectangle
+[19:04:59] director: 2 . basket anchored on 4 sides
+[19:05:10] director: , rat looking
+[19:05:20] director: 4 rabbit looking basket
+[19:05:46] matcher: got all 4, next pls
+[19:05:52] director: basket with uneven edge, the last of the first round
+[19:06:10] director: 6, bucket like basket, deepest basket
+[19:06:26] director: 7, pot like, with black handle
+[19:06:59] director: 8. round bottom, white black white  basket
+[19:07:31] matcher: was 8 from the previous rounds?
+[19:08:51] matcher: clarify 8 and also, do 9-12 pls
+[19:09:08] director: yes
+[19:10:07] matcher: is 8 the one with the black stripe? dark brown with some light brown and deep brown (almost black) stripe across?
+[19:10:17] matcher: do 9-12 and i can do figure out 8
+[19:11:29] director: yes
+[19:11:37] director: 9 is like 1
+[19:11:50] director: 10 shallow basket
+[19:11:56] director: can see the inside
+[19:12:08] director: 11 net like basket
+[19:12:20] director: 12 is halved close
+[19:12:26] matcher: okay, submitting
+
+
+======================================================================
+ROUND 4 (Group 43)
+======================================================================
+
+
+DIRECTOR METRICS:
+
+MATCHER METRICS:
+  Score (Accuracy): 100.00%
+
+CHAT TRANSCRIPT:
+[19:14:19] director: shallow basket
+[19:14:36] matcher: ok, next pl
+[19:15:33] director: 2.white handle basket  the one that look like the rectangular basket,
+[19:15:47] director: got it?
+[19:16:14] matcher: white handle?
+[19:16:28] matcher: was it from previous round?
+[19:16:59] director: yes
+[19:17:22] director: 3 rabbit looking
+[19:17:41] director: rectangular basket, dark bodied
+[19:17:58] director: 5. net body basket
+[19:18:09] director: 6 pot like basket
+[19:18:26] director: 7 deep, bucket like basket
+[19:18:33] director: 8. half closed basked
+[19:18:42] director: 9 rat looking
+[19:18:54] director: 10 anchored on 4 sides
+[19:19:18] director: 11 uneven edge basket
+[19:19:44] director: 12 round white black white basket
+[19:19:55] matcher: okay, submitting
+

@@ -1,0 +1,236 @@
+Session: knco59ak
+Group ID (canonical): 45
+Raw group IDs (by round): 45, 54, 60, 63
+Participants: director: 6hwoscz8 (prolific: 662eeeb09572de78ffb440b1), matcher: gdoo1cr3 (prolific: 5c1976c90d57c30001b4162c)
+Total Rounds: 4
+Timing:
+  Round 1: 41m 22s
+  Round 2: 20m 10s
+  Round 3: 8m 20s
+  Round 4: 5m 59s
+  Total: 1h 15m 51s
+======================================================================
+
+
+======================================================================
+ROUND 1 (Group 45)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=A
+
+MATCHER METRICS:
+  Score (Accuracy): 100.00%
+  Attention Checks: Round Q=A
+
+CHAT TRANSCRIPT:
+[20:04:51] director: The first basket, which is in the upper left corner, should look like a rabbit facing to the side.
+[20:05:19] matcher: facing to our right?
+[20:05:27] director: Correct.
+[20:05:36] matcher: okay, next
+[20:06:03] director: Next is a smooth basket with one handle
+[20:06:40] director: For this one, you can't see the wicker texture as much as the others.
+[20:07:09] matcher: Can you see inside the basket more than a little bit?
+[20:07:34] director: No. you can just barely see the inside edge
+[20:07:45] matcher: I think I got it.
+[20:08:47] director: Great. The third one is a picnik basket that has a handle in the middle. You can see inside the basket on one side but not on the other side, which is covered.
+[20:09:08] matcher: You can see inside on our right side?
+[20:09:13] director: correct
+[20:09:26] matcher: I think I got it
+[20:11:43] director: Great. The fourth basket is placed a little bit diagonally. It has brown wicker at the bottom half and then a white-ish looking wicker upper half. Then the top lip of it is brown again. It has a large handle that looks like two handles that are held together at the top
+[20:13:04] matcher: I have two like that, but one of them has a thin black band around the middle and the other one does not.
+[20:13:21] director: The one that does not have any black band
+[20:13:39] matcher: I think I got it
+[20:14:53] director: Great. The fifth basket is medium brown. The basket part of it is short and the handle is big. You can see very little of the inside -- just the interior of the lip farthest away from us.
+[20:15:39] director: The rim of the basket and the handle are slightly lighter brown than the rest of it.
+[20:17:36] matcher: Is it not angled at all, but facing directly towards us - we see widest part?
+[20:17:42] director: Correc
+[20:17:48] director: oops, correct
+[20:19:14] matcher: Is the handle straight up at sides, and top goes straight across? - straight up, then curves, then straight across, then curves, then straight down
+[20:19:23] director: Yes.
+[20:20:09] matcher: I think I got it, but I have a question about our second basket before we finish.
+[20:20:32] director: Do you want to ask now? If so, go ahead.
+[20:22:14] matcher: I have two that look like that description. The one we chose you can barely see inside. There is another one that can see a little more inside - it shows a slight darker area inside under the back rim.
+[20:23:12] director: I think it's the first one you're describing.
+[20:23:29] matcher: Okay we will leave our choice as is.
+[20:25:08] director: Okay. So for the 6th placement, which is the rightmost on the top row, the basket looks like a cute animal, maybe a mouse or rabbit. It is light brown, has whiskers and is looking toward us, angled slightly to our left.
+[20:25:46] matcher: if it has two tiny feet, I got it
+[20:25:52] director: Yes :)
+[20:26:57] director: For the seventh basket (leftmost on bottom row), it is a greenish looking wicker, with a light brown rim at the bottom and top. The handle matches the rim color.
+[20:27:39] director: For this one, you can't see inside it at all.
+[20:28:05] matcher: not angled at all?
+[20:28:09] director: Correct.
+[20:28:38] matcher: bottom rim and top rim and handle light brown - middle greenish or blackish
+[20:28:46] director: Yes.
+[20:28:59] matcher: i think i got it
+[20:29:30] matcher: oops somehow I chose the next one by accident how do I corrct
+[20:29:43] matcher: never mind proceed
+[20:31:23] director: Okay, great. The eighth basket: rounder than the last one, purplish or very dark brown looking wicker. Light beige stripe at the bottom and the top. The top rim and the handle are brown.
+[20:31:39] director: You can't see inside it.
+[20:32:30] matcher: handle dark, top rim brown, lighter band under top rim, wide dark middle, light band bottom?
+[20:32:43] director: Yes.
+[20:32:50] matcher: i think i got it
+[20:34:23] director: Great. The ninth looks like a laundry basket: it's a tall cylinder with two small handle on either side. You can see inside the far rim a little bit and it looks like there are square holes letting in light there.
+[20:36:01] matcher: handle on right farther back than handle on left - can see light through handle on right, but not handle on left?
+[20:36:15] director: Yes
+[20:36:24] matcher: got it
+[20:37:32] director: Okay. Number 10 looks like an Easter basket. You can see a lot of interior bottom. It's round and is very light brown except for the rim and a dot in the center of the bottom. These are a medium brown.
+[20:39:07] matcher: where the handle attaches on the right is farther back than where the handle attaches on the left?
+[20:39:14] director: Yes
+[20:39:22] matcher: got it
+[20:40:23] director: Great. Number 11 is a round basket with two handles. You can see a little light through the handle on the left. You can see a bit inside the basket and it looks to me like there's a smaller basket tucked inside.
+[20:40:59] matcher: handles look like ears sticking up and angled out?
+[20:41:17] director: Yes, I think you have the right one
+[20:41:26] matcher: okay
+[20:43:42] director: Okay, last one: medium brown basket that's oblong. It is angled very slightly diagonally. The sides of it curve. The handle goes across the wider part of it and attaches to the basket up higher than the sides of the basket curve in a little bit vertically.
+[20:44:01] director: You can see some of the interior of the opposite side.
+[20:44:53] matcher: back looks 'wavy'
+[20:45:00] director: Yes, it does.
+[20:45:38] matcher: side to our right angle farther back than side on our left
+[20:45:47] director: That's correct.
+[20:46:01] matcher: I hope I got it - can I submit?
+[20:46:13] director: Yes, I think we're done :)
+
+
+======================================================================
+ROUND 2 (Group 54)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=C
+
+MATCHER METRICS:
+  Score (Accuracy): 100.00%
+  Attention Checks: Round Q=C
+
+CHAT TRANSCRIPT:
+[20:47:41] director: First one is a picnic basket that is closed on the left side and open on the right. you can see in it a little bit on the right side. Handle is in the middle.
+[20:47:58] matcher: got it
+[20:48:37] director: Second is the one that looks like a laundry basket to me. A tall cylinder. Two very small handles on either side.
+[20:48:58] matcher: little 'windows' along back edge?
+[20:49:07] director: That's right.
+[20:49:10] matcher: got it
+[20:49:53] director: The third is smoother looking than the others. It is round and has one handle.
+[20:50:20] matcher: handle looks darker than basket?
+[20:50:29] director: It does look darker.
+[20:50:37] matcher: i think i got it
+[20:51:04] director: Yes, this one you can see inside very slightly. There's no black stripe or anything inside.
+[20:52:10] director: For #4, it's a wide basket that has a large handle. We are facing the wide side of it. The basket itself is a little darker brown than the rim and the handle.
+[20:52:45] director: You can see the interior of the opposite rim a little bit.
+[20:53:13] matcher: handle sides go straight up
+[20:53:17] director: Yes.
+[20:53:53] director: Ready for #5?
+[20:54:14] matcher: basket is only slightly darker than rim and handle on #4?
+[20:54:23] director: That's right.
+[20:54:28] matcher: got it
+[20:55:43] director: Great. For #5, this is a round basket with purplish wicker in the center. There's a beige strip on the bottom and the top. Then the rim and the handle are a medium brown.
+[20:55:50] director: You can't see inside it.
+[20:56:47] matcher: I think I got it, but the handle looks darker to me than the rim
+[20:58:34] director: Where the handle meets the basket, there are rounded bumps, like the material of the handle is wrapping around the lip of the basket.
+[20:59:01] director: Maybe it's the lighting that makes the handle look a little darker.
+[20:59:04] matcher: I think i have it
+[20:59:42] director: Okay, great. For #6, it's the rabbit that's facing diagonally to our right. You can see the rabbit ears. It doesn't have any whiskers.
+[20:59:52] matcher: got it
+[21:00:45] director: Going to the second row, for placement #7, the basket is the cute animal that does have whiskers. It's facing us but very slightly looking to the left. It has little feet.
+[21:00:57] matcher: got it
+[21:02:00] director: Number 8: round basket that looks like an Easter basket. You can see a lot of the interior bottom. It is light brown except for the rim and a dot in the center of the interior bottom: these are medium brown.
+[21:02:50] matcher: got it - if inside bottom and sides are same color - center dot and rim are same color
+[21:02:58] director: Yes.
+[21:03:46] director: Number 9: we are looking at the side and can't see into the basket at all. The basket is mostly a greenish wicker. The top and bottom edges and the handle are medium brown, though.
+[21:04:01] matcher: got it
+[21:04:51] director: Number 10: This is the basket with another basket tucked inside. The exterior basket has two handles on either side. You can see a little light through the left handle.
+[21:05:06] matcher: got it
+[21:06:07] director: Number 11: A medium brown basket that's a little diagonal. We're facing the wider side. The rim is wavy. There's one handle and it attaches a little higher than where the basket curves in vertically.
+[21:06:31] matcher: 'wavy' in back
+[21:06:34] director: Yes.
+[21:06:39] matcher: got it
+[21:07:30] director: Number 12: This one has what looks like two handles that are bound together at the top. It has a medium brown rim, then a white stripe and then brown at the bottom.
+[21:07:35] matcher: got it as long as there is NO thin black line around the middle
+[21:07:46] director: Correct
+[21:07:51] matcher: I'll submit
+
+
+======================================================================
+ROUND 3 (Group 60)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=B
+
+MATCHER METRICS:
+  Score (Accuracy): 100.00%
+  Attention Checks: Round Q=B
+
+CHAT TRANSCRIPT:
+[21:08:58] director: First basket has greenish wicker, and then a medium brown stripe at bottom and top. The handle is brown. you can't see inside it at all.
+[21:09:13] matcher: NOT round
+[21:09:23] director: Correct.
+[21:09:26] matcher: got it
+[21:10:14] director: #2: wicker basket with two handles that are bound together at the top. Medium brown rim, then white stripe, then medium brown bottom. Placed diagonally.
+[21:10:24] matcher: got it
+[21:10:40] director: #3: cute animal with whiskers and little feet.
+[21:10:46] matcher: got it
+[21:11:13] director: #4: Rabbit that is facing diagonally to our left. you can see the rabbit ears.
+[21:11:19] matcher: got it
+[21:11:38] matcher: no sorry - my rabbit is facing our right
+[21:12:06] director: Oh my gosh. I'm sorry. You're correct. It's facing diagonal right.
+[21:12:15] matcher: we got it
+[21:12:17] director: #5: medium brown basket with back rim that is wavy.
+[21:12:24] matcher: got it
+[21:13:03] director: #6: basket that looks like a laundry basket to me. Tall cylinder. You can see little squares in the back letting in light.
+[21:13:13] matcher: got it
+[21:13:33] director: #7: smooth medium brown basket with one handle.
+[21:13:59] matcher: got it - round?
+[21:14:07] director: Correct.
+[21:14:32] director: #8: round basket with purplish looking wicker in the center. Beige stripe on the top and bottom. Medium brown rim and handle.
+[21:14:42] matcher: got it
+[21:15:25] director: #9: wide basket with short basket area and a large handle. The handle goes straight up and then curves and goes straight across.
+[21:15:40] matcher: got it
+[21:16:12] director: #10: looks like an Easter basket. You can see a lot of the interior bottom. Light brown overall with medium brown rim and dot in center of the bottom.
+[21:16:21] matcher: got it
+[21:16:51] director: #11: basket that has another basket inside it. Exterior basket has handles on either side. The left handle you can see a little light through
+[21:16:58] matcher: got it
+[21:17:12] director: #12 is the picnic basket that's open on the right side but closed on the left.
+[21:17:18] matcher: got it
+
+
+======================================================================
+ROUND 4 (Group 63)
+======================================================================
+
+
+DIRECTOR METRICS:
+
+MATCHER METRICS:
+  Score (Accuracy): 100.00%
+
+CHAT TRANSCRIPT:
+[21:18:27] director: First is the round Easter basket that you can see the interior bottom. Light brown except for the rim and center dot, which are medium brown.
+[21:18:36] matcher: got it
+[21:19:16] director: #2: wide basket with large handle. The handle goes straight up, then curves, then goes straight across. You can only see a little of the interior.
+[21:19:24] matcher: got it
+[21:19:38] director: #3: Rabbit basket that's facing diagonally to our right.
+[21:19:45] matcher: got it
+[21:20:21] director: #4: Basket with greenish wicker. Medium brown stripe at bottom and top. Brown handle. You can't see inside at all.
+[21:20:27] matcher: got it
+[21:20:47] director: #5: Basket with another basket inside. Two handles. You can see through the left handle a little.
+[21:20:58] matcher: got it
+[21:21:06] director: #6: Smooth round basket with one handle.
+[21:21:13] matcher: got it
+[21:21:46] director: #7: looks like a laundry basket: tall cylinder. You can see little squares in the far side that are letting in light.
+[21:21:51] matcher: got it
+[21:22:03] director: #8: picnic basket that's open on the right and closed on the left.
+[21:22:09] matcher: got it
+[21:22:16] director: #9: cute animal with whiskers and little feet.
+[21:22:20] matcher: got it
+[21:22:55] director: #10 basket with two handles that are bound together at the top. White stripe at top and brown below. Brown rim.
+[21:23:02] matcher: got it
+[21:23:23] director: #11 medium brown basket that you can see into a bit. The opposite rim is wavy.
+[21:23:30] matcher: got it
+[21:24:10] director: #12 round basket with purplish wicker in the center. Beige strips above and below the purplish part. Rim is brown and handle is brown.
+[21:24:21] matcher: got it - thank you for such GREAT descriptions
+[21:24:26] director: Thanks!
+

@@ -1,0 +1,176 @@
+Session: 3kk7u0fy
+Group ID (canonical): 47
+Raw group IDs (by round): 47, 56, 59, 62
+Participants: director: 2ifxj59u (prolific: 67e8e0c0be5802df7311d109), matcher: qhyb02an (prolific: 67dac9fec33b7784afd3d08b)
+Total Rounds: 4
+Timing:
+  Round 1: 15m 30s
+  Round 2: 10m 6s
+  Round 3: 3m 21s
+  Round 4: 3m 42s
+  Total: 32m 39s
+======================================================================
+
+
+======================================================================
+ROUND 1 (Group 47)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=A
+
+MATCHER METRICS:
+  Score (Accuracy): 91.67%
+  Attention Checks: Round Q=A
+
+CHAT TRANSCRIPT:
+[18:16:40] director: 1 the rabbit facing your right
+[18:16:49] director: 2 the very smooth brown one
+[18:17:02] director: 3 the one that only one side of the lid is open
+[18:17:20] director: 4 the one that has white on both the handle and body
+[18:17:32] matcher: hi, please can u use a better description for 2
+[18:18:05] matcher: is number 2 all the way far right
+[18:18:07] director: 2 has the smoothest body and it is brown. Like a shiny brown
+[18:18:21] director: All brown
+[18:18:58] director: you following?
+[18:19:26] matcher: yes, go on
+[18:19:54] matcher: take the description for 5
+[18:20:24] director: 5 is short, the bottom brown is darker than the top and the top is like a shiny brown
+[18:20:39] director: 6 like a mouse looking straight
+[18:21:22] director: 7 dark green in the middle of the body and brown at the top and bottom
+[18:21:29] matcher: please retake 5
+[18:22:07] director: 5 is the second shortest, the bottom of the body is darker than the top
+[18:23:08] matcher: for 5 is the last bottom and the top the same brown while the middle has a different brown that looks like green?
+[18:23:24] director: no, that is 7
+[18:23:46] director: 5 is the second shortest, compared to the shortest which is round
+[18:23:46] matcher: okay..
+[18:24:24] director: The handle is like a hook
+[18:24:36] matcher: does 5 have a handle?
+[18:24:43] director: yes
+[18:25:55] director: 8 has black in the middles with white at the top and bottom
+[18:26:01] director: 9 is the tallest
+[18:26:09] director: 10 is the shortest and round
+[18:26:29] director: 11 looks like 9 but is shorter than it with 2 handles just like it
+[18:26:55] director: 12 looks like a brown woven basket with the top shaped as U
+[18:26:59] director: Any questions
+[18:27:02] director: ?
+[18:27:23] matcher: the description for 8 doesn't match, please take it again
+[18:28:27] matcher: is 8 close to a handless basket?
+[18:28:50] director: It has handle
+[18:29:07] director: the middles is black, the top and bottom are both white
+[18:30:28] matcher: ok
+[18:30:32] director: submit
+[18:31:41] matcher: please does 12 have a small milkish color in the middle  i
+[18:32:10] director: No, all brown and the top is shaped as U
+
+
+======================================================================
+ROUND 2 (Group 56)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=C
+
+MATCHER METRICS:
+  Score (Accuracy): 100.00%
+  Attention Checks: Round Q=C
+
+CHAT TRANSCRIPT:
+[18:33:46] matcher: hi
+[18:34:11] director: hello
+[18:34:23] director: 1 has one of its top open
+[18:34:29] matcher: i got 12 wrong last time
+[18:34:32] director: 2 is the longest/tallest
+[18:34:37] director: yeah
+[18:34:56] director: It has been changed tho'
+[18:35:36] director: 3 is the shiniest in all brown
+[18:35:44] matcher: these are all the basket presented before, none changed
+[18:36:02] director: Their positions changed
+[18:36:09] matcher: yeah
+[18:36:29] director: 4 the second shortest
+[18:36:45] director: 5 the middle is black, the top and bottom is white
+[18:36:52] director: 6 the rabbit facing your right
+[18:37:00] director: 7 the mouse looking forward
+[18:37:11] director: 8 the shortest that is round
+[18:37:27] director: 9 the middles is dark green and the top and bottom is brown
+[18:37:55] director: 10 the second tallest that looks like 2
+[18:38:41] director: 11 the handle is just one, it is all brown and has a U as the top on the side facing you..
+[18:39:00] director: 12 the handle has brown and white and the body is brown and white too
+[18:39:04] director: Any questions?
+[18:39:32] matcher: 11 is not clear please
+[18:40:40] director: 11 the handle is one like 3, 4, 5, 8 and 9... The is like a light brown color and the top side facing you is shaped like the letter U
+[18:41:53] director: Submit if done
+[18:42:46] matcher: i am not done, trying to figure out 11, the basket coming to mind looks like a small heart or love shape
+[18:42:58] director: Yes,that
+[18:43:07] director: Looks like a U to me
+[18:43:14] matcher: is the handle also brown
+[18:43:32] director: yes
+[18:43:52] director: should be it
+
+
+======================================================================
+ROUND 3 (Group 59)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=B
+
+MATCHER METRICS:
+  Score (Accuracy): 100.00%
+  Attention Checks: Round Q=B
+
+CHAT TRANSCRIPT:
+[18:44:35] matcher: hi
+[18:44:37] director: hi
+[18:44:57] director: should be much easier now
+[18:45:10] matcher: yeah
+[18:45:16] director: 1 the middle is dark green, the top and bottom is brown
+[18:45:21] matcher: you doing great
+[18:45:28] director: 2 the handle and body has both brown and white
+[18:45:30] director: thank you
+[18:45:45] director: 3 rat facing forward
+[18:45:53] director: 4 rabbit looking right
+[18:46:07] director: 5 the all brown one with a heart shaped top
+[18:46:12] director: 6 the longest
+[18:46:22] director: 7 the all brown shiny one
+[18:46:42] director: 8 it has black in the middle and white at the top and bottom
+[18:47:13] director: 9  the second shortest one that has like a light brown top
+[18:47:22] director: 10 the shortest one that is round
+[18:47:36] director: 11 the second tallest that looks like 6
+[18:47:49] director: 12 the one that only one side of the top is open
+[18:47:56] director: Any issue?
+
+
+======================================================================
+ROUND 4 (Group 62)
+======================================================================
+
+
+DIRECTOR METRICS:
+
+MATCHER METRICS:
+  Score (Accuracy): 100.00%
+
+CHAT TRANSCRIPT:
+[18:49:23] director: nice job
+[18:49:38] matcher: as to you
+[18:49:42] director: 1 the shortest that is round
+[18:49:54] director: 2 the second shortest with a light brown top
+[18:50:06] director: 3 the rabbit looking one facing your right
+[18:50:22] director: 4 the middle is dark grren. Top and bottom is brown
+[18:50:45] director: 5 the second tallest with two handles and all brown
+[18:51:04] director: 6 the shiniest of them all and has one handle
+[18:51:20] director: 7 looks like 5 but is taller and it is the tallest
+[18:51:31] director: 8 only one side of the top is open
+[18:51:43] director: 9 it looks like a rat looking forward
+[18:51:58] director: 10 has both white and brown on the entire body
+[18:52:14] director: 11 it is all brown and the top is heart shaped
+[18:52:31] director: 12 only the middle is black. the top and bottom is white
+[18:52:38] director: Got it?
+[18:52:57] matcher: got it
+[18:53:02] director: Ok
+[18:53:05] director: Submit
+

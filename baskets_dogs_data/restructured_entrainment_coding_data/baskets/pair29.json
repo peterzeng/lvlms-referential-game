@@ -1,0 +1,62 @@
+{
+    "Card1":{
+        "Round1":"rectangular",
+        "Round2":"really really long bottom",
+        "Round3":"top row to the left",
+        "Round4":"bottom row to the right"
+    },
+    "Card2":{
+        "Round1":"really tiny",
+        "Round2":"bottom right",
+        "Round3":"second to the right, middle row",
+        "Round4":"the one you just picked up"
+    },
+    "Card3":{
+        "Round1":"really really round, big, weaved, handle, rounder bottom",
+        "Round2":"bottom left",
+        "Round3":"middle row, second to the left",
+        "Round4":"to the right, middle row"
+    },
+    "Card4":{
+        "Round1":"doesn't have those handles on the sides",
+        "Round2":"bottom row",
+        "Round3":"on your right hand",
+        "Round4":"oval"
+    },
+    "Card5":{
+        "Round1":"little pink ribbon around it, without handle",
+        "Round2":"red ribbon around it",
+        "Round3":"around it",
+        "Round4":"red ribbon"
+    },
+    "Card6":{
+        "Round1":"some green",
+        "Round2":"green ribbon",
+        "Round3":"green ribbon",
+        "Round4":"green ribbon"
+    },
+    "Card7":{
+        "Round1":"has a cover on it",
+        "Round2":"cover",
+        "Round3":"oval with a cover on it",
+        "Round4":"oval with the cover on it"
+    },
+    "Card8":{
+        "Round1":"triangular",
+        "Round2":"[Missing Data]",
+        "Round3":"triangle",
+        "Round4":"triangle"
+    },
+    "Card9":{
+        "Round1":"middle row, right",
+        "Round2":"top right",
+        "Round3":"cover",
+        "Round4":"looks like that one but it's shorter"
+    },
+    "Card10":{
+        "Round1":"top right",
+        "Round2":"bottom right, second one",
+        "Round3":"really long bottom with the handle",
+        "Round4":"cover"
+    }
+}

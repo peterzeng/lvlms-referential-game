@@ -1,0 +1,62 @@
+{
+    "Card1":{
+        "Round1":"brown, with black in back",
+        "Round2":"brown, with black back in middle",
+        "Round3":"brown with black back",
+        "Round4":"black, brown"
+    },
+    "Card2":{
+        "Round1":"light brown, standing on three feet, turned in funny position",
+        "Round2":"in funny position",
+        "Round3":"in funny position",
+        "Round4":"in funny position"
+    },
+    "Card3":{
+        "Round1":"beige with green background",
+        "Round2":"beige",
+        "Round3":"beige",
+        "Round4":"beige"
+    },
+    "Card4":{
+        "Round1":"dark brown, small, hotdog",
+        "Round2":"black",
+        "Round3":"hotdog, black",
+        "Round4":"hotdog"
+    },
+    "Card5":{
+        "Round1":"poodle, black",
+        "Round2":"poodle",
+        "Round3":"poodle",
+        "Round4":"poodle"
+    },
+    "Card6":{
+        "Round1":"black, shiny fur",
+        "Round2":"black with shiny fur",
+        "Round3":"black with shiny fur",
+        "Round4":"black with shiny fur"
+    },
+    "Card7":{
+        "Round1":"golden retriever, brown",
+        "Round2":"golden retriever",
+        "Round3":"golden retriever",
+        "Round4":"golden retriever"
+    },
+    "Card8":{
+        "Round1":"I don't know if it's a bulldog, brown",
+        "Round2":"on your left upper corner",
+        "Round3":"bulldog",
+        "Round4":"bulldog"
+    },
+    "Card9":{
+        "Round1":"wolf",
+        "Round2":"wolf",
+        "Round3":"wolf",
+        "Round4":"wolf"
+    },
+    "Card10":{
+        "Round1":"black",
+        "Round2":"black",
+        "Round3":"small, black",
+        "Round4":"all the way on right--left hand corner, second row"
+    }
+}

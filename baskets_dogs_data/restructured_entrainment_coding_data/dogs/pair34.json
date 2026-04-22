@@ -1,0 +1,62 @@
+{
+    "Card1":{
+        "Round1":"middle of dog is black, facing to your left, has little black tail, half is black",
+        "Round2":"black in middle, legs look yellow and orange",
+        "Round3":"looking to left, with black middle, black tail",
+        "Round4":"with black middle and black little tail"
+    },
+    "Card2":{
+        "Round1":"dog facing to your right, head turned to your left, yellow (grass)",
+        "Round2":"turned to right, but looking back",
+        "Round3":"looking to your right, turned back to your left, has yellowish background",
+        "Round4":"with yellowish background, turned to left"
+    },
+    "Card3":{
+        "Round1":"green all around, brown, green outline",
+        "Round2":"turned to right, but looking back to left",
+        "Round3":"looking to your right, but turned back to left in grass",
+        "Round4":"sitting in grass with head turned to your left"
+    },
+    "Card4":{
+        "Round1":"little, wiener, black, no background, short, brown",
+        "Round2":"by itself, little, short, black, brown",
+        "Round3":"little, black, brownish, with no back- ground, short",
+        "Round4":"black, brownish, little, short"
+    },
+    "Card5":{
+        "Round1":"black, furry, has collar around neck, circle color",
+        "Round2":"has collar, collar with circle on it, name tag",
+        "Round3":"has collar around it, black",
+        "Round4":"with circle collar, with name tag"
+    },
+    "Card6":{
+        "Round1":"dog that Snoop Dog has in his video, skinny ,black",
+        "Round2":"black, skinny, in Snoop video",
+        "Round3":"black, skinny",
+        "Round4":"skinny, black"
+    },
+    "Card7":{
+        "Round1":"golden retriever, gold, has long ears, facing upwards to the left, laying on grass or something",
+        "Round2":"laying on grass, with long ear on side",
+        "Round3":"sitting in grass, with long ear, looks like it's lyin' down",
+        "Round4":"sitting in grass with long ear on side"
+    },
+    "Card8":{
+        "Round1":"black nose, mean, both of the ears are sticking up, it's running",
+        "Round2":"has both of his ears standing up, black nose, around the eyes, looks like it's running",
+        "Round3":"looks like it's running",
+        "Round4":"the running dog, looks like it's running"
+    },
+    "Card9":{
+        "Round1":"the only white dog, with a grayish--.",
+        "Round2":"white",
+        "Round3":"white",
+        "Round4":"white"
+    },
+    "Card10":{
+        "Round1":"old lookin', sittin' in grass",
+        "Round2":"old lookin', sittin' in grass",
+        "Round3":"old lookin', sittin' in grass",
+        "Round4":"old, sittin' on grass"
+    }
+}

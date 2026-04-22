@@ -1,0 +1,62 @@
+{
+    "Card1":{
+        "Round1":"brown and black, long tail, facing left, short nose",
+        "Round2":"short nose, black and brown, more black at top, in middle",
+        "Round3":"first one on the first, second on the second, a lot of black, in middle",
+        "Round4":"first on the first, second on the second , with black"
+    },
+    "Card2":{
+        "Round1":"facin' us but he is lookin' to right, curly hair, brown, twist up",
+        "Round2":"hanging off stomach, a lotta hair all over, red brown, brown, a lot of yellow on bottom, long ears",
+        "Round3":"a lot of yellow at bottom, head is turned",
+        "Round4":"yellow background, lookin' to side, curly hair"
+    },
+    "Card3":{
+        "Round1":"brown, collar, big ears, squattin' down, tail is on floor",
+        "Round2":"long tail, layin' on ground, brown, with collar, looks like he's chained to something, head is turned, big ears",
+        "Round3":"tail laying on ground, brown",
+        "Round4":"tail laying on ground, looking to side"
+    },
+    "Card4":{
+        "Round1":"long, hotdog, black or brown, big nose, looks alert, hind legs are back, straight back",
+        "Round2":"black, curly hair, hotdog",
+        "Round3":"hotdog, brown, long nose, big ears, looks like he doesn't even have legs, legs are really short",
+        "Round4":"short, hotdog, short legs"
+    },
+    "Card5":{
+        "Round1":"curly hair, collar, with dog tag, black",
+        "Round2":"black, curly hair, dog tag, with circular metal",
+        "Round3":"black, with curly hair, with medal, with dog tag",
+        "Round4":"black, curly hair, round dog tag"
+    },
+    "Card6":{
+        "Round1":"Doberman pinscher, black, looks greasy, brown feet",
+        "Round2":"pinscher, looks greasy",
+        "Round3":"black, Doberman, greasy",
+        "Round4":"Doberman pinscher, black, looks like there's grease on 'im"
+    },
+    "Card7":{
+        "Round1":"long hair on belly, brown, big ears, long ears, pointin'",
+        "Round2":"long ears, brown, lot of hair on belly",
+        "Round3":"hairy belly, long ears, looks like somebody's itchin' it behind ears, head stickin' up, brown",
+        "Round4":"long ears, hairy belly, brown"
+    },
+    "Card8":{
+        "Round1":"boxer, short nose, brown, pointy ears, back legs are lower than front legs, black collar on it with studs, black nose, hair is not curly",
+        "Round2":"boxer, black nose, pointy ears, brown , lower than the front legs, legs are stickin' out the back",
+        "Round3":"brown, black snout, ears stickin' up, short tail",
+        "Round4":"brown, short nose, small tail, ears stickin' up, short tail"
+    },
+    "Card9":{
+        "Round1":"husky, white and black, tongue sticking out",
+        "Round2":"Akita, black and white, tongue sticking out",
+        "Round3":"black and white, tongue stickin' out, looks like a wolf, white and brown",
+        "Round4":"black and white, tail sticking out"
+    },
+    "Card10":{
+        "Round1":"tail's sticking up, blackish brown, looks like it's got a beard on chin, back tail is curved",
+        "Round2":"beard on chin, tail sticking up and back, ears are sticking up, small, a lotta hair",
+        "Round3":"tail sticking up, beard, little short",
+        "Round4":"hairy chin, tail stickin' up, short"
+    }
+}

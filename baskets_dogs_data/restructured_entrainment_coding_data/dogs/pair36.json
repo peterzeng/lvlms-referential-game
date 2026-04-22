@@ -1,0 +1,62 @@
+{
+    "Card1":{
+        "Round1":"brown and black, standing up straight in erect fashion, tip of tail is black, tip of nose is also black, blackish brownish ears, drooping down, not standing up",
+        "Round2":"brownish yellowish blackish all mixed into one, greenish yellowish background, hindlegs are yellow, nose is black, ears are drooping down, all completely erect, everything is facing towards one direction, standing up on all fours",
+        "Round3":"black nose, black tail, completely facing one way, just uniform, standing up on all fours, stomach and back are completely black, legs are brown, paws are yellowy",
+        "Round4":"[Missing Data]"
+    },
+    "Card2":{
+        "Round1":"little bit fluffy, brown in color, but it's got a few shadows on it so it looks black, small, body is facing one way, and he is looking back the other way, he's got all four paws on ground, ears are drooping down, like an upside down \"U\", no tail",
+        "Round2":"fluffy, standing up on all fours, looks like his body is facing directly you, but his head is turned to left, golden legs, background is yellowy",
+        "Round3":"little bit fluffy, body facing directly you, chest facing you directly, head facing to left",
+        "Round4":"[Missing Data]"
+    },
+    "Card3":{
+        "Round1":"leather collar, sitting down, but his two front paws are standing up so they're erect, tail which is same color as he is looks like leathery color, body facing one way, head facing the other",
+        "Round2":"leather collar, clip at end of collar, looking one way, body's facing the other, hind is sitting down, tail is long",
+        "Round3":"leathery collar, body facing one way, head facing 180 degrees behind him, leathery color",
+        "Round4":"[Missing Data]"
+    },
+    "Card4":{
+        "Round1":"really short, longish, like poodle, black, no tail, looks combed, diagonal, brownish black, darkish brown, no background color, pretty much cut out, greenish grayish background color, no collar, droopy ears, standing up erect",
+        "Round2":"longish, really small, hotdog",
+        "Round3":"hotdog",
+        "Round4":"[Missing Data]"
+    },
+    "Card5":{
+        "Round1":"fluffiest one of them all, little coin collar, poodle",
+        "Round2":"coin collar, goldish coin, really fluffy",
+        "Round3":"coin collar",
+        "Round4":"[Missing Data]"
+    },
+    "Card6":{
+        "Round1":"Doberman, standing up on all fours, ears are perked up real high, completely black except for feet and top of lips",
+        "Round2":"Doberman, body facing one direction, head facing 30 degrees to the right, standing up on fours, completely erect, ears are up, brownish top lip, no tail, completely black except for paws, shiny black",
+        "Round3":"Doberman, shiny black color, top lip brown",
+        "Round4":"[Missing Data]"
+    },
+    "Card7":{
+        "Round1":"Female golden retriever, goldish brown, ears are down, no tail, greenish grass background, brownish gold",
+        "Round2":"golden retriever, all hairy, a little bit diagonal, if you draw a line from its legs to its nose it looks like it's going up in a diagonal like in a slope, no tail, ears are golden and really hairy",
+        "Round3":"golden retriever that's diagonal",
+        "Round4":"Diagonal dog"
+    },
+    "Card8":{
+        "Round1":"really muscular, the most muscular after the Doberman retriever, ears are standing up, silvery chain around his neck, brown mouth and nose, eyes are black, rest of body is yellowish brown, nose and mouth are black, Beethoven",
+        "Round2":"chain, pointed ears, diagonal, almost standing up, moving forward, yellowish goldish color",
+        "Round3":"Beethoven dog, silvery chain, diagonal a little bit, legs are not under his butt",
+        "Round4":"Beethoven dog with silvery chain tied around neck"
+    },
+    "Card9":{
+        "Round1":"husky, malamute, Alaskan, white and black, cute",
+        "Round2":"malamute, Alaskan husky, white and black, grayish white, tongue hanging out",
+        "Round3":"Alaskan husky, grayish black",
+        "Round4":"Alaskan husky"
+    },
+    "Card10":{
+        "Round1":"Toto, black, tail up, erect",
+        "Round2":"halfway fuzzy, Scottish terrier, all looking one way, tail is at same level as his ears if you look at it horizont- ally, Toto, sitting in grass, mustache hanging down",
+        "Round3":"beardy mustache, little Toto dog, tail pointing upwards",
+        "Round4":"bearded mustache, Toto"
+    }
+}

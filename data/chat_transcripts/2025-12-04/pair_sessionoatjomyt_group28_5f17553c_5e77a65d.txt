@@ -1,0 +1,175 @@
+Session: oatjomyt
+Group ID (canonical): 28
+Raw group IDs (by round): 28, 29, 30, 31
+Participants: director: t1vlvnon (prolific: 5f17553ce0feb10c3dd2b16a), matcher: 37w5v0l8 (prolific: 5e77a65dcce2a2319f9e8849)
+Total Rounds: 4
+Timing:
+  Round 1: 28m 6s
+  Round 2: 19m 46s
+  Round 3: 16m 27s
+  Round 4: 13m 2s
+  Total: 1h 17m 21s
+======================================================================
+
+
+======================================================================
+ROUND 1 (Group 28)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=A
+
+MATCHER METRICS:
+  Score (Accuracy): 75.00%
+  Attention Checks: Round Q=A
+
+CHAT TRANSCRIPT:
+[17:45:24] director: The first basket is facing right and looks like a stylized rabbit (round body, long ears laying flat back)
+[17:45:59] matcher: What's number 2
+[17:47:19] director: number 2 is dark brown, looks like a handbag. It has a thin arched handle, and a flat band going around the top of the body of the basket. The whole basket is very smooth looking.
+[17:47:43] matcher: is this correct?
+[17:48:21] director: I can't see the picture you're trying to show me
+[17:49:01] matcher: is it round or square
+[17:49:28] director: The bottom has rounded corners
+[17:50:02] matcher: is it all one color or is the band a different color?
+[17:50:12] director: All one color
+[17:50:24] matcher: ok, what is #3
+[17:51:37] director: 3 is rectangular, has a rough looking surface, has one flat and sort of wide handle in the middle, and two flap style lids
+[17:52:01] director: It's all one color
+[17:52:23] matcher: ok what is 4
+[17:54:19] director: 4 is two colors, a brown stripe on the top and bottom, and a light stripe in between. It's rectangular, but the ends are rounded, not flat. The handle is attached at each short end, and splits into 2 pieces at each end
+[17:55:20] matcher: what is 5
+[17:56:52] director: 5 is a shallow oval shape, with a single twisted handle attached at each narrow end. The body of the basket is woven with wide pieces, and the top edge of the basket is woven with narrow round pieces.
+[17:57:21] matcher: ok what is 6
+[17:59:43] director: 6 is a light colored rounded basked shaped like an animal (maybe a mouse) facing directly towards viewer. It has two pegs representing feet, two eyes, and two ears.
+[17:59:54] matcher: ok what is 7
+[18:01:56] director: 7 is rectangular, with a single handle attached to the short ends. The bottom is flat. The body of the basket is very dark. There's a lighter brown stripe on the bottom, and on the top, and the handle is the same lighter brown color. The lighter brown is reddish color
+[18:02:55] matcher: ok what is 8
+[18:04:50] director: 8 is a tall cylinder with a flat bottom. There's a decorative pattern of open rectangular holes around the top. There are 2 very small rounded handles on opposite edges.
+[18:05:14] matcher: ok what is 9
+[18:05:15] director: MY MISTAKE I JUST DESCRIBED 9
+[18:05:26] matcher: ok what is 8
+[18:06:31] director: 8 is a short round basked with a single handle. The body is dark, with a very light stripe on the top and on the bottom.
+[18:07:01] matcher: what is 10
+[18:08:23] director: 10 is a very shallow round with a flat bottom and a single handle. The basket is a light color, with a thin reddish brown stripe around the top edge.
+[18:08:43] matcher: what is 11
+[18:10:28] director: 11 is a smooth woven cylindar, slightly flared at the top, with a flat bottom. There are 2 arched handles, and each handle is actually two handles acting as one
+[18:11:34] matcher: what is 12
+[18:13:30] director: 12 is oval shaped, with flat sides, like a handbag. There's a single handle attached to the short ends. The bottom is flat. The top edge dips down in the middle and goes up towards the two short ends
+
+
+======================================================================
+ROUND 2 (Group 29)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=C
+
+MATCHER METRICS:
+  Score (Accuracy): 100.00%
+  Attention Checks: Round Q=C
+
+CHAT TRANSCRIPT:
+[18:16:38] matcher: what is 1
+[18:18:02] director: 1 is rectangular with a flat bottom and one handle attached in the middle going from one long side over to the other. There are two flap style lids.
+[18:18:39] matcher: what is 2
+[18:19:34] director: 2 is a tall cylindar with a flat bottom and two small arched handles.
+[18:19:48] matcher: what 3
+[18:21:42] director: 3 is sort of an oval, with a flat bottom that's smaller than the top. The bottom corners are rounded. There's a single handle going from right to left, and a flat band around the top edge. The entire basket is one medium brown shade
+[18:22:13] matcher: what is 4
+[18:23:54] director: 4 is a shallow oval with 1 twisted handle going right to left. The body of the basket is darker brown flat woven strips, and the top edge is lighter reddish brown round sticks
+[18:24:34] matcher: what is 5
+[18:26:47] director: 5 is round with a flat bottom and 1 handle going right to left. The body is dark colored, with a light colored stripe on the bottom and top. The handle and upper edge are a third shade of brown, darker then the stripes, but lighter than the body.
+[18:27:34] matcher: what is 6
+[18:27:47] director: 6 is a rabbit facing right
+[18:27:58] matcher: 7?
+[18:28:13] director: 7 is a mouse facing straight at you
+[18:28:18] matcher: 8
+[18:29:43] director: 8 is round, flat bottom, very shallow, with 1 handle. Very light colored, with a reddish brown trim around the edge.
+[18:30:00] matcher: what is 9
+[18:31:15] director: 9 is rectangular, with a flat bottom and 1 handle going right to left attached to the short ends. The body is very dark, with the upper and lower edges and the handle in a lighter reddish brown
+[18:31:28] matcher: what is 10
+[18:32:19] director: 10 is a medium hight cylindar, slightly flared at the top, with two rounded handles
+[18:32:31] matcher: 11?
+[18:33:36] director: 11 is a flat sided oval with a flat bottom and a single handle going right to left between the two short ends. The whole basket is one shade of reddish brown
+[18:34:45] matcher: 12?
+[18:36:24] director: 12 is an oval with a flat bottom and 1 handle that splits at each end so it attaches in two places on ech short end. The basket is very light, with a tan bottom, and tan upper edge and handle
+
+
+======================================================================
+ROUND 3 (Group 30)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=B
+
+MATCHER METRICS:
+  Score (Accuracy): 91.67%
+  Attention Checks: Round Q=B
+
+CHAT TRANSCRIPT:
+[18:36:53] matcher: what is 1
+[18:38:31] director: 1 is a rectangle with a flat bottom and 1 handle going right to left attached to short ends. The body is very dark with the bottom, upper edge, and handle in a lighter reddish brown
+[18:38:53] matcher: what is 2
+[18:40:15] director: 2 is an oval with a flat bottom and 1 handle that splits into two at each end that are attached to the short ends. The basket is very light, with a tan bottom, and tan upper edge and handle
+[18:40:38] matcher: 3?
+[18:40:50] director: 3 is a mouse facing the viewer
+[18:40:56] matcher: 4
+[18:41:06] director: 4 is a rabbit facing right
+[18:41:11] matcher: 5
+[18:42:31] director: 5 is a flat sided oval with a flat bottom and 1 handle going right to left attached to the short sides. The whole basket is one shade of reddish brown. The upper edges dip down slightly instead of going straight across
+[18:42:52] matcher: 6
+[18:43:17] director: 6 is a tall cylindar with 2 very small arched handles
+[18:43:23] matcher: 7
+[18:44:50] director: 7 is a flat sided oval with the flat bottom smaller than the top. The top edge has a wide flat band around it. 1 handle going right to left attached to the short ends. Entire basket one brown color
+[18:45:24] matcher: 8
+[18:47:19] director: 8 is round, flat bottom, 1 handle going right to left. The body is very dark, with a lighter stripe on the bottom and top. The top edge and the handle are a third color, darker than the stripes, but lighter than the body of the basket
+[18:47:44] matcher: 9
+[18:49:49] director: 9 is oval, 1 twisted handle going right to left. The body of the basket is woven with wide flat bands in a darker brown, the upper edge is round rods. The upper edges and the handle are a lighter reddish brown
+[18:49:58] matcher: 10
+[18:50:50] director: 10 is round, very shallow, flat bottom, 1 handle, very light color, with a narrow reddish brown upper edge
+[18:50:57] matcher: 11
+[18:51:56] director: 11 is a cylindar, flat bottom, slightly flared top, two medium sized arched handles.
+[18:52:03] matcher: 12
+[18:53:20] director: 12 is rectangular, flat bottom, one wide handle attached in the middle of the two long sides. There are 2 flat flap lids
+
+
+======================================================================
+ROUND 4 (Group 31)
+======================================================================
+
+
+DIRECTOR METRICS:
+
+MATCHER METRICS:
+  Score (Accuracy): 66.67%
+
+CHAT TRANSCRIPT:
+[18:54:04] matcher: what is 1
+[18:54:46] director: 1 is round, very shallow, 1 handle, very light color with a narrow reddish brown edge
+[18:54:55] matcher: 2
+[18:56:27] director: 2 is oval, 1 handle going right to left attached to short ends, body is woven from darker wide flat bands, upper edges is woven from round rods. Upper edges and handle a lighter reddish brown
+[18:56:33] matcher: 3
+[18:56:43] director: 3 rabbit facing right
+[18:56:47] matcher: 4
+[18:57:56] director: 4 rectangle, flat bottom, 1 handle going right to left attached to short ends, very dark body, lower and upper edges and handle in lighter reddish brown
+[18:58:07] matcher: 5
+[18:58:55] director: 5 is medium height cylindar, flat bottom, slightly flared top, 2 medium sized arched handles
+[18:59:00] matcher: 6
+[19:00:33] director: 6 is a flat sided oval, lower corners rounded, 1 handle going right to left attached to short ends, wide flat band going around upper edges, flat bottom smaller than top
+[19:00:37] matcher: 7
+[19:00:54] director: 7 tall cylindar with 2 very small arched handles
+[19:00:58] matcher: 8
+[19:01:40] director: 8 rectangle, flat bottom, wide flat handle attached to middle of long sides, 2 flat flap lids
+[19:01:47] matcher: 9
+[19:02:00] director: 9 mouse facing viewer
+[19:02:06] matcher: 10
+[19:03:54] director: 10 oval, flat bottom, 1 handle that splits at the ends into 2 ends attached at short ends of oval. Basket has tan bottom and upper edges, with a wide w
+[19:04:01] matcher: 11
+[19:05:23] director: 11 flat sided oval, flat bottom, 1 handle going right to left attached to narrow ends. Upper edges dips down instead of going straight across. Whole basket 1 reddish brown color
+[19:05:36] matcher: 12
+[19:07:06] director: 12 round, flat bottom, 1 handle going right to left. Body very dark, light colored stripe on bottom and top, upper edges and handle a 3rd color darker than stripes but lighter than body
+

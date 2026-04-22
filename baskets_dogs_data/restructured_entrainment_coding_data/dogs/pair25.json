@@ -1,0 +1,62 @@
+{
+    "Card1":{
+        "Round1":"facing to left, golden colored, black area in middle, long ears",
+        "Round2":"very short, middle area is very black, legs are golden, very short black nose , very long ears, long tail, looking to left",
+        "Round3":"brown patch in center, body and head are both looking nine o'clock",
+        "Round4":"body has black area, black patch in middle of body"
+    },
+    "Card2":{
+        "Round1":"left leg is ready to pounce on somebody, it's not facing all the way to left, it's facing more eight o'clock, has much shorter ears, it's golden, only his head is facing eight o' clock, everything else is facing out",
+        "Round2":"it's looking something between eight and nine o'clock, its hind legs look like it's gonna go somewhere, it's orange, gold colored, middle area is black",
+        "Round3":"golden colored, very short ears, hind legs are on left side, looks like it's about ready to run to something",
+        "Round4":"golden, short neck, very small ears, hind legs are higher than rest of body, looks like it's about to go somewhere, hind legs are on left side of body"
+    },
+    "Card3":{
+        "Round1":"with longer ears, has more of a yellowish color, very light golden, facing to left, it's sitting down, has little belt on neck",
+        "Round2":"long dark ears, looking to left, sitting on grass, body's faced towards four o'clock but head is towards nine o'clock, body's golden, collar is on neck",
+        "Round3":"golden, ears a little bit darker than rest of body, body's looking five, head is looking eight, nose is black, has collar on neck, body's on ground but rest of body's up, medium sized tail that's on ground, tail's on bottom on left side",
+        "Round4":"has collar on neck, body's facing five, head is facing seven or eight, golden colored, tail on bottom left, on grass"
+    },
+    "Card4":{
+        "Round1":"very small, facing four or five o'clock, black colored",
+        "Round2":"looking toward five o'clock, very small , black",
+        "Round3":"petite, body and head both at five o'clock",
+        "Round4":"black, small, facing five o'clock"
+    },
+    "Card5":{
+        "Round1":"shaggy looking, black, very petite, facing seven o'clock but just the head, body's facing five o'clock",
+        "Round2":"small, looks like it has hairdo, long ears, left and right, black, has little golden circular chain attached to neck, looking at eight o'clock",
+        "Round3":"head: seven o'clock, body: five o'clock, black, small, circular chain",
+        "Round4":"small, circular chain on neck"
+    },
+    "Card6":{
+        "Round1":"looks like Doberman, facing to left, black colored, little orange streak on nose",
+        "Round2":"black dog, with orange streak near nose, very thin legs, looking to left",
+        "Round3":"black, thin legs, body and head both looking to left",
+        "Round4":"Doberman, black, with thin legs"
+    },
+    "Card7":{
+        "Round1":"looks like it's lying down on floor, it's also golden, ears are a lot lighter than rest of body, facing to left",
+        "Round2":"looks like it's lying down, ears are lighter than rest of body, looks like it's on grass",
+        "Round3":"lying in grass, golden, light colored ears",
+        "Round4":"lying on grass, ears are lighter than rest of body, facing to left"
+    },
+    "Card8":{
+        "Round1":"facing to left, nose area and mouth is black, very short ears, looks like it's about to run, ears are sticking up",
+        "Round2":"looking to left, black nose, golden colored, ready to pounce, very short ears, hind legs ready to run towards something, body and everything are aligned, very short tail",
+        "Round3":"short ears, ready to pounce, black nose and mouth, golden",
+        "Round4":"looks like bulldog, ready to go all the way to left, golden, black nose, like it's running"
+    },
+    "Card9":{
+        "Round1":"white colored, looks like wolf, facing seven o' clock",
+        "Round2":"looks like wolf",
+        "Round3":"wolf",
+        "Round4":"wolf"
+    },
+    "Card10":{
+        "Round1":"looks like very old dog, sitting down, black, looking to left, very short ears",
+        "Round2":"shaggy, it looks old, short ears, medium sized tail, looking to left, body and face both, on grass",
+        "Round3":"small, black body and head both nine o' clock, medium sized tail, sitting down on grass",
+        "Round4":"small black, looks old, medium tail, on grass, whole body's facing nine o' clock"
+    }
+}

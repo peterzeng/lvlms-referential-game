@@ -1,0 +1,672 @@
+Session: knco59ak
+Group ID (canonical): 57
+Raw group IDs (by round): 57, 67, 71, 73
+Participants: director: no1rvlqs (prolific: 666b16c3f185f92a92c45d42), matcher: q4b56tqw (prolific: 65c243c37e0d77ca70ee030e)
+Total Rounds: 4
+Timing:
+  Round 1: 42m 23s
+  Round 2: 17m 20s
+  Round 3: 12m 6s
+  Round 4: 24m 24s
+  Total: 1h 36m 13s
+======================================================================
+
+
+======================================================================
+ROUND 1 (Group 57)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=A
+
+MATCHER METRICS:
+  Score (Accuracy): 100.00%
+  Attention Checks: Round Q=A
+
+CHAT TRANSCRIPT:
+[20:52:39] matcher: Hello!
+[20:52:54] director: hello!
+[20:53:03] director: the first basket looks like a bunny
+[20:53:25] matcher: To clarify, the bunny is facing towards the right?
+[20:53:31] director: right
+[20:53:42] matcher: perfect, got it!
+[20:54:21] director: awesome! the second basket has a very deep bottom basket part and a handle over the top that is about a half circle in looks
+[20:54:30] director: sorry i'm horrible at describing things..
+[20:55:15] matcher: no its okay no worries, some of these look similar lol...tell me about the color, I see some that have a deep basket, is it like rounded at the bottom and brown?
+[20:55:25] director: rounded at the bottom
+[20:55:46] matcher: is it not the one that has a light yellow/white lined area in the middle of it?
+[20:56:06] director: it looks deep...no not that one. the bottom is really rounded
+[20:56:22] matcher: okay, is it aerial view or straight on, or is it off to the left side?
+[20:56:43] director: straight on and it appears to be turned a little to the left
+[20:56:43] matcher: I am thinking it might be one of the ones that are really rounded and deep, but not like the overly wide ones
+[20:56:59] matcher: oh okay, and its dark? and has a dark handle?
+[20:57:22] director: the handle and the basket are the same color.  it has a bit of a rim around the top
+[20:57:35] director: kind of a medium brown and it looks a bit shiney
+[20:58:04] director: there's a bit of a shine on the rim and on the left side
+[20:58:10] matcher: grr i am stuck between the two that look similar. the one I see that faces left has a dark blackish handle and is brown, vs the one that is straight on and is brown and brown
+[20:58:44] director: i'd do they both have a bit of a shine?
+[20:59:13] matcher: they all seem bright to me, they look more like flinstones would have made them
+[20:59:20] matcher: like caveman
+[20:59:26] director: lol
+[21:00:07] matcher: i assume our baskets are not in the same order so we can;t use that either lol
+[21:00:31] director: ugh...it's a deep, basket, slightly facing left with a sort of thick rim around the top. the handle and basket appear to be the same shade
+[21:00:42] matcher: the one with the dark handle seems slightly shiny and its turn to the left but you said its the same color but the same shade is faced head on for me
+[21:01:24] director: maybe go with that one...your computer might be showing a different color variation than mine
+[21:01:37] matcher: hold on what about the brim around the base of the basket? between the two there is one that is larger and one that is smaller
+[21:01:40] matcher: oh man you might be right
+[21:01:54] matcher: like at the top of it
+[21:02:53] director: the brim is at the top.  it looks like a pretty widish brim...and you can see a little of the inside of the other side of the basket
+[21:03:25] matcher: other side meaning back of it?
+[21:03:50] matcher: the one i was gonna pick between the two had a smaller width at the top of the basket, not the handle, but the 3D part
+[21:03:55] matcher: because that one is facing left
+[21:04:46] director: it's facing just the tiniest bit left.  maybe roll with that one. i think you might have some similar baskets i can't see
+[21:04:56] matcher: ahhh okay
+[21:04:58] matcher: i did that one
+[21:05:00] director: oh these crazy people who make tests for us...lol
+[21:05:04] matcher: sorry that one took forever
+[21:05:07] matcher: LOLOL
+[21:05:14] matcher: we be trying our best and its only round 1
+[21:05:14] director: no, i don't care.....lol
+[21:05:15] matcher: crying emoji
+[21:05:32] director: lets just try and have fun with the researchers crazy tests...
+[21:05:41] matcher: ok ok cool
+[21:05:44] director: okay! next one is a picnic basket!
+[21:05:49] matcher: square
+[21:06:11] matcher: /rectangle overlooking a bit from above
+[21:06:13] director: the left side of the top of the picnic basket is closed and the right side is somewhat open! squarish
+[21:06:22] matcher: oh got it
+[21:06:23] matcher: nice
+[21:06:23] director: it's sort of a tan color
+[21:06:27] director: awesome
+[21:06:35] matcher: good description
+[21:06:44] director: a miracle!
+[21:06:47] matcher: LOLOL
+[21:06:54] matcher: im not sure we get bonus if we get it right lol
+[21:07:45] director: hey we're trying! the next on is shown slightly from above. it's brown with some white woven around the top.
+[21:08:29] director: it has a thin handle that veers into two sections when it attaches to the basket.
+[21:08:43] matcher: oh is it split like white and then black and then brown
+[21:08:53] matcher: or the white then brown split one with two handles
+[21:09:21] matcher: and yes we are :)
+[21:09:22] director: i don't see any black on this one at all but it could be your computer
+[21:09:38] matcher: does it have white tape it looks like on the handles
+[21:09:54] director: it does kind of look like that
+[21:10:03] matcher: there is two kinda similar, one is white and brown as the color of the base and the other is more yellow, then black thin line, and then brown
+[21:10:23] director: i think the first one sounds more like it
+[21:10:29] matcher: oh shoot both kinda have that tape thing, but the one I think is it the most turned to the right?
+[21:11:29] director: the handle is the distinctive thing.  it's one piece and then it branches out where attaching to the basket. where it branches out there is some white, could be like tape. then at the top of the basket it is tan
+[21:11:48] director: then below that there is some white threading through the tan, and then tan below
+[21:12:14] director: does that help?  oh and it's slightly angled and you can see inside the basket a little.
+[21:12:23] matcher: yep i think i got it!
+[21:12:31] director: awesome!
+[21:12:36] matcher: the other one looks more yellow so i didnt pick that one
+[21:12:45] director: works for me!
+[21:13:44] director: this basket is shown face on (not at any angle).  it has kind of a shallow basket and then a high handle over it.  The handle is much higher than the bottom of the basket.  it
+[21:14:11] director: it looks like something you'd never use for anything.
+[21:14:30] matcher: hm is it like all brown and around the rim it has like rope like design?
+[21:14:58] matcher: it looks like you could put like maybe a couple things in it and thats it, its almost like trapezoidal if it had sharp edges lol
+[21:15:05] director: it's definitely all brown. the handle looks a bit like rope
+[21:15:13] matcher: got it!
+[21:15:16] matcher: yay
+[21:15:22] director: yay!
+[21:15:34] matcher: im just waiting for you to say "mouse" and ill be like i gotchu if thats one of the ones
+[21:15:41] matcher: LOL
+[21:15:48] director: omg mouse!!!!
+[21:16:11] director: yessss! i was wondering if you'd see that likeness.  mouse is next
+[21:16:14] matcher: wait like fr?
+[21:16:19] director: yeah fr
+[21:16:23] matcher: BROOOOOOOOOOOO
+[21:16:28] director: lolllll
+[21:16:30] matcher: "i GOTCHU"
+[21:16:40] director: i'm dying
+[21:16:42] matcher: mouse and bunny are my favs
+[21:16:52] matcher: yo i swear that was like ESP or something
+[21:17:03] director: right? i'm crying.....
+[21:17:33] matcher: yo if ur on reddit and make a post and say shout out to my mouse or bunny partner, i know it will be you! LOL
+[21:18:12] director: okay! LOL! i wasn't really expecting to have fun with this....next one! this one is seen straight on.  it's
+[21:18:17] director: brown and tan
+[21:18:28] director: it has kind of a deep basket
+[21:18:42] director: tan at the bottom, brown in the middle and tan at the top
+[21:18:42] matcher: LOL me and you both
+[21:18:57] director: tan handle
+[21:19:14] director: i'm still laughing. my pet is staring...
+[21:19:29] matcher: is it similar to #5 but it is green in the middle and tan on top and bottom?
+[21:19:34] matcher: yo what kind of pet do you have
+[21:19:39] director: cat
+[21:19:44] matcher: awwww
+[21:19:55] matcher: im still laughing too i also had a mouth drop
+[21:19:58] matcher: or should i say
+[21:20:01] matcher: mouse drop
+[21:20:01] director: yeah, he's like wut?
+[21:20:03] matcher: .....
+[21:20:05] director: lol
+[21:20:12] matcher: dad humor but im not a dad
+[21:20:15] director: okay no green
+[21:20:17] matcher: hm
+[21:20:22] director: dad humor is always good.
+[21:20:25] matcher: and it has a handle?
+[21:20:28] matcher: ugh love it
+[21:20:30] director: could look green on your computer
+[21:20:38] matcher: is it square vs circular?
+[21:20:45] director: oh square.
+[21:20:58] matcher: ok got ti!
+[21:21:18] director: awesome! okay next one is kinda similar but round
+[21:21:30] matcher: is it white, black, white with black handle
+[21:21:33] matcher: and straight on
+[21:22:06] director: it has cream at the bottom brown in the middle cream and then brown hand that looks like it loops around the top
+[21:22:33] director: yeah straight on. hand is kind of thick.
+[21:22:41] matcher: is it like kinda ropey like a twizzler handle
+[21:23:21] director: i can't see it that closely. it's not a finely woven basket.  you can really see the weaving on this one.
+[21:23:32] matcher: i think i got it im going for it
+[21:23:45] director: okay this next one looks like an elephant
+[21:23:59] matcher: ?
+[21:24:09] director: i'm messing with you
+[21:24:09] matcher: you lost me there
+[21:24:13] matcher: LOLOLOL
+[21:24:20] matcher: i was like stoppp am i missing a page
+[21:24:25] director: this next one looks like a laundry basket
+[21:24:25] matcher: that was good
+[21:24:28] matcher: dude
+[21:24:32] matcher: i thought you were talking about that one
+[21:24:37] matcher: the one with the tinny bear ears on the side
+[21:24:48] matcher: GOT EM
+[21:24:49] director: yeah!
+[21:25:07] director: okay! this next one is seen from above
+[21:25:17] matcher: rectangle?
+[21:25:21] director: it's super wide and round
+[21:25:28] matcher: eww one of those
+[21:25:31] matcher: those are hard
+[21:25:51] matcher: is it like directly above and is brown basket with white/yellow handle
+[21:26:07] matcher: and handle is like curved away from the photo like vertically
+[21:26:10] director: it isn't quite directly above but close
+[21:26:34] director: it has sort of a circle in reddish tan in the middle...a small one
+[21:26:55] matcher: can you see more cobweb style from this one or is the handle like in the way
+[21:27:06] matcher: in terms of the base of the  basket
+[21:27:29] director: the handle doesn't cover any of the bottom
+[21:27:39] director: it looks like something for easter eggs
+[21:27:42] matcher: like when your looking at it in the picture
+[21:27:48] matcher: eek both look like it lol
+[21:28:06] matcher: one handle is from left to right and other is from like back of picture to front
+[21:28:12] director: handle is on the left side at the top and the right side at the bottom
+[21:28:43] director: of the right side of the handle is more to the right side of the image
+[21:28:52] matcher: ok got it!
+[21:28:56] matcher: yo two more
+[21:29:02] matcher: are any of these the rectangle
+[21:29:17] matcher: or the one without the handle
+[21:29:23] director: okay! this one is round the last one is a little rectangular
+[21:29:35] matcher: awww its not the distinct ones
+[21:29:36] matcher: okay
+[21:29:36] director: it looks like it has a basket within a basket
+[21:30:37] director: its seen face on so you can see slightly inside and it looks like there might be another basket inside.  it has little bears ear handles
+[21:30:53] matcher: this is the laundry basket but shorter?
+[21:31:04] director: it looks kinda of crafty
+[21:31:43] director: it is shorter. you can see the weaving.
+[21:31:50] matcher: yeah i think its this one
+[21:31:59] matcher: to confirm, the laundry basket one from before was tall right?
+[21:32:10] director: yeah tall
+[21:32:13] matcher: okay perf
+[21:32:15] matcher: last one!
+[21:32:17] matcher: of this round
+[21:32:18] matcher: lol
+[21:33:03] director: this one looks slightly rounded, especially at the rim. it kind of scoops down
+[21:33:22] matcher: swoops in the middle a bit kind of like a letter?
+[21:33:30] director: it is shown facing a more to right
+[21:33:56] director: yeah! it has a handle that is small in height than the base of the basket
+[21:34:07] director: and you can see the inside of the basket in the back
+[21:34:09] matcher: GOT EM
+[21:34:21] matcher: shall i submit? I think we did great :)
+[21:34:34] director: omg!  we did it! we did great for sure!
+[21:34:40] matcher: yesssssssssssss
+[21:34:49] director: thank yooooooo!
+[21:35:00] director: yeah submit
+[21:35:02] matcher: ajajjajaj no, thank you!!
+
+
+======================================================================
+ROUND 2 (Group 67)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=C
+
+MATCHER METRICS:
+  Score (Accuracy): 100.00%
+  Attention Checks: Round Q=C
+
+CHAT TRANSCRIPT:
+[21:35:53] matcher: HELLO!
+[21:36:03] director: Hiiiiii!
+[21:36:15] matcher: UMMM yeah so we are amazing and we got it all right
+[21:36:31] matcher: someone hire us for communication skills
+[21:36:38] director: right????!!!  i'm kind of amazed
+[21:36:49] director: these are the same baskets as before
+[21:36:50] matcher: nah i had faith this wholeeeee time lolol but also yeah
+[21:36:53] matcher: oh my gosh
+[21:36:57] matcher: this should go quicker then ajajaja
+[21:37:12] matcher: i thought they were all gonna be different
+[21:37:18] director: i just do my best on these crazy prolific things.  i've taken some insane studies
+[21:37:36] director: okay, first one is the picnic basket with one side open
+[21:37:42] matcher: yooo me too, sometimes my brain ends up not working afterwards and i need a reset
+[21:37:49] matcher: i love it though
+[21:37:59] matcher: gotchu my friend next
+[21:38:17] director: yeah, i like it too.  i had one where they made me watch videos of a flying cow with a unicorn horn doing ???
+[21:38:27] director: okay back to work. laundry basket
+[21:38:47] matcher: lolol what that sounds like so fun, idk if i have had fun ones like that before ajjajaa
+[21:39:14] matcher: actually in one i learned about a youtube video about monkey does or monkey explains and i now love that channel, monkey explains ADHD and stuff lol
+[21:39:21] matcher: got em
+[21:39:38] director: LOL...WUT??
+[21:39:54] matcher: yes and how to have better sleep
+[21:39:59] matcher: 10/10 recommend its super cute
+[21:40:13] director: okay next one is the second one we did last time that took forever.
+[21:40:25] director: oh better sleep is always good. what the channel?
+[21:40:43] director: Deep basket with the rim, kinda shiney
+[21:40:48] matcher: ajaja giving me ptsd over here
+[21:40:49] matcher: gothcu
+[21:41:10] director: this one was the one with the low basket and the high handle
+[21:41:21] director: handle bigger than the basket
+[21:41:26] director: front on
+[21:41:37] matcher: I think its Monkey Mind 101
+[21:41:55] director: monkey mind!
+[21:42:07] matcher: yessss
+[21:42:15] director: got it?
+[21:42:20] matcher: um wait
+[21:42:39] matcher: i forgoet that one
+[21:43:02] matcher: was it rope one?
+[21:43:25] director: its taken straight on and has a short basket and then a high handle over it, high than he basket it's.
+[21:43:32] director: itself....sort...
+[21:43:40] director: my brain is starting to fry her.
+[21:43:49] matcher: there was one that is like twisted rope on the handle
+[21:43:51] matcher: ajjaja me too
+[21:44:02] director: oh yeah! looks like twisted rope!
+[21:44:08] matcher: ok got ti!
+[21:44:27] director: next one cream at bottom, dark in middle, cream at top
+[21:44:38] matcher: got it
+[21:44:41] director: dark handle, roughly woven
+[21:44:47] director: okay BUNNY!
+[21:44:54] matcher: YESSSSSSSSSSSSSSSSSSSS
+[21:45:02] matcher: someone get me an amazon link for that
+[21:45:04] matcher: lol
+[21:45:14] director: now we know what to get you for xmas
+[21:45:15] matcher: i have a bunny lamp and its literally a white bunny as the base with a lamp on top
+[21:45:21] matcher: Yes please
+[21:45:23] matcher: ajajjjaja
+[21:45:30] matcher: yo we really get each other
+[21:45:33] director: i'm sorry...what???? a bunny lamp???
+[21:45:36] matcher: yes
+[21:45:36] director: omg!!!
+[21:45:39] matcher: its not real ofc
+[21:45:56] director: LOL!!!!!!!
+[21:46:06] matcher: if you have reddit and make a post ill find you and send you a pic ajajja
+[21:46:09] director: i'm so tired i'm like fr???
+[21:46:11] matcher: on the sub
+[21:46:15] matcher: LOLOL
+[21:46:25] director: okay next up
+[21:46:33] director: MOUSE
+[21:46:38] matcher: yayyyy
+[21:46:50] matcher: squeak squeak
+[21:47:02] director: eckkkkk!
+[21:47:17] director: okay now the one mostly from above
+[21:47:29] director: low flat one with the thin handle
+[21:47:29] matcher: i feel like a childrens book rn "bunny and mouse are friends" "bunny is joining mouse for some tea"
+[21:47:34] matcher: peppa pig comes in lol
+[21:48:04] matcher: the circle red one in the middle?
+[21:48:06] director: hahahaha! bunny and house doing some scientific study
+[21:48:12] director: yeah!
+[21:48:18] matcher: got em
+[21:48:29] matcher: yo "bunny and mouse went to the house"
+[21:48:39] matcher: new iteration on goodnight moon
+[21:49:33] director: I like that! .....could be yr bestselling kids book. and next square one face on, tan top, tan bottom, brown in middle, tan handle
+[21:49:46] matcher: yes please omg like the froggy books
+[21:50:00] director: aw...frogs rule
+[21:50:09] matcher: got it
+[21:50:13] matcher: did you read those books?
+[21:51:05] director: i can't remember honestly. I think i can only remember the last few books I've read. my brain is super cluttered with things.....haha
+[21:51:17] matcher: super cluttered with baskets air
+[21:51:19] director: basket within basket!
+[21:51:28] director: rn with baskets...
+[21:51:40] matcher: mini laundry basket?
+[21:51:45] director: yeah!
+[21:51:55] director: and basket with envelope top!
+[21:51:55] matcher: got it
+[21:52:05] director: and basket with funny handles
+[21:52:06] matcher: for #11
+[21:52:12] director: yeah!
+[21:52:14] matcher: is envelope
+[21:52:22] director: yup!
+[21:52:26] matcher: funny two handles?
+[21:52:46] director: the one handle that turns into two parts at the top of the basket
+[21:52:54] matcher: got i
+[21:52:55] matcher: it
+[21:52:57] director: with white tape looking part on handle!
+[21:53:00] matcher: ok submit?
+[21:53:03] director: yes!
+[21:53:06] matcher: i think they are all the same ones
+[21:53:09] matcher: ok heres to hoping....
+[21:53:13] director: they were!
+
+
+======================================================================
+ROUND 3 (Group 71)
+======================================================================
+
+
+DIRECTOR METRICS:
+  Attention Checks: Round Q=B
+
+MATCHER METRICS:
+  Score (Accuracy): 100.00%
+  Attention Checks: Round Q=B
+
+CHAT TRANSCRIPT:
+[21:53:49] matcher: we back!!!!!!!
+[21:53:54] matcher: are they the same baskets again
+[21:53:55] director: Hi!!!
+[21:54:00] director: same baskets!
+[21:54:05] matcher: woohoo
+[21:54:09] matcher: ive tried to remember the order lol
+[21:54:26] director: tan bottom brown middle tan top tan handle forward photo
+[21:54:37] director: maybe we should name these
+[21:54:44] matcher: yessss lets do that
+[21:54:53] matcher: this one is gonna be called square brown
+[21:55:16] director: okay, hopefully i'll remember that..square brown
+[21:55:21] director: weird handle
+[21:55:29] matcher: ajjajjja that one will be weird handle
+[21:55:31] matcher: got it
+[21:55:41] director: MOUSE!
+[21:55:47] matcher: MY MANS
+[21:55:57] director: RABBIT!
+[21:56:04] matcher: YO THEY TOTALLY BE HANGING OUT
+[21:56:11] director: always!
+[21:56:12] matcher: the first one they hopped over to each other and now they are inseparable
+[21:56:16] matcher: ok ok
+[21:56:22] director: they besties
+[21:56:28] director: envelope
+[21:56:31] matcher: put them in a disney movie
+[21:56:39] matcher: yessss
+[21:56:48] matcher: yo they would fit in laundry basket together
+[21:56:48] director: imma put them in my stop motion horror movie..
+[21:56:54] matcher: NO
+[21:57:01] matcher: what happens for it to be horror lol
+[21:57:12] director: they are the final girls
+[21:57:19] matcher: NOOOOOOOOOOO quick the quicker picker upper
+[21:57:27] matcher: the last rodents standing lol
+[21:57:29] director: against the chainsaw guy
+[21:57:32] matcher: oh my gosh
+[21:57:33] director: anyways...
+[21:57:44] matcher: its a hybrid mouse and bunny chainsaw dude
+[21:57:47] matcher: i actually love that
+[21:57:54] matcher: yo @ me some creds when you make that
+[21:58:02] matcher: im having too much fun
+[21:58:02] director: its always good to have some cute in a horror movie
+[21:58:08] director: me too....
+[21:58:15] matcher: ajjajjaj like how the bunny lost its feet
+[21:58:18] director: oh okay...laundry basket
+[21:58:18] matcher: cuz mouse only has one
+[21:58:21] matcher: yay im glad
+[21:58:30] matcher: YO DIDNT I SAY LAUNDRY BASKET
+[21:58:31] matcher: esp
+[21:58:32] matcher: okay
+[21:59:03] director: wait where are we...bunny, envelope, laundry basket
+[21:59:10] matcher: yes
+[21:59:22] director: and then there is the second one we had some trouble with last time
+[21:59:27] matcher: sorry ajjaa i wasnt screaming at you i was excited that i mentioned it
+[21:59:42] director: oh no worries! deep basket, slightly shiney,
+[21:59:55] matcher: anytime im in caps im just excited
+[22:00:01] matcher: probably shouldve clarified that sooner
+[22:00:08] matcher: oh the one with hte bigger handle?
+[22:00:19] director: i know, i do that all the time. I THINK EVERYONE DOES WHEN THEY'RE EXCITED!
+[22:00:25] matcher: ajjajjja
+[22:01:07] director: it's sort of a dark tan, a little bit of a sheen, rounded bottom, kind of a rim at the top. it took us forever the first time
+[22:01:15] director: facing a little to the left
+[22:01:16] matcher: the rope one?
+[22:01:29] director: no, not rope.
+[22:01:34] matcher: wait the circle red one at the bottom
+[22:01:47] director: no not circle red.
+[22:02:04] matcher: OHHHHHHHHHHHHHHHH
+[22:02:07] director: it has a deep rounded bottom and is seen slight turned to the left,
+[22:02:07] matcher: the left one
+[22:02:12] matcher: with the black handle
+[22:02:24] matcher: that one gonna be called left confusing one
+[22:02:33] director: okay, the confusing one!
+[22:02:38] matcher: yes ajjjaa ok
+[22:02:51] director: tan brown tan roughly woven
+[22:03:12] director: seen face on
+[22:03:15] matcher: the short one
+[22:03:19] matcher: the cream black cream
+[22:03:28] director: cream black cream - yes!
+[22:03:33] matcher: ok got it
+[22:03:35] matcher: that one will be oreo
+[22:03:38] matcher: if u want
+[22:03:42] director: yes, i want
+[22:03:43] matcher: sorry i dont mean to be like demanding ajajjaa
+[22:03:49] matcher: oh ok cool
+[22:03:50] matcher: yay
+[22:03:57] director: oh i don't care....just say the word.
+[22:04:02] matcher: WORD
+[22:04:09] director: i like it when i have clear instructions...lol
+[22:04:16] matcher: ......crickets
+[22:04:17] matcher: me too
+[22:04:27] director: okay, seen face on short basket, tall handle
+[22:04:39] matcher: rope
+[22:04:46] director: rope! yes!
+[22:04:51] matcher: kk
+[22:04:55] director: red circle
+[22:05:06] matcher: when is small laundry basket and and picnic
+[22:05:06] matcher: got it
+[22:05:25] director: small laundry basket now and picnic basket is last
+[22:05:30] director: thats it!
+[22:05:35] matcher: so i guessed that order
+[22:05:37] matcher: LOLOL
+[22:05:38] matcher: YAY
+[22:05:41] matcher: ok hope we got it right
+[22:05:42] director: PSYCHIC!
+[22:05:42] matcher: lol
+[22:05:46] matcher: my ESP on FIRE
+[22:05:51] matcher: ok bye see you soon
+[22:05:55] director: kkk
+
+
+======================================================================
+ROUND 4 (Group 73)
+======================================================================
+
+
+DIRECTOR METRICS:
+
+MATCHER METRICS:
+  Score (Accuracy): 100.00%
+
+CHAT TRANSCRIPT:
+[22:06:42] matcher: oh my gosh last one im gonna be sad
+[22:06:50] director: i know...!
+[22:06:53] matcher: idk who you are but i feel sad i wont be able to talk to you
+[22:06:59] matcher: crying emoji
+[22:07:13] director: sobbing!
+[22:07:19] matcher: sniffling
+[22:07:22] matcher: balling
+[22:07:38] director: kicking my legs on the floor and wailing.....
+[22:07:38] matcher: awww lol
+[22:07:45] matcher: throwing a temper tantrum
+[22:07:47] matcher: ajajjajaja
+[22:08:01] director: throwing my books at the wall....
+[22:08:13] matcher: "THROWING MY HANDS A LOT"
+[22:08:16] matcher: HMMMMMMMMMMMM CYNTHIA
+[22:08:23] matcher: sorry thats what it reminded me of
+[22:08:25] matcher: 22 Jump
+[22:08:35] matcher: throwing hands throwing fists
+[22:08:39] matcher: throwing idiot sandwhiches
+[22:09:04] director: throwing baskets all over
+[22:09:10] matcher: yesss
+[22:09:13] matcher: becomes a basket
+[22:09:26] matcher: like brother bear but brother basket
+[22:09:40] director: so these are all the same baskets.  i wish there were a bear basket....
+[22:09:46] director: red circle
+[22:09:51] matcher: the bear one is hiding in laundry
+[22:09:53] matcher: A hA
+[22:09:57] matcher: got it
+[22:10:02] director: hahahaha!!!!
+[22:10:03] matcher: he is HIBERNATING
+[22:10:08] matcher: but yes
+[22:10:13] matcher: i know what you want for christmas
+[22:10:20] director: as bears do!
+[22:10:25] director: a chainsaw?
+[22:10:35] director: okay i've forgotten our name for this one.
+[22:10:49] director: low basket, high handle...oh its rope!!!!
+[22:10:50] matcher: girl that was our story about the mouse and bunny ajjajaa
+[22:10:54] matcher: ohhhhhhhhhhhhh
+[22:10:58] director: jk
+[22:10:58] matcher: got it
+[22:11:03] matcher: LOL
+[22:11:05] matcher: got me there
+[22:11:16] matcher: i was like its alright my brain needs a rest
+[22:11:31] director: next up RABBIT!
+[22:11:37] matcher: got it
+[22:11:46] director: i'm home sick from work so fr i need a brain rest
+[22:11:48] matcher: also i realize i said girl and idk what you are i just say it sarcastically lol
+[22:11:52] matcher: YO STOP
+[22:11:56] matcher: i was literally sick all week
+[22:11:59] matcher: starting monday
+[22:12:02] matcher: im at the end of it
+[22:12:06] matcher: im so sorry
+[22:12:07] director: oh no, what did you have?
+[22:12:09] matcher: sending hugs
+[22:12:14] director: hugs back
+[22:12:15] matcher: honestly just felt like a bad cold
+[22:12:17] matcher: aww thanks
+[22:12:34] matcher: it started off sore throat, then congestion, then runny nose, then headache, stuffiness, sore throat again
+[22:12:37] matcher: and that is where i am at
+[22:12:39] matcher: hbu?
+[22:12:49] director: okay, brown square??? is that what we called it? tan brown tan front facing
+[22:13:15] matcher: yeah that one!
+[22:13:22] director: some kind of flu. it was horrible. can't wait to eat a burrito again.....
+[22:13:27] matcher: aww no
+[22:13:32] matcher: did you have chills?
+[22:13:32] director: 2nd laundry basket
+[22:13:42] matcher: got it!
+[22:13:47] matcher: oh i forgot
+[22:13:50] matcher: i have cough now
+[22:13:53] director: kinda yeah. i was so sick. cat loved my laying in bed all day tho'
+[22:13:58] matcher: so i reminded myself as i coughed
+[22:14:10] director: takes forever to get rid of a cough. they just linger....
+[22:14:10] matcher: awww do you have a snuggly cat?
+[22:14:35] director: he clings and clings...
+[22:14:37] director: so sweet
+[22:14:38] matcher: ughh ikr, i started peloton again this week i felt so bad i didnt do it at all and then i literally had to spit immediately after it felt like stuff was in my throat
+[22:14:40] matcher: awwww
+[22:14:44] matcher: whats ur cats name
+[22:14:48] matcher: i used to have 2 cats
+[22:14:57] matcher: i have dog now
+[22:15:11] matcher: 2 cats growing up*
+[22:15:19] director: oh what's your dogs name? my cat is Demoni (because I like horror movies)
+[22:15:30] matcher: ohhhhhh theres where the horror comes from ajjaja
+[22:15:33] matcher: mine is Bruiser
+[22:15:39] matcher: he is german shepherd, all black
+[22:15:42] matcher: that is so cute
+[22:15:43] director: okay, next up the difficult one.  what did we call that one.
+[22:15:50] matcher: confusing one?
+[22:15:57] matcher: what breed is ur cat?
+[22:16:10] director: oh a black german shepherd! beaufitul!
+[22:16:28] director: a tabby? with with feet?
+[22:16:36] matcher: yesss he got discriminated against because he was in TJ MAXX and he barked and tried to bite someone because they broke a glass behind him and im like WOW
+[22:16:38] matcher: lol
+[22:16:42] matcher: now he cant go
+[22:16:46] matcher: to that specific store
+[22:17:00] matcher: hes such a cuddle and so sweet but hates anyone not in his pack
+[22:17:04] matcher: awww tabby?
+[22:17:13] matcher: i had two tabby! one i named mittens cause she had mittens paw
+[22:17:16] matcher: what color tabby?
+[22:17:59] director: he's brown black with the white feets.  thats funny i had a cat named mittens too!
+[22:18:15] matcher: wait was this one the brown one to the left?
+[22:18:17] matcher: no wayyyyyyyyyyy
+[22:18:20] matcher: such a good name ajjjaa
+[22:18:24] matcher: what breed was ur mittens?
+[22:18:30] matcher: ur cat is adorable
+[22:18:56] director: she was an orange tabby with white feet. so pretty! green eyes! quirky!
+[22:18:59] matcher: look at these similarities
+[22:19:06] matcher: no wayyyyy mittens brother was orange and white
+[22:19:20] matcher: her sister was wiggles and she was grey and black and mittens was all kinds of shades of brown with black
+[22:19:23] matcher: jajajajja
+[22:19:28] matcher: mittens had those green eyes
+[22:19:30] matcher: crying
+[22:19:31] matcher: lol
+[22:19:40] director: no way!!!! two green eyed mittens!
+[22:19:45] matcher: yessssssssss
+[22:19:50] matcher: kid you not
+[22:20:00] director: orange cats kinda rule....she was so quirky
+[22:20:07] matcher: ajajajja they do ajjajaa
+[22:20:19] director: okay...maybe we should do these baskets....
+[22:20:24] matcher: yeah yeah
+[22:20:29] matcher: so the confusing one to the left?
+[22:20:56] director: confusing one, laundry basket, picnic basket, mouse, weird basket with handle that turns into two parts, envelope,
+[22:21:23] director: and the cream dark brown cream ...what did we name that one
+[22:21:30] matcher: YAY GOT IT
+[22:21:32] matcher: that was so good
+[22:21:33] matcher: jjaaajja
+[22:21:50] director: ugh.....that was so much fun!!!!!
+[22:22:03] matcher: ugh it so was! i wish i knew you in real life you are so much fun and so nice
+[22:22:12] matcher: i dont have a lot of friends so i value talking with people liek you
+[22:22:14] matcher: lol
+[22:22:28] matcher: like you were my friend in real life ajjaaj
+[22:22:34] director: well, you never know !  if you're ever in san francisco go to a horror movie and i'll be there!
+[22:22:48] matcher: damnnnnnnn thats on the other side of the country from me ajajjaa
+[22:23:01] matcher: we can be virtual friends :)
+[22:23:06] matcher: game lol
+[22:23:13] matcher: netflix party
+[22:23:14] matcher: lol
+[22:23:19] matcher: zoom each other
+[22:23:22] director: lol!!! chainsaw!!!
+[22:23:26] matcher: AJJAJAJAJ
+[22:23:30] matcher: if that comes out i know its you
+[22:23:50] matcher: i dont like horror but maybe i will try it more now
+[22:25:01] director: its not for everyone but maybe give dario argento and mario bava a shot!
+[22:25:15] matcher: hmmm never heard of them but sure i can try!
+[22:25:25] matcher: i watched annabelle in a drive in and it wasnt bad because sound was delayed lol
+[22:25:30] matcher: i like bachelor series and rom coms lol
+[22:26:42] director: watch suspiria. my bestie loves romcoms so i watch those with her cuz thats my devotion to her....lol. we watched a hallmark movie the other night...
+[22:26:45] director: lol
+[22:26:49] matcher: dario and mario like mariokarttour one of my favorite mobile games
+[22:26:55] matcher: oh man i hate hallmark
+[22:26:58] director: oh right!
+[22:26:58] matcher: thats like too cheesy for me
+[22:27:00] matcher: i like drama
+[22:27:06] director: yes, but bestie loves hallmark
+[22:27:12] director: so hallmark it is!
+[22:27:19] matcher: ur bestie should watch bachelor series lol
+[22:27:22] matcher: and game shows
+[22:27:24] matcher: also i love
+[22:27:27] matcher: competition reality
+[22:27:34] matcher: also big marvel fan
+[22:27:36] matcher: ajajjaajaj
+[22:27:37] director: i'll tell her. she likes baking shows.....
+[22:27:47] matcher: that is so great you do that for her ajajja
+[22:27:52] matcher: ooo british baking show
+[22:27:58] matcher: does she like Gordon ramsey?
+[22:28:04] matcher: gordon ramsey secret service show it the best
+[22:28:30] matcher: and um special forces
+[22:28:37] matcher: i will try those though ajjaa
+[22:28:42] director: yeah, we watched that the other night...lol....omg the baked goods looked so good. have you been to the uk. there are always piles of yummy baked goods like the ones on that show.
+[22:28:54] director: amazing
+[22:28:56] matcher: no never been but always wanted to ajjajaja
+[22:29:15] director: its beautiful and the baked goods!
+[22:29:24] director: okay we should turn this in.
+[22:29:25] matcher: i LOVE MY SWEEETs
+[22:29:26] matcher: yes
+[22:29:44] director: i know me too....my vice.....
+[22:29:44] matcher: anyway, it was great meeting you and talking with you i had so much fun and hope you feel all better and hope our paths cross again :)
+[22:29:48] matcher: jajajaja
+[22:29:54] director: so nice meeting you tooo!! <3
+[22:29:55] matcher: maybe we shall see each other on reddit :)
+[22:29:58] matcher: <3
+[22:30:02] matcher: ok i submit now
+[22:30:04] director: bunny and mouse!
+[22:30:10] matcher: yesss
+[22:30:16] matcher: bunny and mouse forever <3
+[22:30:21] director: forever!!!!!
+[22:30:21] matcher: yo THAT SHOULD BE THE TITLE OF THE POST
+[22:30:32] director: okay!!!!
+[22:30:45] matcher: anyway bye bunny :) see you on reddit lol
+[22:30:55] director: bye mouse!
+[22:31:02] matcher: <3
+[22:31:06] director: <3
+

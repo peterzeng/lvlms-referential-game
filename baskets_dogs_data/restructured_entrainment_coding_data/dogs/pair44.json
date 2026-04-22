@@ -1,0 +1,62 @@
+{
+    "Card1":{
+        "Round1":"looking off to left with tail down, got his legs far apart, yellow on black body",
+        "Round2":"looking in same direction, black body with orangish yellowish paws",
+        "Round3":"standing on all fours, black body and orangish legs",
+        "Round4":"on all fours, with black body"
+    },
+    "Card2":{
+        "Round1":"goldish, body's facing one direction, head is looking back off in other direction, standing on all fours, body facing opposite direction, looking straight ahead, not like up, legs are far apart",
+        "Round2":"up on all fours, with gold legs, tall, legs are far apart",
+        "Round3":"up on all fours, has gold legs, looking back",
+        "Round4":"up on all fours, golden legs"
+    },
+    "Card3":{
+        "Round1":"same type position, sitting, brownish gold",
+        "Round2":"sitting, goldish yellowish",
+        "Round3":"sitting down, goldish brown",
+        "Round4":"lightish beige"
+    },
+    "Card4":{
+        "Round1":"foot long hotdog",
+        "Round2":"black foot long",
+        "Round3":"hotdog",
+        "Round4":"hotdog"
+    },
+    "Card5":{
+        "Round1":"black poodle",
+        "Round2":"black poodle",
+        "Round3":"black poodle up on all fours, shaggy ears",
+        "Round4":"black poodle up on all fours"
+    },
+    "Card6":{
+        "Round1":"looks like German shepherd, all black but with beigish nose, on all fours",
+        "Round2":"looking in same direction, all black, outlined in yellow, but mainly black",
+        "Round3":"Saint Bernard, blackish, up on all fours",
+        "Round4":"like a Doberman"
+    },
+    "Card7":{
+        "Round1":"smaller, lookin' in same direction, but little gentler dog",
+        "Round2":"up on all fours, you can see whole thing, blackish body with goldish paws, paws are spread out",
+        "Round3":"up on all fours, golden legs, darker body, goldish",
+        "Round4":"almost in same position but little bit darker color"
+    },
+    "Card8":{
+        "Round1":"gold, looking in same direction, on all fours, stubby tail",
+        "Round2":"up on all fours, like about to attack, really goldish",
+        "Round3":"really gold, standing like same position, on all fours with black legs stretched out",
+        "Round4":"real gold, up on all fours, with black legs stretched out"
+    },
+    "Card9":{
+        "Round1":"husky with white and blackish",
+        "Round2":"husky looking like straight at you",
+        "Round3":"husky",
+        "Round4":"husky"
+    },
+    "Card10":{
+        "Round1":"black small, looking off in same direction",
+        "Round2":"black on all fours, you can barely see legs, looking in other direction",
+        "Round3":"looking in opposite direction, you can barely see legs, blackish",
+        "Round4":"black up on all fours, you can barely see legs"
+    }
+}

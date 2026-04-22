@@ -1,0 +1,62 @@
+{
+    "Card1":{
+        "Round1":"bloodhound, black at center of body, end's light brown",
+        "Round2":"bloodhound, facin' to left, black body",
+        "Round3":"bloodhound with black body, black center",
+        "Round4":"bloodhound with black body"
+    },
+    "Card2":{
+        "Round1":"terrier, head turned to left, looks stupid, light brown, tan, ears is shorter, snout long , standing up, little bit of black in middle of body",
+        "Round2":"terrier, standin' up, head is just turned",
+        "Round3":"terrier, tan lookin', head turned",
+        "Round4":"terrier, with head to side"
+    },
+    "Card3":{
+        "Round1":"sittin' down, light brown, long ears, head is turn--.",
+        "Round2":"long nose, light brown, tan, long ears, looking to left, sittin' down",
+        "Round3":"tan, head turned, long tail",
+        "Round4":"tan, with head to side"
+    },
+    "Card4":{
+        "Round1":"short, chocolatey",
+        "Round2":"long hotdog lookin' black dog",
+        "Round3":"hotdog, black",
+        "Round4":"black hotdog"
+    },
+    "Card5":{
+        "Round1":"black poodle",
+        "Round2":"black poodle",
+        "Round3":"black poodle",
+        "Round4":"black poodle"
+    },
+    "Card6":{
+        "Round1":"Doberman pinscher",
+        "Round2":"Doberman pinscher",
+        "Round3":"Doberman",
+        "Round4":"Doberman"
+    },
+    "Card7":{
+        "Round1":"cocker spaniel, long ears, look girly",
+        "Round2":"cocker spaniel, girly dog, feminine dog with long ears",
+        "Round3":"cocker spaniel, girly looking",
+        "Round4":"cocker spaniel, girly dog"
+    },
+    "Card8":{
+        "Round1":"boxer, mean, ears similar to Doberman pinscher's but tan, looks muscular, short snout",
+        "Round2":"boxer, light brown, looks strong with black nose",
+        "Round3":"boxer, muscular",
+        "Round4":"muscular boxer, defense dog"
+    },
+    "Card9":{
+        "Round1":"wolf",
+        "Round2":"wolf",
+        "Round3":"wolf",
+        "Round4":"wolf"
+    },
+    "Card10":{
+        "Round1":"Scottish terrier, black, short",
+        "Round2":"black terrier looking",
+        "Round3":"Scottish terrier, black",
+        "Round4":"black terrier"
+    }
+}

@@ -1,0 +1,601 @@
+object_category,pair_ix,split,FirstRoundCardIndex,Round1,Round2,Round3,Round4
+baskets,45,test,Card1,"rectangle shaped, handle in middle, no lid, empty","rectangle shaped with handle in middle, no lid",rectangle shaped with handle in middle,rectangular shaped with handle in middle
+baskets,45,test,Card2,"Easter basket, pink things, pink wood, twisted handle, green outlining around the handles especially, squarish type bottom",Easter basket,Easter basket,Easter basket
+baskets,45,test,Card3,"circular, criss-cross box, handle, one of them goes straight and rest of them criss-cross, round, shaped like bowl, texture is criss-cross, no lid, lightish brown, a little bit black inside","circular with criss-crosses and little black stuff inside, with round handle and no lid","confusing one that's circular, with criss-cross and black stuff inside",confusing one with black stuff inside
+baskets,45,test,Card4,"doesn't have a lid, wide, circle, really tiny like the sewing things, widest one, biggest one, no handles, just like a bowl","widest, bowl shaped, no handles and no lid","most circular and widest, with no lid and no handle","wide bowl, biggest, most circular"
+baskets,45,test,Card5,"pink ribbon going around it, small, criss-cross things, gets smaller as it goes towards bottom","smallest with pink ribbon going around it, no lid","smallest, pink ribbon going around it",smallest with pink ribbon going around
+baskets,45,test,Card6,"light goldish, triangles, greenish background in back, circular on bottom, like a bowl, solid at bottom","no lid, no handle, triangles on bowl, goldish, green in background",green background and triangles and goldish brown,green background with triangles and it's goldish brown
+baskets,45,test,Card7,"lid, goldish, two handles on the edge, little things sticking up in middle","lid, goldish brown with two handles and that thing sticking up in middle",goldish brown with two small handles on side and that thing sticking up,two small handles and thing sticking up on lid
+baskets,45,test,Card8,"triangle shaped basket, looks almost like heart",heart shaped,heart shaped,heart shaped
+baskets,45,test,Card9,"circular, handle in middle",round with lid and handle,"roundish with flat lid and square handle,",circular with square handle and flat
+baskets,45,test,Card10,"square-ish, gets smaller as you go down, lid is like a black type circle","gets smaller as you go along, square, flat lid","square, gets smaller as you go along, with flat lid, handle","square, gets smaller as you go down, with handle and flat lid"
+baskets,35,test,Card1,"long, handle, light in middle, woven, brownish ,you could see the far inside, you could see the bottom which is not woven just like a piece of wood, long rectangle type of shape, handle in middle","rectangle, long, handle in middle","rectangular, long, handle right through middle","long rectangular, handle in middle"
+baskets,35,test,Card2,"reddish color, large round handle, handle's double the size of the basket itself, woven type thing, difference of colors of red and white woven into each other, green back- ground","handle twice the size of basket itself, reddish and white colored, green around handle","you can't see through it, handle's three times larger, green around handle",green handle
+baskets,35,test,Card3,"basket bigger than handle, but not by much, handle is circular, interwoven, brownish color, you can see large spaces between each piece of wood, you could see white background through it, bottom is darker, round","woven, holes in middle, you could see white behind it, gets darker on bottom , reddish color, no top, big handle clogging the middle","woven, handle, you could see on top, gets darker on bottom","woven, with handle, gets darker on bottom, reddish, without green handle"
+baskets,35,test,Card4,"without handle, large, brown color, darker brown, woven, very simple, big uneven cup type thing, piece of wood on top, things are woven off of that going downwards",big cup,large cup,big cup
+baskets,35,test,Card5,"without handle, interwoven, spaces in between, slightly smaller, red ribbon going through top","woven, red ribbon through it","red ribbon through top, woven, you could see through it","woven, red ribbon through it, without handle"
+baskets,35,test,Card6,"without handle, green line through it, golden type thing",green line in middle,"green in middle, line, golden",green line
+baskets,35,test,Card7,"top, lid, two small handles but doesn't have handle that goes over top, lid with little thing sticking out of it, left handle has some green inside of it","golden, with handle and thing on top , two little handles, left one has greenish color inside","lid, green in left handle, little extra thing on top","lid, with thing on top of lid, left handle a little green on inside"
+baskets,35,test,Card8,woman's underwear,woman's underwear,women's underwear,women's underwear
+baskets,35,test,Card9,"flat top, round handle, round basket, very simple, handle is more rectangle shape, goes all the way up to top, goes over whole thing, just plain round","smaller of those two baskets with lid and handle, flat top cover, round, smaller","""same one but smaller one""","""same basket, it's just smaller"""
+baskets,35,test,Card10,"round handle, little bit taller, little bigger handle, flat top, not as straight, crooked a little bit, shaped down to be more square on bottom, and rounds off as it goes higher","big, round on top and it squares off on bottom, flat top, you could see the top is a little bit cracked, it doesn't quite fit right","big, flat lid, round top, square on bottom, rounds off","big, flat lid, square on bottom, rounds off"
+baskets,42,train,Card1,"long, longest","longest, with handle","long, horizontally","long body, horizontal"
+baskets,42,train,Card2,"looks like you could carry fruit in it or some'n, handle, small",red ribbon with handle,"big handle, short","big handle, little"
+baskets,42,train,Card3,"spaces in between straw, handle","spaces, with handle","spaces, with handle","spaces, handle"
+baskets,42,train,Card4,"doesn't have handle, big","open, with no handle","open, big, no handle, no lid","big bowl with no lid, no handle"
+baskets,42,train,Card5,"spaces, doesn't have handle","spaces, with no handle, red ribbon","spaces, red ribbon, no handle","spaces, no handle, red ribbon"
+baskets,42,train,Card6,"tan, green around it","tan, green around it, within it",green ribbon,"green ribbon, no lid"
+baskets,42,train,Card7,"look like a pot, tan, little",look like a pot,look like a pot,pot
+baskets,42,train,Card8,triangle looking with lil handle,triangular looking,triangle,triangle
+baskets,42,train,Card9,"handle look square, short","handle, tan, lid over it, short",shorter with handle,shorter body
+baskets,42,train,Card10,little taller,"tan, handle, body tall","long body with handle, lid over it, long vertically","handle, lid, long body vertically, really thin"
+baskets,12,train,Card1,both sides,really wide,wider,wide
+baskets,12,train,Card2,very small,very narrow,"really short, small","""the one right next to it that you picked up"""
+baskets,12,train,Card3,handle going across,"""you're actually looking right at it""","small, handle","smaller, handle up top"
+baskets,12,train,Card4,"very deep, hollow",really deep,deep,deep
+baskets,12,train,Card5,really small,really tiny,"small, really, little wicker","small, wicker"
+baskets,12,train,Card6,"really yellow, some green","yellow, little bit green","yellow, little bit green","yellow, little bit green"
+baskets,12,train,Card7,"top, wider, little handle","lid, wide","top, wide","short, handle on top, whole top"
+baskets,12,train,Card8,"pointy, bottom",pointy,pointy,pointy
+baskets,12,train,Card9,handle,lid on top,"handle, little bit shorter","shorter, handle, lid on top"
+baskets,12,train,Card10,"longer, handle","taller, handle","tall, handle","taller, handle"
+baskets,29,train,Card1,rectangular,really really long bottom,top row to the left,bottom row to the right
+baskets,29,train,Card2,really tiny,bottom right,"second to the right, middle row",the one you just picked up
+baskets,29,train,Card3,"really really round, big, weaved, handle, rounder bottom",bottom left,"middle row, second to the left","to the right, middle row"
+baskets,29,train,Card4,doesn't have those handles on the sides,bottom row,on your right hand,oval
+baskets,29,train,Card5,"little pink ribbon around it, without handle",red ribbon around it,around it,red ribbon
+baskets,29,train,Card6,some green,green ribbon,green ribbon,green ribbon
+baskets,29,train,Card7,has a cover on it,cover,oval with a cover on it,oval with the cover on it
+baskets,29,train,Card8,triangular,[Missing Data],triangle,triangle
+baskets,29,train,Card9,"middle row, right",top right,cover,looks like that one but it's shorter
+baskets,29,train,Card10,top right,"bottom right, second one",really long bottom with the handle,cover
+baskets,38,train,Card1,"shaped like rectangle, rectangle laying down",rectangle,"big rectangle, with one handle","really big rectangle with handle, picnic basket"
+baskets,38,train,Card2,"handle really tall, small",little red,"tall handle, small",real tall handle
+baskets,38,train,Card3,"really fat and big, handle's short, tall, brown in between (dark and light), round","short, handle, brown","handle, don't have any lid, dark brown, in between (dark and light), small,","round, short, handle"
+baskets,38,train,Card4,"big and round, no handles, dark tones","big, round, doesn't have handle","big, without any handles, without lid, dark brown","doesn't have handle, doesn't have lid, dark brown, really big, round"
+baskets,38,train,Card5,"doesn't have any handles, smaller, with red ribbon around","don't have a lid, red string going around","red string going around, no handles","red ribbon going around, no handle"
+baskets,38,train,Card6,"really light brown complexion, no lid","really light brown tone, round","really light round, doesn't have lid","similar color to one with knob at top,"
+baskets,38,train,Card7,"lid, two handles","lid, little knob at top, two small little handles at side","knob at top, two handles, round",knob at top
+baskets,38,train,Card8,"shaped like triangle, diamond",shaped like triangle,triangle,triangle
+baskets,38,train,Card9,"oval, handle, circle","short, round, handle, lid","oval, round, lid, handle, small","short, lid, handle, round"
+baskets,38,train,Card10,tall,"handle, lid, tall, rectangular base","rectangular base, handle, lid","rectangle base, tall, handle, lid"
+baskets,32,train,Card1,"beige, big, biggest",biggest,biggest,biggest
+baskets,32,train,Card2,"on second row, fourth",all the way on right corner,one that you just picked up and put down,"same row, but all the way in your left hand corner"
+baskets,32,train,Card3,third one is one on top of it,brownish,"one right on top of it, next one","same row that you just got that, on your right hand corner"
+baskets,32,train,Card4,"fourth one is one right next to it, on left side",on your left hand corner,"all the way in front of you, on the corner of your left",in front of you
+baskets,32,train,Card5,"in third row, towards your left, all the way upper corner","smallest, little bowl is in middle",in middle,on top of the one you just picked up
+baskets,32,train,Card6,"all the way on your right, bottom","bowl, beige color","one on left corner of that one that you just picked up, left upper corner",on right hand side of the one you just picked up
+baskets,32,train,Card7,with cover on it,has cover on it,has cover on it,Does that have cover on it?
+baskets,32,train,Card8,triangle,triangle,triangle,triangle
+baskets,32,train,Card9,has cover on it,all the way on left in front of you,has cover,the one right next to it
+baskets,32,train,Card10,"all the way at the end, on your right hand",has cover on it,has cover on it,"third one, upper third row"
+baskets,13,train,Card1,"very wide, looks like you could actually fit a baby, you can pick it up, handle","very wide, baby",baby,baby
+baskets,13,train,Card2,"really tiny, handle, very big, much bigger than the actual basket itself, wide holes","tiny, long handle","tiny, big long handle","tiny, little, big handle"
+baskets,13,train,Card3,"handle, very wide holes","handle, round, open, not close knit","open, not tightly knit, one handle, can see right through","can see through, handle, round"
+baskets,13,train,Card4,"doesn't have handle, wide, green, bowl","really wide, deep, no handle","wide, deep, big, no handles","big, no handle, wide"
+baskets,13,train,Card5,"really tiny, no handle, no lid, ribbon","little, tiny, no handle, red ribbon around","tiny, ribbon","tiny, little, ribbon"
+baskets,13,train,Card6,"salad bowl, zig-zag pattern, no lid, no handle","zig-zag design, salad bowl","zig-zag, design","no lid, no handle, zig-zag around, salad bowl"
+baskets,13,train,Card7,"lid, no handle, two tiny handles on each side","lid, two tiny handles on each side","lid, two tiny handles on each side","lid, two tiny handles on each side"
+baskets,13,train,Card8,"pointed, at the bottom","pointed, pocketbook",point,pointed
+baskets,13,train,Card9,"round, handle, towards the bottom, same shape whole way down","round, lid, handle","shorter, round","shorter, lid, handle"
+baskets,13,train,Card10,"""looked like the last one""","lid, handle, square-ish","lid, comes down into a point, not little short","handle, lid, not short, taller"
+baskets,17,train,Card1,"long, handle, narrow","little long, green colored handle, greenish, yellowish, brownish, narrow, open, longer than the rest of them, looks like you could put baby in",looks like it could hold a baby,looks like it could hold baby
+baskets,17,train,Card2,"handle, pretty small","small, handle, some red woven in between","handle, little smaller","handle, small"
+baskets,17,train,Card3,"shorter handle, full, lot of spaces in between with the weaving","handle, weaving separated, spaces in between","handle, spacing in between weaving","spacing in between, handle"
+baskets,17,train,Card4,"does not have handle, pretty big","brownish, no cover, no handle","no cover, no handle, tightly woven, brown","tightly woven, no cover, no handle, big"
+baskets,17,train,Card5,"small, does not have handle, spaces in between weaving","red ribbon going around top, small, no cover, no handle, spaces in between","very small, no handle, no cover, spacing in between weaving","small, no handle, spacing in between"
+baskets,17,train,Card6,"very light in color, does not have handle, circular base that's apart from basket, no cover, little stand at bottom, green background thingy","light in color, green background",green background,green background
+baskets,17,train,Card7,"cover, two handles at edge","cover, two little handles on edge","two little handles on edge, little knob in between, cover","cover, two little handles on edge"
+baskets,17,train,Card8,v-shaped,v-shaped,v-shaped,v-shaped
+baskets,17,train,Card9,"handle, cover","circular, cover, handle","cover, handle, more circular","cover, handle, more circular"
+baskets,17,train,Card10,"handle, cover, little bit longer than previous","cover, handle, more squarish","cover, handle, squarish shaped","cover, handle, squarish shaped"
+baskets,44,train,Card1,long with handle,real long with no cover and handle going up,real long,long
+baskets,44,train,Card2,"no cover, rectangular",big round handle on top,"top row, all the way to right",top right
+baskets,44,train,Card3,"round, same wicker things","darker color than that, round, handle going up","top row, third one over",handle going above it
+baskets,44,train,Card4,"no handle on top, roundish like bowl",right in dead center,"round with no cover, no handle",bigger
+baskets,44,train,Card5,"round, no cover, no handle comin' up","round, with no handle on it and completely open",round with no cover and no handle,"round, no cover, no handle"
+baskets,44,train,Card6,round but goldish,"round, no handle and goldish",top row,no cover and no handles
+baskets,44,train,Card7,cover,"round with cover, no handle, more gold","bottom row, second one from left","light caramel color, completely round with cover on it but no handle"
+baskets,44,train,Card8,pointed bottom,real pointed triangle bottom,triangular bottom,triangular
+baskets,44,train,Card9,round with a handle going up,round and it's got a handle going up,more round,"more rounder, handle, cover"
+baskets,44,train,Card10,the one to the left that your eye was just on,"in second row, to the left of that","has cover and handle, deeper","round with cover and handle, taller"
+baskets,30,train,Card1,"no lid, big, long",long with handle,long with handle,"long with handle, top"
+baskets,30,train,Card2,looks like Easter basket,Easter basket looking,Easter basket,Easter basket
+baskets,30,train,Card3,handle,"handle, has weaving that has holes","handle with no cover that the weaving is big, open",the one on the bottom
+baskets,30,train,Card4,"doesn't have a handle, pretty big",middle row,"no handle, no cover",bottom row in the middle
+baskets,30,train,Card5,top one on right,red ribbon,red ribbon,red ribbon
+baskets,30,train,Card6,"no handle, tall, no cover",green band,green ribbon,green ribbon
+baskets,30,train,Card7,the one that was below that one,"cup, wok looking thing","middle row, third one in","wider, cover, side handles"
+baskets,30,train,Card8,"one with the handle that has a pointed bottom , heart shaped",pointed bottom with the handle,pointed bottom,pointed bottom
+baskets,30,train,Card9,cover and a handle,"middle row, on the right",cover and a handle,other cover and a handle
+baskets,30,train,Card10,other one,handle and a cover,"cover and a handle, taller","taller, with cover and handle"
+baskets,39,train,Card1,"medium tan, longest lengthwise, long oval shape",long,big long oval with handle,long oval
+baskets,39,train,Card2,"small, loop on basket is bigger, dark brown, little","Easter egg basket, no lid, hoop on top of it, dark brown","Easter egg basket, small, brown with a handle on top",Easter egg basket
+baskets,39,train,Card3,"wicker weave type thing, big spaces between weaves, looks like it's twisted around in loop in top","loose weave with top that looks twisted around, small, brown, has hoop on top, then it's woven, and there is holes","big holes, loop on top of it, reddish",big loops with handle
+baskets,39,train,Card4,"looks like bowl, darker tan","big wicker bowl, no handles","wicker bowl thing that doesn't have lid, no handle","fruit bowl, doesn't have lid"
+baskets,39,train,Card5,"fruit bowl, red ribbon going around top of it, loose weave, open weave",red ribbon through it,red ribbon thingy,smaller bowl with red ribbon through it
+baskets,39,train,Card6,"triangle shapes going around top, some green",green on top with triangles,bowl with triangles and green on back,"green in back and triangles, bowl"
+baskets,39,train,Card7,"without handle, cover, round","cover, has little thing pointing up on top, red","thing with red thing sticking out of top, with lid","with lid, with red thing on top"
+baskets,39,train,Card8,triangle shape on bottom,triangle,triangle,triangle
+baskets,39,train,Card9,"round, cover, hook on it","tan, with cover and hook on the thing, handle","half the height of that one, lid and handle on top","half that size, looks pretty much the same but it's rounder"
+baskets,39,train,Card10,"longer that previous, cover with hoop on it","picnic basket, tall, lid, hoop on top of it","big picnic type basket that's long with handle and lid, taller","tall, with lid and handle on top"
+baskets,36,train,Card1,"really long, brown, in the center of it has handle, oldish woodish color, broken on one of those sides","the oldest of them all, really flat, a little broken on side",broken,broken
+baskets,36,train,Card2,"curved, handle larger than body, little small holder that's reddish brownish, red weaves and brown weaves, green tint","a lot of red ribbons interweaved, large handle","red ribbons, a lot of them, interweaved with rest of body","green background around top, red ribbon interwoven, carry thing is little bit larger than body"
+baskets,36,train,Card3,"most circular basket of them all, if you take out the middle it just looks like a big circle, X-weaves, on bottom a little bit black","big circle, lot of holes, pattern is X-like on top",completely circular,"pretty much circular, little X's in body"
+baskets,36,train,Card4,"doesn't have handle, tip of it is thicker than rest of body, brownish color, weaves are in squares if you look at it directly","half circle, no handles, top tip of it is a little bit thicker than rest of body",tip which is a little bit thicker than rest of body,"tip that is a little bit larger than body, looks a little bit thicker"
+baskets,36,train,Card5,"red ribbon interweaved with rest, little with no handles, a lot of holes","red ribbon around, interweaved","one red ribbon, interlaced",one red ribbon interweaved through it
+baskets,36,train,Card6,"green background, green little triangles","green background, triangular form","green background, triangular formation","green background, triangular formations"
+baskets,36,train,Card7,"lid, two handles to the side, and a little pokey thing in middle","two handles on side, lid, with a pokey thing in middle","two handles, lid, little pokey thing in middle","two handles, lid with a pokey thing in middle"
+baskets,36,train,Card8,"looks like a purse, triangular in nature, heart, half circle for handle",heart-shaped,heart-shaped,heart-shaped
+baskets,36,train,Card9,"lid, pretty big, lid's covering most of the carrying area, handle is half square or half rectangle, flattened down to ground","really flat down to ground, handle that's half rectangle, lid","half rectangle handle, lid, large diameter","really low to the ground, rectangular handle, half rectangle, large diameter, lid"
+baskets,36,train,Card10,"lid, handle a little bit more larger radius than previous","looks like it can hold the most of them all, handle half square, one handle that's going from side to side, lid, highest of them all, between top and bottom it looks like it could hold a lot","highest one off the ground, lid, one handle that looks like a half square, from bottom to top of lid looks like largest one","high, with half square handle, interweaved lid"
+baskets,14,train,Card1,"long, rectangular shaped, curved at edges","rectangular, big","rectangular, curved","rectangular, long"
+baskets,14,train,Card2,"small, really tall handle","really big handle, really small",big handle,really big handle
+baskets,14,train,Card3,"short handle, bigger spaces","handle, bigger spaces",big spaces,"handle, big spaces in between"
+baskets,14,train,Card4,"really wide, no handles",really wide opening,big opening,"big, no handles"
+baskets,14,train,Card5,"no handle, red","no lid, red","smaller, red",spaces with red
+baskets,14,train,Card6,green,green on picture,green,green
+baskets,14,train,Card7,"lid, bigger","flat, lid, big","flat, round, big, lid","big, circular, lid"
+baskets,14,train,Card8,cone shaped at bottom,cone shaped,cone shaped,cone shaped
+baskets,14,train,Card9,"lid, handle",rectangular shaped handle,"short, rectangular handle, lid, circular","round, short, lid"
+baskets,14,train,Card10,"lid, taller, handle","tall with a handle, lid",tall with handle,"big, handle, tall"
+baskets,40,train,Card1,"long, longest basket, resembles rectangle",long,basket on middle on top,big rectangular one
+baskets,40,train,Card2,"go underneath third one, it's the third one in middle row",most left in middle row,middle basket in middle on right,next one on left
+baskets,40,train,Card3,"on the very bottom, second from right",basket on top left,second from right in middle,the one that was next to it on left
+baskets,40,train,Card4,most left one in middle,big,big circular bowl,the one that was next to it on left
+baskets,40,train,Card5,second one on top row,very bottom in the right,top left one,little bowl
+baskets,40,train,Card6,most white,the one that was next to it,the one by your hand,circular bowl
+baskets,40,train,Card7,second in middle row,"at top, left one",with lid,with lid
+baskets,40,train,Card8,left on top row,second from top,"triangular, long",triangular
+baskets,40,train,Card9,the only one in middle row,top one,basket on bottom left,second top one from left
+baskets,40,train,Card10,left one on bottom,most white,middle,very bottom right
+baskets,22,test,Card1,"rectangular, light brown, oval shaped, very long in length, you can see bottom, circular sides","rectangular, handle in middle, you could see bottom","rectangular, handle in middle","handle in middle, very rectangular, bottom's showing"
+baskets,22,test,Card2,"not triangle, really small, reddish things and green, handle, red strips through, loop is very big","not triangular red ribbon, has red and green in it as well","red ribbons, not triangular","red with handle, red ribbon"
+baskets,22,test,Card3,"light brown, very small, can't see bottom, you can see other side, handle, about the same size, no cover, black at bottom, with little loops","black bottom, black ribbon going through, towards bottom looks striped, one handle, round","black ribbon, big loops",black ribbon in bottom
+baskets,22,test,Card4,"circulish, you could see inside, but not bottom, very big, plain old dark brown, no handles, deep inside","very deep, round",deep,very deep
+baskets,22,test,Card5,"small, red ribbon at top, no handles","red ribbon going through, no handle","red ribbon, no handle","red ribbon, no handle"
+baskets,22,test,Card6,"triangular, green, designs inside, green triangles","green triangles, green through back, designs",green triangles,green triangles
+baskets,22,test,Card7,"circulish, large, very small loops, two loops at end, like a kettle, like the thing to pull it up, cover, small thing to pick it up","kettle pick up thing, two handles on side, teeny little handles","two little handles on side, kettle thingy on top","two handles, thing on top"
+baskets,22,test,Card8,"triangular, red and green, very stylish","triangular, red and green stripes, coming in like a half diamond","triangular, red, green, diamond things going into it","triangular, red and green"
+baskets,22,test,Card9,"circulish, handle, squarish, cover, short","smal round, handle, cover","short, with cover","short, with cover, handle"
+baskets,22,test,Card10,"rectangular, pointed in towards end, cover, handle, looks like last one only higher, very long, different from bottom","rectangular, bigger length, higher, cover","rectangular, handle, cover, tall","tall, with cover"
+baskets,20,test,Card1,"very long, rectangular in shape, light tan, weaved, handle coming over top, right in the middle handle","rectangular large, very long, handle in middle","really long, rectangular, handle in middle",rectangle
+baskets,20,test,Card2,"huge handle, very small, red and brown and green weaving, right in middle, can see right through handle, very tiny basket compared to the handle","very large handle, very small","small, with large handle","small, giant handle"
+baskets,20,test,Card3,"large, with another handle, same color, but weave is very wide, a lot of spaces, black in bottom, you can see right through, large handle, but it's not really that large in proportion to the basket, very circular, the look of the whole thing","very round, very open weave, something black in bottom, or just shadow","rounded, very open weave, black in bottom","very open weave, black bottom"
+baskets,20,test,Card4,"very tight weave, without handle, very large bowl, bottom looks like solid piece of bamboo, uniform tan, some spaces that look darker color, brown",very large,"very large bowl, tight weave","very large bowl, tight weave"
+baskets,20,test,Card5,"small, wide weave, red weave through whole thing, red ribbon","red ribbon, striped",red ribbon running through,red ribbon
+baskets,20,test,Card6,"tan bowl, looks like solid beading, some green on other side","bowl, green striping in back, in background",green background,green background
+baskets,20,test,Card7,"two handles on sides, lid on top, handles come through lid, tan, little knob on lid itself","top, two handles sticking out, small","two handles, big lid","two handle, large lid"
+baskets,20,test,Card8,triangular,triangular shaped,triangular,triangular
+baskets,20,test,Card9,"squarish handle, round lid, looks similar to old style picnic baskets, circular","round, with round top, square handle","round, squared handle, lid","round, round lid, square handle"
+baskets,20,test,Card10,"similar handle to previous, very rough looking round lid, it itself is more squared, almost a little rectangular, tapers towards bottom","tapered, looks almost like old, rough handbag, thin handle up at top, very rough looking lid","tapered, rough top, lid","tapered, rough lid"
+baskets,26,train,Card1,long,big,"bucket, big","big, bucket"
+baskets,26,train,Card2,"small, loop on top","red ribbons running through it, handle",the one that you just had,"right there on right, middle"
+baskets,26,train,Card3,"short, fat",wicker type basket,reddish color,wicker
+baskets,26,train,Card4,just a regular open basket,open basket,"big open brown basket, with no handles","big, brown"
+baskets,26,train,Card5,open wicker basket almost with a red loop through it,ribbon through it,"red ribbon, but the one with no handle",ribbon running through it
+baskets,26,train,Card6,yellow and green,golden and green,bottom left,yellow and green
+baskets,26,train,Card7,has top on top of it,yellow with a top in middle,"yellow with top on it, big",yellow with top on it
+baskets,26,train,Card8,shaped like a heart,heart shaped,shaped like a heart,heart
+baskets,26,train,Card9,"circular, with a loop","top, has a hoop to lift it with",the one that you just had,"flat one that looks like that, fat"
+baskets,26,train,Card10,"big, with hoop on right",handle on top and top on top of it,"big, with top, no handle","yellow, lid"
+baskets,19,train,Card1,very wide,"really long, wide, with handle","really wide, handle","pretty wide, handle"
+baskets,19,train,Card2,"a lot smaller than the first one, bottom part has some pink","small, with handle, pink coloring","pretty small, handle, pink coloring at bottom","small, handle, pink trimming at bottom"
+baskets,19,train,Card3,"a little bit bigger than the second picture, back part of bottom half, you can see holes through weaving","small, with handle, back part of bottom half you can see holes through weaving","handle, you can see holes through back part","handle, the one where you can see holes in back"
+baskets,19,train,Card4,"pretty big, doesn't have handle","no cover, no handle","no cover, no handle, pretty big","pretty big, no cover, no handle"
+baskets,19,train,Card5,"smaller than the fourth one, no handles, some pink trimming on bottom part","no handle, no cover, pink trimming, at bottom","small, with pink, red trimming, with no handle","small, no handle, pink trimming"
+baskets,19,train,Card6,"yellowish orange color, no handle","orange color, with green trimming on back",orangey color with green on back part,"orangey color, no handle, green in back"
+baskets,19,train,Card7,"orangish, yellowish color, doesn't have a handle, looks more like a pot, lid","orangey yellow color, cover on top, with no handle","orangey type color, with cover","orangey color, with cover on top"
+baskets,19,train,Card8,upside down triangle shape at bottom,"upside down, triangular shaped bottom",bottom part is upside down triangle,upside down triangle shape at bottom
+baskets,19,train,Card9,"like number seven, but smaller, with a handle","orangey type color with cover, handle","handle, cover, a lot shorter than the second one","cover, handle, a lot shorter than the first one"
+baskets,19,train,Card10,like the last one we just did but longer,"cover, handle","cover, handle, bottom part long","cover, handle, long bottom part"
+baskets,27,train,Card1,second row all the way to the left,the one next to it to the right,the one below that,top one
+baskets,27,train,Card2,"second row, first one on left",second row to the right,"top row, the only one left",second row all the way to the right
+baskets,27,train,Card3,"second row, next one in",bottom row to the right,bottom row all the way to the right,hold that one up
+baskets,27,train,Card4,second row all the way to the right,the one right next to that,top row on the right,bottom to the left
+baskets,27,train,Card5,first row all the way to the left,top row all the way to the left,bottom row all the way to the right,top to the right
+baskets,27,train,Card6,"bottom row, second one from the left",second row all the way to the left,right where you are looking,"open bowl, looks like the last one but doesn't have cover on it, longer"
+baskets,27,train,Card7,"bottom row, second one from the right","bottom row, all the way to the right","second row, second one from right","long, shaped like those two but it has cover on it"
+baskets,27,train,Card8,triangular shaped,top,triangular,triangular
+baskets,27,train,Card9,"first row, the left one",second row all the way to the left,"cover, small, handle","second row, all the way to the left"
+baskets,27,train,Card10,"bottom row, the right one","second row, all the way to the left","top row, all the way to the left","second row, all the way to the right"
+baskets,23,test,Card1,"oblong, rectangular, one handle, laundry basket","number one from before, looks like laundry basket","laundry basket, one handle",laundry
+baskets,23,test,Card2,"smallest out of all of them, handle, looks like it's cut in half, reddish color, reddish brown, little red ribbons interwoven","long handle, red interwoven","oval handle, cut in half, red interwoven",more than one red ribbon weaved through
+baskets,23,test,Card3,"bigger weave than all the other baskets, circle, visible holes","huge spaces in middle, circle, handle","with gaps, circle, no top, really big weave, biggest holes of all the weaves, circular handle","circular, big gaps in weave"
+baskets,23,test,Card4,"tightest woven, no handle, looks like beehive","really tight weave, looks like beehive, no top","beehive, no top, half a circle","beehive, no handles, no cover"
+baskets,23,test,Card5,"small thing, red interwoven, no handles","one red ribbon laced through, no handle","red strip interwoven, no handle","one red ribbon interlaced, no handle"
+baskets,23,test,Card6,"no handle, zig-zag pattern in space, green","zig-zag pattern, green in background, looks like bowl","zig-zag pattern, green in background","zig-zag pattern, green"
+baskets,23,test,Card7,"two handles, top covering it, orangish color","with top, looks like bowl, two handles on side","cover, looks like basket you take snake out of",looks like a snake could come out of it
+baskets,23,test,Card8,triangular,triangular,triangular,triangle
+baskets,23,test,Card9,handle looks like half a square,"sqaurish handle almost, with cover","square handle, with cover, wide, weave like little rectangles, like a barrel, when you cut a section out of it, top looks like x's, forming a circle, from side view looks like rectangles laying on top of each other, more in the brown color, stripes, on the edge of the top, circular things, like you wrap cord around edge, looks like they just laid rectangles, Jenga blocks","the one we were having trouble with last time, side looks like Jenga blocks put together, looks like number four, except more squarish, looks flat, ""cut an inch off a soda can, put a top on it and a handle and you have that"", half of it is square the handle, top is circular"
+baskets,23,test,Card10,"bottom looks like half a hexagon, handle like number nine","number ten from before, hexagon bottom","bottom is hexagon, cover","hexagon bottom, cover, handle"
+baskets,37,test,Card1,"long, not circular, rectangle, you can see bottom of it, handle, makes a cone, lid","long, bar handle, no lid","long, handle, no lid",long open with bar handle
+baskets,37,test,Card2,"little, with big handle, small, big loop","small, with big handle, big loop",little with big loop,little with big loop
+baskets,37,test,Card3,"medium, handle, wicker's thick on it, light brown, big holes","wickers have big holes, wicker's real thick braided, handle","thick braid wicker with holes, bar handle","thick braided with holes, handle"
+baskets,37,test,Card4,"round, no lid, no holes in wicker, wide","big round, with no lid, no handles","big round with no lid, no handles","big round with no lid, no handles"
+baskets,37,test,Card5,"no handle, holes in wicker, red loop","round, with no lid, red ribbon going through",red loop going through,red ribbon going through
+baskets,37,test,Card6,"some weird design in middle of it, two little handles, with no lid","circular, with no lid, weird design almost near top, doesn't have handle, brown and round","big, with no lid, two little handles, weird little design runnin' through it, zigzag","round, zigzag design going through it, little handles, little green background behind design"
+baskets,37,test,Card7,"lid, closed, no holes in wicker, little handle on top, round, two little handles","round, with lid, handles, with little thing on top of it","lid, little thing at top","round, with funny thing on top of lid"
+baskets,37,test,Card8,v-shaped with handle,v-shaped,v-shaped,v-shaped
+baskets,37,test,Card9,"lid, handle, short, one big handle going over top",nine looks just like five but a smaller version,smaller,smaller
+baskets,37,test,Card10,"bigger, lid, handle, on big loop over it","lid, bar handle, round, tall compared to other one that it looks like, bigger",bigger,bigger
+baskets,25,train,Card1,"slight bird's eye view, looking into it, little chip on bottom right side of it, longer lengthwise, looks like somebody bit it or something, more or less golden, handle straight in middle, handles are up down","chip on bottom right, handle up down","wide, chip on bottom right, handle up down","handle up and down, widest"
+baskets,25,train,Card2,"very small, with reddish and gold, handles going from left to right","handle left to right, small, reddish pattern on top of it","red pattern, cross stitching","red patches, red pattern"
+baskets,25,train,Card3,"handles left to right, looks like bottom is dark if you could look inside it","handle, black bottom","black bottom, handle left to right",black bottom
+baskets,25,train,Card4,"absolutely no handles, looks like bowl, open, one color","open, same color all around, big, light golden, no handles","open, same color throughout","open, same color throughout"
+baskets,25,train,Card5,"very small, no handles, looks like it has red line going across middle of it","has red line going through middle of it, no cover, no handle","patch, red line",red line through middle
+baskets,25,train,Card6,green patch,green patch,green patch,green patch
+baskets,25,train,Card7,"two little small handles, cover on top of it","two small handles, cover, golden","small handles, cover, big, golden, little small thing in middle, little antenna thing","antenna middle, golden throughout, cover, small handles, one at ten, one at four, little thing on top"
+baskets,25,train,Card8,"looks like purse, triangular, handle left to right","triangular shaped, with handle","triangular, point facing down",triangular
+baskets,25,train,Card9,"handle, cover, ten o' clock to four o' clock","cover, handles are facing from ten o' clock to four o' clock","handle, ten o' clock to four o' clock, cover","ten o' clock to four o' clock, handle, cover"
+baskets,25,train,Card10,"handle left to right, cover","handle, left to right, cover, bottom is straight, sides are curved, small","cover, handle, very thin handle, left to right, sides are curved, bottom is straight","sides curved, bottom straight, handle left to right"
+baskets,21,test,Card1,"long, rectangle, longest one in the picture, square in shape, one handle in middle","""the first one we had"", long, with handle","rectangular, open, one handle","really long, open, looks rectangular, one handle in middle"
+baskets,21,test,Card2,"very small, pyramidal shape, really big, circular looking handle, longest base from basket to handle","red lining, really big circular handle, one handle only","really big handle, red stitching along it","really long, big handle, round, red weaving"
+baskets,21,test,Card3,"criss-crossing weaves, most open space in between each, circular handle","really wide cross-stitched, round handle","stitched, wide spaces in between","wide crosses, handle, a lot of space between the crosses"
+baskets,21,test,Card4,"one of the biggest baskets in the picture, really stitched closely, crossing is really close, oval shaped, round shaped, no handles, very circular, very big, deep","open, very tightly stitched, no cover, no handles","open, stitched really tightly together, no handles, no cover","really big, without top, close stitching"
+baskets,21,test,Card5,red ribbon around,red ribbon,"red ribbon, open, no handle","red ribbon, no top, no handle"
+baskets,21,test,Card6,green lining in back,green lining in back,green lining on back,green lining
+baskets,21,test,Card7,"cover, two handles on side, golden","two handles on each side, top, really golden looking","golden, top, two handles on sides","top, two handles on side, very golden looking"
+baskets,21,test,Card8,heart shape purse looking thing,heart shaped,heart shaped,heart shape
+baskets,21,test,Card9,"round bucket, cover, squarish handle","smaller, rounder, cover, looks like number five, one handle, square handle, round bucket","shorter version of number two, square handle","shorter version, square handle, top, rounder, perfect circle"
+baskets,21,test,Card10,"long, vertical, one handle, cover, deep","last one we just had, really long, cover, only one handle","very deep, handle, cover","really long, deep, cover, one handle"
+baskets,31,train,Card1,"long and rectangular, big rectangle","big rectangle, square-ish rectangle","big box, rectangle, with no cover, big long rectangle",big square
+baskets,31,train,Card2,"small, with really big handle, really big top",really big handle,with really big handle,with big handle
+baskets,31,train,Card3,"squiggly weaved, squiggly weave, round","round, squiggly weave, with handle",squiggly weave,squiggly weave
+baskets,31,train,Card4,"doesn't have handle, big bowl, big round bowl","round, big, without anything, just open","big, open, round, with no cover, no handle",completely round without cover
+baskets,31,train,Card5,"red ribbon, square-ish but round on top",weaved with red ribbon,red ribbon,with red ribbon
+baskets,31,train,Card6,"golden color, you could see green in it",gold with green in back,with green in back,with green background
+baskets,31,train,Card7,"has cover, gold, doesn't have handle, cover with little knob in middle","golden with little knob in middle, with cover",knob with cover,"with knob, cover with knob"
+baskets,31,train,Card8,triangle bottom,triangle bottom,triangle bottom,with triangle bottom
+baskets,31,train,Card9,"cover plus has handle, round on bottom",round bottom and cover and handle,round with cover and handle,very round
+baskets,31,train,Card10,with square bottom,"golden with lid on top, with handle, squarer bottom, with square bottom","square bottom with cover, taller than other one, has handle","rounder bottom, taller"
+baskets,28,train,Card1,"really long, medium brown color, handle","long, handle, blue and white","really long, handle",bottom right
+baskets,28,train,Card2,"shorter, with thick handle, more like a box","really weird looking, small, brown, with a whole bunch a different colors","weird looking one with all the colors, small with big handle","really small, with bigger handle, different colors"
+baskets,28,train,Card3,weird design,"circle, small, handle, pretty designs","handle, designs","handle, designs"
+baskets,28,train,Card4,circle without a handle,just round with no lid on it,"open circled, large, no green","just open, no lid"
+baskets,28,train,Card5,"all holes and pretty designs it, with a pink string going through it",pink string running through it,"no handle, pink string running through it",pink string running through it
+baskets,28,train,Card6,"no handle, really light shade of brown, designs in it, with holes, no lid, green","green, no handle",green,"green line running through it, no lid"
+baskets,28,train,Card7,"lid, without the handles, bigger",circle with two little handles on outside,"two little handles on side with lid, pretty round",circle with lid and really small handles
+baskets,28,train,Card8,triangle,triangle,triangular,triangular
+baskets,28,train,Card9,circle with lid and handle,square handle,round with a lid and a square-ish handle,circular with a lid and a square-ish handle
+baskets,28,train,Card10,the one you just picked up,"top handle, brown, longer than that","taller, with square handle and lid","tall, handle, lid"
+baskets,43,test,Card1,"wide, long, handle right in middle, narrow","narrow, long, handle, no cover","long, narrow, with handle, no cover","long, narrow, small, short, handle right in middle, on right hand corner it has like somebody bit off of it"
+baskets,43,test,Card2,"small, big handle for its size, dark orange with a bit of pink and green, darkish green on handle in background",small figure with big handle for its size with small red ribbons going around it,"small, big handle, little ribbons going around it, red","big handle, small, red ribbons going across from it, bit of green"
+baskets,43,test,Card3,"a bit wider, round, shorter handle, no cover, big holes, you can see through it, they are in the form of ovals and knotted together, light brownish thing, the bottom to it has dark spots","oval, you can see through it, handle, black spots on bottom","small, handle, you can see right through it, dark spots on bottom","oval, small, handle, you could see through it, darkish spots on bottom"
+baskets,43,test,Card4,"wide, big opening, no handle, no cover","wide, oval, big, no cover, no handles","big, wide, oval, no cover, no handles","big, wide, brownish, no cover, no handles"
+baskets,43,test,Card5,"small, pink ribbon going around it, openings, clear, you can see right through it, no handles","small, with red ribbon going around it, clear","small, red ribbon going through it, clear, that you could see right through it, no cover","small, red ribbon going across from it, you could see through it"
+baskets,43,test,Card6,"light orange, yellowish, green little triangles like figures","orange-yellowish, triangle figures with green, no cover","oval, light orange yellowish, triangle figures with green","wide, oval, triangle figures, green"
+baskets,43,test,Card7,"cover, wide, big, handles, cover has this little head thing, handles are on side on end, cover has this little top to it","wide, oval, cover with handles, cover has this top figure","big, oval with handles, cover, head on cover","big, oval, cover, handles, cover has something on top"
+baskets,43,test,Card8,"triangle, pointing downwards, with handle",triangle with point downwards,"triangle with point downward, handle",triangle looking downward with handle
+baskets,43,test,Card9,"oval shaped, circle, cover, handle that's half a rectangle, short","small, cover, wide, handle with half rectangle figure","small, short, with little cover, handle is half rectangular shape","small, short, with cover, half rectangular handle"
+baskets,43,test,Card10,"long with cover, taller","long, cover, handle with half","long with cover, handle that's half","long, cover and half rectangular"
+baskets,34,test,Card1,"rectangular shape, long, longest with handle","rectangular, longest with handle","rectangular shaped, with handle to it",rectangular shaped
+baskets,34,test,Card2,"colorful, little bit of green, reddish and brown in it, with handle, green in background","colorful, with handle, small, green outline in back",has green background,"basket with handle, green on back- ground"
+baskets,34,test,Card3,"has handle, looks like it's criss-crossin', overlappin', circle, has no tops, round, all brown like straw, oval","with handle, criss-cross, forms a X, not colorful, all brown lookin', only one without all those colors in there, shaped like a oval, you could put eggs in there","intertwines, forms X's, has a handle to it","forms X's, with handle"
+baskets,34,test,Card4,"oval shape, big, has no handle, brown","large, brown, shaped in a oval","round, with no top to it, no handle, brown",brownish basket by itself with no handle
+baskets,34,test,Card5,red string around,"small, with red, looks like string around",red string around,red tape around
+baskets,34,test,Card6,"goldish colored, green background in back, no cover","light goldish color with green background, no handle",little green background,other goldish color with green background
+baskets,34,test,Card7,"same color as the one previously, top","golden colored like the other one, light color, with top","top, goldish color, with no handle","top, goldish color"
+baskets,34,test,Card8,"looks like a purse, shape of a diamond, v-shaped","shaped in a V, handle, colorful","v-shaped, looks like it has red in there","v-shaped, with handle"
+baskets,34,test,Card9,"handle, made like a pot, short, little, goldish, top","small, with top, gold, handle","short, with top and handle","short, with handle and top"
+baskets,34,test,Card10,"tall, with top","tall, with top","tall, with top and handle",with handle
+baskets,24,test,Card1,"first basket is longer than the rest, shaped in a rectangle, top of it circular, one handle, long","really wide, with no lid and handle, looks beat up, looks like someone took a bite out of right side","really wide, looks like baby bath, bite mark in side of it",looks like bathtub with bite out of side of it
+baskets,24,test,Card2,"not wide, really big handle, really high handle, woven together really tightly, green in handle, no lid, brown woven stuff, then red woven into it","really high handle, short, with red weaving through it","really high handle, short, red and green woven into it","really high handle, really small, with red"
+baskets,24,test,Card3,"handle, spaces in between weavings, wide, not tight, looks like black thing inside of it","large holes in top of it, short, handle, you can stick your finger through one of the holes in top, in weavings, darker in its color","medium sized handle, holes in top where you could stick your finger through, medium sized basket, flat bottom, black inside","black base, holes in top with medium size handle"
+baskets,24,test,Card4,"no handle, very wide, it can probably hold a lot of things, woven tightly, border around top of it, got an edge to it, no design, you couldn't stick your finger through one of the weavings","wide, no handle, no lid","wide, deep, no handle, no lid, tight weaving","big, wide, no handle, no lid, tight weaving"
+baskets,24,test,Card5,"short, with no handle, red ribbon tied through it, woven through top","short, no handle, no lid, red ribbon through it","short, you could stick your finger through holes in it, got red ribbon","short, holes in top, red ribbon through top"
+baskets,24,test,Card6,"looks Mexican in its design, very tightly woven, but there's a hole right between top and bottom, right in center, where's there's zig-zag, green to backing, triangular, looks like salsa dish",looks like salsa dish,salsa dish,looks like salsa dish
+baskets,24,test,Card7,"really big, biggest one with lid, little knobby thing on top","really big, lid, two short handles on either side, little knob on top","really big, with small handles on sides, little knob on top","big, deep, with short handles and knob on top"
+baskets,24,test,Card8,"looks like purse, bottom shaped like triangle, handle",looks like purse,purse,purse
+baskets,24,test,Card9,"handle, wider than other one with flat lid, more round, shorter","square handle on top, round base, round lid, really tightly woven","there's no holes in weaving, you could stick your finger through holes in it, red ribbon","round bottom, flat lid, square handle"
+baskets,24,test,Card10,"taller, with lid","handle, lid, pretty deep","deep, lid, handle, almost square, weavings are really tight on bottom","big, deep, square handle, lid, tight weaving"
+baskets,18,train,Card1,"extremely wide, woven","elongated in diameter, woven with handle, extremely wide","handle, elongated in diameter","elongated in diameter, handle"
+baskets,18,train,Card2,handle is elongated in height,"handle, red designs, resembles Easter basket","resembles Easter basket, handle is high",Easter basket
+baskets,18,train,Card3,"container part is medium height, round in shape, design on container","round in shape, with designs, woven, medium height, has a handle","handle, medium in size, woven, with designs","woven, designs"
+baskets,18,train,Card4,"does not contain a handle, wide, woven, elongated in diameter","does not contain a handle, elongated in diameter","does not contain a handle, elongated in diameter","elongated in diameter, no handle, brown, darkest"
+baskets,18,train,Card5,"does not contain a handle, medium sized, red ribbon across container","does not contain a handle, red ribbon across","does not contain a handle, red ribbon",red ribbon
+baskets,18,train,Card6,"yellow, with green pattern in background","yellow, does not contain a handle, green background","yellow, with green background","no lid, green background"
+baskets,18,train,Card7,"yellow, with lid, two handles at sides","yellow, with lid, two tiny handles across from each other","yellow, with lid, two handles on sides, opposite of each other","yellow, with lid, two handles"
+baskets,18,train,Card8,"resembles a pocketbook, handle, woven, red and green patterns","pocketbook with handle, woven, with green and red patterns, in front, with also yellow patterns, v-shaped","pocketbook with handle, red and green","pocketbook, green and red"
+baskets,18,train,Card9,"handle, round in shape, diameter seems as though it's equivalent in circumference","lid, handle, yellow in color","round, with lid and handle","elongated in diameter, lid and handle"
+baskets,18,train,Card10,"handle, elongated in height, lid","yellow in color, handle, lid, elongated in height","handle, elongated in height, lid","elongated in height, lid, handle"
+dogs,45,test,Card1,"standing (on) four legs, in middle it's black, facing left, long tail, paws lightish brown, back it's yellow, ears black towards tip","black stomach and back and legs, goldish legs, tail is long, blackish tip on tail","standing up with long tail, blackish stomach and back","standing up, yellowish type dog, with black stomach and back"
+dogs,45,test,Card2,"furry, looking towards back, one of its leg is standing out, turning around a little bit, yellow, middle it's black","tiny fur, one leg is extended out and it's looking back","small furry, one leg sticking out",one leg extended out
+dogs,45,test,Card3,"light beige, standing on grass, sitting, has a leash, looking back, tail sticking out on grass",sitting on grass and it's looking back and has leash,"sitting, looking back on grass, tail on grass, long","sitting down, sitting on grass, tail on grass"
+dogs,45,test,Card4,"dark dark brown, skinny, not a poodle, you can only see three of its legs, really tiny , mouth part sticking out, light more towards head, nose blackish, ears lighter than whole body, almost black, no collar, short, not furry, hotdogs",hotdog,hotdog,hotdog
+dogs,45,test,Card5,"poodle with collar, silver type thing, small circle",poodle with circle leash,poodle with round leash,poodle with collar
+dogs,45,test,Card6,"German shepherd, black, nose part is goldish brown, paws goldish brown, standing on grass","German shepherd, standing on grass , little bit on mouth part is goldish, really black",German shepherd,German shepherd
+dogs,45,test,Card7,"Golden retriever, laying down on grass, stomach area on back is darker brown, legs and head is goldish, nose black","Golden retriever, laying on the ground","laying down, Golden retriever","Golden retriever that's laying down, with curly ears, long floppy ears"
+dogs,45,test,Card8,"goldish, mouth and nose part is black","black nose and mouth, rest of body is goldish, legs are extended out","black on mouth, two legs extending out, goldish, small tail","two legs extending out, goldish with black nose and mouth part"
+dogs,45,test,Card9,"wolf, white, blackish on back, tongue hanging out","white, wolf","white, wolf",white
+dogs,45,test,Card10,"furry, hair coming down on mouth and stuff, black","sitting down, really furry, hair hanging out, tail sticking up, black, sitting on grass","fur hanging out of mouth, and sitting on grass with tail sticking up",hair hanging out of mouth and tail sticking up
+dogs,35,test,Card1,"two colors, gold and black, pattern, you can can see side of dog, it's facing side, black pattern on back which rolls down stomach, ears in the middle of its neck, one of its teeth is sticking out of its mouth, leaning on two forward legs, two back legs, and sort of on toes a little bit, back leg is facing the left leg, sharp tooth on left side of face sort of sticking out, standing on all four, you could see its left side of the body, black spot on the middle, roundish, covering the stomach","that dog with the tooth in front of it coming out of its mouth, with black spot",tooth sticking out of mouth,tooth sticking out of mouth
+dogs,35,test,Card2,"curly sheep hair, facing you, goldish, a little bit of black, head is tilted towards right, you can only see its left ear, sort of bent, sort of folds in, makes a shape of an L, standing on yellow grass, half of black, half yellow background","black and golden background, black on top, golden on bottom, golden hair, black back, ears folds in the shape of an L, upside down L, yellow, little bit black fur on back, half black, half yellow background","half black, half yellow, black on top, yellow on bottom background","half yellow, half black"
+dogs,35,test,Card3,"it's got hair but not long, grayish color, leash hanging, somebody pulling the leash, or leash is tied down to something, brown color, tail is laying out behind it, sitting down on its back two legs, two front legs are standing up, green grass","leash tied to ground, tail is laying down on the grass, green grass behind it, all brown, facing in front of you, but you could see head is tilted to side","sitting down on green grass, tail lying out behind it,","tail laying on back, sitting on grass"
+dogs,35,test,Card4,"smaller, short feet, long body, black, curly hair, you can't see its tail, short legs, long stomach, like a sausage, no background","short legs, long body, larger distance between its front legs and back legs, compared to his legs and his head, long, no background at all","short, black, fuzzy hair, short legs, long body","short legs, long body"
+dogs,35,test,Card5,"yellow background, leash with coin, or maybe dog tag, round, circle, black fluffy hair, big ears, sheep dog, background's goldish, face is facing you but a bit to right, round circle metallic dog tag","collar, round metallic dog tag",metallic round circle dog tag on leash,metal round dog tag
+dogs,35,test,Card6,"hound dog, no hair, black, very muscular, standing on side, little bit of brownish on mouth and muzzle, green background type thing","muscular, black hair, just standing there, on all four legs, little brown by muzzle, by its mouth, very short hair, brown on its front left paw and mouth","muscular, black, standing up","muscular, black, standing up straight"
+dogs,35,test,Card7,"more hair, brown, from the stomach you can see the hair sort of like growing out, on the stomach and legs it grows longer, ears falling down from its head, face is up a little bit in the air","long hair from the stomach and legs, ears falling off, golden brown color",ears falling down,ears falling off
+dogs,35,test,Card8,"muscular, brown color, golden, ears facing up, short tail, bulldog, standing on two front legs, two back legs seem to be in running position","muscular, gold, standing on front two legs, act like in a running position","muscular, golden, leaning on front two legs, running in back legs","muscular, leaning on two front legs, gold, brown hair, running"
+dogs,35,test,Card9,"husky, white hair in front, tongue sticking out, black hair on back, on green back- ground","husky, white fur, tongue sticking out, black on back, on green grass, white hair on stomach and legs, gets darker as you go higher, striped with white","husky, white hair, tongue sticking out","husky, tongue coming out of mouth"
+dogs,35,test,Card10,"black, lying down, tail back up straight in air","tail pointed straight up in air, lying down in grass","tail pointing out in air, straight up, lying down in grass","tail sticking up in air, lying down"
+dogs,42,train,Card1,"bloodhound, black at center of body, end's light brown","bloodhound, facin' to left, black body","bloodhound with black body, black center",bloodhound with black body
+dogs,42,train,Card2,"terrier, head turned to left, looks stupid, light brown, tan, ears is shorter, snout long , standing up, little bit of black in middle of body","terrier, standin' up, head is just turned","terrier, tan lookin', head turned","terrier, with head to side"
+dogs,42,train,Card3,"sittin' down, light brown, long ears, head is turn--.","long nose, light brown, tan, long ears, looking to left, sittin' down","tan, head turned, long tail","tan, with head to side"
+dogs,42,train,Card4,"short, chocolatey",long hotdog lookin' black dog,"hotdog, black",black hotdog
+dogs,42,train,Card5,black poodle,black poodle,black poodle,black poodle
+dogs,42,train,Card6,Doberman pinscher,Doberman pinscher,Doberman,Doberman
+dogs,42,train,Card7,"cocker spaniel, long ears, look girly","cocker spaniel, girly dog, feminine dog with long ears","cocker spaniel, girly looking","cocker spaniel, girly dog"
+dogs,42,train,Card8,"boxer, mean, ears similar to Doberman pinscher's but tan, looks muscular, short snout","boxer, light brown, looks strong with black nose","boxer, muscular","muscular boxer, defense dog"
+dogs,42,train,Card9,wolf,wolf,wolf,wolf
+dogs,42,train,Card10,"Scottish terrier, black, short",black terrier looking,"Scottish terrier, black",black terrier
+dogs,12,train,Card1,"darker, center","black, stomach, yellowish","very first, black mouth",very first
+dogs,12,train,Card2,"really, curly, tall","yellowish, looking left, curly hair","taller, curly hair, looking left","tall, curlier, looking left"
+dogs,12,train,Card3,looking left,looking left,"looking left, green, little bit","looking left, little bit green"
+dogs,12,train,Card4,"little hotdog, small","hotdog, short",hotdog,hotdog
+dogs,12,train,Card5,poodle,"poodle, black","black poodle, smaller, hotdog","poodle, black"
+dogs,12,train,Card6,"Great Dane, tall","Great Dane, tall, black","tall, Great Dane, black","Great Dane, black"
+dogs,12,train,Card7,"really, long tail, long ears, one back leg sticking down","long ear, leg standing down","long ear, looking left","long ear, looking left, leg drooping down"
+dogs,12,train,Card8,pitbull,"pitbull, yellowish",pitbull,pitbull
+dogs,12,train,Card9,husky,husky,husky,husky
+dogs,12,train,Card10,"S c o t t i s h ,   b l a c k","b l a c k ,   s i t t i n g   d o w n ,   S c o t t i s h",""" t h a t   o n e ' s   a c t u a l l y   n u m b e r   t w o """,l i t t l e   b l a c k   S c o t t i s h
+dogs,29,train,Card1,a lot of black on it,brown with some black in middle of body,"bottom row, one on left",one on the bottom on right hand side
+dogs,29,train,Card2,looks like it's hunched back,your left hand on the top row,"middle row, second card to the left","""Could I see number eight again? Actually--. Oh that's number nine."""
+dogs,29,train,Card3,beige,"looks like it's looking back, yellowish color","the one in the bottom row, middle card",the one in the middle to the left
+dogs,29,train,Card4,really brown,looks like a black hotdog,looks like a black hotdog,black hotdog
+dogs,29,train,Card5,poodle,poodle,black poodle,black poodle
+dogs,29,train,Card6,"top row, second to the right",mostly black,the one all the way to the right on bottom row,black
+dogs,29,train,Card7,"top row, first one",golden retriever,golden retriever,golden retriever
+dogs,29,train,Card8,bulldog,bulldog,bottom left hand corner,"bulldog, yellowish color, really really tiny tail"
+dogs,29,train,Card9,white,"white with some black on it, husky",husky,white husky
+dogs,29,train,Card10,"top row, first one on left","second row, last one on right","black, looks like a poodle, small, terrier",left hand corner
+dogs,38,train,Card1,"black at bottom, tail pointing to floor",tail pointed to floor,"tail pointin' towards ground, black tail","black tail, pointin'"
+dogs,38,train,Card2,"fur, brown","body going right, head turned left",you can't see its tail,you can't see its tail
+dogs,38,train,Card3,"light light brown color, head is turning, skinny","head turning to left, has chain","head turned towards left, pointy tail","brownish, whitish, something around its neck, pointy tail"
+dogs,38,train,Card4,"really short, black, sausage, hotdog, long","really short, long, black",really short and long and black,"black, short and long"
+dogs,38,train,Card5,"something around its neck, fur, black, cute","chain around its neck, little high top black, cute","cute, with chain around its neck","pretty, with chain around its neck, black"
+dogs,38,train,Card6,"really mean lookin', black, pitbull, security dog","mean looking, really black, security",security dog,security dog
+dogs,38,train,Card7,"really pretty, brownish, lookin' up, look like it's on grass","pretty, brownish, sittin' on grass, lookin' up","pretty, head looking towards left side and its foot's left side, green grass","pretty with pretty fur, brown"
+dogs,38,train,Card8,"mean looking, chain around its neck","mean looking, not security one, brown","mean looking, brown, with chain on neck","mean, with chain around its neck, brown"
+dogs,38,train,Card9,"white, wolf, tongue stickin' out","wolf, tongue is sticking out",wolf,wolf
+dogs,38,train,Card10,"short and black, face on left hand side","sitting on grass, head towards left side, tail is sticking up, black","black, short tail, going up","sitting on floor, tail is sticking up at back, black"
+dogs,32,train,Card1,"brown, with black in back","brown, with black back in middle",brown with black back,"black, brown"
+dogs,32,train,Card2,"light brown, standing on three feet, turned in funny position",in funny position,in funny position,in funny position
+dogs,32,train,Card3,beige with green background,beige,beige,beige
+dogs,32,train,Card4,"dark brown, small, hotdog",black,"hotdog, black",hotdog
+dogs,32,train,Card5,"poodle, black",poodle,poodle,poodle
+dogs,32,train,Card6,"black, shiny fur",black with shiny fur,black with shiny fur,black with shiny fur
+dogs,32,train,Card7,"golden retriever, brown",golden retriever,golden retriever,golden retriever
+dogs,32,train,Card8,"I don't know if it's a bulldog, brown",on your left upper corner,bulldog,bulldog
+dogs,32,train,Card9,wolf,wolf,wolf,wolf
+dogs,32,train,Card10,black,black,"small, black","all the way on right--left hand corner, second row"
+dogs,13,train,Card1,"standing on all fours, tan, black, black belly, black in middle","black, black tummy, tan all over, standing on all fours","black in middle of stomach, on all fours, facing left","on all fours, black in stomach"
+dogs,13,train,Card2,"sheepy, wooly fur, standing on all fours, facing the way, tannish, facing us, head turned","weird looking, that we didn't get last time","weird, we can never get","freaky looking, we can never get"
+dogs,13,train,Card3,"golden retriever, sitting down on back two legs, looking left","golden retriever, sitting on back two legs","golden retriever, on back two legs",looks like golden retriever
+dogs,13,train,Card4,little black hotdog,"hotdog, little, black",tiny little hotdog,tiny hotdog
+dogs,13,train,Card5,"poodle, little brown, black, collar","poodle, black",little black poodle,little black poodle
+dogs,13,train,Card6,"black, Rotweiler","black, Rotweiler",black Rotweiler,black Rotweiler
+dogs,13,train,Card7,cocker spaniel,cocker spaniel,cocker spaniel,cocker spaniel
+dogs,13,train,Card8,"bulldogs, black face, all tan",bulldog with black nose,bulldog with black nose,bulldog with black nose
+dogs,13,train,Card9,"wolf, white","white, wolfish",white wolf,white wolf
+dogs,13,train,Card10,"little, Scottie",Lady and the Tramp,"little, Scottie, Lady and the Tramp","black, Lady and the Tramp"
+dogs,17,train,Card1,"big, brown, black, can see tail, face going to left, pointing to left","lot of black on back, ears pointing down, brown on legs","entire body pointing to left, brown, back is black","pointing to left, black back, rest is brown"
+dogs,17,train,Card2,"brown, black, can see one flap, with ear, facing towards you, but turned to left","body pointing to right, head pointing to left","pointing to right, head looking to left",furry
+dogs,17,train,Card3,"sitting down, collar, on green grass, light, tannish color, butt is on ground, tail laying on ground","sitting down, collar, body pointing to right, head pointing to left",sitting down,"pointing to right, face looking to left"
+dogs,17,train,Card4,"small, dark brown, facing towards right, more diagonal set",hotdog,hotdog,hotdog
+dogs,17,train,Card5,"poodle, collar, little circular thing in middle, pointing to right, but looking to left, black",poodle,poodle,poodle
+dogs,17,train,Card6,"skinny, Doberman pincher, with chains","skinny, all black except little patch on nose, pointing other direction, tall, Doberman, no chains","skinny, shiny coat, black","black, shiny coat, skinny"
+dogs,17,train,Card7,"furry, brown, pointing to left, small, lighter","brown, long droopy ears, whole entire body pointing to left","entire body pointing to left, very droopy ears, brown","droopy ears, pointing to left, brown"
+dogs,17,train,Card8,"black mouth, face and eyes, but rest is brownish, yellowish, collar, pointing to left, ears sticking up","black face, light in color, has a chain, only things that are really dark are mouth area with eyes and ears, ears pointing up, looking to left","brown, all pointing to left, but black face, jumping","looks like it's about to jump, brown coat with black face"
+dogs,17,train,Card9,"white, wolf",wolf,wolf,wolf
+dogs,17,train,Card10,"black, really hairy, pointing to left","very hairy, small","that other black dog that's very furry, pointing to left","black, small, very furry, pointing to left, tail sticking straight up"
+dogs,44,train,Card1,"looking off to left with tail down, got his legs far apart, yellow on black body","looking in same direction, black body with orangish yellowish paws","standing on all fours, black body and orangish legs","on all fours, with black body"
+dogs,44,train,Card2,"goldish, body's facing one direction, head is looking back off in other direction, standing on all fours, body facing opposite direction, looking straight ahead, not like up, legs are far apart","up on all fours, with gold legs, tall, legs are far apart","up on all fours, has gold legs, looking back","up on all fours, golden legs"
+dogs,44,train,Card3,"same type position, sitting, brownish gold","sitting, goldish yellowish","sitting down, goldish brown",lightish beige
+dogs,44,train,Card4,foot long hotdog,black foot long,hotdog,hotdog
+dogs,44,train,Card5,black poodle,black poodle,"black poodle up on all fours, shaggy ears",black poodle up on all fours
+dogs,44,train,Card6,"looks like German shepherd, all black but with beigish nose, on all fours","looking in same direction, all black, outlined in yellow, but mainly black","Saint Bernard, blackish, up on all fours",like a Doberman
+dogs,44,train,Card7,"smaller, lookin' in same direction, but little gentler dog","up on all fours, you can see whole thing, blackish body with goldish paws, paws are spread out","up on all fours, golden legs, darker body, goldish",almost in same position but little bit darker color
+dogs,44,train,Card8,"gold, looking in same direction, on all fours, stubby tail","up on all fours, like about to attack, really goldish","really gold, standing like same position, on all fours with black legs stretched out","real gold, up on all fours, with black legs stretched out"
+dogs,44,train,Card9,husky with white and blackish,husky looking like straight at you,husky,husky
+dogs,44,train,Card10,"black small, looking off in same direction","black on all fours, you can barely see legs, looking in other direction","looking in opposite direction, you can barely see legs, blackish","black up on all fours, you can barely see legs"
+dogs,30,train,Card1,"brown and black, standing up, profile shot, long tail","top row, third one from right",bloodhound,bloodhound
+dogs,30,train,Card2,"top row, third one to right",the one that you thought was a cocker,Schnauzer,Schnauzer
+dogs,30,train,Card3,looks like a Labrador,Labrador,Labrador,Labrador
+dogs,30,train,Card4,Dachshund,"Dachshund, hotdog","Dachshund, hotdog",Dachshund
+dogs,30,train,Card5,"poodle, black",poodle,poodle,poodle
+dogs,30,train,Card6,Doberman,Doberman,Doberman,Doberman
+dogs,30,train,Card7,cocker spaniel,cocker spaniel,cocker spaniel,cocker spaniel
+dogs,30,train,Card8,"bulldog, pitbull, boxer",boxer,boxer,boxer
+dogs,30,train,Card9,"Alaskan husky, wolf looking thing","wolf looking, wolf beast",wolf like thing,wolf like thing
+dogs,30,train,Card10,Scottish terrier,Sottish terrier,"Scottish terrier, Scottie",Scottish terrier
+dogs,39,train,Card1,"standing up, head facing towards left, big black spot in middle of body, brown, Spot",Spot,Spot,Spot
+dogs,39,train,Card2,"looks like a poodle, but little head is turned to side and ears folded over, not a poodle, but whitish, facing forward, black part lying on top","scruffy looking, black thing on top, black outline on top",black on top,"black on top, in background"
+dogs,39,train,Card3,"green outline around it, tan, some grass around him, sitting with face pointing to left","tan dog that's sitting, head turned other way from which way he is sitting , green outline","grass around him who is sitting and facing towards left, with black on top","sitting on grass with little head pointed , green around him"
+dogs,39,train,Card4,little black thing that looks like a dachshund,black dachshund thing,little black,dachshund
+dogs,39,train,Card5,"little black poodle, with collar","poodle with collar, black",black poodle,poodle
+dogs,39,train,Card6,"mean looking, Doberman type thing, black, green around him","sleek, black, other mean dog that has green around him","other mean dog, black and shiny","shiny, black, mean, scary dog"
+dogs,39,train,Card7,"fluffy ears, green around him, looking towards left, light brown, dark brown","green outline, tan, fluffy ears, smaller , more fur, facing left","floppy eared with grass around him , facing left side, green around him, standing in grass, face pointed upward , light brown, cocker spaniel",cocker spaniel
+dogs,39,train,Card8,"other mean looking dog with black nose, pointy ears, some green around him, standing with back legs pointing outwards , pointing back and to right, boxer",scary junkyard dog with green outline whose feet are pointing back and to right,"garbage junkyard dog with feet pointing outwards, facing left",junkyard dog with pointy ears with feet pointing backwards
+dogs,39,train,Card9,"husky, fluffy, sled dog",husky,husky,husky
+dogs,39,train,Card10,little black Irish dog,little black Irish doggy,"little black Irish dog, on some grass",little black Irish doggy thing in grass
+dogs,36,train,Card1,"brown and black, standing up straight in erect fashion, tip of tail is black, tip of nose is also black, blackish brownish ears, drooping down, not standing up","brownish yellowish blackish all mixed into one, greenish yellowish background, hindlegs are yellow, nose is black, ears are drooping down, all completely erect, everything is facing towards one direction, standing up on all fours","black nose, black tail, completely facing one way, just uniform, standing up on all fours, stomach and back are completely black, legs are brown, paws are yellowy",[Missing Data]
+dogs,36,train,Card2,"little bit fluffy, brown in color, but it's got a few shadows on it so it looks black, small, body is facing one way, and he is looking back the other way, he's got all four paws on ground, ears are drooping down, like an upside down ""U"", no tail","fluffy, standing up on all fours, looks like his body is facing directly you, but his head is turned to left, golden legs, background is yellowy","little bit fluffy, body facing directly you, chest facing you directly, head facing to left",[Missing Data]
+dogs,36,train,Card3,"leather collar, sitting down, but his two front paws are standing up so they're erect, tail which is same color as he is looks like leathery color, body facing one way, head facing the other","leather collar, clip at end of collar, looking one way, body's facing the other, hind is sitting down, tail is long","leathery collar, body facing one way, head facing 180 degrees behind him, leathery color",[Missing Data]
+dogs,36,train,Card4,"really short, longish, like poodle, black, no tail, looks combed, diagonal, brownish black, darkish brown, no background color, pretty much cut out, greenish grayish background color, no collar, droopy ears, standing up erect","longish, really small, hotdog",hotdog,[Missing Data]
+dogs,36,train,Card5,"fluffiest one of them all, little coin collar, poodle","coin collar, goldish coin, really fluffy",coin collar,[Missing Data]
+dogs,36,train,Card6,"Doberman, standing up on all fours, ears are perked up real high, completely black except for feet and top of lips","Doberman, body facing one direction, head facing 30 degrees to the right, standing up on fours, completely erect, ears are up, brownish top lip, no tail, completely black except for paws, shiny black","Doberman, shiny black color, top lip brown",[Missing Data]
+dogs,36,train,Card7,"Female golden retriever, goldish brown, ears are down, no tail, greenish grass background, brownish gold","golden retriever, all hairy, a little bit diagonal, if you draw a line from its legs to its nose it looks like it's going up in a diagonal like in a slope, no tail, ears are golden and really hairy",golden retriever that's diagonal,Diagonal dog
+dogs,36,train,Card8,"really muscular, the most muscular after the Doberman retriever, ears are standing up, silvery chain around his neck, brown mouth and nose, eyes are black, rest of body is yellowish brown, nose and mouth are black, Beethoven","chain, pointed ears, diagonal, almost standing up, moving forward, yellowish goldish color","Beethoven dog, silvery chain, diagonal a little bit, legs are not under his butt",Beethoven dog with silvery chain tied around neck
+dogs,36,train,Card9,"husky, malamute, Alaskan, white and black, cute","malamute, Alaskan husky, white and black, grayish white, tongue hanging out","Alaskan husky, grayish black",Alaskan husky
+dogs,36,train,Card10,"Toto, black, tail up, erect","halfway fuzzy, Scottish terrier, all looking one way, tail is at same level as his ears if you look at it horizont- ally, Toto, sitting in grass, mustache hanging down","beardy mustache, little Toto dog, tail pointing upwards","bearded mustache, Toto"
+dogs,14,train,Card1,"bloodhound, brown legs, black in middle","bloodhound, black, gray legs","brown legs, black","brown legs, black on stomach"
+dogs,14,train,Card2,"brown, looking towards back or side",looking back again,looking towards back,looking to side
+dogs,14,train,Card3,"sitting, looking back, really light brown","gray, sitting again, on green grass, looking back or to side","light brown, looking back","light brown, looking to side"
+dogs,14,train,Card4,"black, standing, looking forward, you see it from top",black,"black, viewed from top, picture's taken from top","black, little, long, taken from top"
+dogs,14,train,Card5,poodle,poodle,poodle,poodle
+dogs,14,train,Card6,Doberman,Doberman,Doberman,Doberman
+dogs,14,train,Card7,"cocker spaniel, brown",cocker spaniel,cocker spaniel,cocker spaniel
+dogs,14,train,Card8,"bulldog, boxer",boxer,boxer,boxer
+dogs,14,train,Card9,"white, gray, Siberian husky",white,husky,husky
+dogs,14,train,Card10,"black, little mustache","black, you're seeing it from side","from side view, looking straight, picture from side, looking straight forward, black","black again, picture's taken from side view"
+dogs,40,train,Card1,"tail that's going down, you could see its tail",that famous dog we couldn't figure out last time,dog on the very right in the middle,side view dog that has the tail down
+dogs,40,train,Card2,little,looking off to side,dog on very left in middle,dog that was next to it on right
+dogs,40,train,Card3,dog that was next to it on right,"sitting down, looking off to side, wiener",dog second left from middle,second from left on bottom
+dogs,40,train,Card4,"on top, middle one",little black,little,hotdog
+dogs,40,train,Card5,little pullover thing,poodle,the one on the left,little black Schnauzer
+dogs,40,train,Card6,Doberman,black Doberman,Doberman,Doberman
+dogs,40,train,Card7,"resembles Great Dane, curly hair underneath stomach",dog from second left on middle,second from right in middle,dog that's peering off to side
+dogs,40,train,Card8,Great Dane,Great Dane,Great Dane,Great Dane
+dogs,40,train,Card9,top right,top one,white,white Husky
+dogs,40,train,Card10,"Schnauzer, black",black Schnauzer,black Schnauzer,Schnauzer
+dogs,22,test,Card1,"facing sideways, tail showing, orange brown, black inner, shadow's black, on its back, tongue sticking out, tail going down, both legs orange, totally to side, left side","tongue sticking out, black shadow on top but orange, facing to left","tongue sticking out, black shadow, orange back, orange legs",tongue sticking out
+dogs,22,test,Card2,"body towards front right, face towards left, face turning, orange, black shadow going through, not with green background, doesn't have leash, form field","body towards right, head towards left, orange in back","orange background, head turned","golden background, head turned"
+dogs,22,test,Card3,"same position as other dog, but green background, leash","leash, body towards right, head towards left, in grass","body towards right, head towards left, leash, green background","leash, head turned, green background"
+dogs,22,test,Card4,"brown, facing to right, doesn't have leash, very small, don't know if it's poodle, long nose, long ears, big","poodle, droopy ears, long nose, long ears","long nose, black",long nose
+dogs,22,test,Card5,"poodle, golden necklace, circle","golden necklace, leash, circle",circle,circle
+dogs,22,test,Card6,"Labrador, very tall, black, facing to left","Labrador, very tall, black, facing to left","black, tall","black, tall"
+dogs,22,test,Card7,"facing towards left, Lassie, very hairy, brownish","Lassie, facing towards left, hair","hairy, facing to left, Lassie",Lassie
+dogs,22,test,Card8,"bulldog, with chain, facing towards left, chain around neck","bulldog, with chain","bulldog, with chain","bulldog, with leash"
+dogs,22,test,Card9,"wolf, snow","snow, fox","fox, snow, wolf",snow fox
+dogs,22,test,Card10,"mustache, facing towards left, black, tiny, in grass","wooshy, mustache, tail sticking up",mustache,mustache
+dogs,20,test,Card1,"standing up very straight, black, legs brown, tail's got a little black, black all through his torso pretty much, basset hound","large basset hound, the first one we did, black, brown legs, tail down, got a little black, looking to left","basset hound, big guy",big basset hound
+dogs,20,test,Card2,"standing, two front legs straight down, head turned to side, sticking out to side, looking down slope of back leg",looks like he's looking down his leg,"guy looking down his leg, schnauzer","schnauzer, looking down his leg"
+dogs,20,test,Card3,"seated position, sitting, head turned","sitting, brown, looking behind him",sitting,"sitting, turned to back"
+dogs,20,test,Card4,"very stout little, black, very short, little curly, long body, turned, looking towards right, little old weiner dog",weiner dog,weiner dog,weiner
+dogs,20,test,Card5,"looking towards left, poodle",black poodle,poodle,poodle
+dogs,20,test,Card6,Doberman pinscher,Doberman,Doberman,Doberman
+dogs,20,test,Card7,"cocker spaniel, long ears",cocker spaniel,cocker spaniel,cocker spaniel
+dogs,20,test,Card8,"pug, miniature boxer, legs are down far, looks like he's standing on something, but they cut it out, really pushed in face","pushed in, legs all the way down, pug","pushed in face, pug",pug
+dogs,20,test,Card9,"sled dog, husky, white, looks like German shepherd","sled dog, husky","husky, sled dog",sled dog
+dogs,20,test,Card10,"Yorkie, tail straight up, English dog",bearded English dog,English bearded dog,bearded English
+dogs,26,train,Card1,"on bottom row, second to your left",black and golden,"big, black and brown","big, brown and black"
+dogs,26,train,Card2,"sheep dog, scraggly hair, light color, golden","scruffy, golden","scruffy, golden","scruffy, golden"
+dogs,26,train,Card3,"golden lab, sitting down","golden lab, sitting down",golden lab,lab
+dogs,26,train,Card4,wiener dog,wiener dog,wiener dog,wiener dog
+dogs,26,train,Card5,black poodle,black poodle,black poodle,black poodle
+dogs,26,train,Card6,Doberman pinscher,Doberman pinscher,Doberman,Doberman
+dogs,26,train,Card7,"golden colored, with really long ears, floppy ears","floppy eared, golden","golden, floppy eared",floppy ear
+dogs,26,train,Card8,[Missing Data],boxer,boxer,boxer
+dogs,26,train,Card9,"husky, white",husky,husky,husky
+dogs,26,train,Card10,looks like Toto from Wizard of Oz,Toto,Toto,Toto
+dogs,19,train,Card1,"on all fours, orangey type color, back legs, bottom look yellow, standing up straight, looking to left, middle part black","front part looks orange, middle part is black, back legs look yellow, standing",black middle part,"black coloring in middle, orange front"
+dogs,19,train,Card2,"legs look really yellow, looking to left, standing up, top part looks orangey with a hint of yellow, bottom very yellow, not standing","looking to left, looks pretty yellow, bottom part especially yellow, body's facing towards right","body directed towards right, looking to left, yellowish color","yellowish, body pointed diagonally to right, head looking to left"
+dogs,19,train,Card3,"body facing towards right, head looking to left, light brown color, edging around is green","body oriented towards right, head pointing to left, yellowish color, wearing collar","body oriented towards right, head looking to left","body facing right, head looking left"
+dogs,19,train,Card4,"totally black, facing towards right, body","totally black, diagonal toward right","totally black, diagonal towards right","totally black, body diagonally oriented to right"
+dogs,19,train,Card5,black poodle,black poodle wearing collar,black poodle wearing collar,"black poodle, wearing collar"
+dogs,19,train,Card6,"totally black, standing up straight, looking to left","black, looking towards left, standing up real straight","standing straight up, black, looking straight to left","standing straight up, totally black, looking to left"
+dogs,19,train,Card7,"facing to left, brown, blondish towards ears, long ears","brownish, blondish color, looking to left, long ears","brownish colored, long ears, looking to left, back leg stretched out diagonal, floppy ears","back leg stretched out, long, floppy ears, brownish color"
+dogs,19,train,Card8,"looking to left, orangey yellow, back leg stretched out towards back","orangish yellow colored, back leg outstretched to back",back leg stretched out to back,"orangey yellow color, back leg stretched out"
+dogs,19,train,Card9,"black and white, tongue sticking out","black and white, tongue sticking out","black and white, tongue sticking out, looking to left","black and white, tongue sticking out"
+dogs,19,train,Card10,"totally black, looking to left, tail straight up","totally black, looking to left, tail pointing straight up","black, tail pointing straight up looking to left","totally black, tail pointing straight up looking to left"
+dogs,27,train,Card1,"tan and black, facing to left","black on belly, but legs are brown, black nose","black stomach, tan legs",black stomach
+dogs,27,train,Card2,"tan and black, in a weird position, looking over shoulder","weird position, looking over shoulder, terrier",terrier,terrier
+dogs,27,train,Card3,"tan, looking to left, floppy ears","tan, looking over shoulder to left, floppy ears","looking over shoulder to the left, tan, floppy ears",floppy ears
+dogs,27,train,Card4,"dark brown, facing to right, hotdog",hotdog,hotdog,"hotdog, facing to left"
+dogs,27,train,Card5,black poodle,black poodle,poodle,poodle
+dogs,27,train,Card6,"Doberman, facing to left",Doberman,Doberman,Doberman
+dogs,27,train,Card7,"golden retriever, facing to left",golden retriever,golden retriever,golden retriever
+dogs,27,train,Card8,"black snout, but it's tan, the rest of it","black snout, tan",black nose,black nose and tan body
+dogs,27,train,Card9,"looks like a wolf, white and black",wolf looking,wolf looking,wolf
+dogs,27,train,Card10,"small, black with long hair","little, black with hair down to floor",black with hair down to floor,black with hair down to floor
+dogs,23,test,Card1,"standing upright, patch of black around stomach and back area, legs are more a camel color, orangish color, yellowish color towards tail, black tip on tail","black patch, first dog we looked at","first dog we ever looked at, black patch on stomach","first dog we looked at, black patch"
+dogs,23,test,Card2,"furry, turning towards his butt, white legs, patch of black on his butt, looking at his tail, standing, black outline, yellow on bottom","looks like he's biting his butt, yellow outline at bottom, black on top","yellow bottom, black top","looks like he's biting his butt, yellow on bottom, black on top"
+dogs,23,test,Card3,"sitting down, brown collar, surrounded by green, looking back at his tail","looking at his tail, sitting down, green outline","sitting down, looking towards, green outline","green outline, looks at his tail"
+dogs,23,test,Card4,"really short, weiner","short, weiner",weiner,weiner
+dogs,23,test,Card5,"poodle, all black, shiny collar thing, circular, silver color","poodle, black, circular thing on collar",circle thing on collar,poodle with circle thing on collar
+dogs,23,test,Card6,"Doberman, shiny black, outlined in green","Doberman, shiny all over, black","Doberman, shiny all over, black","shiny black, Doberman"
+dogs,23,test,Card7,"cocker spaniel, longish hair, looking up, grass around, ears are droopy, not high, brown fur, greenish background","brown hair, ears droop, cocker spaniel","cocker spaniel, tan color, droopy ears, curly hair, wavy, looks like human hair, small","cocker spaniel, looks like he has human hair"
+dogs,23,test,Card8,"bulldog, legs look like he's digging into ground, puppy, sad face","sad puppy face, legs are digging into ground behind him, bulldog",bulldog,bulldog
+dogs,23,test,Card9,"wolf dog, white tail",wolf,wolf,wolf
+dogs,23,test,Card10,"short, beard, tail pointing up, all black","""the one that gave us trouble before"", beard, curly hair, black, ears pointing upwards, ""he was number ten""","""the one with the ears"", tail sticking up, black, short","little, furry, black, ears point up, tail points up"
+dogs,37,test,Card1,"brown and black, long tail, facing left, short nose","short nose, black and brown, more black at top, in middle","first one on the first, second on the second, a lot of black, in middle","first on the first, second on the second , with black"
+dogs,37,test,Card2,"facin' us but he is lookin' to right, curly hair, brown, twist up","hanging off stomach, a lotta hair all over, red brown, brown, a lot of yellow on bottom, long ears","a lot of yellow at bottom, head is turned","yellow background, lookin' to side, curly hair"
+dogs,37,test,Card3,"brown, collar, big ears, squattin' down, tail is on floor","long tail, layin' on ground, brown, with collar, looks like he's chained to something, head is turned, big ears","tail laying on ground, brown","tail laying on ground, looking to side"
+dogs,37,test,Card4,"long, hotdog, black or brown, big nose, looks alert, hind legs are back, straight back","black, curly hair, hotdog","hotdog, brown, long nose, big ears, looks like he doesn't even have legs, legs are really short","short, hotdog, short legs"
+dogs,37,test,Card5,"curly hair, collar, with dog tag, black","black, curly hair, dog tag, with circular metal","black, with curly hair, with medal, with dog tag","black, curly hair, round dog tag"
+dogs,37,test,Card6,"Doberman pinscher, black, looks greasy, brown feet","pinscher, looks greasy","black, Doberman, greasy","Doberman pinscher, black, looks like there's grease on 'im"
+dogs,37,test,Card7,"long hair on belly, brown, big ears, long ears, pointin'","long ears, brown, lot of hair on belly","hairy belly, long ears, looks like somebody's itchin' it behind ears, head stickin' up, brown","long ears, hairy belly, brown"
+dogs,37,test,Card8,"boxer, short nose, brown, pointy ears, back legs are lower than front legs, black collar on it with studs, black nose, hair is not curly","boxer, black nose, pointy ears, brown , lower than the front legs, legs are stickin' out the back","brown, black snout, ears stickin' up, short tail","brown, short nose, small tail, ears stickin' up, short tail"
+dogs,37,test,Card9,"husky, white and black, tongue sticking out","Akita, black and white, tongue sticking out","black and white, tongue stickin' out, looks like a wolf, white and brown","black and white, tail sticking out"
+dogs,37,test,Card10,"tail's sticking up, blackish brown, looks like it's got a beard on chin, back tail is curved","beard on chin, tail sticking up and back, ears are sticking up, small, a lotta hair","tail sticking up, beard, little short","hairy chin, tail stickin' up, short"
+dogs,25,train,Card1,"facing to left, golden colored, black area in middle, long ears","very short, middle area is very black, legs are golden, very short black nose , very long ears, long tail, looking to left","brown patch in center, body and head are both looking nine o'clock","body has black area, black patch in middle of body"
+dogs,25,train,Card2,"left leg is ready to pounce on somebody, it's not facing all the way to left, it's facing more eight o'clock, has much shorter ears, it's golden, only his head is facing eight o' clock, everything else is facing out","it's looking something between eight and nine o'clock, its hind legs look like it's gonna go somewhere, it's orange, gold colored, middle area is black","golden colored, very short ears, hind legs are on left side, looks like it's about ready to run to something","golden, short neck, very small ears, hind legs are higher than rest of body, looks like it's about to go somewhere, hind legs are on left side of body"
+dogs,25,train,Card3,"with longer ears, has more of a yellowish color, very light golden, facing to left, it's sitting down, has little belt on neck","long dark ears, looking to left, sitting on grass, body's faced towards four o'clock but head is towards nine o'clock, body's golden, collar is on neck","golden, ears a little bit darker than rest of body, body's looking five, head is looking eight, nose is black, has collar on neck, body's on ground but rest of body's up, medium sized tail that's on ground, tail's on bottom on left side","has collar on neck, body's facing five, head is facing seven or eight, golden colored, tail on bottom left, on grass"
+dogs,25,train,Card4,"very small, facing four or five o'clock, black colored","looking toward five o'clock, very small , black","petite, body and head both at five o'clock","black, small, facing five o'clock"
+dogs,25,train,Card5,"shaggy looking, black, very petite, facing seven o'clock but just the head, body's facing five o'clock","small, looks like it has hairdo, long ears, left and right, black, has little golden circular chain attached to neck, looking at eight o'clock","head: seven o'clock, body: five o'clock, black, small, circular chain","small, circular chain on neck"
+dogs,25,train,Card6,"looks like Doberman, facing to left, black colored, little orange streak on nose","black dog, with orange streak near nose, very thin legs, looking to left","black, thin legs, body and head both looking to left","Doberman, black, with thin legs"
+dogs,25,train,Card7,"looks like it's lying down on floor, it's also golden, ears are a lot lighter than rest of body, facing to left","looks like it's lying down, ears are lighter than rest of body, looks like it's on grass","lying in grass, golden, light colored ears","lying on grass, ears are lighter than rest of body, facing to left"
+dogs,25,train,Card8,"facing to left, nose area and mouth is black, very short ears, looks like it's about to run, ears are sticking up","looking to left, black nose, golden colored, ready to pounce, very short ears, hind legs ready to run towards something, body and everything are aligned, very short tail","short ears, ready to pounce, black nose and mouth, golden","looks like bulldog, ready to go all the way to left, golden, black nose, like it's running"
+dogs,25,train,Card9,"white colored, looks like wolf, facing seven o' clock",looks like wolf,wolf,wolf
+dogs,25,train,Card10,"looks like very old dog, sitting down, black, looking to left, very short ears","shaggy, it looks old, short ears, medium sized tail, looking to left, body and face both, on grass","small, black body and head both nine o' clock, medium sized tail, sitting down on grass","small black, looks old, medium tail, on grass, whole body's facing nine o' clock"
+dogs,21,test,Card1,"standing really upright position, black stomach, golden face, golden legs, tip of tail is black, looks like Rottweiler but it's not, facing to left, ears are down, nose is black, right above eyes is black, gold and yellow on out and everywhere else","first dog you had, floppy ears, black tail, ears are down, standing straight to left, end of tail is black","black tail, ears down, black body","black nose, black tail"
+dogs,21,test,Card2,"very furry, British looking, yellow, back leg facing out from rest of body","right back leg facing out, head down",dog that has a leg problem,dog with the leg problem
+dogs,21,test,Card3,"very scary looking, looking to left, brown leash around neck","head facing to left, sitting down, leash","sitting down, facing to left, leash","leash, sitting down"
+dogs,21,test,Card4,"small Chihuahua looking thing, hotdog, black",hotdog,hotdog,hotdog
+dogs,21,test,Card5,black poodle with golden thing,poodle with golden coin,poodle with ring on neck,poodle with ring
+dogs,21,test,Card6,"one of those Dobermans, scary","Doberman, garage keeping dogs",scary looking Doberman,Doberman
+dogs,21,test,Card7,"looks like golden retriever but in poodle version, stretching its neck out, up, very furry, brown, very small, ears are down, very long, facing to left, face sticking up, smelling something, no tail, can't see tail","golden retriever with face smelling, no tongue, ears are down, nose is up, body extending towards head, stretching its neck out",golden retriever we're having problems with,golden retriever
+dogs,21,test,Card8,"standing in very ready to attack position, black nose, rest of dog is yellow or brown, ears pointing up, no tail, very small tail, very muscular","black nose, ears upright, very muscular looking, all yellow, standing facing to left","boxer, black nose, very muscular, built body","boxer, built body"
+dogs,21,test,Card9,"Siberian husky, wolf","Siberian husky, looks like a wolf",Siberian husky,Siberian husky
+dogs,21,test,Card10,"some type of terrier, big mustaches, black, very small, tail pointing upright, Yorkie, tail is straight up","last one we had, Yorkie, tail upright",Yorkie with big mustaches,Yorkie with mustache
+dogs,31,train,Card1,"orangish brown, standing to side, black on back, looking to left, you could see one ear, standing up on all fours, complete profile, short hair","dog standing up, looking to same direction as boxer was, orange shiny coat with black, black saddle on back","golden brown with black saddle looking on back, that marking",black saddle thing on back marking
+dogs,31,train,Card2,"Scottish, fuzzy nose, very short ears, standing to front but looking to side","standing up, looking to side, very short ears, billy goat gruff on chin","with gold coat, standing up, with billy goat gruff chin","golden, standing up on all four, with short ears and scruffy chin"
+dogs,31,train,Card3,"very very very short hair, small, beigish color , sitting on hind legs","beagle, sitting down on hind legs, looking to side","beagle, light brown, looking to side, sitting on hind legs, sitting down","beagle with brownish coat, sitting down on back legs"
+dogs,31,train,Card4,"really really tiny, very dark, fuzzy looking coat, long nose, very short ears, shorter hair","really really short, small, black","little, black, tiny","really really small, black"
+dogs,31,train,Card5,poodle with black hair,black poodle,poodle,black poodle
+dogs,31,train,Card6,"very skinny, Doberman pinscher, shiny black coat","Doberman pinscher, shiny black coat , standing up, skinny, pointy ears",Doberman pinscher with black silky coat,Doberman pinscher with black silky coat
+dogs,31,train,Card7,"cocker spaniel, light brown coat, furry ears","cocker spaniel, long curly-ish hair","cocker spaniel, looking to side, with long goldish coat, shorter","cocker spaniel with gold coat, standing up"
+dogs,31,train,Card8,boxer,boxer,boxer,boxer
+dogs,31,train,Card9,"white, wolf","white, wolf",white wolf,white wolf
+dogs,31,train,Card10,"very short, long hair, black, pointy ears","Scottie, very long hair, pointy tail, pointy ears","Scottie, black with long hair, pointy tail up","short, black, with pointed tail up, pointy ears"
+dogs,28,train,Card1,"facing left, brown in middle, sandy color on outside","first one we had problem with before, brown in middle",the one we had problem first time,"the one we had problems with in beginning, with brown in middle"
+dogs,28,train,Card2,the one you just picked up,"light curly hair, tall, weird looking","ugly, curly hair","ugly, curly haired"
+dogs,28,train,Card3,"sitting down, got a collar on",sitting down,"yellow Lab, got a collar on 'm",yellow Lab
+dogs,28,train,Card4,really ugly,black,"similar to the first one, but he's facing the other way",right where your hand is
+dogs,28,train,Card5,the one you had up before,"same color as last one but he's standing up, facing towards you, curlier hair","blackish color with curly hair, got a collar on with circle on it","black curly hair, looking at you"
+dogs,28,train,Card6,really tall and weird looking,"tall, gangly",really tall,"really ugly, tall"
+dogs,28,train,Card7,"brown color, like a Lassie dog, curlyish hair","curly hair, brownish color, light brown, grass in picture, small and skinny","Lassie type, facing towards your left, brown",Lassie
+dogs,28,train,Card8,boxer,"boxer type, facing towards left",boxer,boxer
+dogs,28,train,Card9,husky,husky,husky,husky
+dogs,28,train,Card10,"brown, short, got grass all over the bottom of 'm","brown in grass, darker brown, almost black","facing towards your left, curly hair, dark color","facing towards your left, curly hair, really short, small, blackish colored"
+dogs,43,test,Card1,"black right in middle, oval, two front legs are orange, back ones are yellowish, right on corner of tail it has black, tip of tail, facing left, has poise","black belly, standing tall, looking left, has tip of black on tail, bit of black on mouth, orangey, first front legs are orange, back one has yellow","standing up, black on belly, front two legs are orange",black belly with two front feet
+dogs,43,test,Card2,"looking left, small ears, bottom part to where legs are it's yellowish, background legs are a bit yellowish orangey, belly has bit of black on it, background to the head and half the body is black and then from half bottom background is yellow, standing lookin' at something, one of the legs is outward, head is tilted, not looking directly left, you can see its lips form, its lips are black","half black background, half yellow background on bottom","background is half black, half yellow","background is half black top, half yellow on bottom"
+dogs,43,test,Card3,"background is green, sitting down, short little legs with a bit of long tail, facing left, but only his head, body is facing right, tail is on floor, has collar","sitting down, body towards right, but face looking left, sitting on grass, background's green, tail on floor, long tail, has collar","green background, sitting down on grass, long tail on grass, body towards right, head facing left","sitting down on grass, long tail, has collar, looking left but body is towards right"
+dogs,43,test,Card4,"small, black, facing right, long mouth, short",short with long mouth,"small, black, short, long mouth","short, longish, with little feet and big mouth"
+dogs,43,test,Card5,"a bit taller, has collar with medallion on it, black, curly hair, head's facing left, background is yellowish","black, curly hair, has medallion on collar","black curly hair, has collar with medallion","black, short with collar that has medallion"
+dogs,43,test,Card6,"tall, black, a bit of brown on mouth and feet, facing left","standing tall, black, bit of brown on mouth and on tip of feet","all black, a bit of brown on mouth and on tips of feet",all black with a bit of brown on mouth and on tip of feet
+dogs,43,test,Card7,"facing left, standing up, but in a way about to sit down, brown, belly has darker brown hair, ears and legs are a bit lighter, a bit of a long ear, hairy, long hair, legs are orange color, floppy, one of its ear you can't see other side","long hair, darker brown hair in middle, facing left, standing, floppy ears","long hair, facing left, floppy ears, darkish brown in belly, light around feet","long hair looking left, floppy ears"
+dogs,43,test,Card8,"standing tall, black mouth with black surrounding eyes, small ears that are sticking up, chain collar, orange brownish, background is yellow","standing tall, black mouth with dark black surrounding around his eyes, small ears sticking up, chain collar, brownish orange, yellow background","standing tall, black mouth, with black around surrounding its eyes, ears stickin' up, chain collar","standing up tall, black mouth, black surrounding in eyes, ears stickin' up, chain collar"
+dogs,43,test,Card9,"white with black surrounding, tongue sticking out","tongue sticking out, white, black","tongue sticking out, white, facing left, a little black","tongue sticking out, white hair with a bit of blackish, standing up"
+dogs,43,test,Card10,"small, black, ugly, short tail that's sticking up, background, green, Toto from Wizard of Oz",Toto,Toto,Toto
+dogs,34,test,Card1,"middle of dog is black, facing to your left, has little black tail, half is black","black in middle, legs look yellow and orange","looking to left, with black middle, black tail",with black middle and black little tail
+dogs,34,test,Card2,"dog facing to your right, head turned to your left, yellow (grass)","turned to right, but looking back","looking to your right, turned back to your left, has yellowish background","with yellowish background, turned to left"
+dogs,34,test,Card3,"green all around, brown, green outline","turned to right, but looking back to left","looking to your right, but turned back to left in grass",sitting in grass with head turned to your left
+dogs,34,test,Card4,"little, wiener, black, no background, short, brown","by itself, little, short, black, brown","little, black, brownish, with no back- ground, short","black, brownish, little, short"
+dogs,34,test,Card5,"black, furry, has collar around neck, circle color","has collar, collar with circle on it, name tag","has collar around it, black","with circle collar, with name tag"
+dogs,34,test,Card6,"dog that Snoop Dog has in his video, skinny ,black","black, skinny, in Snoop video","black, skinny","skinny, black"
+dogs,34,test,Card7,"golden retriever, gold, has long ears, facing upwards to the left, laying on grass or something","laying on grass, with long ear on side","sitting in grass, with long ear, looks like it's lyin' down",sitting in grass with long ear on side
+dogs,34,test,Card8,"black nose, mean, both of the ears are sticking up, it's running","has both of his ears standing up, black nose, around the eyes, looks like it's running",looks like it's running,"the running dog, looks like it's running"
+dogs,34,test,Card9,"the only white dog, with a grayish--.",white,white,white
+dogs,34,test,Card10,"old lookin', sittin' in grass","old lookin', sittin' in grass","old lookin', sittin' in grass","old, sittin' on grass"
+dogs,24,test,Card1,"yellow, big black spot on center, long ears, wide snout, Labrador, face looks orange and yellow, black spot in middle on nose, eyebrow black, his eyes are dark, tail is yellow on top, black towards end, tail pointed down",largest spot,huge spot on torso,"big, yellow, black spot on belly"
+dogs,24,test,Card2,"curly hair, short ears, terrier, yellow, probably white, traces of white or light color in center","short haired, really curly hair, all white, black spot on his stomach","white, tall, poodle-ish, but not so fro-ey","poodle, with his hair cut off, short hair, curly, white"
+dogs,24,test,Card3,"short-haired, ears are darker color than his body, tail's long foir the size of him, wearing collar, sitting","beagle face, all yellow, wearing collar, thicker collar, compared to the other dogs, yellow body, black ears, retriever face, skinny, medium sized, sitting, looking towards side, body facing right, he's turning towards left","body is facing right, face is facing left, looking towards something","Labrador, short hair, thick brown chain around neck"
+dogs,24,test,Card4,"all black, short, very short legs, hair is short, not as curly as the other dog that's on the list, not a poodle, dachshund, long torso, long snout","really short, little, black thing, short hair","very short haired, looks like curly hair, all black, ""very short feet like a basset hound almost, but he's not"", short, longer snout, long body","really short, basset hounds, black"
+dogs,24,test,Card5,"black poodle, collar, big round charm",black poodle with little charm,"poodle with charm, looking to left, black","poodle, black, with little charm around his neck"
+dogs,24,test,Card6,"very short hair, all black except for his snout, which is part light brown, mean, very shiny coat","all black, except for a little stripe of yellow on his cheek, yellow paws, shiny coat, short fur","very skinny, very shiny coat, all black except for yellow stripe on his face","black, really shiny coat, stripe of gold on face"
+dogs,24,test,Card7,"long haired, pretty, darker around his torso, lighter around his legs, ears are the lightest part, tan colored, hair almost touching ground, on grass, brown up on top, pointing at something, nose, reaching up","really long haired, retriever face, pointing with his nose","long haired, pointing to sky with his nose","really long hair, almost touching ground, maybe golden retriever, brown, face lighter than his body, pointing to sky, his nose, really long ears"
+dogs,24,test,Card8,"bulldog, pointy ears, yellow body, black snout that's short compared to the other dogs, big eyes, short tail, chain collar","bulldog, all yellow body, black snout, pointy ears, collar","very short hair, all yellow body, black snout, short snout, really pointy ears, short tail, male dog, little chain collar, ""he's skinnier than the other dogs that are all yellow"", almost running","skinny, looks like he's running, short chain collar, short, stumpy tail, black face"
+dogs,24,test,Card9,"husky, black and white, sticking tongue out","husky, black and white, really different looking than the other dogs","husky, black and white, tongue hanging out",black and white husky
+dogs,24,test,Card10,"hair drapes all the way from his body to ground, very small, short tail, pointy ears, black","terrier, all black, longest haired dog, short little thing, little stumpy tail, hair reaches ground, very hairy,""like a big mop""",short little stumpy dog with moppy hair,"""really short, stumpy, little, long haired black dog that we've seen before"", pointy tail, moppy"
+dogs,18,train,Card1,"mainly black on stomach, mid-part of body is black in color, brown legs",mid part of body is black,mid part of body is black,black in mid part of body
+dogs,18,train,Card2,face is facing left side,"posing in left position, short ears, yellowish, facing left side","posing in left position, yellowish, brown","facing left position, short ears, yellowish brown"
+dogs,18,train,Card3,"resembles Labrador retriever, tail elongated, posing in left position, face is facing left side, yellowish beige, collar, thin","resembles Labrador retriever, facing left side",Labrador retriever,Labrador retriever
+dogs,18,train,Card4,"brown, face is facing right side, body's elongated, long ears, droopy, nose is protruding, sticking up","puppy, facing right side",dark brown puppy,darkish brown puppy
+dogs,18,train,Card5,"black, round, gold collar, poodle","resembles black puppy with gold collar, round","poodle, with round collar","puppy, poodle, with gold collar"
+dogs,18,train,Card6,Doberman pinscher,Doberman pinscher,Doberman pinscher,Doberman pinscher
+dogs,18,train,Card7,"facing left side, long ears, in stretching position","facing left position, long, droopy ear, beige in color","long droopy ears, yellowish beige","long, droopy ears, yellowish beige"
+dogs,18,train,Card8,"resembles a Rotweiler, ears pointed up, as though he's in aggressive, attack position, reddish","aggressive, attack position, black snozzle, running","attack position, ears protruded upward",attack position
+dogs,18,train,Card9,"resembles a fox, resembles a wild dog, wild animal, white with black fur, Siberian husky","resembles a wild animal, black and white",wild animal,wild animal
+dogs,18,train,Card10,"resembles a puppy, long black hair",resembles black puppy,black puppy,black puppy
