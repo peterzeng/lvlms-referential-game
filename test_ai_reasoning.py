@@ -1,6 +1,4 @@
-import os
 import json
-import sqlite3
 from fastapi.testclient import TestClient
 from main import app
 

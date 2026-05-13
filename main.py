@@ -6,8 +6,8 @@ load_dotenv()
 import json
 import logging
 import random
-from datetime import datetime
 from pathlib import Path
+from datetime import datetime
 
 import sqlite3
 
@@ -204,6 +204,7 @@ async def start_game(data: dict):
         "ai_reasoning_effort": data.get("reasoning_effort", "none"),
         "ai_vs_ai_delay": data.get("delay", 0),
         "ai_vs_ai_max_turns": data.get("max_turns", 60),
+        "use_reflection": data.get("use_reflection", False),
     }
 
     session = Session(session_config)
@@ -242,12 +243,37 @@ async def play_turn(data: dict):
         if getattr(player, "task_completed", False):
             current_round = player.round_number
             if current_round < 4:
+                # Run reflection agent if enabled
+                directives = ""
+                if player.session.config.get("use_reflection"):
+                    from referential_task.reflection_agent import generate_reflection_directives
+                    directives = generate_reflection_directives(session_id, current_round, player.session.config)
+
+                # Build conceptual pact map from the completed round's CG + shared_grid.
+                # This maps image_path → nicknames so that agreed terms persist across
+                # rounds even when basket positions are reshuffled.
+                try:
+                    from referential_task.common_ground_agent import build_conceptual_pact_map
+                    build_conceptual_pact_map(player)
+                    logger.info(f"Built conceptual pact map after Round {current_round}")
+                except Exception as e:
+                    logger.warning(f"Failed to build conceptual pact map: {e}")
+
                 next_round = current_round + 1
                 
                 # Initialize new game state for the next round
                 new_group = Group()
                 new_grid = get_preset_grid(round_number=next_round)
                 new_group.shared_grid = json.dumps(new_grid)
+                
+                if directives:
+                    init_msgs = [{
+                        "sender_role": "system", 
+                        "text": directives, 
+                        "round_number": next_round,
+                        "timestamp": datetime.now().isoformat()
+                    }]
+                    new_group.ai_messages = json.dumps(init_msgs)
                 
                 new_player = Player(role="observer", group=new_group, session=player.session, round_number=next_round)
                 
@@ -271,8 +297,11 @@ async def play_turn(data: dict):
                     
                     # --- AUTO-EXPORT DATA ---
                     try:
-                        logger.info("Auto-exporting full session data to data folder...")
-                        os.makedirs("data", exist_ok=True)
+                        logger.info("Auto-exporting full session data to structured data folder...")
+                        prompt_strategy = player.session.config.get("prompt_strategy", "unknown")
+                        current_date = datetime.now().strftime("%Y-%m-%d")
+                        export_dir = f"data/experiments/{current_date}_{prompt_strategy}"
+                        os.makedirs(export_dir, exist_ok=True)
                         
                         conn = sqlite3.connect(DB_FILE)
                         c = conn.cursor()
@@ -306,9 +335,9 @@ async def play_turn(data: dict):
                                 "ai_matcher_reasoning": safe_json(matcher_reasoning_txt)
                             })
                             
-                        export_path = f"data/{session_id}_data.json"
+                        export_path = f"{export_dir}/{session_id}_data.json"
                         with open(export_path, 'w', encoding='utf-8') as f:
-                            json.dump(sessions_data, f)
+                            json.dump(sessions_data, f, indent=4)
                         logger.info(f"Successfully auto-exported to {export_path}")
                     except Exception as export_e:
                         logger.error(f"Auto-export failed: {export_e}")
@@ -335,21 +364,21 @@ async def get_state(session_id: str):
     if group.ai_messages:
         try:
             ai_messages = json.loads(group.ai_messages)
-        except:
+        except Exception:
             pass
             
     partial_sequence = []
     if group.ai_partial_sequence:
         try:
             partial_sequence = json.loads(group.ai_partial_sequence)
-        except:
+        except Exception:
             pass
             
     reasoning_log = []
     if group.ai_reasoning_log:
         try:
             reasoning_log = json.loads(group.ai_reasoning_log)
-        except:
+        except Exception:
             pass
 
     pool_urls = _load_matcher_pool_image_urls(player) or []

@@ -52,6 +52,15 @@ def export_sessions_to_json(output_file: str):
         json.dump(sessions, f, indent=4)
         
     print(f"✅ Successfully exported {len(sessions)} sessions to {output_file}")
+    
+    # Automatically generate visuals and transcript
+    import subprocess
+    import sys
+    print("🎨 Auto-generating visualizations and transcript...")
+    try:
+        subprocess.run([sys.executable, "scripts/export_json_session.py", output_file], check=True)
+    except Exception as e:
+        print(f"⚠️ Failed to generate visualizations: {e}")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Export game sessions from SQLite to JSON.")

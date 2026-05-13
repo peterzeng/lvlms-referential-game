@@ -14,12 +14,8 @@ Output:
 """
 from __future__ import annotations
 
-import base64
-import io
-import json
 import os
 import sys
-from typing import Optional
 
 from PIL import Image, ImageDraw, ImageFont
 
@@ -118,7 +114,6 @@ def build_ai_director_grid_composite(shared_grid: list[dict]) -> Image.Image:
     bg_color = (240, 242, 245)
     slot_bg = (255, 255, 255)
     border_color = (70, 130, 180)
-    text_color = (50, 60, 70)
     header_color = (30, 40, 50)
     badge_bg = (70, 130, 180)
     badge_text = (255, 255, 255)

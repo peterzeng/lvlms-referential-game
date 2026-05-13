@@ -1,4 +1,3 @@
-import json
 
 class Constants:
     name_in_url = 'referential_task'

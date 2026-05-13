@@ -17,7 +17,6 @@ Files processed:
 
 import csv
 import os
-from pathlib import Path
 
 
 # Map file names to prompt version and reasoning level
@@ -225,15 +224,15 @@ def print_summary(rows):
         by_reasoning[r] += 1
         by_combo[f"{v}_{r}"] += 1
     
-    print(f"\nBy prompt version:")
+    print("\nBy prompt version:")
     for v, count in sorted(by_version.items()):
         print(f"  {v}: {count}")
     
-    print(f"\nBy reasoning level:")
+    print("\nBy reasoning level:")
     for r, count in sorted(by_reasoning.items()):
         print(f"  {r}: {count}")
     
-    print(f"\nBy combination:")
+    print("\nBy combination:")
     for combo, count in sorted(by_combo.items()):
         print(f"  {combo}: {count}")
     
@@ -242,7 +241,7 @@ def print_summary(rows):
     print(f"\nCompleted round 4: {completed}")
     
     # Average accuracy per reasoning level
-    print(f"\nAverage round 4 accuracy by reasoning level:")
+    print("\nAverage round 4 accuracy by reasoning level:")
     for r_level in ['none', 'low', 'medium', 'high']:
         accuracies = []
         for row in rows:

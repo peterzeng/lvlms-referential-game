@@ -16,7 +16,7 @@ from .ai_utils import (  # type: ignore
 )
 
 
-def _build_v8_base_prompt(player) -> str:
+def _build_v9_base_prompt(player) -> str:
     """
     Returns the "Humanlike" text prompt tailored for our basket task.
     """
@@ -47,7 +47,7 @@ In this experiment, you'll alternate between DIRECTOR (Speaker) and MATCHER (Lis
 10. Write in a very casual style. You might use lowercase or even some slang or make spelling mistakes.
 11. The target numbering is 1-12, 1-6 across the top row and 7-12 across the bottom row (left to right).
 
-SERIOUSLY—in later rounds just 1-2 words. Do NOT send longer descriptions unless your partner keeps getting it wrong.
+In later rounds just 1-2 words. Do NOT send longer descriptions unless your partner keeps getting it wrong.
 
 ### When you are the MATCHER:
 1. Your partner will provide a description of a basket.
@@ -56,7 +56,7 @@ SERIOUSLY—in later rounds just 1-2 words. Do NOT send longer descriptions unle
 """
 
 
-def build_v8_cot_prompt_messages(
+def build_v9_cot_prompt_messages(
     player: Any, latest_message: str | None, all_history: List[Dict[str, Any]]
 ) -> List[Dict[str, Any]]:
     """
@@ -67,7 +67,7 @@ def build_v8_cot_prompt_messages(
     - Recent conversation history
     - V3-style system instruction to respond in JSON
     """
-    base_system = _build_v8_base_prompt(player)
+    base_system = _build_v9_base_prompt(player)
 
     human_role = (
         player.field_maybe_none("player_role") or player.participant.vars.get("role")
@@ -75,12 +75,18 @@ def build_v8_cot_prompt_messages(
     ai_role = "matcher" if human_role == "director" else "director"
 
     if ai_role == "matcher":
-        v8_instructions = (
+        v9_instructions = (
             "You are currently playing the role of the MATCHER in this interaction.\n\n"
             "You must respond with a SINGLE STRICT JSON object and EXACTLY these top-level fields (no extras):\n"
+            '- "common_ground"\n'
             '- "utterance"\n'
             '- "selection"\n'
             "{\n"
+            '  "common_ground": {\n'
+            '    "agreed_upon_terms": {"<basket_id>": "<agreed nickname>", ...},\n'
+            '    "partner_beliefs": "<your assessment of what the DIRECTOR currently knows or thinks>",\n'
+            '    "uncertainties": ["<list of any current confusions or ambiguities>"]\n'
+            '  },\n'
             '  "utterance": "a single concise, natural-language message you will SAY to the DIRECTOR in the chat. If unsure between candidates, ask about discriminating features (e.g., ask about handle shape, flower color, or pattern details that would distinguish the confusable options). Keep it very casual as instructed.",\n'
             '  "selection": {\n'
             '    "candidate_index": <integer 1–18 from the numbered candidate tiles, or null if asking for clarification>,\n'
@@ -96,11 +102,17 @@ def build_v8_cot_prompt_messages(
             "- Do NOT include any extra text before or after the JSON object."
         )
     else:
-        v8_instructions = (
+        v9_instructions = (
             "You are currently playing the role of the DIRECTOR in this interaction.\n\n"
             "You must respond with a SINGLE STRICT JSON object and EXACTLY these top-level fields (no extras):\n"
+            '- "common_ground"\n'
             '- "utterance"\n'
             "{\n"
+            '  "common_ground": {\n'
+            '    "agreed_upon_terms": {"<basket_id>": "<agreed nickname>", ...},\n'
+            '    "partner_beliefs": "<your assessment of what the MATCHER currently knows or thinks>",\n'
+            '    "uncertainties": ["<list of any current confusions or ambiguities>"]\n'
+            '  },\n'
             '  "utterance": "a single concise, natural-language message you will SAY to the MATCHER in the chat. Focus on features that discriminate the target basket from similar-looking ones. Keep it very casual as instructed."\n'
             "}\n\n"
             "Rules:\n"
@@ -110,7 +122,7 @@ def build_v8_cot_prompt_messages(
 
     system_messages: List[Dict[str, Any]] = [
         {"role": "system", "content": base_system},
-        {"role": "system", "content": v8_instructions},
+        {"role": "system", "content": v9_instructions},
     ]
 
     history_messages = _build_ai_messages_from_history(player, all_history)

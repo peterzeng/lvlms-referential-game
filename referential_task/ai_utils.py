@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import base64
 import datetime
-import hashlib
 import io
 import json
 import os
@@ -433,7 +432,6 @@ def _build_ai_director_grid_composite(player: Player) -> str | None:
     bg_color = (240, 242, 245)
     slot_bg = (255, 255, 255)
     border_color = (70, 130, 180)  # Steel blue for all slots
-    text_color = (50, 60, 70)
     header_color = (30, 40, 50)
     badge_bg = (70, 130, 180)  # Steel blue badges
     badge_text = (255, 255, 255)
@@ -2331,7 +2329,7 @@ def _generate_ai_reply(player: Player, latest_message):
             strategy_for_prompt = strategy_name
 
         # Lazily import prompt strategy modules
-        from . import prompt_v1, prompt_v2, prompt_v3, prompt_v4, prompt_v5, prompt_v6, prompt_v8, prompt_v9
+        from . import prompt_v1, prompt_v2, prompt_v3, prompt_v4, prompt_v5, prompt_v6, cameron_prompt, prompt_v9
 
         if strategy_for_prompt in ("weiling", "v2"):
             chat_messages = prompt_v2.build_weiling_prompt_messages(
@@ -2358,11 +2356,11 @@ def _generate_ai_reply(player: Player, latest_message):
                 player, latest_message, all_history
             )
             use_v3_cot = True
-        elif strategy_for_prompt == "v8":
-            chat_messages = prompt_v8.build_v8_cot_prompt_messages(
+        elif strategy_for_prompt in ("v8", "cameron-prompt", "cameron_prompt"):
+            chat_messages = cameron_prompt.build_cameron_prompt_messages(
                 player, latest_message, all_history
             )
-            use_v3_cot = True
+            use_v3_cot = False
         elif strategy_for_prompt == "v9":
             chat_messages = prompt_v9.build_v9_cot_prompt_messages(
                 player, latest_message, all_history
@@ -2553,7 +2551,14 @@ def _generate_ai_reply(player: Player, latest_message):
 
         # Moderate temperature for consistent, focused responses from both roles
         response_format = None
-        if ai_role == "matcher" or use_v3_cot:
+        if strategy_for_prompt in ("v8", "cameron-prompt", "cameron_prompt"):
+            from .cameron_prompt import DirectorResponse, MatcherResponse
+            schema_class = MatcherResponse if ai_role == "matcher" else DirectorResponse
+            response_format = {
+                "type": "json_schema",
+                "json_schema": schema_class
+            }
+        elif ai_role == "matcher" or use_v3_cot:
             response_format = {"type": "json_object"}
 
         base_temperature = 0
@@ -3122,7 +3127,7 @@ def generate_ai_vs_ai_perceptions(player: Player) -> dict[str, dict[str, Any]] |
 
         # Format conversation history
         def _format_conversation(my_role: str, partner_role: str) -> str:
-            text = f"=== COMPLETE CONVERSATION HISTORY ===\n\n"
+            text = "=== COMPLETE CONVERSATION HISTORY ===\n\n"
             current_round = 0
             for msg in all_messages:
                 msg_round = msg.get("round", 0)
@@ -3417,7 +3422,7 @@ def generate_ai_vs_ai_reply(
         player.participant.vars["role"] = fake_human_role
 
         try:
-            from . import prompt_v1, prompt_v2, prompt_v3, prompt_v4, prompt_v5, prompt_v6, prompt_v8, prompt_v9
+            from . import prompt_v1, prompt_v2, prompt_v3, prompt_v4, prompt_v5, prompt_v6, cameron_prompt, prompt_v9
 
             if strategy_for_prompt in ("weiling", "v2"):
                 chat_messages = prompt_v2.build_weiling_prompt_messages(
@@ -3444,11 +3449,11 @@ def generate_ai_vs_ai_reply(
                     player, latest_message, all_history
                 )
                 use_v3_cot = True
-            elif strategy_for_prompt == "v8":
-                chat_messages = prompt_v8.build_v8_cot_prompt_messages(
+            elif strategy_for_prompt in ("v8", "cameron-prompt", "cameron_prompt"):
+                chat_messages = cameron_prompt.build_cameron_prompt_messages(
                     player, latest_message, all_history
                 )
-                use_v3_cot = True
+                use_v3_cot = False
             elif strategy_for_prompt == "v9":
                 chat_messages = prompt_v9.build_v9_cot_prompt_messages(
                     player, latest_message, all_history
@@ -3503,14 +3508,60 @@ def generate_ai_vs_ai_reply(
                 except Exception as e:
                     logging.error(f"[AI_DIRECTOR_V4] Failed to inject global state: {e}")
 
-            # For Matcher, inject sequence state and JSON instructions
+            # For Matcher, inject a single human-readable sequence state block.
+            # The old approach dumped raw JSON (opaque image paths) that the model
+            # couldn't act on, causing it to ignore filled positions and re-ask for
+            # descriptions of already-placed baskets. This unified block is plain
+            # English and explicitly lists what is done vs. what still needs work.
             if role == "matcher":
                 try:
                     seq_state = _build_matcher_current_sequence_state_for_prompt(player)
-                    seq_state_text = (
-                        "AUTHORITATIVE CURRENT MATCHER SEQUENCE STATE:\n"
-                        f"{json.dumps(seq_state, ensure_ascii=False)}"
+                    slots = seq_state.get("sequence_slots", [])
+                    filled_positions = sorted(
+                        int(s["position"])
+                        for s in slots
+                        if isinstance(s, dict) and s.get("image") and s.get("position") is not None
                     )
+                    empty_positions = sorted(
+                        int(s["position"])
+                        for s in slots
+                        if isinstance(s, dict) and not s.get("image") and s.get("position") is not None
+                    )
+
+                    # Pending refills: positions the dialogue completed but a basket
+                    # move left empty on the board.
+                    try:
+                        pending_refills = _get_pending_refill_positions(player)
+                    except Exception:
+                        pending_refills = []
+
+                    filled_str = ", ".join(str(p) for p in filled_positions) if filled_positions else "none yet"
+                    empty_str  = ", ".join(str(p) for p in empty_positions)  if empty_positions  else "NONE — all filled!"
+
+                    lines = [
+                        "=== CURRENT BOARD STATE ===",
+                        f"ALREADY FILLED ({len(filled_positions)}/12): {filled_str}",
+                        f"  → Do NOT ask the Director to re-describe any of these positions.",
+                        f"  → Do NOT say 'Go to Basket X' for any position in the ALREADY FILLED list.",
+                        f"STILL EMPTY ({len(empty_positions)}/12 remaining): {empty_str}",
+                    ]
+
+                    if pending_refills:
+                        refill_str = ", ".join(str(p) for p in pending_refills)
+                        lines += [
+                            f"PENDING REFILL (basket was moved, now needs re-description): {refill_str}",
+                            f"  → After placing the CURRENT basket, ask the Director to re-describe"
+                            f" the LOWEST-NUMBERED pending refill position in natural language.",
+                            f"  → Example: 'Placed it. Before we move on, can you remind me of Basket {pending_refills[0]}?'",
+                            f"  → Do not mention 'hidden state', 'system notices', or internal bookkeeping.",
+                        ]
+
+                    if not empty_positions:
+                        lines.append("ALL 12 POSITIONS ARE FILLED — set ready_to_submit to true now.")
+
+                    lines.append("===========================")
+                    seq_state_text = "\n".join(lines)
+
                     insert_idx = 0
                     while (
                         insert_idx < len(chat_messages)
@@ -3519,29 +3570,6 @@ def generate_ai_vs_ai_reply(
                     ):
                         insert_idx += 1
                     chat_messages.insert(insert_idx, {"role": "system", "content": seq_state_text})
-                except Exception:
-                    pass
-
-                try:
-                    pending_refills = _get_pending_refill_positions(player)
-                    if pending_refills:
-                        refill_text = (
-                            "PENDING REFILL POSITIONS (HIDDEN STATE):\n"
-                            f"{pending_refills}\n"
-                            "These positions were previously completed in dialogue but are currently empty because a basket was moved.\n"
-                            "After you finish the CURRENT basket, ask the Director in natural language to re-describe the LOWEST-NUMBERED pending refill position.\n"
-                            "If you can place the current basket now, combine the confirmation and refill request in one utterance.\n"
-                            "Example: 'Placed it. Before we move on, can you remind me of Basket 2?'\n"
-                            "Do not mention hidden state, system notices, or internal bookkeeping."
-                        )
-                        insert_idx = 0
-                        while (
-                            insert_idx < len(chat_messages)
-                            and isinstance(chat_messages[insert_idx], dict)
-                            and chat_messages[insert_idx].get("role") == "system"
-                        ):
-                            insert_idx += 1
-                        chat_messages.insert(insert_idx, {"role": "system", "content": refill_text})
                 except Exception:
                     pass
 
@@ -3599,7 +3627,14 @@ def generate_ai_vs_ai_reply(
         base_temperature = 0
         response_format = None
         # Use JSON format for matcher always, and for director when using v3
-        if role == "matcher" or use_v3_cot:
+        if strategy_for_prompt in ("v8", "cameron-prompt", "cameron_prompt"):
+            from .cameron_prompt import DirectorResponse, MatcherResponse
+            schema_class = MatcherResponse if role == "matcher" else DirectorResponse
+            response_format = {
+                "type": "json_schema",
+                "json_schema": schema_class
+            }
+        elif role == "matcher" or use_v3_cot:
             response_format = {"type": "json_object"}
 
         provider = model_config.get("provider", "openai")
@@ -3674,7 +3709,7 @@ def generate_ai_vs_ai_reply(
                 utterance = text
         else:
             # Director response - parse JSON if v3, otherwise plain text
-            if use_v3_cot:
+            if use_v3_cot or strategy_for_prompt in ("v8", "cameron-prompt", "cameron_prompt"):
                 try:
                     start = text.find("{")
                     end = text.rfind("}") + 1
@@ -3721,6 +3756,11 @@ def generate_ai_vs_ai_reply(
                 
                 # Fetch reasoning if it was successfully parsed
                 reasoning_obj = locals().get("data", {}).get("reasoning") if isinstance(locals().get("data"), dict) else None
+                # Fetch CG extractor output stored during prompt building (if available).
+                # This captures the actual CG agent's structured output rather than
+                # trying to read from the conversational LLM's response (which never
+                # includes a "common_ground" field).
+                common_ground_obj = getattr(player, "_last_cg_extractor_output", None)
                 
                 existing.append({
                     "round_number": getattr(player, "round_number", None),
@@ -3729,6 +3769,7 @@ def generate_ai_vs_ai_reply(
                     "human_role": original_role or "observer",
                     "ai_role": role,
                     "reasoning": reasoning_obj,
+                    "common_ground": common_ground_obj,
                     "utterance": utterance,
                     "raw_text": text,
                     "selection": selection

@@ -1,11 +1,12 @@
 from __future__ import annotations
 
 """
-V8 prompting strategy for the basket referential task.
+V9 Prompt Strategy: Explicit Common Ground Scratchpad
 
-"Humanlike" prompt adapted from a single-agent implementation.
-This version replaces tangrams with baskets and updates grid numbering, 
-while enforcing strict JSON formatting so it plugs directly into our backend.
+This version forces the single AI agent to explicitly externalize a `common_ground` 
+state (agreed terms, partner beliefs, uncertainties) in its JSON output BEFORE 
+generating its utterance. This acts as an internal Theory of Mind scratchpad 
+without requiring a separate extractor agent.
 """
 
 from typing import Any, Dict, List
@@ -78,9 +79,15 @@ def build_v9_cot_prompt_messages(
         v9_instructions = (
             "You are currently playing the role of the MATCHER in this interaction.\n\n"
             "You must respond with a SINGLE STRICT JSON object and EXACTLY these top-level fields (no extras):\n"
+            '- "common_ground"\n'
             '- "utterance"\n'
             '- "selection"\n'
             "{\n"
+            '  "common_ground": {\n'
+            '    "agreed_upon_terms": {"<basket_id>": "<agreed nickname>", ...},\n'
+            '    "partner_beliefs": "<your assessment of what the DIRECTOR currently knows or thinks>",\n'
+            '    "uncertainties": ["<list of any current confusions or ambiguities>"]\n'
+            '  },\n'
             '  "utterance": "a single concise, natural-language message you will SAY to the DIRECTOR in the chat. If unsure between candidates, ask about discriminating features (e.g., ask about handle shape, flower color, or pattern details that would distinguish the confusable options). Keep it very casual as instructed.",\n'
             '  "selection": {\n'
             '    "candidate_index": <integer 1–18 from the numbered candidate tiles, or null if asking for clarification>,\n'
@@ -99,8 +106,14 @@ def build_v9_cot_prompt_messages(
         v9_instructions = (
             "You are currently playing the role of the DIRECTOR in this interaction.\n\n"
             "You must respond with a SINGLE STRICT JSON object and EXACTLY these top-level fields (no extras):\n"
+            '- "common_ground"\n'
             '- "utterance"\n'
             "{\n"
+            '  "common_ground": {\n'
+            '    "agreed_upon_terms": {"<basket_id>": "<agreed nickname>", ...},\n'
+            '    "partner_beliefs": "<your assessment of what the MATCHER currently knows or thinks>",\n'
+            '    "uncertainties": ["<list of any current confusions or ambiguities>"]\n'
+            '  },\n'
             '  "utterance": "a single concise, natural-language message you will SAY to the MATCHER in the chat. Focus on features that discriminate the target basket from similar-looking ones. Keep it very casual as instructed."\n'
             "}\n\n"
             "Rules:\n"

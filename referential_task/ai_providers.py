@@ -10,8 +10,6 @@ Each role (director/matcher) can use a different provider/model combination.
 
 from __future__ import annotations
 
-import base64
-import json
 import logging
 import os
 from typing import TYPE_CHECKING, Any
@@ -485,13 +483,25 @@ def _call_openai_api(
             kwargs["max_tokens"] = max_tokens
     
     if response_format is not None:
-        kwargs["response_format"] = response_format
+        if response_format.get("type") == "json_schema":
+            schema = response_format.get("json_schema", {})
+            if hasattr(schema, "model_json_schema"):
+                # Pass the raw Pydantic class to the beta parse method
+                kwargs["response_format"] = schema
+            else:
+                kwargs["response_format"] = response_format
+        else:
+            kwargs["response_format"] = response_format
     
     if is_gpt_5_2_model(model):
         kwargs["reasoning_effort"] = reasoning_effort
     
     try:
-        completion = client.chat.completions.create(**kwargs)
+        if response_format and response_format.get("type") == "json_schema" and hasattr(response_format.get("json_schema", {}), "model_json_schema"):
+            # Use beta parse for Pydantic schemas
+            completion = client.beta.chat.completions.parse(**kwargs)
+        else:
+            completion = client.chat.completions.create(**kwargs)
         reply = completion.choices[0].message.content
         if isinstance(reply, list):
             reply = "".join(
@@ -566,8 +576,14 @@ def _call_gemini_new_sdk(
             config_kwargs["max_output_tokens"] = max_tokens
         
         # Handle JSON response format
-        if response_format and response_format.get("type") == "json_object":
-            config_kwargs["response_mime_type"] = "application/json"
+        if response_format:
+            if response_format.get("type") == "json_object":
+                config_kwargs["response_mime_type"] = "application/json"
+            elif response_format.get("type") == "json_schema":
+                config_kwargs["response_mime_type"] = "application/json"
+                schema = response_format.get("json_schema", {})
+                if hasattr(schema, "model_json_schema"):
+                    config_kwargs["response_schema"] = schema
         
         # Handle system instruction
         if system_instruction:

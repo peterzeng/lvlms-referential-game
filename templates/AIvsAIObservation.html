@@ -371,7 +371,7 @@
                     <span class="input-group-text">Strategy</span>
                     <select class="form-select" id="prompt-strategy-select">
                         <option value="v9">v9 (Humanlike Single Agent without "Seriously")</option>
-                        <option value="v8">v8 (Humanlike Single Agent)</option>
+                        <option value="cameron-prompt">cameron-prompt (Humanlike Single Agent)</option>
                         <option value="v6" selected>v6 (Determiners + Nicknames)</option>
                         <option value="v5">v5 (Entrainment)</option>
                         <option value="v4">v4 (Common Ground)</option>
@@ -403,9 +403,9 @@
                 <div class="d-flex align-items-center gap-3">
                     <label class="mb-0 small text-muted" title="Delay between API calls">
                         Delay:
-                        <input type="range" id="delay-slider" min="1" max="10" step="0.5" value="3"
+                        <input type="range" id="delay-slider" min="0" max="10" step="0.5" value="0"
                             style="width: 120px; vertical-align: middle;">
-                        <span id="delay-value">3</span>s
+                        <span id="delay-value">0</span>s
                     </label>
                 </div>
             </div>

@@ -71,7 +71,7 @@ def create_grid_image(sequence, images_dir, title, highlight_errors=None):
     try:
         font = ImageFont.truetype("arial.ttf", 20)
         small_font = ImageFont.truetype("arial.ttf", 14)
-    except:
+    except Exception:
         font = ImageFont.load_default()
         small_font = font
     
@@ -132,12 +132,6 @@ def compare_sequences(target_seq, matcher_seq):
     """Compare sequences and return indices of errors."""
     errors = set()
     
-    # Build lookup by position
-    target_by_pos = {item.get('position', idx): item.get('image', '') 
-                     for idx, item in enumerate(target_seq)}
-    matcher_by_pos = {item.get('position', idx): item.get('image', '') 
-                      for idx, item in enumerate(matcher_seq)}
-    
     # For target sequence, position might be "11", "12", etc. (grid position)
     # For matcher sequence, position is 1, 2, 3... (sequence position)
     
@@ -173,7 +167,7 @@ def create_combined_visualization(round_num, round_data, images_dir, output_dir)
     errors = compare_sequences(shared_grid, matcher_sequence)
     
     # Create director's grid (target)
-    director_title = f"DIRECTOR'S TARGET SEQUENCE"
+    director_title = "DIRECTOR'S TARGET SEQUENCE"
     director_img = create_grid_image(shared_grid, images_dir, director_title)
     
     # Create matcher's grid (with error highlighting)
@@ -191,7 +185,7 @@ def create_combined_visualization(round_num, round_data, images_dir, output_dir)
     # Try to load a font
     try:
         title_font = ImageFont.truetype("arial.ttf", 28)
-    except:
+    except Exception:
         title_font = ImageFont.load_default()
     
     # Draw round title

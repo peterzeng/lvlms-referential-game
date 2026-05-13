@@ -22,7 +22,6 @@ import csv
 import glob
 import os
 from collections import defaultdict
-from datetime import datetime
 
 
 def get_all_csv_files(data_dir):
@@ -83,7 +82,7 @@ def get_column_categories(columns):
 def merge_pair_rows(director_row, matcher_row, all_columns):
     """Merge director and matcher rows into a single pair row."""
     merged = {}
-    categories = get_column_categories(all_columns)
+    get_column_categories(all_columns)
     
     # Use director row as base for pair-level info
     base_row = director_row if director_row else matcher_row
@@ -344,7 +343,7 @@ def print_summary(merged_pairs):
         config = p.get('session_config_name', 'unknown')
         configs[config] += 1
     
-    print(f"\nPairs by session config:")
+    print("\nPairs by session config:")
     for config, count in sorted(configs.items()):
         print(f"  {config}: {count}")
     

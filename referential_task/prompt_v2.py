@@ -44,7 +44,7 @@ def _build_weiling_style_system_prompt(player) -> str:
     except Exception:
         total_rounds = Constants.num_rounds
 
-    round_info = (
+    (
         f"Round {round_num}/{total_rounds} - "
         if isinstance(total_rounds, int) and total_rounds > 1
         else ""
@@ -52,7 +52,6 @@ def _build_weiling_style_system_prompt(player) -> str:
 
     # Simple representation of a 12-basket layout as the target "sequence"
     # (visually shown to the Director as a 2×6 grid of 12 positions)
-    target_sequence_desc = "a fixed sequence of 12 baskets arranged in a 2×6 grid"
 
     if ai_role == "director":
         # AI is acting as DIRECTOR (other player is matcher)

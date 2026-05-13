@@ -24,7 +24,7 @@ The generated JSON file can then be loaded at runtime by the oTree app.
 import json
 import os
 import sys
-from typing import Dict, Any, List
+from typing import Dict, Any
 
 from litellm import completion  # type: ignore
 import argparse

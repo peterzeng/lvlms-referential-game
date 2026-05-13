@@ -28,31 +28,44 @@ def _build_v6_system_prompt(player) -> str:
     current_round = getattr(player, "round_number", 1)
 
     # Round-specific compression guidance
-    if current_round == 1:
-        round_guidance = (
-            "ROUND 1 STRATEGY: This is the first time describing these baskets. "
-            "Use indefinite determiners ('a', 'an') since these are new to your partner. "
-            "Give a natural description highlighting with enough visual detail so your partner can distinguish the target from other similar baskets."
-            "Aim to establish a short, memorable nickname for each basket.\n"
-            "Do NOT explicitly suggest this nickname during your description — just describe it naturally.\n"
-        )
-    elif current_round == 2:    
-        round_guidance = (
-            f"ROUND {current_round} STRATEGY — NICKNAME-FIRST: "
-            "Your partner has seen these baskets before. Start with ONLY the agreed nickname "
-            "from the COMMON GROUND SUMMARY, using a DEFINITE determiner ('the', 'that'). "
-            "Example: 'the duck basket' or 'the dark two-tone one'. "
-            "If your partner confirms immediately, you used the right amount of detail. "
-            "If they ask a question, add ONE distinguishing detail to disambiguate.\n"
-        )
+    if ai_role == "matcher":
+        if current_round == 1:
+            round_guidance = (
+                "ROUND 1 STRATEGY: This is the first time your partner is describing these baskets. "
+                "Listen carefully to their descriptions and try to establish a shared understanding.\n"
+            )
+        else:
+            round_guidance = (
+                f"ROUND {current_round} STRATEGY: You have seen these baskets before. "
+                "Use what is in your COMMON GROUND SUMMARY if you have established a shared nickname "
+                "for the basket. Accept recognized nicknames immediately without needing full descriptions.\n"
+            )
     else:
-        round_guidance = (
-            f"ROUND {current_round} STRATEGY — MINIMAL NICKNAMES: "
-            "By now, your partner knows these baskets well. Use the SHORTEST agreed nickname "
-            "with a definite determiner. Example: 'the duck', 'the dark one', 'orange tote'. "
-            "Only add detail if your partner explicitly asks for clarification. "
-            "Trust the shared vocabulary you have built together.\n"
-        )
+        if current_round == 1:
+            round_guidance = (
+                "ROUND 1 STRATEGY: This is the first time describing these baskets. "
+                "Use indefinite determiners ('a', 'an') since these are new to your partner. "
+                "Give a natural description highlighting with enough visual detail so your partner can distinguish the target from other similar baskets."
+                "Aim to establish a short, memorable nickname for each basket.\n"
+                "Do NOT explicitly suggest this nickname during your description — just describe it naturally.\n"
+            )
+        elif current_round == 2:    
+            round_guidance = (
+                f"ROUND {current_round} STRATEGY — NICKNAME-FIRST: "
+                "Your partner has seen these baskets before. Start with ONLY the agreed nickname "
+                "from the COMMON GROUND SUMMARY, using a DEFINITE determiner ('the', 'that'). "
+                "Example: 'the duck basket' or 'the dark two-tone one'. "
+                "If your partner confirms immediately, you used the right amount of detail. "
+                "If they ask a question, add ONE distinguishing detail to disambiguate.\n"
+            )
+        else:
+            round_guidance = (
+                f"ROUND {current_round} STRATEGY — MINIMAL NICKNAMES: "
+                "By now, your partner knows these baskets well. Use the SHORTEST agreed nickname "
+                "with a definite determiner. Example: 'the duck', 'the dark one', 'orange tote'. "
+                "Only add detail if your partner explicitly asks for clarification. "
+                "Trust the shared vocabulary you have built together.\n"
+            )
 
     if ai_role == "director":
         return (
@@ -106,86 +119,11 @@ def _build_v6_system_prompt(player) -> str:
         )
 
 
-def _extract_v6_common_ground(player: Any, history_messages: List[Dict[str, Any]]) -> str:
-    """
-    V6 Common Ground Extractor.
-
-    Key change from V5: Explicitly instructs the extractor to produce
-    2-4 word NICKNAMES (not full descriptions). The nickname must be the
-    shortest phrase that was sufficient for the Matcher to confirm placement
-    without confusion.
-    """
-    client = _get_ai_client()
-    if not client or not history_messages:
-        return "No history available yet."
-
-    history_text = ""
-    for msg in history_messages:
-        role = msg.get("role", "unknown").upper()
-        content = msg.get("content", "")
-        if isinstance(content, list):
-            text_parts = [c["text"] for c in content if c.get("type") == "text"]
-            content = " ".join(text_parts)
-        history_text += f"{role}: {content}\n"
-
-    system_prompt = (
-        "You are a Common Ground Extraction Agent observing a dialogue "
-        "between a DIRECTOR and a MATCHER in a referential matching game.\n\n"
-        "Your job: extract the SHORTEST NICKNAME (2-4 words) that each basket "
-        "was successfully identified by. This nickname will be used in future "
-        "rounds as a shorthand.\n\n"
-        "RULES:\n"
-        "1. ONLY extract a nickname if the Matcher CONFIRMED placement (said 'Placed', "
-        "'Done', 'Got it', etc.). Do NOT extract terms for baskets still being debated.\n"
-        "2. The nickname should be the MINIMUM DISCRIMINATING phrase — the fewest words "
-        "that distinguish this basket from ALL OTHERS in the set. Drop generic words like "
-        "'basket', 'wicker', 'brown' unless they are the primary distinguishing feature.\n"
-        "3. UNIQUENESS RULE (critical): Every basket must have a nickname that is UNIQUE "
-        "and cannot be confused with any other basket's nickname. If a naive short form would "
-        "collide (e.g. both basket 5 and basket 9 could be called 'dark rectangular'), you "
-        "MUST include one extra differentiating word (e.g. 'dark gray-brown rounded' vs. "
-        "'dark green rectangular'). The nickname must be unambiguous across the whole set.\n"
-        "4. GOOD nicknames: 'duck basket', 'dark gray-brown rounded', 'green rectangle', "
-        "'cat basket', 'picnic lid open', 'oval red-ties'\n"
-        "5. BAD nicknames: 'dark two-tone' when two baskets could match that description; "
-        "'warm orange-tan wicker tote with chunky rounded oval body and slightly flared rim' (too long).\n"
-        "6. If a basket was described multiple times across rounds, use only the SHORTEST "
-        "version that the Matcher accepted without confusion — but never so short it collides.\n\n"
-        "Respond strictly in JSON with this schema:\n"
-        "{\n"
-        '  "agreed_terms_per_position": {"1": ["duck basket"], "2": ["dark gray-brown rounded"], ...},\n'
-        '  "current_target_position": <integer or null>,\n'
-        '  "current_intent": "<short description>"\n'
-        "}"
-    )
-
-    try:
-        extractor_model = os.environ.get("AI_EXTRACTOR_MODEL", "gpt-4o-mini")
-
-        response = client.chat.completions.create(
-            model=extractor_model,
-            messages=[
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": f"Dialogue History:\n{history_text}"}
-            ],
-            response_format={"type": "json_object"},
-            temperature=0.0
-        )
-        summary = response.choices[0].message.content
-        if not summary:
-            return "Failed to extract common ground."
-
-        parsed = json.loads(summary)
-        formatted_summary = json.dumps(parsed, indent=2)
-
-        import logging
-        logging.info(f"[V6_CG_AGENT] Extractor Output:\n{formatted_summary}")
-
-        return formatted_summary
-    except Exception as e:
-        import logging
-        logging.error(f"[V6_CG_AGENT] Extraction failed: {e}")
-        return "Common ground extraction failed."
+from referential_task.common_ground_agent import (
+    build_persistent_common_ground_for_prompt,
+    extract_common_ground,
+    format_common_ground_summary,
+)
 
 
 def build_v6_cg_prompt_messages(
@@ -196,19 +134,38 @@ def build_v6_cg_prompt_messages(
     """
     base_system = _build_v6_system_prompt(player)
 
-    full_history_messages = _build_ai_messages_from_history(player, all_history)
+    current_round = getattr(player, "round_number", 1)
 
-    if full_history_messages:
-        common_ground_summary = _extract_v6_common_ground(player, full_history_messages)
-    else:
-        common_ground_summary = "No history available yet."
+    # Filter history to current-round messages only for CG extraction.
+    # This prevents position-number conflation across rounds (basket positions
+    # are reshuffled each round, so Round 1 position 1 ≠ Round 2 position 1).
+    current_round_history = [
+        m for m in all_history
+        if m.get("round_number") == current_round or m.get("round_number") is None
+    ]
+
+    full_history_messages = _build_ai_messages_from_history(player, current_round_history)
 
     human_role = (
         player.field_maybe_none("player_role") or player.participant.vars.get("role")
     )
     ai_role = "matcher" if human_role == "director" else "director"
 
-    current_round = getattr(player, "round_number", 1)
+    if full_history_messages:
+        _, cg_raw = extract_common_ground(player, full_history_messages, ai_role)
+    else:
+        cg_raw = {
+            "agreed_terms_per_position": {},
+            "current_target_position": None,
+            "uncertainties": ["No history available yet."],
+            "partner_beliefs": "",
+        }
+
+    prompt_cg_state = build_persistent_common_ground_for_prompt(player, ai_role, cg_raw)
+    common_ground_summary = format_common_ground_summary(prompt_cg_state)
+    # Store the actual prompt-facing CG state so logs reflect the persisted
+    # per-role memory rather than only the transient extractor output.
+    player._last_cg_extractor_output = prompt_cg_state
 
     # Define the JSON CoT instructions
     if ai_role == "matcher":
@@ -287,11 +244,11 @@ def build_v6_cg_prompt_messages(
 
     cg_system_block = (
         "======== COMMON GROUND SUMMARY ========\n"
-        "The following SHORT NICKNAMES have been agreed upon in previous rounds.\n"
-        "Use these exact nicknames with a definite determiner ('the').\n"
+        "This is your shared vocabulary and current common-ground state.\n"
+        "If a nickname appears here, treat it as an established reference.\n"
         f"{common_ground_summary}\n"
-        "=======================================\n"
     )
+    cg_system_block += "=======================================\n"
 
     system_messages: List[Dict[str, Any]] = [
         {"role": "system", "content": base_system},
