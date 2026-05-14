@@ -4,20 +4,23 @@ import os
 import argparse
 import json
 import logging
-import re
 from datetime import datetime
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Add project root to path so we can import from referential_task and main
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from referential_task.state import Player, Group, Session, Constants
-from referential_task.ai_utils import run_ai_vs_ai_turn
+from referential_task.ai_vs_ai import run_ai_vs_ai_turn
+from referential_task.exporting import export_session_from_db
 from referential_task.ai_perceptions import generate_ai_vs_ai_perceptions
 
 import sqlite3
 import random
 from pathlib import Path
-from referential_task.ai_utils import get_ai_vs_ai_status
+from referential_task.ai_vs_ai import get_ai_vs_ai_status
 
 DB_FILE = "data.sqlite"
 
@@ -29,24 +32,6 @@ def get_total_rounds(session=None):
     except Exception:
         pass
     return Constants.num_rounds
-
-def get_experiment_family(prompt_strategy):
-    strategy = str(prompt_strategy or "").lower()
-    if "cameron" in strategy:
-        return "Cameron"
-    if "acl" in strategy:
-        return "ACL"
-    return "Other"
-
-def sanitize_path_part(value, fallback="session"):
-    text = str(value or "").strip() or fallback
-    return re.sub(r"[^A-Za-z0-9._-]+", "_", text).strip("_") or fallback
-
-def get_experiment_export_dir(config, session_id):
-    prompt_strategy = config.get("prompt_strategy", "unknown")
-    prefix = sanitize_path_part(config.get("session_prefix") or session_id)
-    current_date = datetime.now().strftime("%Y-%m-%d")
-    return Path("data") / "experiments" / get_experiment_family(prompt_strategy) / current_date / prefix
 
 def get_preset_grid(round_number=1, set_num=5):
     """Load a grid preset like oTree did in create_shared_grid"""
@@ -165,7 +150,11 @@ logger = logging.getLogger("batch_runner")
 
 def run_single_session(session_id: str, config: dict):
     logger.info(f"=== Starting Session: {session_id} ===")
-    
+
+    config = dict(config)
+    if not config.get("enable_conceptual_pacts"):
+        config.pop("conceptual_pacts", None)
+
     session = Session(config)
     round_number = 1
     
@@ -207,17 +196,6 @@ def run_single_session(session_id: str, config: dict):
             
             total_rounds = get_total_rounds(session)
             if round_number < total_rounds:
-                # Mirror the app flow so agreed nicknames persist across rounds
-                # in batch experiments too.
-                try:
-                    from referential_task.common_ground_agent import build_conceptual_pact_map
-                    build_conceptual_pact_map(player)
-                except Exception as pact_error:
-                    logger.warning(
-                        f"Failed to build conceptual pact map for {session_id} round {round_number}: {pact_error}"
-                    )
-                
-                # Advance to next round
                 round_number += 1
                 new_group = Group()
                 new_grid = get_preset_grid(
@@ -238,54 +216,13 @@ def run_single_session(session_id: str, config: dict):
                     
                     # Manual auto-export (similar to main.py logic)
                     try:
-                        export_dir = get_experiment_export_dir(config, session_id)
-                        export_dir.mkdir(parents=True, exist_ok=True)
-                        
-                        conn = sqlite3.connect(DB_FILE)
-                        c = conn.cursor()
-                        c.execute("SELECT session_id, round_number, config, shared_grid, target_baskets, ai_partial_sequence, ai_messages, ai_reasoning_log, matcher_sequence, status, ai_director_reasoning, ai_matcher_reasoning, updated_at FROM game_sessions WHERE session_id = ? ORDER BY round_number", (session_id,))
-                        rows = c.fetchall()
-                        conn.close()
-                        
-                        sessions_data = []
-                        for row in rows:
-                            (s_id, r_num, config_txt, shared_grid_txt, target_baskets_txt,
-                             partial_seq_txt, ai_msgs_txt, ai_reasoning_txt, matcher_seq_txt,
-                             status_txt, director_reasoning_txt, matcher_reasoning_txt, updated_at) = row
-                            
-                            def safe_json(val):
-                                try: return json.loads(val) if val else []
-                                except Exception: return val
-
-                            sessions_data.append({
-                                "session_id": s_id,
-                                "round_number": r_num,
-                                "updated_at": updated_at,
-                                "config": safe_json(config_txt),
-                                "status": safe_json(status_txt),
-                                "shared_grid": safe_json(shared_grid_txt),
-                                "target_baskets": safe_json(target_baskets_txt),
-                                "ai_partial_sequence": safe_json(partial_seq_txt),
-                                "matcher_sequence": safe_json(matcher_seq_txt),
-                                "ai_messages": safe_json(ai_msgs_txt),
-                                "ai_reasoning_log": safe_json(ai_reasoning_txt),
-                                "ai_director_reasoning": safe_json(director_reasoning_txt),
-                                "ai_matcher_reasoning": safe_json(matcher_reasoning_txt)
-                            })
-                            
-                        export_path = export_dir / f"{session_id}_data.json"
-                        with open(export_path, 'w', encoding='utf-8') as f:
-                            json.dump(sessions_data, f, indent=4)
-                        logger.info(f"Successfully auto-exported to {export_path}")
-                        
-                        # Automatically generate visuals and transcript
-                        import subprocess
-                        import sys
-                        logger.info("Auto-generating visualizations and transcript...")
-                        try:
-                            subprocess.run([sys.executable, "scripts/export_json_session.py", str(export_path)], check=True)
-                        except Exception as viz_e:
-                            logger.error(f"Failed to generate visualizations: {viz_e}")
+                        export_session_from_db(
+                            DB_FILE,
+                            session_id,
+                            config,
+                            generate_artifacts=True,
+                            logger=logger,
+                        )
                     except Exception as export_e:
                         logger.error(f"Auto-export failed: {export_e}")
                 

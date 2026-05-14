@@ -3,3 +3,19 @@
 .env
 main/
 _static/ai_debug/
+
+# Local/runtime artifacts
+.DS_Store
+**/.DS_Store
+__pycache__/
+**/__pycache__/
+*.py[cod]
+.ruff_cache/
+
+# Local experiment outputs
+data.sqlite
+# data/archive/
+# data/experiments/
+# data/exported_sessions/
+# data/old/
+prompt_exports/

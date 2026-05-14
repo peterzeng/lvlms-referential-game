@@ -439,10 +439,10 @@ def call_ai_api(
     provider = model_config.get("provider", PROVIDER_OPENAI)
     model = model_config.get("model", DEFAULT_MODELS[provider])
     
-    logging.info(
-        "[AI_PROVIDERS] Calling %s with model %s",
-        provider.upper(), model
-    )
+    # logging.info(
+        # "[AI_PROVIDERS] Calling %s with model %s",
+        # provider.upper(), model
+    # )
     
     if provider == PROVIDER_GEMINI:
         return _call_gemini_api(messages, model_config, temperature, max_tokens, response_format)

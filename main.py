@@ -6,10 +6,7 @@ load_dotenv()
 import json
 import logging
 import random
-import re
-import subprocess
 from pathlib import Path
-from datetime import datetime
 
 import sqlite3
 
@@ -23,10 +20,16 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from referential_task.state import Player, Group, Session
 from referential_task.state import Constants
-from referential_task.ai_utils import run_ai_vs_ai_turn, get_ai_vs_ai_status, _load_matcher_pool_image_urls
+from referential_task.ai_vs_ai import get_ai_vs_ai_status, run_ai_vs_ai_turn
+from referential_task.exporting import export_session_from_db, load_session_export_data
+from referential_task.visual_context import _load_matcher_pool_image_urls
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+# Silence chatty third-party loggers
+logging.getLogger("uvicorn.access").setLevel(logging.WARNING)
+logging.getLogger("httpx").setLevel(logging.WARNING)
 
 app = FastAPI(title="Referential Game AI-AI Simulation")
 
@@ -146,25 +149,6 @@ def get_total_rounds(session=None):
         pass
     return Constants.num_rounds
 
-def get_experiment_family(prompt_strategy):
-    strategy = str(prompt_strategy or "").lower()
-    if "cameron" in strategy:
-        return "Cameron"
-    if "acl" in strategy:
-        return "ACL"
-    return "Other"
-
-def sanitize_path_part(value, fallback="session"):
-    text = str(value or "").strip() or fallback
-    return re.sub(r"[^A-Za-z0-9._-]+", "_", text).strip("_") or fallback
-
-def get_experiment_export_dir(config, session_id):
-    prompt_strategy = config.get("prompt_strategy", "unknown") if isinstance(config, dict) else "unknown"
-    prefix = config.get("session_prefix") if isinstance(config, dict) else None
-    prefix = sanitize_path_part(prefix or session_id)
-    current_date = datetime.now().strftime("%Y-%m-%d")
-    return Path("data") / "experiments" / get_experiment_family(prompt_strategy) / current_date / prefix
-
 def get_preset_grid(round_number=1, set_num=5):
     """Load a grid preset like oTree did in create_shared_grid"""
     preset_filename = f"grids_presets{set_num}.json"
@@ -235,7 +219,6 @@ async def start_game(data: dict):
         "ai_matcher_model": data.get("matcher_model") or os.environ.get("AI_MATCHER_MODEL", "gpt-4o-mini"),
         "ai_reasoning_effort": data.get("reasoning_effort", "none"),
     }
-
     session = Session(session_config)
     
     group = Group()
@@ -273,16 +256,6 @@ async def play_turn(data: dict):
             current_round = player.round_number
             total_rounds = get_total_rounds(player.session)
             if current_round < total_rounds:
-                # Build conceptual pact map from the completed round's CG + shared_grid.
-                # This maps image_path → nicknames so that agreed terms persist across
-                # rounds even when basket positions are reshuffled.
-                try:
-                    from referential_task.common_ground_agent import build_conceptual_pact_map
-                    build_conceptual_pact_map(player)
-                    logger.info(f"Built conceptual pact map after Round {current_round}")
-                except Exception as e:
-                    logger.warning(f"Failed to build conceptual pact map: {e}")
-
                 next_round = current_round + 1
                 
                 # Initialize new game state for the next round
@@ -316,71 +289,13 @@ async def play_turn(data: dict):
                     # --- AUTO-EXPORT DATA ---
                     try:
                         logger.info("Auto-exporting full session data to structured data folder...")
-                        export_dir = get_experiment_export_dir(player.session.config, session_id)
-                        export_dir.mkdir(parents=True, exist_ok=True)
-                        
-                        conn = sqlite3.connect(DB_FILE)
-                        c = conn.cursor()
-                        c.execute("SELECT session_id, round_number, config, shared_grid, target_baskets, ai_partial_sequence, ai_messages, ai_reasoning_log, matcher_sequence, status, ai_director_reasoning, ai_matcher_reasoning, updated_at FROM game_sessions WHERE session_id = ? ORDER BY round_number", (session_id,))
-                        rows = c.fetchall()
-                        conn.close()
-                        
-                        sessions_data = []
-                        for row in rows:
-                            (s_id, r_num, config_txt, shared_grid_txt, target_baskets_txt,
-                             partial_seq_txt, ai_msgs_txt, ai_reasoning_txt, matcher_seq_txt,
-                             status_txt, director_reasoning_txt, matcher_reasoning_txt, updated_at) = row
-                            
-                            def safe_json(val):
-                                try: return json.loads(val) if val else []
-                                except Exception: return val
-
-                            sessions_data.append({
-                                "session_id": s_id,
-                                "round_number": r_num,
-                                "updated_at": updated_at,
-                                "config": safe_json(config_txt),
-                                "status": safe_json(status_txt),
-                                "shared_grid": safe_json(shared_grid_txt),
-                                "target_baskets": safe_json(target_baskets_txt),
-                                "ai_partial_sequence": safe_json(partial_seq_txt),
-                                "matcher_sequence": safe_json(matcher_seq_txt),
-                                "ai_messages": safe_json(ai_msgs_txt),
-                                "ai_reasoning_log": safe_json(ai_reasoning_txt),
-                                "ai_director_reasoning": safe_json(director_reasoning_txt),
-                                "ai_matcher_reasoning": safe_json(matcher_reasoning_txt)
-                            })
-                            
-                        export_path = export_dir / f"{session_id}_data.json"
-                        with open(export_path, 'w', encoding='utf-8') as f:
-                            json.dump(sessions_data, f, indent=4)
-                        logger.info(f"Successfully auto-exported to {export_path}")
-
-                        transcript_export_cmd = [
-                            sys.executable,
-                            "scripts/export_json_session.py",
-                            str(export_path),
-                        ]
-                        result = subprocess.run(
-                            transcript_export_cmd,
-                            capture_output=True,
-                            text=True,
-                            check=False,
+                        export_session_from_db(
+                            DB_FILE,
+                            session_id,
+                            player.session.config,
+                            generate_artifacts=True,
+                            logger=logger,
                         )
-                        if result.returncode == 0:
-                            logger.info(
-                                "Successfully generated transcript/visual export for %s",
-                                export_path,
-                            )
-                            if result.stdout:
-                                logger.info("Session export output: %s", result.stdout.strip())
-                        else:
-                            logger.error(
-                                "Transcript/visual export failed for %s with exit code %s: %s",
-                                export_path,
-                                result.returncode,
-                                (result.stderr or result.stdout or "").strip(),
-                            )
                     except Exception as export_e:
                         logger.error(f"Auto-export failed: {export_e}")
 
@@ -445,79 +360,20 @@ async def export_session(session_id: str, generate_artifacts: bool = False):
     if not os.path.exists(DB_FILE):
         return JSONResponse({"error": "Database not found"}, status_code=404)
         
-    conn = sqlite3.connect(DB_FILE)
-    c = conn.cursor()
-    c.execute("SELECT session_id, round_number, config, shared_grid, target_baskets, ai_partial_sequence, ai_messages, ai_reasoning_log, matcher_sequence, status, ai_director_reasoning, ai_matcher_reasoning, updated_at FROM game_sessions WHERE session_id = ? ORDER BY round_number", (session_id,))
-    rows = c.fetchall()
-    conn.close()
-
-    if not rows:
+    sessions = load_session_export_data(DB_FILE, session_id)
+    if not sessions:
         return JSONResponse({"error": "Session not found"}, status_code=404)
-
-    sessions = []
-    for row in rows:
-        (s_id, r_num, config_txt, shared_grid_txt, target_baskets_txt,
-         partial_seq_txt, ai_msgs_txt, ai_reasoning_txt, matcher_seq_txt,
-         status_txt, director_reasoning_txt, matcher_reasoning_txt, updated_at) = row
-        
-        def safe_json(val):
-            try:
-                return json.loads(val) if val else []
-            except Exception:
-                return val
-
-        session_data = {
-            "session_id": s_id,
-            "round_number": r_num,
-            "updated_at": updated_at,
-            "config": safe_json(config_txt),
-            "status": safe_json(status_txt),
-            "shared_grid": safe_json(shared_grid_txt),
-            "target_baskets": safe_json(target_baskets_txt),
-            "ai_partial_sequence": safe_json(partial_seq_txt),
-            "matcher_sequence": safe_json(matcher_seq_txt),
-            "ai_messages": safe_json(ai_msgs_txt),
-            "ai_reasoning_log": safe_json(ai_reasoning_txt),
-            "ai_director_reasoning": safe_json(director_reasoning_txt),
-            "ai_matcher_reasoning": safe_json(matcher_reasoning_txt)
-        }
-        sessions.append(session_data)
 
     if generate_artifacts:
         try:
             config = sessions[0].get("config", {}) if sessions else {}
-            export_dir = get_experiment_export_dir(config, session_id)
-            export_dir.mkdir(parents=True, exist_ok=True)
-
-            export_path = export_dir / f"{session_id}_data.json"
-            with open(export_path, "w", encoding="utf-8") as f:
-                json.dump(sessions, f, indent=4)
-            logger.info("UI export wrote session data to %s", export_path)
-
-            result = subprocess.run(
-                [
-                    sys.executable,
-                    "scripts/export_json_session.py",
-                    str(export_path),
-                ],
-                capture_output=True,
-                text=True,
-                check=False,
+            export_session_from_db(
+                DB_FILE,
+                session_id,
+                config,
+                generate_artifacts=True,
+                logger=logger,
             )
-            if result.returncode == 0:
-                logger.info(
-                    "UI export generated transcript/visual artifacts for %s",
-                    export_path,
-                )
-                if result.stdout:
-                    logger.info("Session export output: %s", result.stdout.strip())
-            else:
-                logger.error(
-                    "UI transcript/visual export failed for %s with exit code %s: %s",
-                    export_path,
-                    result.returncode,
-                    (result.stderr or result.stdout or "").strip(),
-                )
         except Exception as export_e:
             logger.error("UI export artifact generation failed: %s", export_e)
 
@@ -528,4 +384,4 @@ async def export_session(session_id: str, generate_artifacts: bool = False):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
+    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True, access_log=False)
