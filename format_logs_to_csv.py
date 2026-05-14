@@ -22,12 +22,22 @@ def flatten_log_to_csv(input_json_path: str, output_csv_path: str):
         sid = row.get("session_id", "unknown")
         sessions[sid].append(row)
 
-    headers = [
-        "session_id",
-        "round_1_conversation", "round_1_ai_reasoning", "round_1_accuracy",
-        "round_2_conversation", "round_2_ai_reasoning", "round_2_accuracy",
-        "round_3_conversation", "round_3_ai_reasoning", "round_3_accuracy",
-        "round_4_conversation", "round_4_ai_reasoning", "round_4_accuracy",
+    def safe_round_number(row):
+        try:
+            return int(row.get("round_number", 0) or 0)
+        except (TypeError, ValueError):
+            return 0
+
+    max_rounds = max((safe_round_number(row) for row in data), default=0)
+
+    headers = ["session_id"]
+    for round_num in range(1, max_rounds + 1):
+        headers.extend([
+            f"round_{round_num}_conversation",
+            f"round_{round_num}_ai_reasoning",
+            f"round_{round_num}_accuracy",
+        ])
+    headers.extend([
         "director_perception_capable",
         "director_perception_helpful",
         "director_perception_understood",
@@ -40,7 +50,7 @@ def flatten_log_to_csv(input_json_path: str, output_csv_path: str):
         "matcher_perception_adapted",
         "matcher_perception_improved",
         "matcher_perception_comment"
-    ]
+    ])
 
     rows = []
 
@@ -98,7 +108,7 @@ def flatten_log_to_csv(input_json_path: str, output_csv_path: str):
                 
             row_data[f"round_{r_num}_ai_reasoning"] = reasoning_str.strip()
             
-            # Perceptions exist primarily at end of round 4
+            # Perceptions exist primarily at the end of the final round
             d_reasoning = rnd.get("ai_director_reasoning")
             if d_reasoning:
                 row_data["director_perception_capable"] = d_reasoning.get("partner_capable", "")

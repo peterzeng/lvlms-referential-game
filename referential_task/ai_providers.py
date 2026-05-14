@@ -32,6 +32,7 @@ GPT_5_2_MODELS = frozenset({
     "gpt-5.2-pro",
     "gpt-5.4",
     "gpt-5.4-mini",
+    "gpt-5.5",
 })
 
 # Gemini models (for reference)
@@ -85,7 +86,7 @@ def detect_provider_from_model(model: str) -> str:
 def is_gpt_5_2_model(model: str) -> bool:
     """Check if a model supports GPT-5.x API features (reasoning_effort).
     
-    Returns True for GPT-5.2, GPT-5.4, and any future GPT-5.x models that
+    Returns True for GPT-5.2, GPT-5.4, GPT-5.5, and any future GPT-5.x models that
     support the reasoning_effort parameter.
     """
     if not model:
@@ -93,8 +94,12 @@ def is_gpt_5_2_model(model: str) -> bool:
     if model in GPT_5_2_MODELS:
         return True
     model_lower = model.lower()
-    # Match any gpt-5.x variant (5.2, 5.4, etc.)
-    return model_lower.startswith("gpt-5.2") or model_lower.startswith("gpt-5.4")
+    # Match any GPT-5.x variant that supports reasoning_effort.
+    return (
+        model_lower.startswith("gpt-5.2")
+        or model_lower.startswith("gpt-5.4")
+        or model_lower.startswith("gpt-5.5")
+    )
 
 
 def uses_max_completion_tokens(model: str) -> bool:
@@ -126,9 +131,8 @@ def get_model_config_for_role(player: "Player" | None, role: str) -> dict[str, A
     
     Configuration priority:
     1. Session config role-specific: ai_director_model / ai_matcher_model
-    2. Session config global: ai_model
-    3. Environment variable: OPENAI_MODEL / GEMINI_MODEL
-    4. Defaults
+    2. Environment variable: OPENAI_MODEL / GEMINI_MODEL
+    3. Defaults
     """
     config = {
         "provider": PROVIDER_OPENAI,
@@ -162,9 +166,7 @@ def get_model_config_for_role(player: "Player" | None, role: str) -> dict[str, A
     if session_cfg.get(role_provider_key):
         provider = session_cfg[role_provider_key]
     
-    # Priority 2: Global session config
-    if not model and session_cfg.get("ai_model"):
-        model = session_cfg["ai_model"]
+    # Priority 2: Global provider config
     if not provider and session_cfg.get("ai_provider"):
         provider = session_cfg["ai_provider"]
     
@@ -357,8 +359,9 @@ def convert_messages_to_gemini_format(messages: list[dict], sdk_type: str = "new
         role = msg.get("role", "user")
         content = msg.get("content", "")
         
-        if role == "system":
-            # Collect system messages for system_instruction
+        if role in ("developer", "system"):
+            # Collect high-priority instruction messages for system_instruction.
+            # OpenAI's developer role maps cleanly onto Gemini's system instruction.
             if isinstance(content, str):
                 system_parts.append(content)
             elif isinstance(content, list):
@@ -742,4 +745,3 @@ def has_ai_client_for_role(player: "Player" | None, role: str) -> bool:
     """Check if an AI client is available for a role."""
     client, _ = get_ai_client_for_role(player, role)
     return client is not None
-

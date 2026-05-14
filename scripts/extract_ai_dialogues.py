@@ -88,18 +88,30 @@ def main():
     # Get session info from first row
     row = rows[0]
     session_code = row.get('session.code', 'Unknown')
-    ai_model = row.get('session.config.ai_model', 'Unknown')
+    director_model = row.get('session.config.ai_director_model', 'Unknown')
+    matcher_model = row.get('session.config.ai_matcher_model', 'Unknown')
     prompt_strategy = row.get('session.config.prompt_strategy', 'Unknown')
     reasoning_effort = row.get('session.config.ai_reasoning_effort', 'Unknown')
     
     output_lines.append(f"Session Code: {session_code}")
-    output_lines.append(f"AI Model: {ai_model}")
+    output_lines.append(f"Director Model: {director_model}")
+    output_lines.append(f"Matcher Model: {matcher_model}")
     output_lines.append(f"Prompt Strategy: {prompt_strategy}")
     output_lines.append(f"Reasoning Effort: {reasoning_effort}")
     output_lines.append("")
     
+    round_nums = []
+    for key in row:
+        prefix = "referential_task."
+        if key.startswith(prefix):
+            rest = key[len(prefix):]
+            round_part = rest.split(".", 1)[0]
+            if round_part.isdigit():
+                round_nums.append(int(round_part))
+    max_round = max(round_nums, default=5)
+
     # Process each round
-    for round_num in range(1, 5):
+    for round_num in range(1, max_round + 1):
         output_lines.append("-" * 80)
         output_lines.append(f"ROUND {round_num}")
         output_lines.append("-" * 80)
@@ -129,10 +141,8 @@ def main():
         f.write("\n".join(output_lines))
     
     print(f"Dialogues extracted to: {output_file}")
-    print(f"Processed {len(rows)} participant(s), 4 rounds each.")
+    print(f"Processed {len(rows)} participant(s), {max_round} rounds each.")
 
 
 if __name__ == "__main__":
     main()
-
-

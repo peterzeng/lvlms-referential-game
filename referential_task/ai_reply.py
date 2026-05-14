@@ -274,7 +274,7 @@ def _generate_ai_reply(player: "Player", latest_message: str | None):
                 logging.debug("[PROMPT %d] role=%s: %s...", i, role, content_preview)
 
         # Get model configuration and build API call parameters
-        model = _get_ai_model(player)
+        model = _get_ai_model(player, ai_role)
         api_params = _build_api_call_kwargs(
             model=model,
             messages=chat_messages,

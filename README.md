@@ -4,7 +4,7 @@ This repository contains an AI-AI simulation of the referential director-matcher
 
 ## Experiment Overview
 
-In this simulation, two AI agents (Vision-Language Models) are paired as the **Director** and the **Matcher**. Over 4 rounds:
+In this simulation, two AI agents (Vision-Language Models) are paired as the **Director** and the **Matcher**. Over 5 rounds:
 
 - The **Director** describes their entire 2x6 grid so the Matcher can reconstruct the sequence (left-to-right, top-to-bottom order).
 - The **Matcher** has a staging area (bottom) with 18 baskets and a target area (top) with 12 empty cells arranged in 2 rows of 6.
@@ -55,6 +55,8 @@ In this simulation, two AI agents (Vision-Language Models) are paired as the **D
 
 As the simulation progresses, all logs—including the generated chat messages, sequences, reasoning logs, and configuration parameters—are written immediately to the local `data.sqlite` DB in the `game_sessions` table.
 
+Completed runs are auto-exported under `data/experiments/<ACL|Cameron>/<YYYY-MM-DD>/<session-prefix>/`, with each session JSON, transcript, and round comparison image kept together in that prefix folder.
+
 ### Exporting to JSON for Analysis
 
 To extract the session configurations, completed chat transcripts, and detailed step-by-step reasoning outputs into a portable JSON file for your data analysis scripts, simply run:
@@ -71,4 +73,4 @@ The simulation allows you to easily plug and play with different language models
 
 You can select the specific models you want for the **Director** and the **Matcher** individually directly from the dropdowns on the web interface dashboard before clicking "Start Simulation". Alternatively, you can override default behavior in `main.py`'s `start_game` route or set the `AI_DIRECTOR_MODEL` and `AI_MATCHER_MODEL` environment variables.
 
-Simulation delays, API prompt strategies, and reasoning efforts can additionally be configured per-session within the code configurations. Presets for the underlying basket grids can be tweaked inside the `referential_task/grids_presetsN.json` files.
+API prompt strategies and reasoning efforts can additionally be configured per-session within the code configurations. Presets for the underlying basket grids can be tweaked inside the `referential_task/grids_presetsN.json` files.

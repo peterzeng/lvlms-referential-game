@@ -1,0 +1,259 @@
+================================================================================
+SESSION TRANSCRIPT REPORT
+================================================================================
+
+Pair ID:        cameron-test-1
+Session Code:   cameron-test-1
+Source File:    data/experiments/2026-05-13_cameron-prompt/cameron-test-1_data.json
+
+SESSION CONFIGURATION:
+  ai_vs_ai_mode: True
+  director_view: grid
+  basket_set: 5
+  prompt_strategy: cameron-prompt
+  ai_director_model: gpt-5.5
+  ai_matcher_model: gpt-5.5
+  ai_model: gpt-4o-mini
+  ai_reasoning_effort: none
+  ai_vs_ai_delay: 0
+  ai_vs_ai_max_turns: 60
+
+OVERALL ACCURACY: 97.9% (avg across 4 rounds)
+
+================================================================================
+
+ROUND 1
+----------------------------------------
+Accuracy: 100.0%
+
+DIALOGUE:
+--------------------
+[17:30:55] DIRECTOR: rabbit-shaped basket, side view with little red eye
+
+[17:30:59] MATCHER: placed the rabbit in spot 1 — next?
+
+[17:31:02] DIRECTOR: dark round basket with black handle
+
+[17:31:05] MATCHER: placed the dark round one in spot 2 — next?
+
+[17:31:08] DIRECTOR: picnic basket, tall center handle and open dark side
+
+[17:31:12] MATCHER: placed the picnic one in spot 3 — next?
+
+[17:31:14] DIRECTOR: small oval basket with pale handle, white woven sides
+
+[17:31:18] MATCHER: placed the small white oval one in spot 4 — next?
+
+[17:31:21] DIRECTOR: rectangular basket with thick twisted handle
+
+[17:31:25] MATCHER: placed the rectangular twisted-handle one in spot 5 — next?
+
+[17:31:27] DIRECTOR: round pig-face basket
+
+[17:31:30] MATCHER: placed the pig-face basket in spot 6 — next?
+
+[17:31:33] DIRECTOR: green rectangular basket with handle
+
+[17:31:37] MATCHER: placed the green rectangular one in spot 7 — next?
+
+[17:31:40] DIRECTOR: small dark striped basket with black handle
+
+[17:31:44] MATCHER: placed the dark striped one in spot 8 — next?
+
+[17:31:48] DIRECTOR: tall cylindrical basket with side handles
+
+[17:31:52] MATCHER: placed the tall cylinder one in spot 9 — next?
+
+[17:31:55] DIRECTOR: shallow round tray basket with handle
+
+[17:31:58] MATCHER: placed the shallow tray with handle in spot 10 — next?
+
+[17:32:00] DIRECTOR: deep oval basket, two small side handles
+
+[17:32:04] MATCHER: placed the deep oval one with side handles in spot 11 — last one?
+
+[17:32:07] DIRECTOR: pinkish square basket with handle
+
+[17:32:11] MATCHER: placed the pinkish square one in spot 12 — what was spot 2 again?
+
+[17:32:13] DIRECTOR: round brown basket, dark arched handle
+
+[17:32:17] MATCHER: placed the round brown one with the dark handle in spot 2
+
+[17:32:20] DIRECTOR: yep, spot 3 is the picnic basket with upright handle
+
+[17:32:24] MATCHER: all set, submitting
+
+================================================================================
+
+ROUND 2
+----------------------------------------
+Accuracy: 100.0%
+
+DIALOGUE:
+--------------------
+[17:32:33] DIRECTOR: picnic basket with upright lid/handle
+
+[17:32:36] MATCHER: placed picnic lid one in 1
+
+[17:32:39] DIRECTOR: tall round bin, two side handles
+
+[17:32:44] MATCHER: placed tall round bin in 2
+
+[17:32:46] DIRECTOR: small pot, dark arch handle
+
+[17:32:50] MATCHER: placed the dark handle pot in 3
+
+[17:32:52] DIRECTOR: square basket, twisted handle
+
+[17:32:58] MATCHER: placed square twisted handle in 4
+
+[17:33:01] DIRECTOR: gray basket, black handle
+
+[17:33:04] MATCHER: placed gray black handle in 5
+
+[17:33:07] DIRECTOR: wicker duck
+
+[17:33:10] MATCHER: placed wicker duck in 6
+
+[17:33:13] DIRECTOR: round cat basket
+
+[17:33:17] MATCHER: placed round cat in 7
+
+[17:33:19] DIRECTOR: flat oval tray basket
+
+[17:33:22] MATCHER: placed flat oval tray in 8
+
+[17:33:24] DIRECTOR: green striped rectangle
+
+[17:33:29] MATCHER: placed green striped rectangle in 9
+
+[17:33:31] DIRECTOR: deep round tub, rope handles
+
+[17:33:34] MATCHER: placed deep round tub in 10
+
+[17:33:37] DIRECTOR: white basket, tall handle
+
+[17:33:40] MATCHER: placed white tall handle in 11
+
+[17:33:43] DIRECTOR: pinkish square basket
+
+[17:33:48] MATCHER: placed pinkish square in 12
+
+================================================================================
+
+ROUND 3
+----------------------------------------
+Accuracy: 91.7%
+
+DIALOGUE:
+--------------------
+[17:33:54] DIRECTOR: dark rectangular picnic basket, big arch handle
+
+[17:33:57] MATCHER: placed it in 1
+
+[17:34:00] DIRECTOR: small oval w/ wrapped tall handle
+
+[17:34:03] MATCHER: placed it in 2
+
+[17:34:05] DIRECTOR: round cat face basket
+
+[17:34:08] MATCHER: placed cat face in 3
+
+[17:34:11] DIRECTOR: rabbit basket
+
+[17:34:14] MATCHER: placed rabbit in 4
+
+[17:34:17] DIRECTOR: pink square basket
+
+[17:34:21] MATCHER: placed pink square in 5
+
+[17:34:24] DIRECTOR: tall cylinder hamper
+
+[17:34:27] MATCHER: placed tall cylinder in 6
+
+[17:34:29] DIRECTOR: old bucket, dark handle
+
+[17:34:34] MATCHER: placed old bucket in 7
+
+[17:34:36] DIRECTOR: gray striped basket
+
+[17:34:40] MATCHER: placed gray striped in 8
+
+[17:34:42] DIRECTOR: orange chunky weave
+
+[17:34:48] MATCHER: placed orange chunky weave in 9
+
+[17:34:51] DIRECTOR: round rope-handle tub
+
+[17:34:54] MATCHER: placed round rope-handle tub in 10
+
+[17:34:57] DIRECTOR: flat round tray
+
+[17:35:00] MATCHER: placed flat tray in 11
+
+[17:35:02] DIRECTOR: picnic basket
+
+[17:35:06] MATCHER: placed picnic basket in 12, submitting
+
+================================================================================
+
+ROUND 4
+----------------------------------------
+Accuracy: 100.0%
+
+DIALOGUE:
+--------------------
+[17:35:12] DIRECTOR: flat round tray basket, spiral bottom
+
+[17:35:15] MATCHER: placed the spiral tray in 1, next?
+
+[17:35:18] DIRECTOR: chunky rectangular basket, big braided handle
+
+[17:35:21] MATCHER: placed the chunky braided handle one in 2, next?
+
+[17:35:24] DIRECTOR: animal basket
+
+[17:35:27] MATCHER: placed animal in 3, next?
+
+[17:35:29] DIRECTOR: green stripe rectangle
+
+[17:35:32] MATCHER: placed green stripe rectangle in 4, next?
+
+[17:35:35] DIRECTOR: round open bin with side handles
+
+[17:35:39] MATCHER: placed the round open bin in 5, next?
+
+[17:35:42] DIRECTOR: dark round bucket
+
+[17:35:45] MATCHER: placed dark round bucket in 6, next?
+
+[17:35:49] DIRECTOR: tall trash can basket
+
+[17:35:52] MATCHER: placed the tall trash can in 7, next?
+
+[17:35:55] DIRECTOR: picnic basket with lids
+
+[17:35:58] MATCHER: placed picnic basket with lids in 8, next?
+
+[17:36:02] DIRECTOR: round lid with flower top
+
+[17:36:06] MATCHER: placed the flower lid one in 9, next?
+
+[17:36:09] DIRECTOR: small white oval handle
+
+[17:36:13] MATCHER: placed small white oval handle in 10, next?
+
+[17:36:16] DIRECTOR: plain pink handle basket
+
+[17:36:20] MATCHER: placed plain pink handle basket in 11, next?
+
+[17:36:22] DIRECTOR: dark two-tone oval
+
+[17:36:27] MATCHER: placed dark two-tone oval in 12
+
+[17:36:29] DIRECTOR: flat round tray handle
+
+[17:36:33] MATCHER: all set, submitting
+
+================================================================================

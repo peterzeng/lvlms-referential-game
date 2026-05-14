@@ -14,7 +14,7 @@ from .state import Constants, Player
 
 # Re-exported names (including "private" helpers) so that `referential_task.pages`
 # can import `*` from this module and still expose the underscore-prefixed
-# helpers expected by the prompt strategy modules (prompt_v1 / v2 / v3).
+# helpers expected by the prompt strategy modules.
 __all__ = [
     "_resolve_static_image_path",
     "_image_rel_to_data_url",
@@ -25,8 +25,9 @@ __all__ = [
     "_load_shared_grid_image_urls",
     "_load_matcher_pool_image_urls",
     "_inject_task_background",
+    "_is_instruction_message",
     "_inject_visual_grid_context",
-    "_should_log_v3_reasoning",
+    "_should_log_acl_reasoning",
     "_get_ai_client",
     "_api_call_with_retry",
     "_build_ai_messages_from_history",
@@ -56,13 +57,14 @@ GPT_5_2_MODELS = frozenset({
     "gpt-5.2-pro",
     "gpt-5.4",
     "gpt-5.4-mini",
+    "gpt-5.5",
 })
 
 
 def _is_gpt_5_2_model(model: str) -> bool:
     """Check if a model supports GPT-5.x API features (reasoning_effort).
     
-    Returns True for GPT-5.2, GPT-5.4, and any future GPT-5.x models that
+    Returns True for GPT-5.2, GPT-5.4, GPT-5.5, and any future GPT-5.x models that
     support the reasoning_effort parameter.
     """
     if not model:
@@ -70,9 +72,13 @@ def _is_gpt_5_2_model(model: str) -> bool:
     # Exact match in known set
     if model in GPT_5_2_MODELS:
         return True
-    # Pattern match for gpt-5.x variants (e.g., gpt-5.2-2025-01-01, gpt-5.4-turbo)
+    # Pattern match for supported GPT-5.x variants.
     model_lower = model.lower()
-    return model_lower.startswith("gpt-5.2") or model_lower.startswith("gpt-5.4")
+    return (
+        model_lower.startswith("gpt-5.2")
+        or model_lower.startswith("gpt-5.4")
+        or model_lower.startswith("gpt-5.5")
+    )
 
 
 def _uses_max_completion_tokens(model: str) -> bool:
@@ -92,11 +98,11 @@ def _uses_max_completion_tokens(model: str) -> bool:
     return False
 
 
-def _get_ai_model(player: Player | None = None) -> str:
-    """Get the AI model to use from session config or environment.
+def _get_ai_model(player: Player | None = None, ai_role: str | None = None) -> str:
+    """Get the role-specific AI model from session config or environment.
     
     Priority:
-    1. Session config 'ai_model' (if player provided)
+    1. Session config ai_director_model / ai_matcher_model
     2. Environment variable OPENAI_MODEL
     3. Default: 'gpt-5.2'
     """
@@ -104,7 +110,14 @@ def _get_ai_model(player: Player | None = None) -> str:
         try:
             if hasattr(player, "session") and player.session:
                 cfg = player.session.config or {}
-                model = cfg.get("ai_model")
+                role = ai_role
+                if role not in ("director", "matcher"):
+                    human_role = (
+                        player.field_maybe_none("player_role")
+                        or player.participant.vars.get("role")
+                    )
+                    role = "matcher" if human_role == "director" else "director"
+                model = cfg.get(f"ai_{role}_model")
                 if model:
                     return model
         except Exception:
@@ -168,7 +181,14 @@ def _build_api_call_kwargs(
             kwargs["max_tokens"] = max_tokens
     
     if response_format is not None:
-        kwargs["response_format"] = response_format
+        if response_format.get("type") == "json_schema":
+            schema = response_format.get("json_schema", {})
+            if hasattr(schema, "model_json_schema"):
+                kwargs["response_format"] = schema
+            else:
+                kwargs["response_format"] = response_format
+        else:
+            kwargs["response_format"] = response_format
     
     # Add reasoning_effort for GPT-5.2+ models only
     if _is_gpt_5_2_model(model):
@@ -185,7 +205,7 @@ _STATIC_IMAGE_CACHE: dict[str, str] = {}
 # ---------------------------------------------------------------------------
 TASK_BACKGROUND = """
 TASK BACKGROUND (shared with both partners):
-You are on a team with a partner. Your goal is to work together to match the correct order of a set of baskets. The game consists of 4 rounds, and in each round, your team must correctly order 12 baskets.
+You are on a team with a partner. Your goal is to work together to match the correct order of a set of baskets. The game consists of 5 rounds, and in each round, your team must correctly order 12 baskets.
 
 There are two distinct roles: the Director and the Matcher. Both partners see the same 12 target baskets, but the Matcher sees additional distractor baskets mixed in.
 
@@ -197,8 +217,13 @@ You can communicate back and forth as much as needed. If you discover an error, 
 """.strip()
 
 
+def _is_instruction_message(message: dict[str, Any]) -> bool:
+    """Return True for high-priority application instruction messages."""
+    return message.get("role") in ("developer", "system")
+
+
 def _inject_task_background(messages: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    """Prepend the shared task background as the first system message.
+    """Prepend the shared task background as a developer instruction.
 
     This ensures the AI has the same high-level context that human participants
     receive at the start of the game, regardless of which prompt strategy is used.
@@ -207,7 +232,7 @@ def _inject_task_background(messages: list[dict[str, Any]]) -> list[dict[str, An
         return messages
 
     background_message = {
-        "role": "system",
+        "role": "developer",
         "content": TASK_BACKGROUND,
     }
     return [background_message] + messages
@@ -1345,7 +1370,7 @@ def _load_matcher_pool_image_urls(player: Player) -> list[dict[str, Any]]:
 def _inject_visual_grid_context(player: Player, messages: list[dict[str, Any]]):
     """Inject a multimodal grid message so the AI sees the 12-basket layout.
 
-    This wrapper is applied on top of all prompt strategies (v1/v2/v3/etc.)
+    This wrapper is applied on top of all prompt strategies.
     so that the only differences between strategies are in how the model is
     instructed to reason and respond, not in whether it has visual access
     to the baskets.
@@ -1424,30 +1449,30 @@ def _inject_visual_grid_context(player: Player, messages: list[dict[str, Any]]):
         "content": multimodal_content,
     }
 
-    # Insert after any leading system messages so they still anchor behavior,
+    # Insert after any leading instruction messages so they still anchor behavior,
     # but before conversation history and the latest human turn.
     idx = 0
-    while idx < len(messages) and messages[idx].get("role") == "system":
+    while idx < len(messages) and _is_instruction_message(messages[idx]):
         idx += 1
 
     return messages[:idx] + [grid_message] + messages[idx:]
 
 
-def _should_log_v3_reasoning(player: Player) -> bool:
-    """Return True if we should persist V3 reasoning JSON for this session.
+def _should_log_acl_reasoning(player: Player) -> bool:
+    """Return True if we should persist ACL_prompt reasoning JSON for this session.
 
     Controlled by (in order of precedence):
-    - session.config['log_v3_reasoning'] (truthy)
-    - LOG_V3_REASONING environment variable ('1', 'true', 'yes')
+    - session.config['log_acl_reasoning'] (truthy)
+    - LOG_ACL_REASONING environment variable
     """
     try:
         if hasattr(player, "session") and player.session:
-            if bool(player.session.config.get("log_v3_reasoning", False)):
+            if bool(player.session.config.get("log_acl_reasoning", False)):
                 return True
     except Exception:
         pass
 
-    flag = os.environ.get("LOG_V3_REASONING", "").strip().lower()
+    flag = os.environ.get("LOG_ACL_REASONING", "").strip().lower()
     return flag in ("1", "true", "yes")
 
 
@@ -1918,8 +1943,7 @@ def _get_prompt_strategy_name(player: Player) -> str:
     """Return the configured prompt strategy name.
 
     Strategy can be set per-session via `session.config['prompt_strategy']`
-    (e.g., 'simple', 'weiling') or globally via PROMPT_STRATEGY env var.
-    Defaults to 'simple' for backward compatibility.
+    or globally via PROMPT_STRATEGY env var. Defaults to ACL_prompt.
     """
     # Session-level override (preferred)
     try:
@@ -1935,8 +1959,33 @@ def _get_prompt_strategy_name(player: Player) -> str:
     if env_name:
         return env_name
 
-    # Default to v1/simple prompting
-    return "v1"
+    return "acl_prompt"
+
+
+def _is_acl_prompt_strategy(strategy_name: str) -> bool:
+    """Return True for ACL_prompt strategy aliases."""
+    return strategy_name in ("acl_prompt", "acl-prompt", "acl")
+
+
+def _normalize_prompt_strategy(strategy_name: str) -> str:
+    """Map removed or legacy strategy names onto currently available strategies."""
+    if strategy_name in (
+        "director_visual",
+        "visual_director",
+        "matcher_visual",
+        "visual_matcher",
+        "simple",
+        "v1",
+        "weiling",
+        "v2",
+        "v4",
+        "v4_cg",
+        "v5",
+        "v6",
+        "v9",
+    ):
+        return "acl_prompt"
+    return strategy_name
 
 
 def _generate_ai_reply(player: Player, latest_message):
@@ -1979,7 +2028,7 @@ def _generate_ai_reply(player: Player, latest_message):
 
         This is intentionally concise — behavioral rules (lowest position first,
         announcing moves, ready-to-submit phrasing) are defined in the base
-        prompts (v1/v2/v3). This instruction only standardizes the JSON schema.
+        prompts. This instruction only standardizes the JSON schema.
         """
         instructions = (
             "You MUST respond with valid JSON containing BOTH an \"utterance\" field AND a \"selection\" field:\n"
@@ -2005,7 +2054,7 @@ def _generate_ai_reply(player: Player, latest_message):
         player: Player,
         strategy_name: str,
         ai_role: str,
-        use_v3_cot: bool,
+        use_structured_json: bool,
     ):
         """Parse a JSON-structured reply into (utterance, selection_dict)."""
         def _is_confirmation_text(msg: str | None) -> bool:
@@ -2161,12 +2210,11 @@ def _generate_ai_reply(player: Player, latest_message):
                     data.get("reasoning"),
                 )
 
-            # Optional: log full reasoning JSON for V3 CoT runs
-            # Optional: log full reasoning JSON for V3 CoT runs
+            # Optional: log full reasoning JSON for structured prompt runs.
             if data.get("reasoning") is not None:
                 import logging
                 reasoning_json = json.dumps(data.get("reasoning"), indent=2)
-                logging.info(f"[AI_REASONING] CoT Reasoning for {ai_role.upper()}:\n{reasoning_json}")
+                logging.info(f"[AI_REASONING] Structured reasoning for {ai_role.upper()}:\n{reasoning_json}")
 
             return utterance, selection
         except Exception:
@@ -2317,61 +2365,26 @@ def _generate_ai_reply(player: Player, latest_message):
         )
         ai_role = "matcher" if human_role == "director" else "director"
 
-        # Map visual aliases onto the underlying Weiling strategy
-        if strategy_name in (
-            "director_visual",
-            "visual_director",
-            "matcher_visual",
-            "visual_matcher",
-        ):
-            strategy_for_prompt = "v2"
-        else:
-            strategy_for_prompt = strategy_name
+        strategy_for_prompt = _normalize_prompt_strategy(strategy_name)
 
         # Lazily import prompt strategy modules
-        from . import prompt_v1, prompt_v2, prompt_v3, prompt_v4, prompt_v5, prompt_v6, cameron_prompt, prompt_v9
+        from . import ACL_prompt, cameron_prompt
 
-        if strategy_for_prompt in ("weiling", "v2"):
-            chat_messages = prompt_v2.build_weiling_prompt_messages(
+        if _is_acl_prompt_strategy(strategy_for_prompt):
+            chat_messages = ACL_prompt.build_acl_prompt_messages(
                 player, latest_message, all_history
             )
-            use_v3_cot = False
-        elif strategy_for_prompt in ("v3", "v3_cot"):
-            chat_messages = prompt_v3.build_v3_cot_prompt_messages(
-                player, latest_message, all_history
-            )
-            use_v3_cot = True
-        elif strategy_for_prompt in ("v4", "v4_cg"):
-            chat_messages = prompt_v4.build_v4_cg_prompt_messages(
-                player, latest_message, all_history
-            )
-            use_v3_cot = True  # V4 also uses CoT JSON envelopes
-        elif strategy_for_prompt == "v5":
-            chat_messages = prompt_v5.build_v5_cg_prompt_messages(
-                player, latest_message, all_history
-            )
-            use_v3_cot = True
-        elif strategy_for_prompt == "v6":
-            chat_messages = prompt_v6.build_v6_cg_prompt_messages(
-                player, latest_message, all_history
-            )
-            use_v3_cot = True
+            use_structured_json = True
         elif strategy_for_prompt in ("v8", "cameron-prompt", "cameron_prompt"):
             chat_messages = cameron_prompt.build_cameron_prompt_messages(
                 player, latest_message, all_history
             )
-            use_v3_cot = False
-        elif strategy_for_prompt == "v9":
-            chat_messages = prompt_v9.build_v9_cot_prompt_messages(
-                player, latest_message, all_history
-            )
-            use_v3_cot = True
+            use_structured_json = False
         else:
-            # v1/simple is the default
-            chat_messages = prompt_v1.build_simple_prompt_messages(
+            chat_messages = ACL_prompt.build_acl_prompt_messages(
                 player, latest_message, all_history
             )
-            use_v3_cot = False
+            use_structured_json = True
 
         # Inject shared task background so AI has same context as human participants
         chat_messages = _inject_task_background(chat_messages)
@@ -2395,31 +2408,6 @@ def _generate_ai_reply(player: Player, latest_message):
             })
             logging.info("[AI_DIRECTOR] Added explicit start prompt for round %d", current_round)
 
-        # For V4 Director, inject the Global Game State so they don't lose track of progress.
-        # IMPORTANT: We derive the state from the CONVERSATION only (not from the
-        # Matcher's internal board) to preserve the information asymmetry required
-        # by the experiment.  The Director must not know which candidate images
-        # the Matcher actually selected.
-        if ai_role == "director" and strategy_for_prompt in ("v4", "v4_cg", "v5", "v6"):
-            try:
-                conv_state = _build_director_conversation_state(player)
-                filled = conv_state["completed_positions"]
-                next_target = conv_state["next_target"]
-                        
-                game_state_msg = (
-                    "=== GLOBAL GAME STATE ===\n"
-                    f"Completed Positions: {filled}\n"
-                    f"Next Target Position to Describe: {next_target if next_target else 'NONE'}\n"
-                    "=========================\n"
-                    "CRITICAL: Do not describe ANY basket from the Completed Positions list. "
-                    "Focus entirely on describing the Next Target Position."
-                )
-                
-                # Insert it as the very first system message so it has high priority
-                chat_messages.insert(0, {"role": "system", "content": game_state_msg})
-            except Exception as e:
-                logging.error(f"[AI_DIRECTOR_V4] Failed to inject global state: {e}")
-
         # For fairness across prompt strategies, ALWAYS (matcher role only) inject
         # an explicit, machine-readable view of the current 12-slot sequence state.
         # This prevents the model from needing to infer null/unfilled slots from the image.
@@ -2439,12 +2427,12 @@ def _generate_ai_reply(player: Player, latest_message):
                 while (
                     insert_idx < len(chat_messages)
                     and isinstance(chat_messages[insert_idx], dict)
-                    and chat_messages[insert_idx].get("role") == "system"
+                    and _is_instruction_message(chat_messages[insert_idx])
                 ):
                     insert_idx += 1
                 chat_messages = (
                     chat_messages[:insert_idx]
-                    + [{"role": "system", "content": seq_state_text}]
+                    + [{"role": "developer", "content": seq_state_text}]
                     + chat_messages[insert_idx:]
                 )
             except Exception:
@@ -2466,27 +2454,27 @@ def _generate_ai_reply(player: Player, latest_message):
                     while (
                         insert_idx < len(chat_messages)
                         and isinstance(chat_messages[insert_idx], dict)
-                        and chat_messages[insert_idx].get("role") == "system"
+                        and _is_instruction_message(chat_messages[insert_idx])
                     ):
                         insert_idx += 1
                     chat_messages = (
                         chat_messages[:insert_idx]
-                        + [{"role": "system", "content": refill_text}]
+                        + [{"role": "developer", "content": refill_text}]
                         + chat_messages[insert_idx:]
                     )
             except Exception:
                 pass
 
         # When the AI is acting as MATCHER, append an additional system message
-        # that standardises the JSON output format — but skip for v3/CoT since
+        # that standardises the JSON output format — but skip for ACL_prompt since
         # that strategy already includes a complete selection schema in its prompt.
-        if ai_role == "matcher" and not use_v3_cot:
+        if ai_role == "matcher" and not use_structured_json:
             matcher_instr = _build_matcher_json_instruction(player, strategy_for_prompt)
-            matcher_system_msg = {"role": "system", "content": matcher_instr}
+            matcher_system_msg = {"role": "developer", "content": matcher_instr}
             insert_idx = 0
             while (
                 insert_idx < len(chat_messages)
-                and chat_messages[insert_idx].get("role") == "system"
+                and _is_instruction_message(chat_messages[insert_idx])
             ):
                 insert_idx += 1
             chat_messages = (
@@ -2507,7 +2495,7 @@ def _generate_ai_reply(player: Player, latest_message):
                 for m in chat_messages:
                     if not isinstance(m, dict):
                         continue
-                    if m.get("role") != "system":
+                    if not _is_instruction_message(m):
                         continue
                     content = m.get("content")
                     if (
@@ -2551,18 +2539,24 @@ def _generate_ai_reply(player: Player, latest_message):
 
         # Moderate temperature for consistent, focused responses from both roles
         response_format = None
-        if strategy_for_prompt in ("v8", "cameron-prompt", "cameron_prompt"):
+        if _is_acl_prompt_strategy(strategy_for_prompt):
+            from .ACL_prompt import get_acl_response_schema
+            response_format = {
+                "type": "json_schema",
+                "json_schema": get_acl_response_schema(ai_role),
+            }
+        elif strategy_for_prompt in ("v8", "cameron-prompt", "cameron_prompt"):
             from .cameron_prompt import DirectorResponse, MatcherResponse
             schema_class = MatcherResponse if ai_role == "matcher" else DirectorResponse
             response_format = {
                 "type": "json_schema",
                 "json_schema": schema_class
             }
-        elif ai_role == "matcher" or use_v3_cot:
+        elif ai_role == "matcher" or use_structured_json:
             response_format = {"type": "json_object"}
 
         base_temperature = 0
-        model = _get_ai_model(player)
+        model = _get_ai_model(player, ai_role)
         completion_kwargs = _build_api_call_kwargs(
             model=model,
             messages=chat_messages,
@@ -2596,8 +2590,17 @@ def _generate_ai_reply(player: Player, latest_message):
                 logging.info("[API_MSG %d] role=%s, content: %s...", i, role, content_preview)
         
         try:
+            uses_pydantic_schema = (
+                response_format
+                and response_format.get("type") == "json_schema"
+                and hasattr(response_format.get("json_schema", {}), "model_json_schema")
+            )
             completion = _api_call_with_retry(
-                lambda: client.chat.completions.create(**completion_kwargs)
+                lambda: (
+                    client.beta.chat.completions.parse(**completion_kwargs)
+                    if uses_pydantic_schema
+                    else client.chat.completions.create(**completion_kwargs)
+                )
             )
         except Exception as api_err:
             logging.error("[AI_DEBUG] OpenAI API call failed: %s: %s", type(api_err).__name__, api_err)
@@ -2623,7 +2626,7 @@ def _generate_ai_reply(player: Player, latest_message):
             player=player,
             strategy_name=strategy_name,
             ai_role=ai_role,
-            use_v3_cot=use_v3_cot,
+            use_structured_json=use_structured_json,
         )
         return {"text": utterance, "selection": selection}
     except Exception as e:
@@ -2824,7 +2827,7 @@ def _update_ai_partial_sequence(player: Player, selection: dict[str, Any] | None
 # ---------------------------------------------------------------------------
 
 AI_PARTNER_PERCEPTION_PROMPT = """
-You just completed a collaborative task with a human partner across 4 rounds.
+You just completed a collaborative task with a human partner across 5 rounds.
 In this task, you and your partner had to work together to correctly order 12 baskets.
 
 Based on the complete conversation history below, please evaluate your human partner
@@ -2857,7 +2860,7 @@ The questions are:
 
 Be honest and thoughtful in your evaluation. Consider the entire conversation history,
 including how well your partner communicated, followed instructions, asked clarifying
-questions, and adapted over the course of the 4 rounds.
+questions, and adapted over the course of the 5 rounds.
 """.strip()
 
 
@@ -2964,7 +2967,7 @@ def generate_ai_partner_perceptions(player: Player) -> dict[str, Any] | None:
         ]
 
         # Call the API with retry logic
-        model = _get_ai_model(player)
+        model = _get_ai_model(player, ai_role)
         api_kwargs = _build_api_call_kwargs(
             model=model,
             messages=messages,
@@ -3149,10 +3152,9 @@ def generate_ai_vs_ai_perceptions(player: Player) -> dict[str, dict[str, Any]] |
 
         # Generate perceptions for both roles
         results = {}
-        model = _get_ai_model(None)  # No player context, use env var
-
         for my_role, partner_role in [("director", "matcher"), ("matcher", "director")]:
             try:
+                model = _get_ai_model(player, my_role)
                 prompt = AI_VS_AI_PERCEPTION_PROMPT.format(
                     num_rounds=num_rounds,
                     my_role=my_role.upper(),
@@ -3403,11 +3405,7 @@ def generate_ai_vs_ai_reply(
         # Determine prompt strategy
         strategy_name = _get_prompt_strategy_name(player)
 
-        # Map strategy aliases
-        if strategy_name in ("director_visual", "visual_director", "matcher_visual", "visual_matcher"):
-            strategy_for_prompt = "v2"
-        else:
-            strategy_for_prompt = strategy_name
+        strategy_for_prompt = _normalize_prompt_strategy(strategy_name)
 
         # Build messages using the appropriate prompt strategy
         # For AI vs AI, we need to temporarily set the player's "role" perspective
@@ -3422,48 +3420,23 @@ def generate_ai_vs_ai_reply(
         player.participant.vars["role"] = fake_human_role
 
         try:
-            from . import prompt_v1, prompt_v2, prompt_v3, prompt_v4, prompt_v5, prompt_v6, cameron_prompt, prompt_v9
+            from . import ACL_prompt, cameron_prompt
 
-            if strategy_for_prompt in ("weiling", "v2"):
-                chat_messages = prompt_v2.build_weiling_prompt_messages(
+            if _is_acl_prompt_strategy(strategy_for_prompt):
+                chat_messages = ACL_prompt.build_acl_prompt_messages(
                     player, latest_message, all_history
                 )
-                use_v3_cot = False
-            elif strategy_for_prompt in ("v3", "v3_cot"):
-                chat_messages = prompt_v3.build_v3_cot_prompt_messages(
-                    player, latest_message, all_history
-                )
-                use_v3_cot = True
-            elif strategy_for_prompt in ("v4", "v4_cg"):
-                chat_messages = prompt_v4.build_v4_cg_prompt_messages(
-                    player, latest_message, all_history
-                )
-                use_v3_cot = True
-            elif strategy_for_prompt == "v5":
-                chat_messages = prompt_v5.build_v5_cg_prompt_messages(
-                    player, latest_message, all_history
-                )
-                use_v3_cot = True
-            elif strategy_for_prompt == "v6":
-                chat_messages = prompt_v6.build_v6_cg_prompt_messages(
-                    player, latest_message, all_history
-                )
-                use_v3_cot = True
+                use_structured_json = True
             elif strategy_for_prompt in ("v8", "cameron-prompt", "cameron_prompt"):
                 chat_messages = cameron_prompt.build_cameron_prompt_messages(
                     player, latest_message, all_history
                 )
-                use_v3_cot = False
-            elif strategy_for_prompt == "v9":
-                chat_messages = prompt_v9.build_v9_cot_prompt_messages(
-                    player, latest_message, all_history
-                )
-                use_v3_cot = True
+                use_structured_json = False
             else:
-                chat_messages = prompt_v1.build_simple_prompt_messages(
+                chat_messages = ACL_prompt.build_acl_prompt_messages(
                     player, latest_message, all_history
                 )
-                use_v3_cot = False
+                use_structured_json = True
 
             # Inject task background
             chat_messages = _inject_task_background(chat_messages)
@@ -3485,28 +3458,6 @@ def generate_ai_vs_ai_reply(
                         f"Do NOT describe multiple baskets - just Basket 1. Wait for my response before moving to Basket 2."
                     )
                 })
-
-            # For V4 Director, inject the Global Game State so they don't lose track of progress.
-            # IMPORTANT: We derive the state from the CONVERSATION only (not from the
-            # Matcher's internal board) to preserve information asymmetry.
-            if role == "director" and strategy_for_prompt in ("v4", "v4_cg", "v5", "v6"):
-                try:
-                    conv_state = _build_director_conversation_state(player)
-                    filled = conv_state["completed_positions"]
-                    next_target = conv_state["next_target"]
-                            
-                    game_state_msg = (
-                        "=== GLOBAL GAME STATE ===\n"
-                        f"Completed Positions: {filled}\n"
-                        f"Next Target Position to Describe: {next_target if next_target else 'NONE'}\n"
-                        "=========================\n"
-                        "CRITICAL: Do not describe ANY basket from the Completed Positions list. "
-                        "Focus entirely on describing the Next Target Position."
-                    )
-                    
-                    chat_messages.insert(0, {"role": "system", "content": game_state_msg})
-                except Exception as e:
-                    logging.error(f"[AI_DIRECTOR_V4] Failed to inject global state: {e}")
 
             # For Matcher, inject a single human-readable sequence state block.
             # The old approach dumped raw JSON (opaque image paths) that the model
@@ -3566,15 +3517,15 @@ def generate_ai_vs_ai_reply(
                     while (
                         insert_idx < len(chat_messages)
                         and isinstance(chat_messages[insert_idx], dict)
-                        and chat_messages[insert_idx].get("role") == "system"
+                        and _is_instruction_message(chat_messages[insert_idx])
                     ):
                         insert_idx += 1
-                    chat_messages.insert(insert_idx, {"role": "system", "content": seq_state_text})
+                    chat_messages.insert(insert_idx, {"role": "developer", "content": seq_state_text})
                 except Exception:
                     pass
 
                 # Add JSON format instruction for matcher
-                if not use_v3_cot:
+                if not use_structured_json:
                     # Get current sequence state to show which positions are empty
                     try:
                         seq = json.loads(player.group.ai_partial_sequence or "[]")
@@ -3610,10 +3561,10 @@ def generate_ai_vs_ai_reply(
                     insert_idx = 0
                     while (
                         insert_idx < len(chat_messages)
-                        and chat_messages[insert_idx].get("role") == "system"
+                        and _is_instruction_message(chat_messages[insert_idx])
                     ):
                         insert_idx += 1
-                    chat_messages.insert(insert_idx, {"role": "system", "content": matcher_instr})
+                    chat_messages.insert(insert_idx, {"role": "developer", "content": matcher_instr})
 
         finally:
             # Restore original role settings
@@ -3626,15 +3577,21 @@ def generate_ai_vs_ai_reply(
         # Make API call using multi-provider system
         base_temperature = 0
         response_format = None
-        # Use JSON format for matcher always, and for director when using v3
-        if strategy_for_prompt in ("v8", "cameron-prompt", "cameron_prompt"):
+        # Use JSON format for matcher always, and for director when using ACL_prompt
+        if _is_acl_prompt_strategy(strategy_for_prompt):
+            from .ACL_prompt import get_acl_response_schema
+            response_format = {
+                "type": "json_schema",
+                "json_schema": get_acl_response_schema(role),
+            }
+        elif strategy_for_prompt in ("v8", "cameron-prompt", "cameron_prompt"):
             from .cameron_prompt import DirectorResponse, MatcherResponse
             schema_class = MatcherResponse if role == "matcher" else DirectorResponse
             response_format = {
                 "type": "json_schema",
                 "json_schema": schema_class
             }
-        elif role == "matcher" or use_v3_cot:
+        elif role == "matcher" or use_structured_json:
             response_format = {"type": "json_object"}
 
         provider = model_config.get("provider", "openai")
@@ -3684,7 +3641,7 @@ def generate_ai_vs_ai_reply(
                     if data.get("reasoning") is not None:
                         import logging
                         reasoning_json = json.dumps(data.get("reasoning"), indent=2)
-                        logging.info(f"[AI_REASONING] CoT Reasoning for {role.upper()}:\n{reasoning_json}")
+                        logging.info(f"[AI_REASONING] Structured reasoning for {role.upper()}:\n{reasoning_json}")
 
                     sel = data.get("selection")
                     if isinstance(sel, dict):
@@ -3708,8 +3665,8 @@ def generate_ai_vs_ai_reply(
                 logging.warning("[AI_VS_AI] Failed to parse matcher JSON: %s", e)
                 utterance = text
         else:
-            # Director response - parse JSON if v3, otherwise plain text
-            if use_v3_cot or strategy_for_prompt in ("v8", "cameron-prompt", "cameron_prompt"):
+            # Director response - parse JSON if using a structured prompt, otherwise plain text
+            if use_structured_json or strategy_for_prompt in ("v8", "cameron-prompt", "cameron_prompt"):
                 try:
                     start = text.find("{")
                     end = text.rfind("}") + 1
@@ -3729,7 +3686,7 @@ def generate_ai_vs_ai_reply(
                         if data.get("reasoning") is not None:
                             import logging
                             reasoning_json = json.dumps(data.get("reasoning"), indent=2)
-                            logging.info(f"[AI_REASONING] CoT Reasoning for {role.upper()}:\n{reasoning_json}")
+                            logging.info(f"[AI_REASONING] Structured reasoning for {role.upper()}:\n{reasoning_json}")
                                 
                         if not utterance:
                             # Fallback to raw text if utterance is empty
@@ -3737,7 +3694,7 @@ def generate_ai_vs_ai_reply(
                     else:
                         utterance = text
                 except Exception as e:
-                    logging.warning("[AI_VS_AI] Failed to parse director v3 JSON: %s", e)
+                    logging.warning("[AI_VS_AI] Failed to parse director structured JSON: %s", e)
                     utterance = text
             else:
                 utterance = text
@@ -3989,9 +3946,16 @@ def get_ai_vs_ai_status(player: Player) -> dict[str, Any]:
     # Use field_maybe_none() for fields that might be None
     task_completed = player.field_maybe_none("task_completed") or False
     sequence_accuracy = player.field_maybe_none("sequence_accuracy")
+    try:
+        total_rounds = int(
+            player.session.config.get("num_rounds") or Constants.num_rounds
+        )
+    except Exception:
+        total_rounds = Constants.num_rounds
 
     return {
         "round_number": getattr(player, "round_number", 1),
+        "total_rounds": total_rounds,
         "turn_count": len(messages),
         "messages": messages,
         "partial_sequence": partial_sequence,

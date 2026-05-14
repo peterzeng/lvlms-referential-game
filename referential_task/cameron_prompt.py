@@ -35,47 +35,49 @@ class DirectorResponse(BaseModel):
     reasoning: Optional[str]
 
 
-def _build_cameron_base_prompt(player) -> str:
+def _build_cameron_base_prompt(player, role: str) -> str:
     """
     Returns the "Humanlike" text prompt tailored for our basket task.
     """
     
     round_num = getattr(player, "round_number", 1)
     
-    return f"""This experiment explores communication about visual objects called baskets. You'll participate in multiple rounds of a communication game. 
-    Each round will be with the same partner. 
-    Your goal is to communicate effectively and efficiently about the basket images. We are currently in Round {round_num}.
+    base = f"""We are currently in Round {round_num}.
 
-## Alternating Roles
+## Role
 
-In this experiment, you'll alternate between DIRECTOR (Speaker) and MATCHER (Listener) roles.
-
-- **DIRECTOR Role:** You'll describe a target basket for your partner to identify.
-- **MATCHER Role:** You'll identify a basket based on your partner's description.
+"""
+    if role == "director":
+        base += """You are the DIRECTOR (Speaker). 
 
 ## Instructions
 
-### When you are the DIRECTOR:
-1. You will be shown a target basket image.
-2. Your task is to concisely describe the target so that your partner can identify it.
-3. Your partner's grid has the same images but in a different arrangement, so don't refer to the image's positions.
-4. Focus on what makes your target unique from other images in the grid, so your partner doesn't pick another similar one. 
+- You will be shown a target basket image.
+- Your task is to concisely describe the target so that your partner can identify it.
+- Your partner's grid has the same images but in a different arrangement, so don't refer to the image's positions.
+- Focus on what makes your target unique from other images in the grid, so your partner doesn't pick another similar one. 
     Consider whether your description could inadvertently refer to one of the other images and distinguish the target from it in your description.
-5. Adapt your language based on previous rounds and your partner's style.
-6. Your descriptions should be AS SHORT AS POSSIBLE. Especially in later rounds. Find creative ways to be efficient.
-7. After a few rounds (when you've seen an image a few times), use only a single word or short phrase.
+- Adapt your language based on previous rounds and your partner's style.
+- Your descriptions should be AS SHORT AS POSSIBLE. Especially in later rounds. Your partner is waiting for your messages which will be sent at a rate of 500ms/char! Don't keep them waiting. Find creative ways to be efficient.
+- After a few rounds (when you've seen an image a few times), use only a single word or short phrase.
     Once you've established a convention, just say "the red one", or just "red", rather than giving a more detailed description. Seriously. 1-2 words.
-8. Don't say or do anything that a human wouldn't. You want your partner to think you are a human.
-9. Write in a very casual style. You might use lowercase or even some slang or make spelling mistakes.
-10. The target numbering is 1-12, 1-6 across the top row and 7-12 across the bottom row (left to right).
+- Don't say or do anything that a human wouldn't. You want your partner to think you are a human.
+- Write in a very casual style. You might use lowercase or even some slang or make spelling mistakes.
+- The target numbering is 1-12, 1-6 across the top row and 7-12 across the bottom row (left to right).
 
 SERIOUSLY—in later rounds just 1-2 words. Do NOT send longer descriptions unless your partner keeps getting it wrong.
-
-### When you are the MATCHER:
-1. Your partner will provide a description of a basket.
-2. Your task is to identify which image they are describing.
-3. You will select the candidate basket and indicate its position.
 """
+    else:
+        base += """You are the MATCHER (Listener). You'll identify a basket based on your partner's description.
+
+## Instructions
+
+- Your partner will provide a description of a basket.
+- Your task is to identify which image they are describing.
+- You will select the candidate basket and indicate its position.
+"""
+    return base
+
 
 
 def build_cameron_prompt_messages(
@@ -89,12 +91,12 @@ def build_cameron_prompt_messages(
     - Recent conversation history
     - Instructions for the specific role
     """
-    base_system = _build_cameron_base_prompt(player)
-
     human_role = (
         player.field_maybe_none("player_role") or player.participant.vars.get("role")
     )
     ai_role = "matcher" if human_role == "director" else "director"
+
+    base_system = _build_cameron_base_prompt(player, ai_role)
 
     if ai_role == "matcher":
         cameron_instructions = (
@@ -117,9 +119,9 @@ def build_cameron_prompt_messages(
             "Focus on features that discriminate the target basket from similar-looking ones. Keep it very casual as instructed."
         )
 
-    system_messages: List[Dict[str, Any]] = [
-        {"role": "system", "content": base_system},
-        {"role": "system", "content": cameron_instructions},
+    instruction_messages: List[Dict[str, Any]] = [
+        {"role": "developer", "content": base_system},
+        {"role": "developer", "content": cameron_instructions},
     ]
 
     history_messages = _build_ai_messages_from_history(player, all_history)
@@ -127,7 +129,7 @@ def build_cameron_prompt_messages(
     if len(history_messages) > max_history:
         history_messages = history_messages[-max_history:]
 
-    chat_messages: List[Dict[str, Any]] = system_messages + history_messages
+    chat_messages: List[Dict[str, Any]] = instruction_messages + history_messages
 
     if latest_message:
         chat_messages.append({"role": "user", "content": latest_message})

@@ -2,15 +2,15 @@
 import sys
 import os
 import argparse
-import time
 import json
 import logging
+import re
 from datetime import datetime
 
 # Add project root to path so we can import from referential_task and main
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from referential_task.state import Player, Group, Session
+from referential_task.state import Player, Group, Session, Constants
 from referential_task.ai_utils import run_ai_vs_ai_turn
 from referential_task.ai_perceptions import generate_ai_vs_ai_perceptions
 
@@ -20,6 +20,33 @@ from pathlib import Path
 from referential_task.ai_utils import get_ai_vs_ai_status
 
 DB_FILE = "data.sqlite"
+
+def get_total_rounds(session=None):
+    """Return the configured number of rounds, falling back to the task default."""
+    try:
+        if session is not None:
+            return int(session.config.get("num_rounds") or Constants.num_rounds)
+    except Exception:
+        pass
+    return Constants.num_rounds
+
+def get_experiment_family(prompt_strategy):
+    strategy = str(prompt_strategy or "").lower()
+    if "cameron" in strategy:
+        return "Cameron"
+    if "acl" in strategy:
+        return "ACL"
+    return "Other"
+
+def sanitize_path_part(value, fallback="session"):
+    text = str(value or "").strip() or fallback
+    return re.sub(r"[^A-Za-z0-9._-]+", "_", text).strip("_") or fallback
+
+def get_experiment_export_dir(config, session_id):
+    prompt_strategy = config.get("prompt_strategy", "unknown")
+    prefix = sanitize_path_part(config.get("session_prefix") or session_id)
+    current_date = datetime.now().strftime("%Y-%m-%d")
+    return Path("data") / "experiments" / get_experiment_family(prompt_strategy) / current_date / prefix
 
 def get_preset_grid(round_number=1, set_num=5):
     """Load a grid preset like oTree did in create_shared_grid"""
@@ -144,7 +171,7 @@ def run_single_session(session_id: str, config: dict):
     
     # Initialize Round 1
     group = Group()
-    grid = get_preset_grid(round_number=round_number)
+    grid = get_preset_grid(round_number=round_number, set_num=config.get("basket_set", 5))
     group.shared_grid = json.dumps(grid)
     player = Player(role="observer", group=group, session=session, round_number=round_number)
     
@@ -178,13 +205,8 @@ def run_single_session(session_id: str, config: dict):
         if getattr(player, "task_completed", False):
             logger.info(f"Session {session_id} - Round {round_number} complete.")
             
-            if round_number < 4:
-                # Run reflection agent on the completed round if enabled
-                directives = ""
-                if config.get("use_reflection"):
-                    from referential_task.reflection_agent import generate_reflection_directives
-                    directives = generate_reflection_directives(session_id, round_number, config)
-
+            total_rounds = get_total_rounds(session)
+            if round_number < total_rounds:
                 # Mirror the app flow so agreed nicknames persist across rounds
                 # in batch experiments too.
                 try:
@@ -198,23 +220,17 @@ def run_single_session(session_id: str, config: dict):
                 # Advance to next round
                 round_number += 1
                 new_group = Group()
-                new_grid = get_preset_grid(round_number=round_number)
+                new_grid = get_preset_grid(
+                    round_number=round_number,
+                    set_num=config.get("basket_set", 5),
+                )
                 new_group.shared_grid = json.dumps(new_grid)
-                
-                if directives:
-                    init_msgs = [{
-                        "sender_role": "system", 
-                        "text": directives, 
-                        "round_number": round_number,
-                        "timestamp": datetime.now().isoformat()
-                    }]
-                    new_group.ai_messages = json.dumps(init_msgs)
-                    
+
                 player = Player(role="observer", group=new_group, session=session, round_number=round_number)
                 save_state_to_db(session_id, player)
             else:
-                # Round 4 complete: End of session
-                logger.info(f"Session {session_id} - All 4 rounds complete. Generating perceptions...")
+                # Final round complete: End of session
+                logger.info(f"Session {session_id} - All {total_rounds} rounds complete. Generating perceptions...")
                 if not getattr(player, "perceptions_generated", False):
                     player.perceptions_generated = True
                     generate_ai_vs_ai_perceptions(player)
@@ -222,14 +238,12 @@ def run_single_session(session_id: str, config: dict):
                     
                     # Manual auto-export (similar to main.py logic)
                     try:
-                        prompt_strategy = config.get("prompt_strategy", "unknown")
-                        current_date = datetime.now().strftime("%Y-%m-%d")
-                        export_dir = f"data/experiments/{current_date}_{prompt_strategy}"
-                        os.makedirs(export_dir, exist_ok=True)
+                        export_dir = get_experiment_export_dir(config, session_id)
+                        export_dir.mkdir(parents=True, exist_ok=True)
                         
                         conn = sqlite3.connect(DB_FILE)
                         c = conn.cursor()
-                        c.execute("SELECT session_id, round_number, config, shared_grid, target_baskets, ai_partial_sequence, ai_messages, ai_reasoning_log, matcher_sequence, status, ai_director_reasoning, ai_matcher_reasoning, updated_at FROM game_sessions WHERE session_id = ?", (session_id,))
+                        c.execute("SELECT session_id, round_number, config, shared_grid, target_baskets, ai_partial_sequence, ai_messages, ai_reasoning_log, matcher_sequence, status, ai_director_reasoning, ai_matcher_reasoning, updated_at FROM game_sessions WHERE session_id = ? ORDER BY round_number", (session_id,))
                         rows = c.fetchall()
                         conn.close()
                         
@@ -259,7 +273,7 @@ def run_single_session(session_id: str, config: dict):
                                 "ai_matcher_reasoning": safe_json(matcher_reasoning_txt)
                             })
                             
-                        export_path = f"{export_dir}/{session_id}_data.json"
+                        export_path = export_dir / f"{session_id}_data.json"
                         with open(export_path, 'w', encoding='utf-8') as f:
                             json.dump(sessions_data, f, indent=4)
                         logger.info(f"Successfully auto-exported to {export_path}")
@@ -269,7 +283,7 @@ def run_single_session(session_id: str, config: dict):
                         import sys
                         logger.info("Auto-generating visualizations and transcript...")
                         try:
-                            subprocess.run([sys.executable, "scripts/export_json_session.py", export_path], check=True)
+                            subprocess.run([sys.executable, "scripts/export_json_session.py", str(export_path)], check=True)
                         except Exception as viz_e:
                             logger.error(f"Failed to generate visualizations: {viz_e}")
                     except Exception as export_e:
@@ -278,21 +292,17 @@ def run_single_session(session_id: str, config: dict):
                 # Session completely finished
                 break
                 
-        # Optional small delay to not spam APIs too hard if things go fast
-        time.sleep(0.5)
-        
     logger.info(f"=== Finished Session: {session_id} ===")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run headless AI vs AI experimental sessions.")
-    parser.add_argument("--sessions", type=int, default=1, help="Number of full sessions (4 rounds each) to run.")
-    parser.add_argument("--prompt-strategy", type=str, default="v9", help="Prompt strategy (e.g. v9, cameron-prompt, v4).")
+    parser.add_argument("--sessions", type=int, default=1, help=f"Number of full sessions ({Constants.num_rounds} rounds each) to run.")
+    parser.add_argument("--prompt-strategy", type=str, default="ACL_prompt", help="Prompt strategy (ACL_prompt or cameron-prompt).")
     parser.add_argument("--model", type=str, default="gpt-4o-mini", help="Model to use for both agents.")
     parser.add_argument("--director-model", type=str, help="Specific model for director (overrides --model).")
     parser.add_argument("--matcher-model", type=str, help="Specific model for matcher (overrides --model).")
     parser.add_argument("--session-prefix", type=str, default="batch", help="Prefix for the session ID.")
     parser.add_argument("--basket-set", type=int, default=5, help="Basket set to use.")
-    parser.add_argument("--use-reflection", action="store_true", help="Enable the inter-round Reflection Agent.")
     
     args = parser.parse_args()
     
@@ -300,14 +310,12 @@ if __name__ == "__main__":
         "ai_vs_ai_mode": True,
         "director_view": "grid",
         "basket_set": args.basket_set,
+        "num_rounds": Constants.num_rounds,
+        "session_prefix": args.session_prefix,
         "prompt_strategy": args.prompt_strategy,
-        "use_reflection": args.use_reflection,
         "ai_director_model": args.director_model or args.model,
         "ai_matcher_model": args.matcher_model or args.model,
-        "ai_model": args.model,
         "ai_reasoning_effort": "none",
-        "ai_vs_ai_delay": 0,
-        "ai_vs_ai_max_turns": 60,
     }
     
     logger.info(f"Starting batch run of {args.sessions} sessions.")

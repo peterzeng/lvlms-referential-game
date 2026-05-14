@@ -24,7 +24,7 @@ if TYPE_CHECKING:
 
 
 AI_PARTNER_PERCEPTION_PROMPT = """
-You just completed a collaborative task with a human partner across 4 rounds.
+You just completed a collaborative task with a human partner across 5 rounds.
 In this task, you and your partner had to work together to correctly order 12 baskets.
 
 Based on the complete conversation history below, please evaluate your human partner
@@ -57,7 +57,7 @@ The questions are:
 
 Be honest and thoughtful in your evaluation. Consider the entire conversation history,
 including how well your partner communicated, followed instructions, asked clarifying
-questions, and adapted over the course of the 4 rounds.
+questions, and adapted over the course of the 5 rounds.
 """.strip()
 
 
@@ -236,7 +236,7 @@ def generate_ai_partner_perceptions(player: "Player") -> dict[str, Any] | None:
 def generate_ai_vs_ai_perceptions(player: "Player") -> bool:
     """Generate mutual AI perceptions (Director evaluating Matcher, and Matcher evaluating Director).
     
-    This is called automatically in AI-vs-AI mode at the end of Round 4.
+    This is called automatically in AI-vs-AI mode at the end of the final round.
     """
     from .ai_utils import _get_ai_client, _build_api_call_kwargs
     client = _get_ai_client()
@@ -291,7 +291,7 @@ def generate_ai_vs_ai_perceptions(player: "Player") -> bool:
                 {"role": "user", "content": conversation_text},
             ]
             
-            model = player.session.config.get(f"ai_{evaluator_role}_model") or player.session.config.get("ai_model", "gpt-4o-mini")
+            model = player.session.config.get(f"ai_{evaluator_role}_model", "gpt-4o-mini")
             
             api_kwargs = _build_api_call_kwargs(
                 model=model,
@@ -353,4 +353,3 @@ def generate_ai_vs_ai_perceptions(player: "Player") -> bool:
         import traceback
         logging.error("[AI_VS_AI_PERCEPTIONS] Error generating AI vs AI perceptions: %s\n%s", e, traceback.format_exc())
         return False
-

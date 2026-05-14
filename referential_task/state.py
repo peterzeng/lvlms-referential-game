@@ -2,7 +2,7 @@
 class Constants:
     name_in_url = 'referential_task'
     players_per_group = None
-    num_rounds = 4
+    num_rounds = 5
 
 class SessionConfig:
     def __init__(self, **kwargs):

@@ -29,7 +29,7 @@ def _load_shared_grid_image_urls(player: "Player") -> list[dict[str, Any]]:
     If images cannot be resolved, returns an empty list and callers should gracefully
     fall back to text-only prompting.
     """
-    from .ai_image_utils import _image_rel_to_data_url
+    from .ai_utils import _image_rel_to_data_url
 
     if not hasattr(player, "group"):
         return []
@@ -58,7 +58,7 @@ def _load_matcher_pool_image_urls(player: "Player") -> list[dict[str, Any]]:
     additional distractor baskets drawn from the preset `fullList` for the
     configured basket set.
     """
-    from .ai_image_utils import _image_rel_to_data_url
+    from .ai_utils import _image_rel_to_data_url
 
     # Start with the 12 target baskets from the shared grid
     base = _load_shared_grid_image_urls(player)
@@ -125,10 +125,18 @@ def _load_matcher_pool_image_urls(player: "Player") -> list[dict[str, Any]]:
             }
         )
 
-    # Standardize the combined pool order (base + extras) for consistency.
-    # Sort by image path to ensure deterministic ordering.
+    # Use the same deterministic shuffle as the prompt-side pool builder so
+    # candidate_index maps back to the exact image the matcher saw.
     combined = base + extras
-    combined.sort(key=lambda x: (x.get("slot") or {}).get("image", ""))
+    try:
+        import random
+
+        round_num = int(getattr(player, "round_number", 1) or 1)
+        seed = 4242 + (set_num * 100) + round_num
+        rng = random.Random(seed)
+        rng.shuffle(combined)
+    except Exception:
+        pass
     return combined
 
 
@@ -137,122 +145,126 @@ def _load_matcher_pool_image_urls(player: "Player") -> list[dict[str, Any]]:
 # ---------------------------------------------------------------------------
 
 
-def _visual_context_already_sent_this_round(player: "Player") -> bool:
-    """Check if visual context has already been sent for the current round.
-    
-    Uses the group-level tracking field to avoid re-sending large images.
-    """
-    current_round = getattr(player, "round_number", 1) or 1
-    sent_round = getattr(player.group, "ai_visual_context_sent_round", 0) or 0
-    return sent_round == current_round
-
-
-def _mark_visual_context_sent(player: "Player"):
-    """Mark that visual context has been sent for the current round."""
-    current_round = getattr(player, "round_number", 1) or 1
-    player.group.ai_visual_context_sent_round = current_round
-
-
-def _inject_visual_grid_context(player: "Player", messages: list[dict[str, Any]]):
-    """Inject a multimodal grid message so the AI sees the basket layout.
-
-    The image is included on EVERY turn for both roles because:
-    - Each OpenAI API call is stateless - the model can't "remember" previous calls
-    - The conversation history only contains text messages, not the original image
-    - Without the image, the AI can't map descriptions to candidate numbers (matcher)
-      or know which basket to describe next (director)
-
-    We cache the generated image URL to avoid expensive regeneration on each turn.
-
-    - Director: 2×6 grid of the 12 target baskets
-    - Matcher: 3×6 grid of the 18 candidate baskets
-    """
-    import logging
-
-    from .ai_image_utils import (
-        _build_ai_director_grid_composite,
-        _build_candidate_pool_image,
-    )
-
-    if not messages:
-        return messages
-
+def _get_ai_role(player: "Player") -> str | None:
     human_role = (
         player.field_maybe_none("player_role") or player.participant.vars.get("role")
     )
     ai_role = "matcher" if human_role == "director" else "director"
     if ai_role not in ("director", "matcher"):
-        return messages
+        return None
+    return ai_role
 
+
+def _load_visual_context_cache(group: Any) -> dict[str, str]:
+    try:
+        raw_cache = getattr(group, "ai_visual_context_cached_urls", "") or "{}"
+        parsed = json.loads(raw_cache) if isinstance(raw_cache, str) else raw_cache
+        if isinstance(parsed, dict):
+            return {str(k): str(v) for k, v in parsed.items() if v}
+    except Exception:
+        pass
+    return {}
+
+
+def _save_visual_context_cache(group: Any, cache: dict[str, str]) -> None:
+    try:
+        group.ai_visual_context_cached_urls = json.dumps(cache)
+    except Exception:
+        pass
+
+
+def _visual_context_cache_key(player: "Player", ai_role: str) -> str:
     current_round = getattr(player, "round_number", 1) or 1
-    already_sent = _visual_context_already_sent_this_round(player)
-    
-    # Try to use cached image URL first (avoids expensive regeneration)
-    cached_url = getattr(player.group, "ai_visual_context_cached_url", "") or ""
-    image_url = None
-    
-    if already_sent and cached_url:
-        # Use cached image on subsequent turns
-        image_url = cached_url
+    return f"{ai_role}:round:{current_round}"
+
+
+def _get_visual_context_image_url(player: "Player", ai_role: str) -> str | None:
+    """Return the cached/generated visual context image for this role and round."""
+    import logging
+
+    from .ai_utils import (
+        _build_ai_director_grid_composite,
+        _build_ai_matcher_grid_composite,
+    )
+
+    if not hasattr(player, "group"):
+        return None
+
+    cache = _load_visual_context_cache(player.group)
+    cache_key = _visual_context_cache_key(player, ai_role)
+    cached_url = cache.get(cache_key)
+    current_round = getattr(player, "round_number", 1) or 1
+
+    if cached_url:
         logging.info(
             "[VISUAL_CONTEXT] Using cached image for %s round %d, URL length: %d bytes",
-            ai_role, current_round, len(image_url)
+            ai_role,
+            current_round,
+            len(cached_url),
         )
-    else:
-        # Generate new image on first turn
-        if ai_role == "director":
-            image_url = _build_ai_director_grid_composite(player)
-        else:
-            image_url = _build_candidate_pool_image(
-                player,
-                load_matcher_pool_func=_load_matcher_pool_image_urls,
-            )
-        
-        if not image_url:
-            logging.warning("[VISUAL_CONTEXT] No image generated for %s", ai_role)
-            return messages
-        
-        # Cache the image URL for subsequent turns
-        try:
-            player.group.ai_visual_context_cached_url = image_url
-        except Exception:
-            pass  # Don't fail if caching fails
-        
-        # Mark that we've generated visual context for this round
-        _mark_visual_context_sent(player)
-        
-        logging.info(
-            "[VISUAL_CONTEXT] Generated and cached image for %s round %d, URL length: %d bytes",
-            ai_role, current_round, len(image_url)
-        )
+        return cached_url
 
-    # Build intro text based on role and prompt style
-    from .prompt import get_prompt_style
-    style = get_prompt_style(player)
-    
+    if ai_role == "director":
+        image_url = _build_ai_director_grid_composite(player)
+    elif ai_role == "matcher":
+        image_url = _build_ai_matcher_grid_composite(player)
+    else:
+        return None
+
+    if not image_url:
+        logging.warning("[VISUAL_CONTEXT] No image generated for %s", ai_role)
+        return None
+
+    cache[cache_key] = image_url
+    _save_visual_context_cache(player.group, cache)
+
+    logging.info(
+        "[VISUAL_CONTEXT] Generated and cached image for %s round %d, URL length: %d bytes",
+        ai_role,
+        current_round,
+        len(image_url),
+    )
+    return image_url
+
+
+def _build_visual_context_message(
+    player: "Player", ai_role: str, image_url: str
+) -> dict[str, Any]:
+    current_round = getattr(player, "round_number", 1) or 1
+
+    try:
+        style = (
+            getattr(player.session, "config", {}).get("prompt_style")
+            or getattr(player.session, "config", {}).get("prompt_strategy")
+            or ""
+        )
+    except Exception:
+        style = ""
+
     if ai_role == "director":
         intro_text = (
-            f"ROUND {current_round} TARGET GRID: This image shows the 12 baskets you must describe.\n\n"
+            f"ROUND {current_round} TARGET GRID: This image shows the 12 baskets you must describe for ROUND {current_round}.\n\n"
             "The grid shows 2 rows × 6 columns with Baskets 1–6 on the top row and Baskets 7–12 on the bottom row. "
-            "IMPORTANT: Describe ONE BASKET PER MESSAGE, in order (1, 2, 3, ..., 12). "
+            "IMPORTANT: Pair this image only with the Round "
+            f"{current_round} conversation below. Describe ONE BASKET PER MESSAGE, in order (1, 2, 3, ..., 12). "
             "Wait for your partner to confirm before moving to the next basket. "
             "Your MATCHER partner sees these 12 baskets mixed with 6 additional distractors in their candidate pool."
         )
     elif style == "natural":
-        # Natural style - simpler intro without action tag references
         intro_text = (
-            f"ROUND {current_round} CANDIDATE POOL: This image shows the 18 candidates you can choose from.\n\n"
+            f"ROUND {current_round} CANDIDATE POOL: This image shows the 18 candidates you can choose from for ROUND {current_round}.\n\n"
             "The pool contains 12 TRUE TARGETS (which the DIRECTOR will describe) mixed with 6 DISTRACTORS. "
-            "Each candidate is numbered 1-18.\n\n"
+            "Each candidate is numbered 1-18. Pair this image only with the Round "
+            f"{current_round} conversation below.\n\n"
             "When you identify a basket, respond naturally and state which candidate number (1-18) you're "
             "placing in which position (1-12). For example: 'Got it! I'll place candidate 7 in position 3.'"
         )
     else:
-        # Tagged styles - include action tag instructions
         intro_text = (
-            f"ROUND {current_round} CANDIDATE POOL: This image shows the 18 candidates you can choose from.\n\n"
+            f"ROUND {current_round} CANDIDATE POOL: This image shows the 18 candidates you can choose from for ROUND {current_round}.\n\n"
             "The pool contains 12 TRUE TARGETS (which the DIRECTOR will describe) mixed with 6 DISTRACTORS. "
-            "Each candidate is numbered 1-18. Use these numbers in your action tags (e.g., [PLACE:7,3]).\n\n"
+            "Each candidate is numbered 1-18. Pair this image only with the Round "
+            f"{current_round} conversation below. Use these numbers in your action tags (e.g., [PLACE:7,3]).\n\n"
             "IMPORTANT: Look at this image to find the candidate that matches each description, then include "
             "the candidate NUMBER in your [PLACE:C,P] tag."
         )
@@ -270,16 +282,106 @@ def _inject_visual_grid_context(player: "Player", messages: list[dict[str, Any]]
         },
     ]
 
-    grid_message = {
+    return {
         "role": "user",
         "content": multimodal_content,
     }
 
-    # Insert after any leading system messages so they still anchor behavior,
+
+def _round_visual_context_messages(player: "Player", ai_role: str) -> dict[int, dict[str, Any]]:
+    """Build visual context blocks for all available rounds for this role."""
+    try:
+        all_round_players = player.in_all_rounds()
+    except Exception:
+        all_round_players = [player]
+
+    by_round: dict[int, dict[str, Any]] = {}
+    for round_player in all_round_players:
+        try:
+            round_num = int(getattr(round_player, "round_number", 1) or 1)
+        except Exception:
+            continue
+        image_url = _get_visual_context_image_url(round_player, ai_role)
+        if image_url:
+            by_round[round_num] = _build_visual_context_message(
+                round_player, ai_role, image_url
+            )
+    return by_round
+
+
+def _message_starts_round(message: dict[str, Any]) -> int | None:
+    content = message.get("content")
+    if not isinstance(content, str):
+        return None
+    marker = content.lstrip()
+    if not marker.startswith("═══ ROUND "):
+        return None
+    try:
+        rest = marker.split("ROUND ", 1)[1]
+        return int(rest.split(None, 1)[0])
+    except Exception:
+        return None
+
+
+def _inject_visual_grid_context(player: "Player", messages: list[dict[str, Any]]):
+    """Inject a multimodal grid message so the AI sees the basket layout.
+
+    The image is included on EVERY turn for both roles because:
+    - Each OpenAI API call is stateless - the model can't "remember" previous calls
+    - The conversation history only contains text messages, not the original image
+    - Without the image, the AI can't map descriptions to candidate numbers (matcher)
+      or know which basket to describe next (director)
+
+    We cache the generated image URL to avoid expensive regeneration on each turn.
+
+    - Director: 2×6 grid of the 12 target baskets
+    - Matcher: 3×6 grid of the 18 candidate baskets
+    """
+    if not messages:
+        return messages
+
+    ai_role = _get_ai_role(player)
+    if ai_role is None:
+        return messages
+
+    current_round = getattr(player, "round_number", 1) or 1
+
+    try:
+        use_cross_round_history = bool(
+            getattr(player.session, "config", {}).get("cross_round_history", False)
+        )
+    except Exception:
+        use_cross_round_history = False
+
+    # Insert after any leading instruction messages so they still anchor behavior,
     # but before conversation history and the latest human turn.
     idx = 0
-    while idx < len(messages) and messages[idx].get("role") == "system":
+    while idx < len(messages) and messages[idx].get("role") in ("developer", "system"):
         idx += 1
 
-    return messages[:idx] + [grid_message] + messages[idx:]
+    if use_cross_round_history:
+        round_contexts = _round_visual_context_messages(player, ai_role)
+        if not round_contexts:
+            return messages
 
+        result: list[dict[str, Any]] = messages[:idx]
+        inserted_rounds: set[int] = set()
+        for message in messages[idx:]:
+            marker_round = _message_starts_round(message)
+            if marker_round is not None and marker_round in round_contexts:
+                result.append(round_contexts[marker_round])
+                inserted_rounds.add(marker_round)
+            result.append(message)
+
+        # Round 1 often has no boundary marker because it is the first block.
+        current_context = round_contexts.get(current_round)
+        if current_context and current_round not in inserted_rounds:
+            result.insert(idx, current_context)
+        return result
+
+    image_url = _get_visual_context_image_url(player, ai_role)
+    if not image_url:
+        return messages
+
+    grid_message = _build_visual_context_message(player, ai_role, image_url)
+    return messages[:idx] + [grid_message] + messages[idx:]

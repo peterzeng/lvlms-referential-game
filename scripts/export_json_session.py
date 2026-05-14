@@ -28,10 +28,10 @@ def format_timestamp(ts_str):
         return ts_str
 
 def calculate_accuracy(shared_grid, matcher_sequence):
-    if not shared_grid or not matcher_sequence:
+    if not shared_grid:
         return 0.0
     errors = compare_sequences(shared_grid, matcher_sequence)
-    total = max(len(shared_grid), len(matcher_sequence))
+    total = len(shared_grid)
     if total == 0:
         return 0.0
     return round(((total - len(errors)) / total) * 100, 1)
@@ -39,7 +39,12 @@ def calculate_accuracy(shared_grid, matcher_sequence):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("input_json", help="Path to JSON file")
-    parser.add_argument("--output_dir", "-o", default="data/exported_sessions", help="Base directory for output")
+    parser.add_argument(
+        "--output_dir",
+        "-o",
+        default=None,
+        help="Directory for output artifacts. Defaults to the input JSON's directory.",
+    )
     args = parser.parse_args()
 
     # Load JSON
@@ -50,13 +55,17 @@ def main():
         print("Empty JSON data in file.")
         return
 
+    input_path = Path(args.input_json)
+
     # Use session_id from the first round, or fallback
     session_id = data[0].get('session_id', 'unknown_session')
-    base_name = Path(args.input_json).stem.replace('_data', '')
+    base_name = input_path.stem.replace('_data', '')
     
-    # Output to a folder named after the base file name inside output_dir
-    out_folder = os.path.join(args.output_dir, base_name)
-    os.makedirs(out_folder, exist_ok=True)
+    # By default, save transcript/images next to the source JSON so all artifacts
+    # for a run can be moved together. Prefix filenames to avoid overwriting when
+    # multiple session JSONs share one experiment folder.
+    out_folder = Path(args.output_dir) if args.output_dir else input_path.parent
+    out_folder.mkdir(parents=True, exist_ok=True)
 
     print(f"Exporting to directory: {out_folder}")
 
@@ -131,12 +140,18 @@ def main():
         
         # Default empty output if no grid or seq exists
         if shared_grid and matcher_sequence:
-            create_combined_visualization(round_num, round_data_for_viz, images_dir, out_folder)
+            create_combined_visualization(
+                round_num,
+                round_data_for_viz,
+                images_dir,
+                str(out_folder),
+                output_filename=f"{base_name}_round_{round_num}_comparison.png",
+            )
         else:
             print(f"Skipping visualization for Round {round_num}: missing sequence or grid data.")
 
     # Save the transcript
-    transcript_path = os.path.join(out_folder, "transcript.txt")
+    transcript_path = out_folder / f"{base_name}_transcript.txt"
     with open(transcript_path, 'w', encoding='utf-8') as f:
         f.write("\n".join(transcript_lines))
 

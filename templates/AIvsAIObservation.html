@@ -332,7 +332,7 @@
                 <div class="stats-badge">Models: <span id="models-display" class="text-warning font-monospace">-- vs --</span></div>
                 <div class="stats-badge">Strategy: <span id="strategy-display" class="text-info font-monospace">--</span></div>
                 <div class="stats-badge">Session: <span id="session-display">local_test_1</span></div>
-                <div class="stats-badge">Round <span id="round-display">--</span>/4</div>
+                <div class="stats-badge">Round <span id="round-display">--</span>/<span id="total-rounds-display">5</span></div>
             </div>
         </div>
 
@@ -346,6 +346,7 @@
                 <div class="input-group" style="width: auto;">
                     <span class="input-group-text">Director Model</span>
                     <select class="form-select" id="director-model-select">
+                        <option value="gpt-5.5">gpt-5.5</option>
                         <option value="gpt-5.4">gpt-5.4</option>
                         <option value="gpt-4o-mini">gpt-4o-mini</option>
                         <option value="gpt-4o">gpt-4o</option>
@@ -358,6 +359,7 @@
                 <div class="input-group" style="width: auto;">
                     <span class="input-group-text">Matcher Model</span>
                     <select class="form-select" id="matcher-model-select">
+                        <option value="gpt-5.5">gpt-5.5</option>
                         <option value="gpt-5.4">gpt-5.4</option>
                         <option value="gpt-4o-mini">gpt-4o-mini</option>
                         <option value="gpt-4o">gpt-4o</option>
@@ -370,14 +372,8 @@
                 <div class="input-group" style="width: auto;">
                     <span class="input-group-text">Strategy</span>
                     <select class="form-select" id="prompt-strategy-select">
-                        <option value="v9">v9 (Humanlike Single Agent without "Seriously")</option>
                         <option value="cameron-prompt">cameron-prompt (Humanlike Single Agent)</option>
-                        <option value="v6" selected>v6 (Determiners + Nicknames)</option>
-                        <option value="v5">v5 (Entrainment)</option>
-                        <option value="v4">v4 (Common Ground)</option>
-                        <option value="v3">v3 (CoT)</option>
-                        <option value="v2">v2 (Weiling)</option>
-                        <option value="v1">v1 (Simple)</option>
+                        <option value="ACL_prompt" selected>ACL_prompt</option>
                     </select>
                 </div>
 
@@ -399,14 +395,6 @@
                         style="background: var(--secondary); border: none;">
                         💾 Export Data
                     </button>
-                </div>
-                <div class="d-flex align-items-center gap-3">
-                    <label class="mb-0 small text-muted" title="Delay between API calls">
-                        Delay:
-                        <input type="range" id="delay-slider" min="0" max="10" step="0.5" value="0"
-                            style="width: 120px; vertical-align: middle;">
-                        <span id="delay-value">0</span>s
-                    </label>
                 </div>
             </div>
         </div>
@@ -488,13 +476,6 @@
             const nextTurnBtn = document.getElementById('next-turn-btn');
             const autoPlayBtn = document.getElementById('auto-play-btn');
             const exportBtn = document.getElementById('export-btn');
-            const delaySlider = document.getElementById('delay-slider');
-            const delayValue = document.getElementById('delay-value');
-
-            // UI updating
-            delaySlider.addEventListener('input', function () {
-                delayValue.textContent = this.value;
-            });
 
             exportBtn.addEventListener('click', async () => {
                 if (!currentSessionId) return;
@@ -591,7 +572,8 @@
                     const data = await res.json();
                     console.log("Turn result:", data);
                     await pollState();
-                    if (data.game_status && data.game_status.is_complete && data.game_status.round_number >= 4) {
+                    const totalRounds = Number(data.game_status?.total_rounds || document.getElementById('total-rounds-display').textContent || 5);
+                    if (data.game_status && data.game_status.is_complete && data.game_status.round_number >= totalRounds) {
                         shouldStop = true;
                     }
                 } catch (e) {
@@ -611,14 +593,21 @@
                     isAutoPlaying = false;
                     autoPlayBtn.textContent = '⏵⏵ Auto-Play';
                     autoPlayBtn.classList.remove('playing');
-                    document.getElementById('status-text').textContent = "Simulation Complete! 🎉";
+                    document.getElementById('status-text').textContent = "Simulation complete. Exporting...";
                     document.getElementById('status-dot').className = "status-dot complete";
+                    try {
+                        const exportRes = await fetch(`/api/game/export?session_id=${currentSessionId}&generate_artifacts=true`);
+                        if (!exportRes.ok) throw new Error('Automatic export failed');
+                        document.getElementById('status-text').textContent = "Simulation Complete! 🎉";
+                    } catch (e) {
+                        console.error("Automatic export failed", e);
+                        document.getElementById('status-text').textContent = "Simulation complete. Export failed.";
+                    }
                     return;
                 }
                 
                 if (isAutoPlaying) {
-                    const delayMs = parseFloat(delaySlider.value) * 1000;
-                    autoPlayInterval = setTimeout(playLoop, delayMs);
+                    autoPlayInterval = setTimeout(playLoop, 0);
                 }
             }
 
@@ -646,6 +635,7 @@
 
             function renderState(state) {
                 document.getElementById('round-display').textContent = state.round_number;
+                document.getElementById('total-rounds-display').textContent = state.status?.total_rounds || 5;
                 const stratDisplay = document.getElementById('strategy-display');
                 if (state.prompt_strategy) {
                     stratDisplay.textContent = state.prompt_strategy.toUpperCase();

@@ -58,6 +58,38 @@ def get_round_data(row, round_num):
     }
 
 
+def normalize_target_sequence(target_seq):
+    """Return target baskets in reading order with explicit positions 1..12."""
+    normalized = []
+    for idx, item in enumerate(sorted(target_seq, key=lambda x: (x.get('row', 0), x.get('col', 0))), start=1):
+        slot = dict(item)
+        slot['position'] = idx
+        normalized.append(slot)
+    return normalized
+
+
+def normalize_matcher_sequence(matcher_seq, total_positions=12):
+    """Return matcher baskets indexed by sequence position, preserving blanks."""
+    by_pos = {}
+    for item in matcher_seq or []:
+        try:
+            pos = int(item.get('position'))
+        except (TypeError, ValueError, AttributeError):
+            continue
+        if 1 <= pos <= total_positions:
+            by_pos[pos] = item
+
+    normalized = []
+    for pos in range(1, total_positions + 1):
+        if pos in by_pos:
+            slot = dict(by_pos[pos])
+            slot['position'] = pos
+        else:
+            slot = {'position': pos, 'image': None, 'originalPosition': None}
+        normalized.append(slot)
+    return normalized
+
+
 def create_grid_image(sequence, images_dir, title, highlight_errors=None):
     """Create a grid image from a sequence of basket data."""
     width = GRID_COLS * (CELL_SIZE + PADDING) + PADDING
@@ -78,7 +110,8 @@ def create_grid_image(sequence, images_dir, title, highlight_errors=None):
     # Draw title
     draw.text((PADDING, 5), title, fill=(255, 255, 255), font=font)
     
-    # Sort sequence by position
+    # Sort sequence by explicit sequence position. Matcher sequences may contain
+    # blanks, so callers should preserve those as placeholder items.
     sorted_seq = sorted(sequence, key=lambda x: x.get('position', 0))
     
     for idx, item in enumerate(sorted_seq):
@@ -131,29 +164,21 @@ def create_grid_image(sequence, images_dir, title, highlight_errors=None):
 def compare_sequences(target_seq, matcher_seq):
     """Compare sequences and return indices of errors."""
     errors = set()
-    
-    # For target sequence, position might be "11", "12", etc. (grid position)
-    # For matcher sequence, position is 1, 2, 3... (sequence position)
-    
-    # Convert target grid positions to sequence positions (reading order)
-    target_images = []
-    for item in sorted(target_seq, key=lambda x: (x.get('row', 0), x.get('col', 0))):
-        target_images.append(item.get('image', ''))
-    
-    # Get matcher images in order
-    matcher_images = []
-    for item in sorted(matcher_seq, key=lambda x: x.get('position', 0)):
-        matcher_images.append(item.get('image', ''))
+
+    target_items = normalize_target_sequence(target_seq)
+    matcher_items = normalize_matcher_sequence(matcher_seq, len(target_items))
+    target_images = [item.get('image', '') for item in target_items]
+    matcher_images = [item.get('image', '') for item in matcher_items]
     
     # Compare
-    for i in range(min(len(target_images), len(matcher_images))):
+    for i in range(len(target_images)):
         if target_images[i] != matcher_images[i]:
             errors.add(i)
     
     return errors
 
 
-def create_combined_visualization(round_num, round_data, images_dir, output_dir):
+def create_combined_visualization(round_num, round_data, images_dir, output_dir, output_filename=None):
     """Create a combined visualization for a round."""
     shared_grid = round_data['shared_grid']
     matcher_sequence = round_data['matcher_sequence']
@@ -166,9 +191,12 @@ def create_combined_visualization(round_num, round_data, images_dir, output_dir)
     # Find errors
     errors = compare_sequences(shared_grid, matcher_sequence)
     
+    target_sequence = normalize_target_sequence(shared_grid)
+    matcher_sequence = normalize_matcher_sequence(matcher_sequence, len(target_sequence))
+
     # Create director's grid (target)
     director_title = "DIRECTOR'S TARGET SEQUENCE"
-    director_img = create_grid_image(shared_grid, images_dir, director_title)
+    director_img = create_grid_image(target_sequence, images_dir, director_title)
     
     # Create matcher's grid (with error highlighting)
     matcher_title = f"MATCHER'S SEQUENCE ({accuracy}% accuracy)"
@@ -198,7 +226,10 @@ def create_combined_visualization(round_num, round_data, images_dir, output_dir)
     
     # Save
     os.makedirs(output_dir, exist_ok=True)
-    output_path = os.path.join(output_dir, f"round_{round_num}_comparison.png")
+    output_path = os.path.join(
+        output_dir,
+        output_filename or f"round_{round_num}_comparison.png",
+    )
     combined.save(output_path)
     print(f"  Saved: {output_path}")
     
@@ -277,4 +308,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

@@ -6,6 +6,8 @@ load_dotenv()
 import json
 import logging
 import random
+import re
+import subprocess
 from pathlib import Path
 from datetime import datetime
 
@@ -20,6 +22,7 @@ from fastapi.templating import Jinja2Templates
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from referential_task.state import Player, Group, Session
+from referential_task.state import Constants
 from referential_task.ai_utils import run_ai_vs_ai_turn, get_ai_vs_ai_status, _load_matcher_pool_image_urls
 
 logging.basicConfig(level=logging.INFO)
@@ -134,6 +137,34 @@ templates = Jinja2Templates(directory="templates")
 # Key: session_id, Value: dict containing Player object and status
 active_simulations = {}
 
+def get_total_rounds(session=None):
+    """Return the configured number of rounds, falling back to the task default."""
+    try:
+        if session is not None:
+            return int(session.config.get("num_rounds") or Constants.num_rounds)
+    except Exception:
+        pass
+    return Constants.num_rounds
+
+def get_experiment_family(prompt_strategy):
+    strategy = str(prompt_strategy or "").lower()
+    if "cameron" in strategy:
+        return "Cameron"
+    if "acl" in strategy:
+        return "ACL"
+    return "Other"
+
+def sanitize_path_part(value, fallback="session"):
+    text = str(value or "").strip() or fallback
+    return re.sub(r"[^A-Za-z0-9._-]+", "_", text).strip("_") or fallback
+
+def get_experiment_export_dir(config, session_id):
+    prompt_strategy = config.get("prompt_strategy", "unknown") if isinstance(config, dict) else "unknown"
+    prefix = config.get("session_prefix") if isinstance(config, dict) else None
+    prefix = sanitize_path_part(prefix or session_id)
+    current_date = datetime.now().strftime("%Y-%m-%d")
+    return Path("data") / "experiments" / get_experiment_family(prompt_strategy) / current_date / prefix
+
 def get_preset_grid(round_number=1, set_num=5):
     """Load a grid preset like oTree did in create_shared_grid"""
     preset_filename = f"grids_presets{set_num}.json"
@@ -196,21 +227,19 @@ async def start_game(data: dict):
     session_config = {
         "ai_vs_ai_mode": True,
         "director_view": "grid",
-        "basket_set": 5,
-        "prompt_strategy": data.get("prompt_strategy", "v5"),
+        "basket_set": int(data.get("basket_set", 5)),
+        "num_rounds": Constants.num_rounds,
+        "session_prefix": data.get("session_prefix") or session_id,
+        "prompt_strategy": data.get("prompt_strategy", "ACL_prompt"),
         "ai_director_model": data.get("director_model") or os.environ.get("AI_DIRECTOR_MODEL", "gpt-4o-mini"),
         "ai_matcher_model": data.get("matcher_model") or os.environ.get("AI_MATCHER_MODEL", "gpt-4o-mini"),
-        "ai_model": data.get("model", "gpt-4o-mini"),
         "ai_reasoning_effort": data.get("reasoning_effort", "none"),
-        "ai_vs_ai_delay": data.get("delay", 0),
-        "ai_vs_ai_max_turns": data.get("max_turns", 60),
-        "use_reflection": data.get("use_reflection", False),
     }
 
     session = Session(session_config)
     
     group = Group()
-    grid = get_preset_grid(round_number=round_number)
+    grid = get_preset_grid(round_number=round_number, set_num=session_config["basket_set"])
     group.shared_grid = json.dumps(grid)
     
     player = Player(role="observer", group=group, session=session, round_number=round_number)
@@ -242,13 +271,8 @@ async def play_turn(data: dict):
         # Auto-advance to the next round if the current one is completely finished
         if getattr(player, "task_completed", False):
             current_round = player.round_number
-            if current_round < 4:
-                # Run reflection agent if enabled
-                directives = ""
-                if player.session.config.get("use_reflection"):
-                    from referential_task.reflection_agent import generate_reflection_directives
-                    directives = generate_reflection_directives(session_id, current_round, player.session.config)
-
+            total_rounds = get_total_rounds(player.session)
+            if current_round < total_rounds:
                 # Build conceptual pact map from the completed round's CG + shared_grid.
                 # This maps image_path → nicknames so that agreed terms persist across
                 # rounds even when basket positions are reshuffled.
@@ -263,18 +287,12 @@ async def play_turn(data: dict):
                 
                 # Initialize new game state for the next round
                 new_group = Group()
-                new_grid = get_preset_grid(round_number=next_round)
+                new_grid = get_preset_grid(
+                    round_number=next_round,
+                    set_num=player.session.config.get("basket_set", 5),
+                )
                 new_group.shared_grid = json.dumps(new_grid)
-                
-                if directives:
-                    init_msgs = [{
-                        "sender_role": "system", 
-                        "text": directives, 
-                        "round_number": next_round,
-                        "timestamp": datetime.now().isoformat()
-                    }]
-                    new_group.ai_messages = json.dumps(init_msgs)
-                
+
                 new_player = Player(role="observer", group=new_group, session=player.session, round_number=next_round)
                 
                 # Overwrite active simulation with the new round's player
@@ -287,10 +305,10 @@ async def play_turn(data: dict):
                 # Update the active reference so the status returned matches the new round
                 player = new_player
             else:
-                # Round 4 complete: Evaluate mutual perceptions
+                # Final round complete: Evaluate mutual perceptions
                 if not getattr(player, "perceptions_generated", False):
                     player.perceptions_generated = True
-                    logger.info("Round 4 finished! Fetching AI vs AI mutual perceptions.")
+                    logger.info("Round %s finished! Fetching AI vs AI mutual perceptions.", current_round)
                     from referential_task.ai_perceptions import generate_ai_vs_ai_perceptions
                     generate_ai_vs_ai_perceptions(player)
                     save_state_to_db(session_id, player)
@@ -298,14 +316,12 @@ async def play_turn(data: dict):
                     # --- AUTO-EXPORT DATA ---
                     try:
                         logger.info("Auto-exporting full session data to structured data folder...")
-                        prompt_strategy = player.session.config.get("prompt_strategy", "unknown")
-                        current_date = datetime.now().strftime("%Y-%m-%d")
-                        export_dir = f"data/experiments/{current_date}_{prompt_strategy}"
-                        os.makedirs(export_dir, exist_ok=True)
+                        export_dir = get_experiment_export_dir(player.session.config, session_id)
+                        export_dir.mkdir(parents=True, exist_ok=True)
                         
                         conn = sqlite3.connect(DB_FILE)
                         c = conn.cursor()
-                        c.execute("SELECT session_id, round_number, config, shared_grid, target_baskets, ai_partial_sequence, ai_messages, ai_reasoning_log, matcher_sequence, status, ai_director_reasoning, ai_matcher_reasoning, updated_at FROM game_sessions WHERE session_id = ?", (session_id,))
+                        c.execute("SELECT session_id, round_number, config, shared_grid, target_baskets, ai_partial_sequence, ai_messages, ai_reasoning_log, matcher_sequence, status, ai_director_reasoning, ai_matcher_reasoning, updated_at FROM game_sessions WHERE session_id = ? ORDER BY round_number", (session_id,))
                         rows = c.fetchall()
                         conn.close()
                         
@@ -335,10 +351,36 @@ async def play_turn(data: dict):
                                 "ai_matcher_reasoning": safe_json(matcher_reasoning_txt)
                             })
                             
-                        export_path = f"{export_dir}/{session_id}_data.json"
+                        export_path = export_dir / f"{session_id}_data.json"
                         with open(export_path, 'w', encoding='utf-8') as f:
                             json.dump(sessions_data, f, indent=4)
                         logger.info(f"Successfully auto-exported to {export_path}")
+
+                        transcript_export_cmd = [
+                            sys.executable,
+                            "scripts/export_json_session.py",
+                            str(export_path),
+                        ]
+                        result = subprocess.run(
+                            transcript_export_cmd,
+                            capture_output=True,
+                            text=True,
+                            check=False,
+                        )
+                        if result.returncode == 0:
+                            logger.info(
+                                "Successfully generated transcript/visual export for %s",
+                                export_path,
+                            )
+                            if result.stdout:
+                                logger.info("Session export output: %s", result.stdout.strip())
+                        else:
+                            logger.error(
+                                "Transcript/visual export failed for %s with exit code %s: %s",
+                                export_path,
+                                result.returncode,
+                                (result.stderr or result.stdout or "").strip(),
+                            )
                     except Exception as export_e:
                         logger.error(f"Auto-export failed: {export_e}")
 
@@ -387,7 +429,7 @@ async def get_state(session_id: str):
     return JSONResponse({
         "status": status,
         "round_number": player.round_number,
-        "prompt_strategy": player.session.config.get("prompt_strategy", "v4"),
+        "prompt_strategy": player.session.config.get("prompt_strategy", "ACL_prompt"),
         "director_model": player.session.config.get("ai_director_model", "unknown"),
         "matcher_model": player.session.config.get("ai_matcher_model", "unknown"),
         "ai_messages": ai_messages,
@@ -398,14 +440,14 @@ async def get_state(session_id: str):
     })
 
 @app.get("/api/game/export")
-async def export_session(session_id: str):
+async def export_session(session_id: str, generate_artifacts: bool = False):
     """Export the current session's data as a JSON file."""
     if not os.path.exists(DB_FILE):
         return JSONResponse({"error": "Database not found"}, status_code=404)
         
     conn = sqlite3.connect(DB_FILE)
     c = conn.cursor()
-    c.execute("SELECT session_id, round_number, config, shared_grid, target_baskets, ai_partial_sequence, ai_messages, ai_reasoning_log, matcher_sequence, status, ai_director_reasoning, ai_matcher_reasoning, updated_at FROM game_sessions WHERE session_id = ?", (session_id,))
+    c.execute("SELECT session_id, round_number, config, shared_grid, target_baskets, ai_partial_sequence, ai_messages, ai_reasoning_log, matcher_sequence, status, ai_director_reasoning, ai_matcher_reasoning, updated_at FROM game_sessions WHERE session_id = ? ORDER BY round_number", (session_id,))
     rows = c.fetchall()
     conn.close()
 
@@ -441,6 +483,44 @@ async def export_session(session_id: str):
         }
         sessions.append(session_data)
 
+    if generate_artifacts:
+        try:
+            config = sessions[0].get("config", {}) if sessions else {}
+            export_dir = get_experiment_export_dir(config, session_id)
+            export_dir.mkdir(parents=True, exist_ok=True)
+
+            export_path = export_dir / f"{session_id}_data.json"
+            with open(export_path, "w", encoding="utf-8") as f:
+                json.dump(sessions, f, indent=4)
+            logger.info("UI export wrote session data to %s", export_path)
+
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    "scripts/export_json_session.py",
+                    str(export_path),
+                ],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            if result.returncode == 0:
+                logger.info(
+                    "UI export generated transcript/visual artifacts for %s",
+                    export_path,
+                )
+                if result.stdout:
+                    logger.info("Session export output: %s", result.stdout.strip())
+            else:
+                logger.error(
+                    "UI transcript/visual export failed for %s with exit code %s: %s",
+                    export_path,
+                    result.returncode,
+                    (result.stderr or result.stdout or "").strip(),
+                )
+        except Exception as export_e:
+            logger.error("UI export artifact generation failed: %s", export_e)
+
     headers = {
         "Content-Disposition": f"attachment; filename={session_id}_data.json"
     }
@@ -449,4 +529,3 @@ async def export_session(session_id: str):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
-

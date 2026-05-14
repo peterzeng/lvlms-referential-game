@@ -1,6 +1,9 @@
 # Required for backend AI script
    python-dotenv>=1.0.0
    sentry-sdk>=0.7.9
+   fastapi>=0.110.0
+   uvicorn>=0.27.0
+   jinja2>=3.1.0
    openai>=1.0.0
    pillow>=9.0.0
    # New Google Gen AI SDK (recommended for Gemini 3+)
