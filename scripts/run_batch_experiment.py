@@ -148,10 +148,14 @@ def save_state_to_db(session_id, player):
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger("batch_runner")
 
+# Silence chatty third-party loggers
+logging.getLogger("httpx").setLevel(logging.WARNING)
+
 def run_single_session(session_id: str, config: dict):
     logger.info(f"=== Starting Session: {session_id} ===")
 
     config = dict(config)
+    config["cross_round_history"] = True
     if not config.get("enable_conceptual_pacts"):
         config.pop("conceptual_pacts", None)
 
@@ -240,6 +244,13 @@ if __name__ == "__main__":
     parser.add_argument("--matcher-model", type=str, help="Specific model for matcher (overrides --model).")
     parser.add_argument("--session-prefix", type=str, default="batch", help="Prefix for the session ID.")
     parser.add_argument("--basket-set", type=int, default=5, help="Basket set to use.")
+    parser.add_argument(
+        "--reasoning-effort",
+        type=str,
+        default="none",
+        choices=["none", "minimal", "low", "medium", "high"],
+        help="Reasoning effort for GPT-5 family models.",
+    )
     
     args = parser.parse_args()
     
@@ -248,11 +259,12 @@ if __name__ == "__main__":
         "director_view": "grid",
         "basket_set": args.basket_set,
         "num_rounds": Constants.num_rounds,
+        "cross_round_history": True,
         "session_prefix": args.session_prefix,
         "prompt_strategy": args.prompt_strategy,
         "ai_director_model": args.director_model or args.model,
         "ai_matcher_model": args.matcher_model or args.model,
-        "ai_reasoning_effort": "none",
+        "ai_reasoning_effort": args.reasoning_effort,
     }
     
     logger.info(f"Starting batch run of {args.sessions} sessions.")

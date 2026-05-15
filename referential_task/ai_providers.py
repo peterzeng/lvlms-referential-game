@@ -24,8 +24,9 @@ if TYPE_CHECKING:
 PROVIDER_OPENAI = "openai"
 PROVIDER_GEMINI = "gemini"
 
-# Models that support reasoning_effort parameter (GPT-5.2+)
+# Models that support the reasoning_effort parameter.
 GPT_5_2_MODELS = frozenset({
+    "gpt-5",
     "gpt-5.2",
     "gpt-5.2-mini",
     "gpt-5.2-chat-latest",
@@ -86,7 +87,7 @@ def detect_provider_from_model(model: str) -> str:
 def is_gpt_5_2_model(model: str) -> bool:
     """Check if a model supports GPT-5.x API features (reasoning_effort).
     
-    Returns True for GPT-5.2, GPT-5.4, GPT-5.5, and any future GPT-5.x models that
+    Returns True for GPT-5, GPT-5.2, GPT-5.4, GPT-5.5, and GPT-5 snapshots that
     support the reasoning_effort parameter.
     """
     if not model:
@@ -94,12 +95,25 @@ def is_gpt_5_2_model(model: str) -> bool:
     if model in GPT_5_2_MODELS:
         return True
     model_lower = model.lower()
-    # Match any GPT-5.x variant that supports reasoning_effort.
+    # Match GPT-5 snapshots plus GPT-5.x variants that support reasoning_effort.
     return (
-        model_lower.startswith("gpt-5.2")
+        model_lower == "gpt-5"
+        or model_lower.startswith("gpt-5-")
+        or model_lower.startswith("gpt-5.2")
         or model_lower.startswith("gpt-5.4")
         or model_lower.startswith("gpt-5.5")
     )
+
+
+def reasoning_effort_for_api(model: str, reasoning_effort: str | None) -> str | None:
+    """Return a reasoning_effort value that is valid to send for a model."""
+    if not is_gpt_5_2_model(model):
+        return None
+    effort = reasoning_effort or "none"
+    model_lower = model.lower() if model else ""
+    if effort == "none" and (model_lower == "gpt-5" or model_lower.startswith("gpt-5-")):
+        return None
+    return effort
 
 
 def uses_max_completion_tokens(model: str) -> bool:
@@ -474,7 +488,7 @@ def _call_openai_api(
     # Handle reasoning models (no custom temperature)
     model_lower = model.lower() if model else ""
     is_o_series = model_lower.startswith(("o1", "o3"))
-    is_reasoning_mode = is_o_series or (reasoning_effort != "none")
+    is_reasoning_mode = is_o_series or is_gpt_5_2_model(model) or (reasoning_effort != "none")
     
     if temperature is not None and not is_reasoning_mode:
         kwargs["temperature"] = temperature
@@ -496,8 +510,9 @@ def _call_openai_api(
         else:
             kwargs["response_format"] = response_format
     
-    if is_gpt_5_2_model(model):
-        kwargs["reasoning_effort"] = reasoning_effort
+    api_reasoning_effort = reasoning_effort_for_api(model, reasoning_effort)
+    if api_reasoning_effort is not None:
+        kwargs["reasoning_effort"] = api_reasoning_effort
     
     try:
         if response_format and response_format.get("type") == "json_schema" and hasattr(response_format.get("json_schema", {}), "model_json_schema"):

@@ -1,107 +1,167 @@
-import os
+#!/usr/bin/env python3
+"""Compute referential-game metrics for one trace or whole experiment folders.
+
+The experiment logs already contain enough structure to compute the core
+metrics without an LLM extraction pass. Director utterances consistently mark
+objects as "Basket N ..." or "basket N ..."; this script extracts those spans,
+tracks object identity through `shared_grid[*].basket_id`, and summarizes runs
+separately by prompt and model setting.
+"""
+
+from __future__ import annotations
+
+import argparse
+import csv
+import hashlib
 import json
+import math
+import os
 import re
-from openai import OpenAI
-import ssl
+from collections import Counter
+from dataclasses import dataclass
+from pathlib import Path
+from statistics import mean, stdev
+from typing import Any, Iterable
 
-ssl._create_default_https_context = ssl._create_unverified_context
 
-def calculate_overlap(re_i, re_prev):
-    if not re_i or not re_prev:
+BASKET_MARKER_RE = re.compile(
+    r"(?i)(?:\bbasket\s*(\d{1,2})\b|\b(\d{1,2})(?=\s*:))"
+    r"(?:\s*(?:is|=|:|-|--|—)\s*)?"
+)
+WORD_RE = re.compile(r"\b\w+\b")
+
+
+@dataclass(frozen=True)
+class Setting:
+    experiment: str
+    prompt_strategy: str
+    director_model: str
+    matcher_model: str
+
+
+@dataclass(frozen=True)
+class ExtractionConfig:
+    extractor: str
+    gpt_model: str
+    cache_dir: Path
+    refresh_cache: bool
+
+
+def content_words(text: str) -> list[str]:
+    return WORD_RE.findall((text or "").lower())
+
+
+def get_content_word_count(text: str) -> int:
+    return len(content_words(text))
+
+
+def multiset_intersection_size(words_a: list[str], words_b: list[str]) -> int:
+    counts_a = Counter(words_a)
+    counts_b = Counter(words_b)
+    return sum(
+        min(counts_a.get(w, 0), counts_b.get(w, 0))
+        for w in counts_a.keys() | counts_b.keys()
+    )
+
+
+def calculate_relative_lexical_overlap(re_i: str, re_prev: str) -> float:
+    """Paper Section 4.5 RLO: multiset overlap divided by current RE length."""
+
+    words_i = content_words(re_i)
+    words_prev = content_words(re_prev)
+    if not words_i:
         return 0.0
-    
-    def get_content_words(text):
-        return re.findall(r'\b\w+\b', text.lower())
-    
-    words_i = get_content_words(re_i)
-    words_prev = get_content_words(re_prev)
-    
+
+    intersection_size = multiset_intersection_size(words_prev, words_i)
+    return intersection_size / len(words_i)
+
+
+def calculate_jaccard_overlap(re_i: str, re_prev: str) -> float:
+    """Alternative metric from Appendix C.2, kept for diagnostics."""
+
+    words_i = content_words(re_i)
+    words_prev = content_words(re_prev)
     if not words_i or not words_prev:
         return 0.0
-    
-    # Multiset overlap is the sum of minimum counts of each word in both multisets
-    counts_i = {}
-    for w in words_i: counts_i[w] = counts_i.get(w, 0) + 1
-        
-    counts_prev = {}
-    for w in words_prev: counts_prev[w] = counts_prev.get(w, 0) + 1
-        
-    intersection_size = sum(min(counts_i.get(w, 0), counts_prev.get(w, 0)) for w in set(words_i) | set(words_prev))
+
+    intersection_size = multiset_intersection_size(words_i, words_prev)
     union_size = len(words_i) + len(words_prev) - intersection_size
-    
-    # Jaccard index is |A ∩ B| / |A ∪ B| (or Multiset Jaccard)
-    return intersection_size / union_size if union_size > 0 else 0.0
-    
-def get_content_word_count(text):
-    words = re.findall(r'\b\w+\b', text.lower())
-    return len(words)
+    return intersection_size / union_size if union_size else 0.0
 
-def main():
-    import argparse
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--filename", required=True, help="Filename of the JSON trace")
-    args = parser.parse_args()
-    
-    data_path = args.filename
-    if not os.path.isabs(data_path) and not data_path.startswith("data/"):
-        data_path = f"data/{data_path}"
 
-    with open(data_path, 'r', encoding='utf-8') as f:
-        content = f.read()
-        if ']' in content:
-            content = content[:content.rindex(']') + 1]
-        data = json.loads(content)
+def load_json_trace(path: Path) -> list[dict[str, Any]]:
+    content = path.read_text(encoding="utf-8")
+    try:
+        return json.loads(content)
+    except json.JSONDecodeError:
+        # Some live traces can be interrupted after a complete array plus junk.
+        if "]" not in content:
+            raise
+        return json.loads(content[: content.rindex("]") + 1])
 
-    # Initialize OpenAI client 
-    from dotenv import load_dotenv
-    load_dotenv()
-    
-    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-    results = []
-    # Using target_position as the canonical key between rounds for true tracking:
-    # However, AI-AI sometimes refers to baskets by their position randomly. Wait, the extraction prompt extracts by "object_#". 
-    # In the game, the director describes Target Basket 1..12 in each round. 
-    # Importantly, Target Basket 1 in Round 1 == the basket with basket_id=data[round]['shared_grid'].find(position==1)['basket_id']
-    # Wait: The extraction prompt uses "object_#1" etc. The describer calls it "Basket 1", "Basket 2" etc.
-    # We must track the SAME BASKET across rounds regardless of its position in that round!
-    
-    re_history = {} # basket_id -> last round RE
+def normalize_phrase(text: str) -> str:
+    text = re.sub(r"\s+", " ", text).strip()
+    text = re.sub(r"^[\s:;,.!?—-]+", "", text)
+    return text.strip()
 
-    for round_idx, round_data in enumerate(data):
-        r_num = round_data.get("round_number", round_idx + 1)
-        status = round_data.get("status", {})
-        accuracy = status.get("accuracy", 0.0)
-        messages = status.get("messages", [])
-        turn_count = status.get("turn_count", len(messages))
-        
-        # Get mapping from positional object_id to actual basket_id in this round
-        # The AI director describes targets in the order 1-12 based on the grid positions. 
-        # position "11" -> Object 1, "12" -> Object 2, "13" -> Object 3, "14" -> Object 4
-        # "21" -> Object 5, "22" -> Object 6, "23" -> Object 7, "24" -> Object 8
-        # "31" -> Object 9, "32" -> Object 10, "33" -> Object 11, "34" -> Object 12
-        grid = round_data.get("shared_grid", [])
-        # Let's map positions by their integer value if we sort ascending by (row, col)
-        grid_sorted = sorted(grid, key=lambda x: (x['row'], x['col']))
-        target_map = {} # Object index (1..12) -> basket_id
-        for i, cell in enumerate(grid_sorted):
-            target_map[i + 1] = cell.get("basket_id")
 
-        total_words = sum(len(re.findall(r'\b\w+\b', m.get("text", ""))) for m in messages)
-        
-        # build transcript
-        transcript_lines = []
-        for m in messages:
-            role = "describer" if m.get("sender_role") == "director" else "matcher"
-            transcript_lines.append(f"{role}: {m.get('text', '')}")
-        transcript_text = "\n".join(transcript_lines)
+def extract_referring_expressions(messages: list[dict[str, Any]]) -> dict[int, str]:
+    """Extract director descriptions keyed by positional basket number.
 
-        prompt = f"""This is an extractive task.
+    A director message can contain one object ("Basket 1: ...") or several
+    objects in one clarification ("Basket 11 ... Basket 12 ..."). We split on
+    each marker and append repeated mentions for the same basket.
+    """
 
-You will be given a transcript of a conversation between two participants engaged in a collaborative object-matching task. There are exactly 12 target objects. One participant (the describer) describes each target object, and the other participant (the matcher) attempts to identify them.
+    expressions: dict[int, list[str]] = {}
+    next_unmarked_basket = 1
+    for message in messages:
+        if message.get("sender_role") != "director":
+            continue
 
-Your task is to extract the descriptive phrases used by the describer for each target object. 
-- Extract phrases verbatim from the transcript. 
+        text = message.get("text", "")
+        matches = list(BASKET_MARKER_RE.finditer(text))
+        if not matches:
+            phrase = normalize_phrase(text)
+            if phrase and next_unmarked_basket <= 12:
+                expressions.setdefault(next_unmarked_basket, []).append(phrase)
+                next_unmarked_basket += 1
+            continue
+
+        for idx, match in enumerate(matches):
+            basket_num = int(match.group(1) or match.group(2))
+            if basket_num < 1 or basket_num > 12:
+                continue
+            start = match.end()
+            end = matches[idx + 1].start() if idx + 1 < len(matches) else len(text)
+            phrase = normalize_phrase(text[start:end])
+            if phrase:
+                expressions.setdefault(basket_num, []).append(phrase)
+            next_unmarked_basket = max(next_unmarked_basket, basket_num + 1)
+
+    return {basket_num: " ".join(parts) for basket_num, parts in expressions.items()}
+
+
+def transcript_text(messages: list[dict[str, Any]]) -> str:
+    lines = []
+    for message in messages:
+        role = "describer" if message.get("sender_role") == "director" else "matcher"
+        lines.append(f"{role}: {message.get('text', '')}")
+    return "\n".join(lines)
+
+
+def extraction_prompt(transcript: str, num_objects: int = 12) -> str:
+    keys = "\n".join(
+        f'    "object_#{i}": "descriptive phrases for object {i}",'
+        for i in range(1, num_objects + 1)
+    ).rstrip(",")
+    return f"""This is an extractive task.
+
+You will be given a transcript of a conversation between two participants engaged in a collaborative object-matching task. There are exactly {num_objects} target objects. One participant (the describer) describes each target object, and the other participant (the matcher) attempts to identify them.
+
+Your task is to extract the descriptive phrases used by the describer for each target object.
+- Extract phrases verbatim from the transcript.
 - Do not extract the whole utterance, only the descriptive phrases.
 - Exclude disfluencies, fillers, and false starts (e.g., "um", "uh", "like").
 - Do not paraphrase or infer missing information.
@@ -110,18 +170,7 @@ Your task is to extract the descriptive phrases used by the describer for each t
 Return the results in the following JSON format:
 
 {{
-    "object_#1": "descriptive phrases for object 1",
-    "object_#2": "descriptive phrases for object 2",
-    "object_#3": "descriptive phrases for object 3",
-    "object_#4": "descriptive phrases for object 4",
-    "object_#5": "descriptive phrases for object 5",
-    "object_#6": "descriptive phrases for object 6",
-    "object_#7": "descriptive phrases for object 7",
-    "object_#8": "descriptive phrases for object 8",
-    "object_#9": "descriptive phrases for object 9",
-    "object_#10": "descriptive phrases for object 10",
-    "object_#11": "descriptive phrases for object 11",
-    "object_#12": "descriptive phrases for object 12"
+{keys}
 }}
 
 Example description phrases:
@@ -133,73 +182,449 @@ Example description phrases:
 
 Transcript:
 
-{transcript_text}
+{transcript}
 
 Output only the JSON object. Do not include any additional text or explanations."""
 
-        print(f"Extracting referring expressions for Round {r_num}...")
+
+def gpt_cache_path(
+    cache_dir: Path, trace_file: Path, session_id: str, round_num: int, model: str
+) -> Path:
+    key = f"{trace_file.resolve()}::{session_id}::{round_num}::{model}"
+    digest = hashlib.sha256(key.encode("utf-8")).hexdigest()[:20]
+    safe_session = re.sub(r"[^A-Za-z0-9_.-]+", "_", session_id)
+    return cache_dir / model / f"{safe_session}_round_{round_num}_{digest}.json"
+
+
+def parse_extraction_json(raw_text: str) -> dict[int, str]:
+    parsed = json.loads(raw_text)
+    expressions = {}
+    for i in range(1, 13):
+        value = parsed.get(f"object_#{i}", "")
+        if isinstance(value, list):
+            value = " ".join(str(item) for item in value)
+        expressions[i] = normalize_phrase(str(value))
+    return expressions
+
+
+def extract_referring_expressions_with_gpt(
+    messages: list[dict[str, Any]],
+    trace_file: Path,
+    session_id: str,
+    round_num: int,
+    config: ExtractionConfig,
+) -> dict[int, str]:
+    cache_path = gpt_cache_path(
+        config.cache_dir, trace_file, session_id, round_num, config.gpt_model
+    )
+    if cache_path.exists() and not config.refresh_cache:
+        cached = json.loads(cache_path.read_text(encoding="utf-8"))
+        return parse_extraction_json(cached["response"])
+
+    try:
+        from dotenv import load_dotenv
+        from openai import OpenAI
+    except ImportError as exc:
+        raise RuntimeError(
+            "GPT extraction requires `openai` and `python-dotenv`; install requirements.txt."
+        ) from exc
+
+    load_dotenv()
+    if not os.getenv("OPENAI_API_KEY"):
+        raise RuntimeError("GPT extraction requires OPENAI_API_KEY.")
+
+    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+    prompt = extraction_prompt(transcript_text(messages))
+    response = client.chat.completions.create(
+        model=config.gpt_model,
+        messages=[{"role": "user", "content": prompt}],
+        response_format={"type": "json_object"},
+    )
+    response_text = response.choices[0].message.content or "{}"
+    expressions = parse_extraction_json(response_text)
+
+    cache_path.parent.mkdir(parents=True, exist_ok=True)
+    cache_path.write_text(
+        json.dumps(
+            {
+                "model": config.gpt_model,
+                "trace_file": str(trace_file),
+                "session_id": session_id,
+                "round": round_num,
+                "response": response_text,
+            },
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+    return expressions
+
+
+def extract_referring_expressions_for_round(
+    messages: list[dict[str, Any]],
+    trace_file: Path,
+    session_id: str,
+    round_num: int,
+    config: ExtractionConfig,
+) -> dict[int, str]:
+    if config.extractor == "deterministic":
+        return extract_referring_expressions(messages)
+    if config.extractor == "gpt":
+        return extract_referring_expressions_with_gpt(
+            messages, trace_file, session_id, round_num, config
+        )
+    raise ValueError(f"Unknown extractor: {config.extractor}")
+
+
+def target_map_for_round(round_data: dict[str, Any]) -> dict[int, int]:
+    grid = round_data.get("shared_grid") or []
+    grid_sorted = sorted(grid, key=lambda cell: (cell.get("row", 0), cell.get("col", 0)))
+    return {
+        index + 1: cell.get("basket_id", index + 1)
+        for index, cell in enumerate(grid_sorted)
+    }
+
+
+def experiment_name(path: Path, input_roots: list[Path]) -> str:
+    for root in input_roots:
         try:
-            response = client.chat.completions.create(
-                model="gpt-5",
-                messages=[{"role": "user", "content": prompt}],
-                response_format={'type': 'json_object'}
-            )
-            res_json = json.loads(response.choices[0].message.content)
-        except Exception as e:
-            print(f"LLM Error: {e}")
-            res_json = {}
+            relative = path.relative_to(root)
+        except ValueError:
+            continue
+        if relative.parts:
+            return root.name
+    parts = path.parts
+    if "experiments" in parts:
+        idx = parts.index("experiments")
+        if idx + 1 < len(parts):
+            return parts[idx + 1]
+    return path.parent.name
+
+
+def analyze_trace(
+    path: Path,
+    input_roots: list[Path],
+    extraction_config: ExtractionConfig,
+    max_round: int | None = None,
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    data = load_json_trace(path)
+    if not data:
+        return [], []
+
+    first_config = data[0].get("config", {})
+    setting = Setting(
+        experiment=experiment_name(path, input_roots),
+        prompt_strategy=first_config.get("prompt_strategy", "unknown"),
+        director_model=first_config.get("ai_director_model", "unknown"),
+        matcher_model=first_config.get("ai_matcher_model", "unknown"),
+    )
+
+    re_history: dict[int, str] = {}
+    rows: list[dict[str, Any]] = []
+    expression_rows: list[dict[str, Any]] = []
+
+    for round_idx, round_data in enumerate(data):
+        round_num = round_data.get("round_number", round_idx + 1)
+        if max_round is not None and round_num > max_round:
+            continue
+        status = round_data.get("status", {})
+        messages = status.get("messages", [])
+        target_map = target_map_for_round(round_data)
+        session_id = round_data.get("session_id", path.parent.name)
+        expressions = extract_referring_expressions_for_round(
+            messages,
+            path,
+            session_id,
+            round_num,
+            extraction_config,
+        )
 
         total_re_len = 0
-        total_overlap = 0.0
+        total_rlo = 0.0
+        total_jaccard = 0.0
         overlap_count = 0
-        
-        for i in range(1, 13):
-            obj_key = f"object_#{i}"
-            re_text = res_json.get(obj_key, "")
-            
-            # Use basket_id to match identity across rounds
-            basket_id = target_map.get(i)
-            if not basket_id:
-                # Fallback to positional tracking if grid not available
-                basket_id = i
+        extracted_count = 0
 
-            # calculate metrics
-            re_len = get_content_word_count(re_text)
-            total_re_len += re_len
-            
-            if r_num > 1 and basket_id in re_history:
-                overlap = calculate_overlap(re_text, re_history[basket_id])
-                total_overlap += overlap
+        for object_num in range(1, 13):
+            re_text = expressions.get(object_num, "")
+            if re_text:
+                extracted_count += 1
+            basket_id = target_map.get(object_num, object_num)
+            re_word_count = get_content_word_count(re_text)
+            total_re_len += re_word_count
+
+            if round_num > 1 and basket_id in re_history:
+                previous_re_text = re_history[basket_id]
+                object_rlo = calculate_relative_lexical_overlap(re_text, previous_re_text)
+                object_jaccard = calculate_jaccard_overlap(re_text, previous_re_text)
+                total_rlo += object_rlo
+                total_jaccard += object_jaccard
                 overlap_count += 1
-                
+            else:
+                previous_re_text = ""
+                object_rlo = 1.0
+                object_jaccard = 0.0
+
             re_history[basket_id] = re_text
-            
-        mean_re_len = total_re_len / 12
-        mean_overlap = total_overlap / overlap_count if overlap_count > 0 else 0.0
-        
-        results.append({
-            "round": r_num,
-            "accuracy": accuracy,
-            "turns": turn_count,
-            "words": total_words,
-            "mean_re_length": mean_re_len,
-            "mean_lexical_overlap": mean_overlap
-        })
+            expression_rows.append(
+                {
+                    "extractor": extraction_config.extractor,
+                    "gpt_model": (
+                        extraction_config.gpt_model
+                        if extraction_config.extractor == "gpt"
+                        else ""
+                    ),
+                    "experiment": setting.experiment,
+                    "prompt_strategy": setting.prompt_strategy,
+                    "director_model": setting.director_model,
+                    "matcher_model": setting.matcher_model,
+                    "session_id": session_id,
+                    "trace_file": str(path),
+                    "round": round_num,
+                    "object_num": object_num,
+                    "basket_id": basket_id,
+                    "referring_expression": re_text,
+                    "previous_referring_expression": previous_re_text,
+                    "re_words": re_word_count,
+                    "relative_lexical_overlap": object_rlo,
+                    "jaccard_lexical_overlap": object_jaccard,
+                }
+            )
 
-    print("\n\n=== ANALYSIS RESULTS ===")
-    print(f"{'Round':<10} {'Accuracy':<10} {'Turns':<10} {'Words':<10} {'Mean RE Len':<15} {'Lexical Overlap':<20}")
-    print("-" * 80)
-    for r in results:
-        print(f"{r['round']:<10} {r['accuracy']:<10.1f} {r['turns']:<10} {r['words']:<10} {r['mean_re_length']:<15.1f} {r['mean_lexical_overlap']:<20.3f}")
+        mean_rlo = total_rlo / overlap_count if overlap_count > 0 else 1.0
+        mean_jaccard = total_jaccard / overlap_count if overlap_count > 0 else 0.0
 
-    import csv
-    csv_file = "metrics.csv"
-    with open(csv_file, mode='w', newline='') as f:
-        writer = csv.DictWriter(f, fieldnames=["round", "accuracy", "turns", "words", "mean_re_length", "mean_lexical_overlap"])
+        rows.append(
+            {
+                "extractor": extraction_config.extractor,
+                "gpt_model": (
+                    extraction_config.gpt_model if extraction_config.extractor == "gpt" else ""
+                ),
+                "experiment": setting.experiment,
+                "prompt_strategy": setting.prompt_strategy,
+                "director_model": setting.director_model,
+                "matcher_model": setting.matcher_model,
+                "session_id": session_id,
+                "trace_file": str(path),
+                "round": round_num,
+                "accuracy": float(status.get("accuracy", 0.0) or 0.0),
+                "turns": int(status.get("turn_count", len(messages)) or 0),
+                "words": sum(get_content_word_count(m.get("text", "")) for m in messages),
+                "re_words": total_re_len,
+                "mean_re_length": total_re_len / 12,
+                "relative_lexical_overlap": mean_rlo,
+                "jaccard_lexical_overlap": mean_jaccard,
+                "extracted_objects": extracted_count,
+            }
+        )
+
+    return rows, expression_rows
+
+
+def find_trace_files(paths: Iterable[Path]) -> list[Path]:
+    files: list[Path] = []
+    for path in paths:
+        if path.is_file():
+            files.append(path)
+        elif path.is_dir():
+            files.extend(path.rglob("*_data.json"))
+    return sorted(set(files))
+
+
+def summarize(rows: list[dict[str, Any]], group_fields: list[str]) -> list[dict[str, Any]]:
+    metric_fields = [
+        "accuracy",
+        "turns",
+        "words",
+        "re_words",
+        "mean_re_length",
+        "relative_lexical_overlap",
+        "jaccard_lexical_overlap",
+        "extracted_objects",
+    ]
+    grouped: dict[tuple[Any, ...], list[dict[str, Any]]] = {}
+    for row in rows:
+        grouped.setdefault(tuple(row[field] for field in group_fields), []).append(row)
+
+    summary_rows: list[dict[str, Any]] = []
+    for key, group in sorted(grouped.items()):
+        out = dict(zip(group_fields, key))
+        out["n_rows"] = len(group)
+        out["n_sessions"] = len({row["session_id"] for row in group})
+        for metric in metric_fields:
+            values = [float(row[metric]) for row in group]
+            out[f"{metric}_mean"] = mean(values)
+            out[f"{metric}_sd"] = stdev(values) if len(values) > 1 else 0.0
+        summary_rows.append(out)
+    return summary_rows
+
+
+def write_csv(path: Path, rows: list[dict[str, Any]]) -> None:
+    if not rows:
+        return
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fieldnames = list(rows[0].keys())
+    with path.open("w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
-        for r in results:
-            writer.writerow(r)
-    print(f"\nResults saved to {csv_file}")
+        writer.writerows(rows)
+
+
+def fmt(value: Any) -> str:
+    if isinstance(value, float):
+        if math.isclose(value, round(value)):
+            return f"{value:.1f}"
+        return f"{value:.3f}"
+    return str(value)
+
+
+def print_setting_summary(rows: list[dict[str, Any]]) -> None:
+    if not rows:
+        print("No trace rows found.")
+        return
+
+    summary = summarize(
+        rows,
+        [
+            "extractor",
+            "gpt_model",
+            "experiment",
+            "prompt_strategy",
+            "director_model",
+            "matcher_model",
+        ],
+    )
+    columns = [
+        "extractor",
+        "gpt_model",
+        "experiment",
+        "director_model",
+        "matcher_model",
+        "n_sessions",
+        "accuracy_mean",
+        "turns_mean",
+        "words_mean",
+        "re_words_mean",
+        "mean_re_length_mean",
+        "relative_lexical_overlap_mean",
+    ]
+    widths = {col: max(len(col), *(len(fmt(row[col])) for row in summary)) for col in columns}
+    print("=== SUMMARY BY PROMPT/MODEL SETTING ===")
+    print("  ".join(col.ljust(widths[col]) for col in columns))
+    print("  ".join("-" * widths[col] for col in columns))
+    for row in summary:
+        print("  ".join(fmt(row[col]).ljust(widths[col]) for col in columns))
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "paths",
+        nargs="*",
+        type=Path,
+        help="Experiment folders or *_data.json traces to analyze.",
+    )
+    parser.add_argument(
+        "--filename",
+        type=Path,
+        help="Backward-compatible alias for a single JSON trace.",
+    )
+    parser.add_argument(
+        "--output-dir",
+        type=Path,
+        default=Path("data/metrics"),
+        help="Directory for CSV outputs.",
+    )
+    parser.add_argument(
+        "--max-round",
+        type=int,
+        help="Only include rounds up to this number, e.g. 4 for paper-style tables.",
+    )
+    parser.add_argument(
+        "--extractor",
+        choices=["deterministic", "gpt"],
+        default="deterministic",
+        help="How to extract referring expressions.",
+    )
+    parser.add_argument(
+        "--gpt-model",
+        default="gpt-5.5",
+        help="Model used when --extractor gpt.",
+    )
+    parser.add_argument(
+        "--gpt-cache-dir",
+        type=Path,
+        default=None,
+        help="Cache directory for GPT extraction responses.",
+    )
+    parser.add_argument(
+        "--refresh-gpt-cache",
+        action="store_true",
+        help="Re-run GPT extraction even when a cached response exists.",
+    )
+    return parser.parse_args()
+
+
+def main() -> None:
+    args = parse_args()
+    paths = list(args.paths)
+    if args.filename:
+        paths.append(args.filename)
+    if not paths:
+        paths = [Path("data/experiments/ACL"), Path("data/experiments/Cameron-style")]
+
+    trace_files = find_trace_files(paths)
+    extraction_config = ExtractionConfig(
+        extractor=args.extractor,
+        gpt_model=args.gpt_model,
+        cache_dir=args.gpt_cache_dir or (args.output_dir / "gpt_re_cache"),
+        refresh_cache=args.refresh_gpt_cache,
+    )
+    rows: list[dict[str, Any]] = []
+    expression_rows: list[dict[str, Any]] = []
+    for trace_file in trace_files:
+        trace_rows, trace_expression_rows = analyze_trace(
+            trace_file,
+            paths,
+            extraction_config=extraction_config,
+            max_round=args.max_round,
+        )
+        rows.extend(trace_rows)
+        expression_rows.extend(trace_expression_rows)
+
+    round_summary = summarize(
+        rows,
+        [
+            "extractor",
+            "gpt_model",
+            "experiment",
+            "prompt_strategy",
+            "director_model",
+            "matcher_model",
+            "round",
+        ],
+    )
+    setting_summary = summarize(
+        rows,
+        [
+            "extractor",
+            "gpt_model",
+            "experiment",
+            "prompt_strategy",
+            "director_model",
+            "matcher_model",
+        ],
+    )
+
+    write_csv(args.output_dir / "referring_expressions.csv", expression_rows)
+    write_csv(args.output_dir / "metrics_by_session_round.csv", rows)
+    write_csv(args.output_dir / "metrics_by_setting_round.csv", round_summary)
+    write_csv(args.output_dir / "metrics_by_setting.csv", setting_summary)
+
+    print(f"Analyzed {len(trace_files)} trace files and {len(rows)} rounds.")
+    print_setting_summary(rows)
+    print(f"\nCSV outputs written to {args.output_dir}")
+
 
 if __name__ == "__main__":
     main()

@@ -69,8 +69,10 @@ This script will automatically query `data.sqlite`, safely traverse all historic
 
 ## Simulation Parameters & Model Swapping
 
-The simulation allows you to easily plug and play with different language models (e.g. `gpt-4o-mini`, `gpt-5.2`, `gemini-3-flash-preview`).
+The simulation allows you to easily plug and play with different language models (e.g. `gpt-4o-mini`, `gpt-5`, `gpt-5.2`, `gemini-3-flash-preview`).
 
 You can select the specific models you want for the **Director** and the **Matcher** individually directly from the dropdowns on the web interface dashboard before clicking "Start Simulation". Alternatively, you can override default behavior in `main.py`'s `start_game` route or set the `AI_DIRECTOR_MODEL` and `AI_MATCHER_MODEL` environment variables.
+
+For headless runs, pass `--model gpt-5` or use `--director-model gpt-5 --matcher-model gpt-5`. You can also set `--reasoning-effort minimal|low|medium|high` for GPT-5 family experiments.
 
 API prompt strategies and reasoning efforts can additionally be configured per-session within the code configurations. Presets for the underlying basket grids can be tweaked inside the `referential_task/grids_presetsN.json` files.

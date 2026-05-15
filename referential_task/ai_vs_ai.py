@@ -23,8 +23,9 @@ from .sequence import _update_ai_partial_sequence
 from .visual_context import _inject_visual_grid_context
 
 
-# Models that support the reasoning_effort parameter (GPT-5.2+)
+# Models that support the reasoning_effort parameter.
 GPT_5_2_MODELS = frozenset({
+    "gpt-5",
     "gpt-5.2",
     "gpt-5.2-mini",
     "gpt-5.2-chat-latest",
@@ -38,7 +39,7 @@ GPT_5_2_MODELS = frozenset({
 def _is_gpt_5_2_model(model: str) -> bool:
     """Check if a model supports GPT-5.x API features (reasoning_effort).
     
-    Returns True for GPT-5.2, GPT-5.4, GPT-5.5, and any future GPT-5.x models that
+    Returns True for GPT-5, GPT-5.2, GPT-5.4, GPT-5.5, and GPT-5 snapshots that
     support the reasoning_effort parameter.
     """
     if not model:
@@ -46,13 +47,26 @@ def _is_gpt_5_2_model(model: str) -> bool:
     # Exact match in known set
     if model in GPT_5_2_MODELS:
         return True
-    # Pattern match for supported GPT-5.x variants.
+    # Pattern match for GPT-5 snapshots plus supported GPT-5.x variants.
     model_lower = model.lower()
     return (
-        model_lower.startswith("gpt-5.2")
+        model_lower == "gpt-5"
+        or model_lower.startswith("gpt-5-")
+        or model_lower.startswith("gpt-5.2")
         or model_lower.startswith("gpt-5.4")
         or model_lower.startswith("gpt-5.5")
     )
+
+
+def _reasoning_effort_for_api(model: str, reasoning_effort: str | None) -> str | None:
+    """Return a reasoning_effort value that is valid to send for a model."""
+    if not _is_gpt_5_2_model(model):
+        return None
+    effort = reasoning_effort or "none"
+    model_lower = model.lower() if model else ""
+    if effort == "none" and (model_lower == "gpt-5" or model_lower.startswith("gpt-5-")):
+        return None
+    return effort
 
 
 def _uses_max_completion_tokens(model: str) -> bool:
@@ -141,7 +155,7 @@ def _build_api_call_kwargs(
     model_lower = model.lower() if model else ""
     is_o_series = model_lower.startswith(("o1", "o3"))
     reasoning_effort = _get_reasoning_effort(player) if _is_gpt_5_2_model(model) else "none"
-    is_reasoning_mode = is_o_series or (reasoning_effort != "none")
+    is_reasoning_mode = is_o_series or _is_gpt_5_2_model(model) or (reasoning_effort != "none")
     
     # Only add temperature for non-reasoning models (reasoning models only support temperature=1)
     if temperature is not None and not is_reasoning_mode:
@@ -164,9 +178,9 @@ def _build_api_call_kwargs(
         else:
             kwargs["response_format"] = response_format
     
-    # Add reasoning_effort for GPT-5.2+ models only
-    if _is_gpt_5_2_model(model):
-        kwargs["reasoning_effort"] = reasoning_effort
+    api_reasoning_effort = _reasoning_effort_for_api(model, reasoning_effort)
+    if api_reasoning_effort is not None:
+        kwargs["reasoning_effort"] = api_reasoning_effort
     
     return kwargs
 
@@ -321,15 +335,12 @@ def generate_ai_vs_ai_reply(
         # Get current round info
         current_round = getattr(player, "round_number", 1) or 1
 
-        # If using cross-round history, gather from all rounds
-        use_cross_round_history = False
-        try:
-            if hasattr(player, "session") and player.session:
-                use_cross_round_history = bool(
-                    player.session.config.get("cross_round_history", False)
-                )
-        except Exception:
-            use_cross_round_history = False
+        # Cross-round history is part of the experimental design: later rounds
+        # should preserve the partner dialogue and lightweight score feedback
+        # from earlier rounds so agents can form reusable conventions. Do not
+        # gate this on session config; older batch configs omitted the flag and
+        # silently ran stateless across rounds.
+        use_cross_round_history = True
 
         feedback_msgs = []
         if use_cross_round_history:
@@ -362,9 +373,9 @@ def generate_ai_vs_ai_reply(
                         feedback_msgs.append({
                             "text": (
                                 f"[ROUND {round_num} COMPLETE: {correct_count}/12 correct. "
-                                f"NOTE: The baskets have been RESHUFFLED for the next round - "
-                                f"position numbers no longer correspond to the same baskets. "
-                                f"Learn from communication strategies, but describe baskets fresh from the new image.]"
+                                f"NOTE: The basket positions have been RESHUFFLED for the next round. "
+                                f"Keep any useful shared names or descriptions you established, "
+                                f"but verify each basket's NEW position from the current round image.]"
                             ),
                             "sender_role": "system",
                             "round_number": round_num,

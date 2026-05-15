@@ -1,0 +1,314 @@
+================================================================================
+SESSION TRANSCRIPT REPORT
+================================================================================
+
+Pair ID:        gpt5.5-acl_142301_5
+Session Code:   gpt5.5-acl_142301_5
+Source File:    data/experiments/ACL/2026-05-14/gpt5.5-acl/gpt5.5-acl_142301_5/gpt5.5-acl_142301_5_data.json
+
+SESSION CONFIGURATION:
+  ai_vs_ai_mode: True
+  director_view: grid
+  basket_set: 5
+  num_rounds: 5
+  session_prefix: gpt5.5-acl
+  prompt_strategy: ACL_prompt
+  ai_director_model: gpt-5.5
+  ai_matcher_model: gpt-5.5
+  ai_reasoning_effort: none
+
+OVERALL ACCURACY: 98.3% (avg across 5 rounds)
+
+================================================================================
+
+ROUND 1
+----------------------------------------
+Accuracy: 100.0%
+
+DIALOGUE:
+--------------------
+[15:11:42] DIRECTOR: Basket 1 is the tan wicker animal-shaped one, like a little mouse/hamster facing right, with a pointed snout, small ear on top, dark bead eye, and an oval opening on its back.
+
+[15:11:46] MATCHER: I found it—the tan animal-shaped basket with the bead eye and oval back opening. Placing it in position 1.
+
+[15:11:50] DIRECTOR: Basket 2 is a deep round orange-brown basket with a thick, very dark almost black arched handle and a grayish band around the rim.
+
+[15:11:55] MATCHER: I think I found it: the deep round orange-brown basket with the thick dark arch handle and grayish rim band. Placing it in position 2.
+
+[15:12:01] DIRECTOR: Basket 3 is a rectangular picnic-style wicker basket with slatted sides, a tall upright woven handle/divider in the center, and another wrapped handle slanting diagonally down to the right.
+
+[15:12:06] MATCHER: I found it—the rectangular picnic-style basket with the upright center divider and diagonal folded handle. Placing it in position 3; please describe basket 4 when ready.
+
+[15:12:12] DIRECTOR: Basket 4 is a small oval open basket with pale cream-and-tan wicker, a thin high arched handle, and little reddish-brown tie accents where the handle attaches.
+
+[15:12:17] MATCHER: I think I found it: the small oval cream-and-tan open basket with the thin high handle and reddish-brown ties at the attachments. Placing it in position 4; please describe basket 5 when ready.
+
+[15:12:22] DIRECTOR: Basket 5 is a low rectangular golden-brown wicker basket with a big thick twisted rope-like arch handle and a chunky open weave around the top.
+
+[15:12:28] MATCHER: I think I found it—the low rectangular golden-brown basket with the big twisted rope-like arch handle and chunky open weave at the top. Placing it in position 5; please describe basket 6 when ready.
+
+[15:12:33] DIRECTOR: Basket 6 is another animal-shaped one, but it’s round and front-facing like a little cat/hamster head, with red bead eyes, whisker details, small ears on top, and tiny feet at the bottom.
+
+[15:12:39] MATCHER: I found the round front-facing animal basket with red bead eyes, whiskers, little ears, and tiny feet. Placing it in position 6; please describe basket 7 when ready.
+
+[15:12:44] DIRECTOR: Basket 7 is a rectangular open basket with dark green woven sides, tan braided trim along the top and bottom edges, and one medium-brown arched handle.
+
+[15:12:49] MATCHER: I found it—the rectangular basket with dark green sides, tan braided trim, and one brown arched handle. Placing it in position 7; please describe basket 8 when ready.
+
+[15:12:54] DIRECTOR: Basket 8 is a compact rectangular open basket in dark gray-brown wicker, with pale horizontal streaks and a dark almost black arched handle—much grayer/darker than the green basket 7.
+
+[15:12:59] MATCHER: I think I found it—the compact gray-brown rectangular basket with pale streaks and a dark arched handle. Placing it in position 8; please describe basket 9 when ready.
+
+[15:13:04] DIRECTOR: Basket 9 is a tall cylindrical brown wicker basket, open at the top, with straight vertical sides and two small loop handles near the rim on opposite sides.
+
+[15:13:09] MATCHER: I think I found it—the tall straight-sided cylindrical brown wicker basket with two small loop handles near the rim. Placing it in position 9; please describe basket 10 when ready.
+
+[15:13:15] DIRECTOR: Basket 10 is a very shallow round tray-like basket with a visible spiral woven base, a single pale arched handle, and a reddish-brown outer rim.
+
+[15:13:21] MATCHER: I think I found it—the very shallow round tray basket with the spiral base, pale arched handle, and reddish-brown rim. Placing it in position 10; please describe basket 11 when ready.
+
+[15:13:27] DIRECTOR: Basket 11 is an open oval tub-shaped basket, medium-tall, with two small upright loop handles on the left and right sides—no big arch handle—and a tight tan-brown weave with a dark hollow interior.
+
+[15:13:32] MATCHER: I think I found it—the medium-tall oval tub basket with two small side loop handles and no big arch handle. Placing it in position 11; please describe basket 12 when ready.
+
+[15:13:37] DIRECTOR: Basket 12 is a small rounded-rectangular open basket in light peachy wicker, with one smooth arched handle and grayish vertical weaving visible inside.
+
+[15:13:42] MATCHER: I found it—the small rounded-rectangular light peachy open basket with one smooth arched handle and grayish vertical weaving inside. Placing it in position 12; I think the sequence is complete now.
+
+================================================================================
+
+ROUND 2
+----------------------------------------
+Accuracy: 100.0%
+
+DIALOGUE:
+--------------------
+[15:13:49] DIRECTOR: Basket 1 is the rectangular tan picnic basket with one tall upright handle in the middle and another handle folded diagonally down to the right; you can see a dark open interior on the right side. Let me know when you’ve got it.
+
+[15:13:54] MATCHER: I think I found it—the rectangular tan picnic basket with one handle upright and the other folded diagonally over the right side. I’m placing it in position 1.
+
+[15:14:00] DIRECTOR: Great. Basket 2 is a tall, straight-sided cylindrical wicker basket, dark brown, like a bucket, with small loop handles on both sides near the top and an open rim. Please place that in position 2.
+
+[15:14:06] MATCHER: I think I found it—the tall dark cylindrical wicker bucket with small loop handles at the top. I’m placing it in position 2.
+
+[15:14:11] DIRECTOR: Basket 3 is a squat rounded open basket, orange-brown, with a single thick dark-brown arch handle over it and a grayish rim band around the top. Place that in position 3 when you’ve got it.
+
+[15:14:16] MATCHER: I think I found it—the squat orange-brown basket with the thick dark arch handle and grayish rim band. I’m placing it in position 3.
+
+[15:14:24] DIRECTOR: Basket 4 is a small golden rectangular basket with a high twisted rope-like handle and chunky open lattice weaving around the rim. Put that in position 4.
+
+[15:14:29] MATCHER: I think I found it—the small golden basket with the high twisted rope-like handle and chunky open lattice rim. I’m placing it in position 4.
+
+[15:14:35] DIRECTOR: Basket 5 is the small rounded rectangular basket with a dark gray-brown woven body, lighter pale wicker at the bottom edge, and one black/dark arched handle over the top. Place it in position 5.
+
+[15:14:39] MATCHER: I think I found it—the small dark gray-brown rounded basket with the pale bottom edge and dark arched handle. I’m placing it in position 5.
+
+[15:14:45] DIRECTOR: Basket 6 is the tan wicker duck-shaped basket: a rounded oval body with the bird head sticking out to the right, a small dark eye, and an oval opening/lid on top. Place that in position 6.
+
+[15:14:50] MATCHER: I think I found it—the tan duck-shaped wicker basket with the head sticking out to the right and an oval opening on top. I’m placing it in position 6.
+
+[15:14:55] DIRECTOR: Great. Basket 7 is another animal basket, but this one is round and seen more from above/front: a tan chicken/duck shape with a circular woven lid pattern, little face details near the upper right, and small feet at the bottom. Place it in position 7.
+
+[15:15:01] MATCHER: I think I found it—the round tan animal basket with the circular woven lid pattern, face details near the upper right, and little feet. I’m placing it in position 7.
+
+[15:15:06] DIRECTOR: Basket 8 is a very shallow oval tray basket, seen from above, with a flat spiral woven bottom and one pale tan arch handle; the side rim is low and reddish-brown. Place that in position 8.
+
+[15:15:12] MATCHER: I think I found it—the very shallow oval tray with the spiral woven bottom, low reddish-brown rim, and one pale tan arch handle. I’m placing it in position 8.
+
+[15:15:18] DIRECTOR: Basket 9 is a rectangular boxy basket with dark greenish-black woven sides, an orange-brown rim/base, and one brown arch handle over the top. Place that in position 9.
+
+[15:15:24] MATCHER: I think I found it—the rectangular dark greenish-black basket with orange-brown rim/base and one brown arch handle. I’m placing it in position 9.
+
+[15:15:31] DIRECTOR: Basket 10 is a round open cylindrical wicker basket, tan-brown, with two short rope handles on the sides and a dark horizontal band near the bottom—no big arch handle. Place that in position 10.
+
+[15:15:41] MATCHER: I think I found it—the open round tan-brown cylindrical basket with two short side handles, a dark band near the bottom, and no tall arch handle. I’m placing it in position 10.
+
+[15:15:47] DIRECTOR: Basket 11 is a small oval handled basket, mostly pale/white wicker with yellow-brown bands, and a thin upright arch handle with wrapped joints plus little reddish ties near the sides. Place that in position 11.
+
+[15:15:52] MATCHER: I think I found it—the small mostly pale oval handled basket with yellow-brown bands, wrapped handle joints, and little reddish ties near the sides. I’m placing it in position 11.
+
+[15:15:57] DIRECTOR: Great. Basket 12 is the light pinkish-tan rounded rectangular basket with vertical ribbed sides and one thick arch handle—much lighter than the dark rectangular one. Place it in position 12.
+
+[15:16:03] MATCHER: I think I found it—the light pinkish-tan rounded rectangular basket with vertical ribbed sides and one thick arch handle. I’m placing it in position 12.
+
+[15:16:09] DIRECTOR: Yes, that’s basket 12. Looks good—go ahead and submit the full sequence when you’re ready.
+
+[15:16:14] MATCHER: All positions are filled and confirmed. I’m submitting the full sequence now.
+
+================================================================================
+
+ROUND 3
+----------------------------------------
+Accuracy: 100.0%
+
+DIALOGUE:
+--------------------
+[15:16:21] DIRECTOR: Basket 1 is the rectangular handled basket with a dark greenish-black woven body, tan vertical ribs, and a thick arched handle over a braided tan rim.
+
+[15:16:25] MATCHER: I found it and placed the rectangular dark greenish-black basket with the thick arched handle in position 1.
+
+[15:16:31] DIRECTOR: Great. Basket 2 is the small oval light wicker picnic basket: cream-and-tan weave, with two tall thin arched handles that have pale wrap bands near the top and little dark side straps.
+
+[15:16:37] MATCHER: I think I found it: the small cream-and-tan oval basket with two thin arched handles and pale wrap bands. I placed it in position 2; please describe basket 3.
+
+[15:16:44] DIRECTOR: Basket 3 is the round flat light-golden wicker one shaped like an animal face—front view, with two dark eyes/ear spots near the top and reddish whisker-like lines, plus tiny feet at the bottom.
+
+[15:16:50] MATCHER: I found the front-facing round light-golden animal-face basket with dark spots near the top, reddish whisker lines, and tiny feet; I placed it in position 3. Please describe basket 4.
+
+[15:16:56] DIRECTOR: Basket 4 is another animal-shaped wicker piece, but in side profile: a squat golden-brown rounded body with a protruding head/snout to the right, a small dark eye, and an oval opening on top/back—no handle.
+
+[15:17:01] MATCHER: I found the side-profile animal-shaped wicker piece with the head pointing right, small dark eye, top opening, and no handle; I placed it in position 4. Please describe basket 5.
+
+[15:17:06] DIRECTOR: Basket 5 is the pinkish-tan rectangular basket with rounded corners, one thick arched handle, and a visible grayish vertical-slat interior around the open top.
+
+[15:17:12] MATCHER: I think I found it—the pinkish-tan rectangular rounded basket with the thick arched handle and grayish slatted interior. I placed it in position 5; please describe basket 6.
+
+[15:17:18] DIRECTOR: Basket 6 is a tall upright cylindrical wicker basket, like a small hamper, with an open top, two little loop handles on the sides, and rectangular lattice/window gaps around the upper rim.
+
+[15:17:25] MATCHER: I found it—the tall cylindrical open hamper with small side loop handles and rectangular window gaps near the top. I placed it in position 6; please describe basket 7.
+
+[15:17:30] DIRECTOR: Basket 7 is a deep round bucket-shaped basket, orange-brown and weathered-looking, with one dark glossy semicircular handle over the top and a short flat rim.
+
+[15:17:36] MATCHER: I think I found it—the deep weathered orange-brown bucket basket with the dark glossy semicircular handle. I placed it in position 7; please describe basket 8.
+
+[15:17:41] DIRECTOR: Basket 8 is a low rectangular gray-brown basket with a single thin dark arched handle, pale horizontal bands across the front, and a darker muted weave overall.
+
+[15:17:47] MATCHER: I think I found it—the low gray-brown rectangular basket with the thin dark arched handle and pale horizontal bands. I placed it in position 8; please describe basket 9.
+
+[15:17:53] DIRECTOR: Basket 9 is the small shallow rectangular honey-orange basket with a chunky twisted rope-like arched handle and a very open square checker weave on the front.
+
+[15:17:58] MATCHER: I found the small shallow honey-orange rectangular basket with the chunky twisted rope arch and open square checker front; I placed it in position 9. Please describe basket 10.
+
+[15:18:04] DIRECTOR: Basket 10 is a tall open round basket with straight-ish sides, tight tan-brown weave, and two braided loop handles sticking up on the left and right sides.
+
+[15:18:09] MATCHER: I think I found it—the tall open round tan-brown basket with two short braided loop handles on the sides. I placed it in position 10; please describe basket 11.
+
+[15:18:15] DIRECTOR: Basket 11 is a shallow round tray-like basket, very low and wide, with a flat spiral weave in the bottom and one pale arched handle over it; it has reddish-brown accents around the rim.
+
+[15:18:20] MATCHER: I think I found it—the very shallow round tray basket with the flat spiral bottom, one pale arched handle, and reddish-brown rim accents. I placed it in position 11; please describe basket 12.
+
+[15:18:26] DIRECTOR: Basket 12 is a golden rectangular picnic-style basket with a fitted lid and one upright handle/strap over the top; the right side looks dark/open, like the lid or side is tilted up.
+
+[15:18:33] MATCHER: I found it—the golden rectangular picnic-style basket with the fitted lid, upright top strap, and dark open-looking right side. I placed it in position 12 and I’m ready to submit the sequence.
+
+================================================================================
+
+ROUND 4
+----------------------------------------
+Accuracy: 91.7%
+
+DIALOGUE:
+--------------------
+[15:18:39] DIRECTOR: Basket 1 is the very shallow, wide oval tray-like wicker basket with a flat spiral-woven bottom and one pale arching handle over it. Low rim, open and saucer-shaped.
+
+[15:18:44] MATCHER: I think I found it: the shallow oval tray with the spiral bottom and one pale arch handle. I’m placing that in position 1; please describe basket 2.
+
+[15:18:48] DIRECTOR: Basket 2 is a low rectangular golden-brown basket with a thick twisted rope-like arch handle and chunky open lattice weave with square gaps.
+
+[15:18:53] MATCHER: I think I found it—the squat rectangular golden-brown basket with the thick twisted arch handle and open square lattice. I’m placing it in position 2; please describe basket 3.
+
+[15:18:58] DIRECTOR: Basket 3 is the animal-shaped one: a tan wicker duck/bird with a rounded body, head and beak sticking out to the right, a small dark eye, and an oval opening on top of its back.
+
+[15:19:03] MATCHER: I think I found it—the tan wicker duck/bird with the beak pointing right and oval opening on its back. I’m placing it in position 3; please describe basket 4.
+
+[15:19:09] DIRECTOR: Basket 4 is a rectangular handled basket with dark greenish-black woven side panels, brown wicker top and bottom rims, and one brown arch handle—more boxy and darker-sided than the other handled baskets.
+
+[15:19:13] MATCHER: I think I found it: the boxy rectangular basket with dark greenish-black side panels and one brown arch handle. I’m placing it in position 4; please describe basket 5.
+
+[15:19:18] DIRECTOR: Basket 5 is a round open cylindrical basket, like a small tub, with two short upright loop handles on the sides. It has tight tan-brown weaving and a darker band near the bottom—no big arch handle.
+
+[15:19:23] MATCHER: I think I found it—the round open tub basket with two small side loop handles and a darker band near the bottom. I’m placing it in position 5; please describe basket 6.
+
+[15:19:29] DIRECTOR: Basket 6 is a deep rounded bucket-shaped wicker basket with a thick dark almost black arch handle, orange-brown body, and a pale/gray band around the top rim.
+
+[15:19:34] MATCHER: I think I found it—the deep orange-brown bucket basket with the thick dark arch handle and pale/gray top rim band. I’m placing it in position 6; please describe basket 7.
+
+[15:19:39] DIRECTOR: Basket 7 is the tall upright cylindrical hamper—medium-dark brown, open at the top, with two small loop handles near the rim and lots of vertical slat-like wicker strips down the sides.
+
+[15:19:44] MATCHER: I think I found it—the tall straight-sided open hamper with two small loop handles near the rim and vertical slat-like sides. I’m placing it in position 7; please describe basket 8.
+
+[15:19:50] DIRECTOR: Basket 8 is the yellow-golden rectangular picnic basket: it has a closed/hinged lid look, with a thick upright handle rising from the center and lid panels/handle pieces angled on top.
+
+[15:19:56] MATCHER: I think I found it—the yellow-golden rectangular picnic basket with the thick upright center handle and angled lid pieces. I’m placing it in position 8; please describe basket 9.
+
+[15:20:03] DIRECTOR: Basket 9 is the pale blond round lidded basket, almost top-down view, with a central flower/starburst weave on the lid, small red/dark accents near the top, and little feet underneath.
+
+[15:20:08] MATCHER: I think I found it—the pale round lidded basket viewed from above with the starburst lid, small red/dark accents, and little feet. I’m placing it in position 9; please describe basket 10.
+
+[15:20:14] DIRECTOR: Basket 10 is a small oval/boat-shaped basket with light cream-and-brown banded weaving, a thin tall arch handle with dark/red wraps near the sides, and some loose straw strands hanging off the left side.
+
+[15:20:19] MATCHER: I think I found it—the small oval cream-and-brown banded basket with the thin tall handle and dark wraps near the sides. I’m placing it in position 10; please describe basket 11.
+
+[15:20:25] DIRECTOR: Basket 11 is a warm pinkish-tan open carrying basket with a rounded rectangular body and one thick smooth arch handle. It’s fairly plain and uniform—no dark bands, no side loops, and not the cream-striped one.
+
+[15:20:30] MATCHER: I think I found it—the plain warm pinkish-tan rounded rectangular open basket with one thick smooth arch handle and no dark bands. I’m placing it in position 11; please describe basket 12.
+
+[15:20:36] DIRECTOR: Basket 12 is a rectangular open basket with a dark, almost black twisted arch handle and strong striped weaving—dark brown bands alternating with pale beige bands. It’s darker and more contrasty than the plain tan basket 11.
+
+[15:20:42] MATCHER: I found it—the darker rectangular open basket with the almost black twisted handle and strong dark/pale striped weaving. I’m placing it in position 12; that completes the sequence on my side.
+
+[15:20:46] DIRECTOR: Great—that completes all 12 in order. Go ahead and submit the sequence when you’re ready.
+
+[15:20:51] MATCHER: All 12 are filled in order. I’m submitting the sequence now.
+
+================================================================================
+
+ROUND 5
+----------------------------------------
+Accuracy: 100.0%
+
+DIALOGUE:
+--------------------
+[15:20:56] DIRECTOR: Basket 1 is a dark rectangular woven basket with a thick dark arching handle, a brown rim band near the top, and a lighter straw-colored strip along the bottom.
+
+[15:21:00] MATCHER: I think I found it—the dark rectangular basket with the black arched handle and pale strip at the bottom. I’m placing it in position 1.
+
+[15:21:06] DIRECTOR: Great. Basket 2 is a small light tan oval basket, like a little boat, with two thin upright handles rising high and a darker rim accent around the open top.
+
+[15:21:11] MATCHER: I think I found it, but I’m between a few handled oval baskets. Does this one have white/light weaving on the front and two tall thin handles tied together at the top? If so I’ll place it in position 2.
+
+[15:21:16] DIRECTOR: Yes—that’s basket 2: small oval with very pale/white weaving on the front and two tall thin handles that meet/tie near the top. Place it in position 2.
+
+[15:21:21] MATCHER: Got it—I’m placing the small oval basket with the very pale front weaving and two tall thin handles in position 2. Please describe basket 3 when ready.
+
+[15:21:26] DIRECTOR: Basket 3 is a deep round open bin, honey-brown, with tight diagonal weaving and two small loop handles on the left and right near the rim—no big arch handle.
+
+[15:21:31] MATCHER: I think I found it—the deep round open bin with tight diagonal weave and two small side loop handles, no arch handle. I’m placing it in position 3. Please describe basket 4 when ready.
+
+[15:21:37] DIRECTOR: Basket 4 is a rounded pot-shaped basket with a thick very dark/black arch handle, an orange-brown woven body, and a dark band/rim around the top.
+
+[15:21:43] MATCHER: I think I found it—the rounded pot-like basket with the almost black arch handle and dark top rim. I’m placing it in position 4; please describe basket 5 when ready.
+
+[15:21:48] DIRECTOR: Basket 5 is a tall straight cylindrical wicker basket, medium brown, with two small loop handles at the top sides and little square window-like gaps around the upper band—no big arch handle.
+
+[15:21:54] MATCHER: I think I found it—the tall straight cylindrical wicker basket with small side loop handles and window-like gaps near the top. I’m placing it in position 5; please describe basket 6 when ready.
+
+[15:21:58] DIRECTOR: Basket 6 is a bright golden, low rectangular tray basket with a big high twisted rope-like arch handle and chunky open lattice weaving across the front.
+
+[15:22:05] MATCHER: I think I found it—the bright golden low rectangular tray with the high twisted rope-like handle and chunky open lattice front. I’m placing it in position 6; please describe basket 7 when ready.
+
+[15:22:11] DIRECTOR: Basket 7 is a light peach-tan rounded rectangular open basket with a single smooth thick arch handle and plain vertical wicker sides—no dark bands, no lid, not animal-shaped.
+
+[15:22:18] MATCHER: I think I found it—the light peach-tan rounded rectangular open basket with the single smooth arch handle and plain vertical sides. I’m placing it in position 7; please describe basket 8 when ready.
+
+[15:22:23] DIRECTOR: Basket 8 is the animal-shaped one: a golden wicker duck or bird basket with a rounded closed body, a head sticking out to the right with a dark eye and pointed beak, and no handle.
+
+[15:22:28] MATCHER: I think I found it—the golden wicker duck-shaped basket with the head pointing right, dark eye, pointed beak, and no handle. I’m placing it in position 8; please describe basket 9 when ready.
+
+[15:22:33] DIRECTOR: Basket 9 is a pale golden round lidded basket seen from above, with a flower/star pattern on the lid including small red accents, little feet at the bottom, and no visible handle.
+
+[15:22:39] MATCHER: I think I found it—the pale golden round lidded basket with red accents in the pattern and little feet, no handle. I’m placing it in position 9; please describe basket 10 when ready.
+
+[15:22:46] DIRECTOR: Basket 10 is a rectangular yellow-brown picnic-style basket with a tall upright woven handle/divider in the center and another handle folded diagonally down to the right, with darker open interior slats.
+
+[15:22:51] MATCHER: I think I found it—the rectangular picnic-style basket with the upright center divider/handle and the other handle folded diagonally down to the right. I’m placing it in position 10; please describe basket 11 when ready.
+
+[15:22:59] DIRECTOR: Basket 11 is a shallow oval tray basket, light tan with a spiral woven base, reddish-brown accents around the rim, and one pale arch handle over it—much flatter than the deeper handled baskets.
+
+[15:23:04] MATCHER: I think I found it—the very shallow oval tray with the spiral base, reddish rim accents, and pale arch handle. I’m placing it in position 11; please describe basket 12 when ready.
+
+[15:23:09] DIRECTOR: Basket 12 is a boxy rectangular basket with dark greenish-brown woven sides, an orange-brown braided rim and base, and one medium arch handle—darker and more square than the other handled baskets.
+
+[15:23:14] MATCHER: I think I found it—the darker, boxy rectangular basket with greenish-brown sides, orange-brown braided rim/base, and one arch handle. I’m placing it in position 12 and the full sequence should be ready to submit.
+
+================================================================================

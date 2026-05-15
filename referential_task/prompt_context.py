@@ -328,10 +328,11 @@ def _build_ai_messages_from_history(
                 # Insert marker for previous round history
                 if msg_round < current_round:
                     boundary_text = (
-                        f"═══ ROUND {msg_round} HISTORY (PAST - DIFFERENT BASKETS) ═══\n"
-                        f"The following messages are from Round {msg_round}, which had a DIFFERENT basket arrangement. "
-                        f"Learn from the communication strategies and terminology that worked, but do NOT reuse "
-                        f"descriptions literally - the baskets are in different positions now."
+                        f"═══ ROUND {msg_round} HISTORY (PAST ROUND - POSITIONS CHANGED) ═══\n"
+                        f"The following messages are from Round {msg_round}. Baskets may recur across rounds, "
+                        f"but their position numbers change after reshuffling. Reuse helpful shared names, "
+                        f"descriptions, and conventions from this history, while using the current round image "
+                        f"to determine the active position order."
                     )
                     messages.append({"role": "user", "content": boundary_text})
                 elif msg_round == current_round and last_seen_round is not None:
