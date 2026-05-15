@@ -19,4 +19,3 @@ data.sqlite
 # data/exported_sessions/
 # data/old/
 prompt_exports/
-data.sqlite
