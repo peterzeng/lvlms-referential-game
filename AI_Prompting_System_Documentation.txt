@@ -31,7 +31,7 @@ Matcher view:
 
 ACL_prompt
 ----------
-Implementation: `referential_task/ACL_prompt.py`
+Implementation: `referential_task/prompts/acl.py`
 
 ACL_prompt owns:
 - Role-specific Director/Matcher instructions.
@@ -47,7 +47,7 @@ chain-of-thought. Only `utterance` is shown to the participant; `selection` and
 
 cameron-prompt
 --------------
-Implementation: `referential_task/cameron_prompt.py`
+Implementation: `referential_task/prompts/cameron.py`
 
 The Cameron strategy is the humanlike single-agent prompt baseline. It uses the
 same developer-message instruction hierarchy and visual context injection as
@@ -59,10 +59,9 @@ ACTIVE STRATEGY NAMES
 ---------------------
 - `ACL_prompt`
 - `cameron-prompt`
-- `cameron_prompt`
 
-Removed historical strategy names are normalized to `ACL_prompt` to prevent old
-saved configs from crashing the app.
+Historical strategy names are no longer accepted. Runtime configuration should
+use only `ACL_prompt` or `cameron-prompt`.
 
 
 TECHNICAL NOTES

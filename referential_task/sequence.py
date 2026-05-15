@@ -6,7 +6,12 @@ from typing import Any
 from .state import Player
 from .visual_context import _load_matcher_pool_image_urls
 
-def _update_ai_partial_sequence(player: Player, selection: dict[str, Any] | None):
+def _update_ai_partial_sequence(
+    player: Player,
+    selection: dict[str, Any] | None,
+    *,
+    allow_move: bool = True,
+):
     """
     Update the group's incremental AI matcher sequence based on a single
     basket choice for the current turn.
@@ -17,6 +22,12 @@ def _update_ai_partial_sequence(player: Player, selection: dict[str, Any] | None
     Returns a tuple of (updated_partial_sequence, vacated_position).
     vacated_position is an int if a move caused a previously filled position
     to become empty, or None otherwise.
+
+    When allow_move is False, selecting a candidate that is already placed in
+    another position is treated as an accidental duplicate and ignored. This
+    prevents late-round loops where the model says it is filling the last slot
+    but reuses a candidate already sitting elsewhere, causing positions to
+    alternate between filled and empty.
     """
     # `selection` must be a dict with fields
     #   {"candidate_index": int|None, "position": int|None, ...}
@@ -117,6 +128,9 @@ def _update_ai_partial_sequence(player: Player, selection: dict[str, Any] | None
         if same_image or same_orig:
             previous_pos = item_pos
             break
+
+    if previous_pos is not None and previous_pos != pos and not allow_move:
+        return partial, None
 
     # Remove any previous entry for this logical position or previous_pos.
     # NOTE: Stored JSON may contain positions as strings, ints, or floats.

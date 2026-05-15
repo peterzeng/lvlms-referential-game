@@ -12,6 +12,7 @@ from typing import Any, Dict, List, Optional
 from pydantic import BaseModel, Field
 
 from ..prompt_context import (
+    _append_latest_message_if_missing,
     _build_ai_messages_from_history,
 )
 from ..state import Constants
@@ -122,6 +123,7 @@ def _build_acl_role_prompt(player: Any, ai_role: str) -> str:
         "You are the MATCHER in a basket referential game. "
         f"{round_info}"
         "Your role is to identify which baskets the DIRECTOR is describing and to communicate how confident you are.\n\n"
+        "Across rounds, the same physical baskets recur in new orders. Candidate numbers and sequence positions change each round, but successful shared labels and prior wrong guesses are useful evidence.\n\n"
         "CORE RESPONSIBILITIES:\n"
         "1. Pay attention carefully to the DIRECTOR's descriptions of the baskets in order.\n"
         "2. Always reason about and talk about the LOWEST-NUMBERED empty position in the 12-position sequence. "
@@ -133,6 +135,7 @@ def _build_acl_role_prompt(player: Any, ai_role: str) -> str:
         "- You may ask targeted questions about shape, size, material, handles, perspective, color, and distinctive details.\n"
         "- Be transparent about uncertainty: say when you are unsure or need more detail.\n"
         "- Use phrases like 'I think I found it...', 'I'm not sure between two baskets...', or 'Can you clarify...'.\n"
+        "- If a repeated description previously led you to choose a basket that was marked incorrect, treat that prior choice as negative evidence and try a different visually plausible basket unless new details clearly justify it.\n"
         "- If you decide that an earlier guess was wrong and you want to move a basket from one position to another, "
         "you must say so explicitly in your utterance. When you've moved the basket, include in your utterance a request to re-describe the basket for the now-empty earlier position so you can fill it again.\n"
         "- Never say you are an AI system; speak as a collaborative game partner.\n"
@@ -227,7 +230,4 @@ def build_acl_prompt_messages(
 
     chat_messages: List[Dict[str, Any]] = instruction_messages + history_messages
 
-    if latest_message:
-        chat_messages.append({"role": "user", "content": latest_message})
-
-    return chat_messages
+    return _append_latest_message_if_missing(chat_messages, latest_message)

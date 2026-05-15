@@ -10,7 +10,7 @@ from pathlib import Path
 
 import sqlite3
 
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -32,6 +32,8 @@ logging.getLogger("uvicorn.access").setLevel(logging.WARNING)
 logging.getLogger("httpx").setLevel(logging.WARNING)
 
 app = FastAPI(title="Referential Game AI-AI Simulation")
+
+ACTIVE_PROMPT_STRATEGIES = {"ACL_prompt", "cameron-prompt"}
 
 # Database setup
 DB_FILE = "data.sqlite"
@@ -206,6 +208,12 @@ async def start_game(data: dict):
     """Initialize a new simulation round."""
     session_id = data.get("session_id", "local_test_1")
     round_number = int(data.get("round_number", 1))
+    prompt_strategy = data.get("prompt_strategy", "ACL_prompt")
+    if prompt_strategy not in ACTIVE_PROMPT_STRATEGIES:
+        raise HTTPException(
+            status_code=400,
+            detail="prompt_strategy must be 'ACL_prompt' or 'cameron-prompt'.",
+        )
     
     # Configure session
     session_config = {
@@ -214,7 +222,9 @@ async def start_game(data: dict):
         "basket_set": int(data.get("basket_set", 5)),
         "num_rounds": Constants.num_rounds,
         "session_prefix": data.get("session_prefix") or session_id,
-        "prompt_strategy": data.get("prompt_strategy", "ACL_prompt"),
+        "prompt_strategy": prompt_strategy,
+        "cross_round_history": bool(data.get("cross_round_history", False)),
+        "debug_prompt_context": bool(data.get("debug_prompt_context", False)),
         "ai_director_model": data.get("director_model") or os.environ.get("AI_DIRECTOR_MODEL", "gpt-4o-mini"),
         "ai_matcher_model": data.get("matcher_model") or os.environ.get("AI_MATCHER_MODEL", "gpt-4o-mini"),
         "ai_reasoning_effort": data.get("reasoning_effort", "none"),
@@ -345,6 +355,8 @@ async def get_state(session_id: str):
         "status": status,
         "round_number": player.round_number,
         "prompt_strategy": player.session.config.get("prompt_strategy", "ACL_prompt"),
+        "cross_round_history": bool(player.session.config.get("cross_round_history", False)),
+        "debug_prompt_context": bool(player.session.config.get("debug_prompt_context", False)),
         "director_model": player.session.config.get("ai_director_model", "unknown"),
         "matcher_model": player.session.config.get("ai_matcher_model", "unknown"),
         "ai_messages": ai_messages,

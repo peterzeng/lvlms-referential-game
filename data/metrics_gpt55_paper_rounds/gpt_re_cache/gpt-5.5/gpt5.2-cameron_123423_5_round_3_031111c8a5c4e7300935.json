@@ -1,7 +1,0 @@
-{
-  "model": "gpt-5.5",
-  "trace_file": "data/experiments/Cameron-style/gpt5.2-cameron/gpt5.2-cameron_123423_5/gpt5.2-cameron_123423_5_data.json",
-  "session_id": "gpt5.2-cameron_123423_5",
-  "round": 3,
-  "response": "{\n  \"object_#1\": \"rectangular tote w one big handle; greenish/teal weave on the sides with tan rim/base\",\n  \"object_#2\": \"small oval wicker w tall handle; handle has white wrap at top + little red ties on the sides\",\n  \"object_#3\": \"round lidded basket shaped like a cat head (face/ears on lid)\",\n  \"object_#4\": \"lidded basket shaped like a mouse/rat, long pointy nose (side profile)\",\n  \"object_#5\": \"light tan oval basket w one handle; kind of tall sides and a little flared lip (open top); no stripes/white\u2014pretty uniform light tan, just a slightly darker rim; open oval w handle\",\n  \"object_#6\": \"tall cylindrical brown basket, vertical slats, two small loop handles near the top\",\n  \"object_#7\": \"round brown basket w a thick dark arched handle; kind of bulbous like a pot\",\n  \"object_#8\": \"dark gray/black oval basket w one handle; has a row of white dash marks around the middle\",\n  \"object_#9\": \"small rectangular honey-brown basket w a twisted rope handle (no lid)\",\n  \"object_#10\": \"chunky round tub basket w two little ear handles; tight weave, darker brown\",\n  \"object_#11\": \"shallow round tray basket w one handle; spiral weave on the base, light tan w reddish rim\",\n  \"object_#12\": \"picnic basket w a hinged lid + big handle over top; kind of rectangular, golden tan\"\n}"
-}

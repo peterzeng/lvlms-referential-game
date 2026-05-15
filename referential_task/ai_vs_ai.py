@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import base64
 import datetime
 import json
 import os
@@ -10,6 +11,7 @@ from openai import OpenAI
 
 from .state import Constants, Player
 from .prompt_context import (
+    _build_cross_round_matcher_feedback_memory,
     _build_matcher_current_sequence_state_for_prompt,
     _compute_round_correct_count,
     _get_pending_refill_positions,
@@ -17,10 +19,9 @@ from .prompt_context import (
     _inject_task_background,
     _is_acl_prompt_strategy,
     _is_instruction_message,
-    _normalize_prompt_strategy,
 )
 from .sequence import _update_ai_partial_sequence
-from .visual_context import _inject_visual_grid_context
+from .visual_context import _inject_round_feedback_context, _inject_visual_grid_context
 
 
 # Models that support the reasoning_effort parameter.
@@ -84,6 +85,70 @@ def _uses_max_completion_tokens(model: str) -> bool:
     if model_lower.startswith("gpt-5"):
         return True
     return False
+
+
+def _coerce_ready_to_submit(value: Any) -> bool:
+    """Parse matcher submit intent without treating arbitrary strings as truthy."""
+    if value is True:
+        return True
+    if value is False or value is None:
+        return False
+    if isinstance(value, str):
+        return value.strip().lower() in {"true", "yes", "y", "1"}
+    if isinstance(value, (int, float)):
+        return value == 1
+    return False
+
+
+def _filled_sequence_by_position(sequence: Any) -> dict[int, dict[str, Any]]:
+    """Return unique filled matcher slots keyed by 1-indexed position."""
+    by_pos: dict[int, dict[str, Any]] = {}
+    if not isinstance(sequence, list):
+        return by_pos
+    for item in sequence:
+        if not isinstance(item, dict):
+            continue
+        try:
+            p = int(item.get("position"))
+        except Exception:
+            continue
+        if 1 <= p <= 12 and item.get("image"):
+            by_pos[p] = item
+    return by_pos
+
+
+def _clean_ai_utterance(value: Any) -> str | None:
+    """Return a non-empty chat utterance, rejecting JSON null placeholders."""
+    if not isinstance(value, str):
+        return None
+    utterance = value.strip()
+    if not utterance or utterance.lower() in {"null", "none"}:
+        return None
+    return utterance
+
+
+def _utterance_explicitly_moves_selection(utterance: str | None) -> bool:
+    """Return True when the matcher explicitly says it is correcting by moving."""
+    if not utterance:
+        return False
+    text = utterance.lower()
+    move_markers = (
+        "move",
+        "moving",
+        "moved",
+        "swap",
+        "swapping",
+        "replace",
+        "replacing",
+        "correction",
+        "correcting",
+        "wrong position",
+        "from position",
+        "from slot",
+        "instead of position",
+        "instead of slot",
+    )
+    return any(marker in text for marker in move_markers)
 
 
 def _get_ai_model(player: Player | None = None, ai_role: str | None = None) -> str:
@@ -278,6 +343,157 @@ def is_ai_vs_ai_session(player: Player) -> bool:
     return False
 
 
+def _cross_round_history_enabled(player: Player) -> bool:
+    """Return whether prior rounds should be included for both AI roles."""
+    try:
+        if hasattr(player, "session") and player.session:
+            return bool(player.session.config.get("cross_round_history", False))
+    except Exception:
+        pass
+    return False
+
+
+def _prompt_context_debug_enabled(player: Player) -> bool:
+    """Return whether to dump full prompt context bundles before model calls."""
+    try:
+        if hasattr(player, "session") and player.session:
+            return bool(player.session.config.get("debug_prompt_context", False))
+    except Exception:
+        pass
+    return False
+
+
+def _safe_debug_name(value: Any, fallback: str = "debug") -> str:
+    text = str(value or "").strip() or fallback
+    safe = []
+    for ch in text:
+        safe.append(ch if ch.isalnum() or ch in ("-", "_", ".") else "_")
+    return "".join(safe).strip("._") or fallback
+
+
+def _decode_data_url(data_url: str) -> tuple[bytes | None, str]:
+    if not isinstance(data_url, str) or not data_url.startswith("data:"):
+        return None, "bin"
+    try:
+        header, b64_data = data_url.split(",", 1)
+        mime = header.split(";", 1)[0].replace("data:", "")
+        ext = {
+            "image/png": "png",
+            "image/jpeg": "jpg",
+            "image/jpg": "jpg",
+            "image/webp": "webp",
+        }.get(mime, "bin")
+        return base64.b64decode(b64_data), ext
+    except Exception:
+        return None, "bin"
+
+
+def _dump_prompt_context(player: Player, ai_role: str, messages: list[dict[str, Any]]) -> None:
+    """Write the exact text/image prompt bundle sent to the AI provider."""
+    try:
+        app_dir = os.path.dirname(__file__)
+        project_root = os.path.dirname(app_dir)
+        session_cfg = getattr(getattr(player, "session", None), "config", {}) or {}
+        session_name = _safe_debug_name(session_cfg.get("session_prefix"), "session")
+        round_num = int(getattr(player, "round_number", 1) or 1)
+
+        try:
+            current_messages = json.loads(player.group.ai_messages or "[]")
+            turn_num = len(current_messages) + 1
+        except Exception:
+            turn_num = 0
+
+        dump_dir = os.path.join(
+            project_root,
+            "_static",
+            "ai_debug",
+            "prompt_context",
+            session_name,
+            f"round_{round_num:02d}",
+            f"turn_{turn_num:02d}_{_safe_debug_name(ai_role)}",
+        )
+        os.makedirs(dump_dir, exist_ok=True)
+
+        sanitized: list[dict[str, Any]] = []
+        text_lines = [
+            f"Prompt Context Debug",
+            f"session_prefix: {session_cfg.get('session_prefix')}",
+            f"round: {round_num}",
+            f"turn: {turn_num}",
+            f"ai_role: {ai_role}",
+            f"message_count: {len(messages)}",
+            "",
+            "=" * 80,
+        ]
+        image_counter = 0
+
+        for idx, msg in enumerate(messages, start=1):
+            role = msg.get("role", "unknown")
+            content = msg.get("content")
+            out_msg: dict[str, Any] = {"role": role}
+            text_lines += ["", f"MESSAGE {idx}: role={role}", "-" * 40]
+
+            if isinstance(content, str):
+                out_msg["content"] = content
+                text_lines.append(content)
+            elif isinstance(content, list):
+                out_parts: list[dict[str, Any]] = []
+                for part_idx, part in enumerate(content, start=1):
+                    if not isinstance(part, dict):
+                        out_parts.append({"type": "unknown", "value": repr(part)})
+                        text_lines.append(f"[part {part_idx}] {repr(part)}")
+                        continue
+
+                    part_type = part.get("type")
+                    if part_type == "text":
+                        text = part.get("text", "")
+                        out_parts.append({"type": "text", "text": text})
+                        text_lines.append(f"[text part {part_idx}]")
+                        text_lines.append(str(text))
+                    elif part_type == "image_url":
+                        image_counter += 1
+                        url = (part.get("image_url") or {}).get("url", "")
+                        image_bytes, ext = _decode_data_url(url)
+                        image_name = f"message_{idx:02d}_part_{part_idx:02d}_image_{image_counter:02d}.{ext}"
+                        image_path = os.path.join(dump_dir, image_name)
+                        if image_bytes is not None:
+                            with open(image_path, "wb") as f:
+                                f.write(image_bytes)
+                            image_ref = image_name
+                        else:
+                            image_ref = "<non-data image url>"
+                        out_parts.append({
+                            "type": "image_url",
+                            "saved_as": image_ref,
+                            "source_length": len(url) if isinstance(url, str) else None,
+                        })
+                        text_lines.append(f"[image part {part_idx}] {image_ref}")
+                    else:
+                        out_parts.append(part)
+                        text_lines.append(f"[part {part_idx}: {part_type}] {json.dumps(part, ensure_ascii=False)}")
+                out_msg["content"] = out_parts
+            else:
+                out_msg["content"] = repr(content)
+                text_lines.append(repr(content))
+
+            sanitized.append(out_msg)
+
+        with open(os.path.join(dump_dir, "context.json"), "w", encoding="utf-8") as f:
+            json.dump({
+                "session_prefix": session_cfg.get("session_prefix"),
+                "round_number": round_num,
+                "turn_number": turn_num,
+                "ai_role": ai_role,
+                "message_count": len(messages),
+                "messages": sanitized,
+            }, f, indent=2, ensure_ascii=False)
+        with open(os.path.join(dump_dir, "context.txt"), "w", encoding="utf-8") as f:
+            f.write("\n".join(text_lines))
+    except Exception:
+        # Debug dumps must never affect experiment execution.
+        pass
+
+
 def generate_ai_vs_ai_reply(
     player: Player,
     role: str,
@@ -335,12 +551,11 @@ def generate_ai_vs_ai_reply(
         # Get current round info
         current_round = getattr(player, "round_number", 1) or 1
 
-        # Cross-round history is part of the experimental design: later rounds
-        # should preserve the partner dialogue and lightweight score feedback
-        # from earlier rounds so agents can form reusable conventions. Do not
-        # gate this on session config; older batch configs omitted the flag and
-        # silently ran stateless across rounds.
-        use_cross_round_history = True
+        # Cross-round history is a universal session-level switch. When enabled,
+        # both Director and Matcher receive the same prior text history and
+        # submitted-grid feedback images. When disabled, both roles are scoped
+        # to the current round only.
+        use_cross_round_history = _cross_round_history_enabled(player)
 
         feedback_msgs = []
         if use_cross_round_history:
@@ -363,19 +578,18 @@ def generate_ai_vs_ai_reply(
                             m_copy["round_number"] = round_num
                         ai_msgs.append(m_copy)
 
-                # Add feedback for completed rounds (text only - no images)
-                # NOTE: We intentionally do NOT include feedback images because they
-                # confuse the model - it describes baskets from feedback images instead
-                # of the current round's target grid.
+                # Add lightweight text feedback for completed rounds. Submitted-grid
+                # feedback images are injected later next to each prior round's
+                # transcript, behind the same cross_round_history switch.
                 if round_num is not None and round_num < current_round:
                     correct_count = _compute_round_correct_count(p_round)
                     if correct_count is not None:
                         feedback_msgs.append({
                             "text": (
                                 f"[ROUND {round_num} COMPLETE: {correct_count}/12 correct. "
-                                f"NOTE: The basket positions have been RESHUFFLED for the next round. "
-                                f"Keep any useful shared names or descriptions you established, "
-                                f"but verify each basket's NEW position from the current round image.]"
+                                f"NOTE: The same physical baskets will appear again, but they have been RESHUFFLED for the next round. "
+                                f"Old position numbers and candidate numbers no longer correspond to the same places. "
+                                f"Carry forward basket labels, correct matches, and wrong-match feedback, but describe/select using the current image.]"
                             ),
                             "sender_role": "system",
                             "round_number": round_num,
@@ -398,32 +612,35 @@ def generate_ai_vs_ai_reply(
         # Determine prompt strategy
         strategy_name = _get_prompt_strategy_name(player)
 
-        strategy_for_prompt = _normalize_prompt_strategy(strategy_name)
-
         original_role = player.field_maybe_none("player_role")
 
-        from .prompts import acl as ACL_prompt, cameron as cameron_prompt
+        from .prompts import acl as ACL_prompt, cameron as cameron_module
 
-        if _is_acl_prompt_strategy(strategy_for_prompt):
+        if _is_acl_prompt_strategy(strategy_name):
             chat_messages = ACL_prompt.build_acl_prompt_messages(
                 player, latest_message, all_history, ai_role=role
             )
             use_structured_json = True
-        elif strategy_for_prompt in ("v8", "cameron-prompt", "cameron_prompt"):
-            chat_messages = cameron_prompt.build_cameron_prompt_messages(
+        elif strategy_name == "cameron-prompt":
+            chat_messages = cameron_module.build_cameron_prompt_messages(
                 player, latest_message, all_history, ai_role=role
             )
             use_structured_json = False
         else:
-            chat_messages = ACL_prompt.build_acl_prompt_messages(
-                player, latest_message, all_history, ai_role=role
+            raise ValueError(
+                f"Unknown prompt_strategy {strategy_name!r}; expected 'ACL_prompt' or 'cameron-prompt'."
             )
-            use_structured_json = True
 
         # Inject task background
         chat_messages = _inject_task_background(chat_messages)
 
-        # Inject visual context
+        if use_cross_round_history:
+            chat_messages = _inject_round_feedback_context(
+                player, chat_messages, ai_role=role
+            )
+
+        # Inject current-round visual context after historical context so the
+        # active grid is the freshest visual frame before current dialogue.
         chat_messages = _inject_visual_grid_context(player, chat_messages, ai_role=role)
 
         # For Director at round start, add explicit start message
@@ -432,9 +649,10 @@ def generate_ai_vs_ai_reply(
                 "role": "user",
                 "content": (
                     f"═══ START OF ROUND {current_round} ═══\n"
-                    f"This is a NEW round with the baskets in a COMPLETELY DIFFERENT ORDER.\n"
-                    f"⚠️ IMPORTANT: The basket at position 1 in Round {current_round} is NOT the same basket "
-                    f"that was at position 1 in previous rounds. ALL positions have been reshuffled.\n"
+                    f"This is a NEW round with the same basket set in a COMPLETELY DIFFERENT ORDER.\n"
+                    f"IMPORTANT: The basket at position 1 in Round {current_round} is not necessarily the same basket "
+                    f"that was at position 1 in previous rounds. All positions have been reshuffled.\n"
+                    f"You may reuse successful shared names for the same physical baskets, but describe the current positions from the new image.\n"
                     f"Look at the image labeled 'ROUND {current_round} TARGET SEQUENCE' to see the ACTUAL baskets for this round.\n"
                     f"Please describe ONLY Basket 1 (top-left in the grid) for now. "
                     f"Do NOT describe multiple baskets - just Basket 1. Wait for a response before moving to Basket 2."
@@ -474,10 +692,40 @@ def generate_ai_vs_ai_reply(
                 lines = [
                     "=== CURRENT BOARD STATE ===",
                     f"ALREADY FILLED ({len(filled_positions)}/12): {filled_str}",
-                    f"  → Do NOT ask the Director to re-describe any of these positions.",
-                    f"  → Do NOT say 'Go to Basket X' for any position in the ALREADY FILLED list.",
+                    f"  → Do NOT select a candidate that is already filled in a different position unless you explicitly say you are correcting/moving it.",
+                    # f"  → Do NOT say 'Go to Basket X' for any position in the ALREADY FILLED list.",
                     f"STILL EMPTY ({len(empty_positions)}/12 remaining): {empty_str}",
                 ]
+
+                filled_details = []
+                used_candidates = []
+                for slot in slots:
+                    if not isinstance(slot, dict):
+                        continue
+                    candidate_index = slot.get("candidate_index")
+                    image = slot.get("image")
+                    position = slot.get("position")
+                    if candidate_index is None or not image or position is None:
+                        continue
+                    try:
+                        pos_int = int(position)
+                        cand_int = int(candidate_index)
+                    except Exception:
+                        continue
+                    filled_details.append(
+                        f"  - position {pos_int}: candidate {cand_int} ({os.path.basename(str(image))})"
+                    )
+                    used_candidates.append(cand_int)
+                if filled_details:
+                    lines.append("FILLED SLOT DETAILS:")
+                    lines.extend(filled_details)
+                if used_candidates:
+                    used_str = ", ".join(str(c) for c in sorted(set(used_candidates)))
+                    lines.append(f"USED CANDIDATES: {used_str}")
+                    if empty_positions:
+                        lines.append(
+                            "For the next empty position, pick a candidate NOT in USED CANDIDATES unless you are intentionally correcting a previous slot."
+                        )
 
                 if pending_refills:
                     refill_str = ", ".join(str(p) for p in pending_refills)
@@ -506,6 +754,24 @@ def generate_ai_vs_ai_reply(
             except Exception:
                 pass
 
+            if use_cross_round_history:
+                try:
+                    feedback_memory = _build_cross_round_matcher_feedback_memory(player)
+                except Exception:
+                    feedback_memory = None
+                if feedback_memory:
+                    insert_idx = 0
+                    while (
+                        insert_idx < len(chat_messages)
+                        and isinstance(chat_messages[insert_idx], dict)
+                        and _is_instruction_message(chat_messages[insert_idx])
+                    ):
+                        insert_idx += 1
+                    chat_messages.insert(
+                        insert_idx,
+                        {"role": "developer", "content": feedback_memory},
+                    )
+
             # Add JSON format instruction for matcher
             if not use_structured_json:
                 # Get current sequence state to show which positions are empty
@@ -530,6 +796,9 @@ def generate_ai_vs_ai_reply(
                 matcher_instr = (
                     f"CRITICAL: Empty positions that still need baskets: [{empty_str}]\n"
                     f"You have {filled_count}/12 positions filled.\n\n"
+                    "If the Director just answered your clarification for the LOWEST empty position, "
+                    "choose the matching candidate now and set `selection.position` to that empty position. "
+                    "Do not ask for a later basket until the current lowest empty position has a concrete selection.\n\n"
                     "You MUST respond with valid JSON:\n"
                     "{\n"
                     '  "utterance": "<your response to show in chat>",\n'
@@ -539,7 +808,8 @@ def generate_ai_vs_ai_reply(
                     '    "ready_to_submit": <true ONLY when ALL 12 positions are filled, false otherwise>\n'
                     "  }\n"
                     "}\n\n"
-                    "IMPORTANT: If there are empty positions, you should ask the Director about them! "
+                    "IMPORTANT: If there are empty positions, work on the LOWEST-NUMBERED empty position first. "
+                    "Only ask the Director about a later basket after you have selected the current one. "
                     "Do NOT set ready_to_submit to true until all 12 positions have baskets."
                 )
                 insert_idx = 0
@@ -550,17 +820,20 @@ def generate_ai_vs_ai_reply(
                     insert_idx += 1
                 chat_messages.insert(insert_idx, {"role": "developer", "content": matcher_instr})
 
+        if _prompt_context_debug_enabled(player):
+            _dump_prompt_context(player, role, chat_messages)
+
         # Make API call using multi-provider system
         base_temperature = 0
         response_format = None
         # Use JSON format for matcher always, and for director when using ACL_prompt
-        if _is_acl_prompt_strategy(strategy_for_prompt):
+        if _is_acl_prompt_strategy(strategy_name):
             from .prompts.acl import get_acl_response_schema
             response_format = {
                 "type": "json_schema",
                 "json_schema": get_acl_response_schema(role),
             }
-        elif strategy_for_prompt in ("v8", "cameron-prompt", "cameron_prompt"):
+        elif strategy_name == "cameron-prompt":
             from .prompts.cameron import DirectorResponse, MatcherResponse
             schema_class = MatcherResponse if role == "matcher" else DirectorResponse
             response_format = {
@@ -612,7 +885,7 @@ def generate_ai_vs_ai_reply(
                             data = json.loads(first_json_match.group(1))
                         else:
                             raise
-                    utterance = (data.get("utterance") or "").strip() or None
+                    utterance = _clean_ai_utterance(data.get("utterance"))
 
                     if data.get("reasoning") is not None:
                         import logging
@@ -631,7 +904,7 @@ def generate_ai_vs_ai_reply(
                             pos_int = int(pos) if pos is not None else None
                         except Exception:
                             pos_int = None
-                        ready = bool(sel.get("ready_to_submit", False))
+                        ready = _coerce_ready_to_submit(sel.get("ready_to_submit"))
                         selection = {
                             "candidate_index": cand_int,
                             "position": pos_int,
@@ -639,10 +912,10 @@ def generate_ai_vs_ai_reply(
                         }
             except Exception as e:
                 logging.warning("[AI_VS_AI] Failed to parse matcher JSON: %s", e)
-                utterance = text
+                utterance = _clean_ai_utterance(text)
         else:
             # Director response - parse JSON if using a structured prompt, otherwise plain text
-            if use_structured_json or strategy_for_prompt in ("v8", "cameron-prompt", "cameron_prompt"):
+            if use_structured_json or strategy_name == "cameron-prompt":
                 try:
                     start = text.find("{")
                     end = text.rfind("}") + 1
@@ -657,7 +930,7 @@ def generate_ai_vs_ai_reply(
                                 data = json.loads(first_json_match.group(1))
                             else:
                                 raise
-                        utterance = (data.get("utterance") or "").strip() or None
+                        utterance = _clean_ai_utterance(data.get("utterance"))
                         
                         if data.get("reasoning") is not None:
                             import logging
@@ -665,17 +938,23 @@ def generate_ai_vs_ai_reply(
                             logging.info(f"[AI_REASONING] Structured reasoning for {role.upper()}:\n{reasoning_json}")
                                 
                         if not utterance:
-                            # Fallback to raw text if utterance is empty
-                            utterance = text
+                            logging.warning(
+                                "[AI_VS_AI] Director structured response had empty/null utterance; dropping response: %s",
+                                text[:200],
+                            )
                     else:
-                        utterance = text
+                        utterance = _clean_ai_utterance(text)
                 except Exception as e:
                     logging.warning("[AI_VS_AI] Failed to parse director structured JSON: %s", e)
-                    utterance = text
+                    utterance = _clean_ai_utterance(text)
             else:
-                utterance = text
+                utterance = _clean_ai_utterance(text)
 
-        logging.info("[AI_VS_AI] %s response: %s", role.upper(), (utterance or "")[:100])
+        if not utterance:
+            logging.warning("[AI_VS_AI] %s response had no usable utterance; not sending a chat message", role.upper())
+            return None
+
+        logging.info("[AI_VS_AI] %s response: %s", role.upper(), utterance[:100])
         
         # Always log the AI's intermediate response, regardless of strategy
         if hasattr(player, "group"):
@@ -698,7 +977,7 @@ def generate_ai_vs_ai_reply(
                 existing.append({
                     "round_number": getattr(player, "round_number", None),
                     "timestamp": datetime.datetime.now().isoformat(),
-                    "strategy_name": strategy_for_prompt,
+                    "strategy_name": strategy_name,
                     "human_role": original_role or "observer",
                     "ai_role": role,
                     "reasoning": reasoning_obj,
@@ -795,65 +1074,62 @@ def run_ai_vs_ai_turn(player: Player) -> dict[str, Any]:
         # If Matcher made a selection, update the partial sequence
         is_complete = False
         if speaker == "matcher" and selection:
-            _, vacated_position = _update_ai_partial_sequence(player, selection)
+            allow_move = _utterance_explicitly_moves_selection(utterance)
+            _, vacated_position = _update_ai_partial_sequence(
+                player,
+                selection,
+                allow_move=allow_move,
+            )
             if vacated_position is not None:
                 logging.info(
                     "[AI_VS_AI] Matcher moved basket — position %d is now vacant",
                     vacated_position,
                 )
 
-        # Helper function to force submission with current sequence
-        def _force_submit() -> bool:
+        def _submit_complete_sequence() -> bool:
             nonlocal is_complete
             try:
                 sequence = json.loads(player.group.ai_partial_sequence or "[]")
-                by_pos = {}
-                for item in sequence:
-                    if isinstance(item, dict):
-                        try:
-                            p = int(item.get("position"))
-                            img = item.get("image")
-                            if 1 <= p <= 12 and img:
-                                by_pos[p] = item
-                        except Exception:
-                            pass
-
+                by_pos = _filled_sequence_by_position(sequence)
                 filled_count = len(by_pos)
                 missing_positions = [p for p in range(1, 13) if p not in by_pos]
 
-                if filled_count > 0:  # Submit as long as we have at least some positions
-                    is_complete = True
-                    player.group.matcher_sequence = json.dumps(list(by_pos.values()))
-
-                    # Calculate accuracy (missing positions count as wrong)
-                    try:
-                        shared_grid = json.loads(player.group.shared_grid or "[]")
-                        correct_count = 0
-                        for pos in range(1, 13):
-                            correct_img = shared_grid[pos - 1].get("image") if pos - 1 < len(shared_grid) else None
-                            submitted_img = by_pos.get(pos, {}).get("image")
-                            if correct_img and submitted_img and correct_img == submitted_img:
-                                correct_count += 1
-                        player.sequence_accuracy = (correct_count / 12) * 100
-                        player.task_completed = True
-                        player.completion_time = now_iso
-                        logging.info(
-                            "[AI_VS_AI] Forced submit! %d/12 filled, missing: %s, Accuracy: %.1f%%",
-                            filled_count, missing_positions, player.sequence_accuracy
-                        )
-                    except Exception as e:
-                        logging.warning("[AI_VS_AI] Failed to calculate accuracy: %s", e)
-                    return True
-                else:
-                    logging.warning("[AI_VS_AI] Cannot submit - no positions filled!")
+                if missing_positions:
+                    logging.info(
+                        "[AI_VS_AI] Ignoring submit intent: %d/12 filled, missing positions: %s",
+                        filled_count,
+                        missing_positions,
+                    )
                     return False
+
+                is_complete = True
+                player.group.matcher_sequence = json.dumps([by_pos[p] for p in range(1, 13)])
+
+                try:
+                    shared_grid = json.loads(player.group.shared_grid or "[]")
+                    correct_count = 0
+                    for pos in range(1, 13):
+                        correct_img = shared_grid[pos - 1].get("image") if pos - 1 < len(shared_grid) else None
+                        submitted_img = by_pos.get(pos, {}).get("image")
+                        if correct_img and submitted_img and correct_img == submitted_img:
+                            correct_count += 1
+                    player.sequence_accuracy = (correct_count / 12) * 100
+                    player.task_completed = True
+                    player.completion_time = now_iso
+                    logging.info(
+                        "[AI_VS_AI] Submitted complete sequence: 12/12 filled, Accuracy: %.1f%%",
+                        player.sequence_accuracy,
+                    )
+                except Exception as e:
+                    logging.warning("[AI_VS_AI] Failed to calculate accuracy: %s", e)
+                return True
             except Exception as e:
-                logging.warning("[AI_VS_AI] Failed to force submit: %s", e)
+                logging.warning("[AI_VS_AI] Failed to submit sequence: %s", e)
                 return False
 
         # Check if matcher signaled ready to submit via JSON
         if speaker == "matcher" and selection and selection.get("ready_to_submit"):
-            _force_submit()
+            _submit_complete_sequence()
 
         # Regex fallback: detect "submit" intent in matcher's utterance even if JSON didn't have ready_to_submit
         # This catches cases where the matcher says "I'm ready to submit" but didn't set the flag
@@ -873,7 +1149,7 @@ def run_ai_vs_ai_turn(player: Player) -> dict[str, Any]:
             combined_pattern = "|".join(f"({p})" for p in submit_patterns)
             if re.search(combined_pattern, utterance.lower()):
                 logging.info("[AI_VS_AI] Detected submit intent in utterance: %s", utterance[:80])
-                _force_submit()
+                _submit_complete_sequence()
 
         return {
             "turn_number": turn_number,
@@ -913,11 +1189,7 @@ def get_ai_vs_ai_status(player: Player) -> dict[str, Any]:
     except Exception:
         partial_sequence = []
 
-    # Count filled positions
-    filled_count = 0
-    for item in partial_sequence:
-        if isinstance(item, dict) and item.get("image"):
-            filled_count += 1
+    filled_count = len(_filled_sequence_by_position(partial_sequence))
 
     # Use field_maybe_none() for fields that might be None
     task_completed = player.field_maybe_none("task_completed") or False

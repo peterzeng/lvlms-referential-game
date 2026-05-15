@@ -1,7 +1,0 @@
-{
-  "model": "gpt-5.5",
-  "trace_file": "data/experiments/Cameron-style/gpt5.5-cameron/6/test-refactor_data.json",
-  "session_id": "test-refactor",
-  "round": 2,
-  "response": "{\n  \"object_#1\": \"picnic basket w tall upright handle\",\n  \"object_#2\": \"tall cylinder basket w 2 side handles\",\n  \"object_#3\": \"round pot basket, dark handle\",\n  \"object_#4\": \"small rectangular, twisty handle\",\n  \"object_#5\": \"gray stripe basket, black handle\",\n  \"object_#6\": \"wicker duck\",\n  \"object_#7\": \"round lidded wicker pot\",\n  \"object_#8\": \"shallow oval tray basket\",\n  \"object_#9\": \"green rectangular basket\",\n  \"object_#10\": \"round woven tub w loop handles\",\n  \"object_#11\": \"white basket, skinny tall handle\",\n  \"object_#12\": \"pinkish rectangular basket\"\n}"
-}

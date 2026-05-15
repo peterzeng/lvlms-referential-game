@@ -74,8 +74,10 @@ Useful options:
 - `--reasoning-effort`: `none`, `minimal`, `low`, `medium`, or `high` for GPT-5-family models.
 - `--session-prefix`: prefix used in session IDs and export folders.
 - `--basket-set`: selects `referential_task/grids_presetsN.json`.
+- `--cross-round-history` / `--no-cross-round-history`: toggles prior-round text history and submitted-grid feedback images for both agents.
+- `--debug-prompt-context`: writes each model call's text context and attached images under `_static/ai_debug/prompt_context/`.
 
-Headless runs enable cross-round history and export artifacts when all rounds finish.
+Headless runs enable cross-round history by default and export artifacts when all rounds finish.
 
 ## Data And Exports
 

@@ -1,7 +1,0 @@
-{
-  "model": "gpt-5.5",
-  "trace_file": "data/experiments/Cameron-style/gpt5.2-cameron/gpt5.2-cameron_123423_2/gpt5.2-cameron_123423_2_data.json",
-  "session_id": "gpt5.2-cameron_123423_2",
-  "round": 2,
-  "response": "{\n  \"object_#1\": \"oval picnic basket w tall center handle + a hinged lid flap on one side (kinda open-top otherwise)\",\n  \"object_#2\": \"tall cylindrical basket, like a brown wicker barrel w 2 small loop handles near the rim\",\n  \"object_#3\": \"round bulbous basket w a thick dark arched handle (almost black) and a lighter brown body\",\n  \"object_#4\": \"small rectangular low basket w a big twisted-rope handle (light tan)\",\n  \"object_#5\": \"squat gray/black wicker basket w a pale band at the bottom + gray handle\",\n  \"object_#6\": \"duck-shaped lidded basket (tan) w a little beak/head on the right side\",\n  \"object_#7\": \"round lidded basket that\u2019s a cat face (ears + whiskers), light straw color, sitting on 3 little feet\",\n  \"object_#8\": \"shallow round tray-basket w a single thin handle; spiral weave pattern inside (light tan w darker rim)\",\n  \"object_#9\": \"rectangular basket w high arched handle; dark green/teal sides with tan woven border/top\",\n  \"object_#10\": \"big round tub basket w 2 small side handles (like ears), tight brown weave\",\n  \"object_#11\": \"oval basket w tall handle; has 2 red/purple fabric straps attaching the handle to the sides\",\n  \"object_#12\": \"plain light-brown rectangular basket w a thick rounded handle and open slat sides (no fabric, no color accents)\"\n}"
-}

@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import os
 import re as _re
+from collections import defaultdict
 from typing import Any
 
 from .state import Constants, Player
@@ -87,6 +88,22 @@ def _ai_debug_enabled(player: Player | None) -> bool:
 import re as _re
 
 
+def _extract_director_basket_number(text: str) -> int | None:
+    """Return the described basket number when a director message starts with one."""
+    match = _re.match(
+        r"\s*(?:basket|b)\s*#?\s*(\d+)\s*(?::|=|[-–—]|\b)",
+        text,
+        _re.IGNORECASE,
+    )
+    if not match:
+        return None
+    try:
+        basket_num = int(match.group(1))
+    except Exception:
+        return None
+    return basket_num if 1 <= basket_num <= 12 else None
+
+
 def _build_director_conversation_state(player: Player) -> dict[str, Any]:
     """Build the Director's game-progress state from conversation history ONLY.
 
@@ -135,12 +152,10 @@ def _build_director_conversation_state(player: Player) -> dict[str, Any]:
 
         if sender == "director":
             # Check if the Director is introducing a new basket number.
-            # Patterns: "Basket 7: ...", "Basket 7 = ...", "Basket 7 —"
-            m = _re.match(r"Basket\s+(\d+)\b", text, _re.IGNORECASE)
-            if m:
-                basket_num = int(m.group(1))
-                if 1 <= basket_num <= 12:
-                    current_director_basket = basket_num
+            # Patterns: "Basket 7: ...", "b7: ...", "b #7 — ..."
+            basket_num = _extract_director_basket_number(text)
+            if basket_num is not None:
+                current_director_basket = basket_num
             # If the Director answers a clarification question (no new
             # basket number), current_director_basket stays the same.
 
@@ -291,6 +306,155 @@ def _get_pending_refill_positions(player: Player) -> list[int]:
     return sorted(pos for pos in completed_positions if pos not in filled_positions)
 
 
+def _image_name_for_prompt(image_path: str | None) -> str:
+    """Return a short stable image label for hidden prompt bookkeeping."""
+    if not image_path:
+        return "unknown image"
+    return os.path.basename(str(image_path).lstrip("/ ")) or str(image_path)
+
+
+def _build_cross_round_matcher_feedback_memory(player: Player) -> str | None:
+    """Build matcher-only prior-round correction memory for the current pool.
+
+    Historical feedback images are useful, but models often fail to convert a
+    red bordered prior choice into a concrete current-round constraint. This
+    block turns prior wrong placements into explicit negative evidence using
+    the current candidate numbering.
+    """
+    try:
+        current_round = int(getattr(player, "round_number", 1) or 1)
+    except Exception:
+        current_round = 1
+    if current_round <= 1:
+        return None
+
+    try:
+        all_round_players = player.in_all_rounds()
+    except Exception:
+        all_round_players = [player]
+
+    try:
+        from .visual_context import _load_matcher_pool_image_urls
+
+        current_pool = _load_matcher_pool_image_urls(player) or []
+    except Exception:
+        current_pool = []
+
+    current_image_to_candidate: dict[str, int] = {}
+    for idx, item in enumerate(current_pool[:18], start=1):
+        slot = (item or {}).get("slot") or {}
+        img = (slot.get("image") or "").lstrip("/ ")
+        if img:
+            current_image_to_candidate.setdefault(img, idx)
+
+    wrong_by_submitted: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    correct_by_target: dict[str, list[dict[str, Any]]] = defaultdict(list)
+
+    for p_round in all_round_players:
+        try:
+            round_num = int(getattr(p_round, "round_number", 0) or 0)
+        except Exception:
+            continue
+        if not (1 <= round_num < current_round):
+            continue
+
+        try:
+            shared_grid = json.loads(p_round.group.shared_grid or "[]")
+            matcher_sequence = json.loads(p_round.group.matcher_sequence or "[]")
+        except Exception:
+            continue
+        if not shared_grid or not matcher_sequence:
+            continue
+
+        matcher_by_pos: dict[int, dict[str, Any]] = {}
+        for item in matcher_sequence:
+            if not isinstance(item, dict):
+                continue
+            try:
+                pos_int = int(item.get("position"))
+            except Exception:
+                continue
+            if 1 <= pos_int <= 12 and pos_int not in matcher_by_pos:
+                matcher_by_pos[pos_int] = item
+
+        for pos in range(1, 13):
+            try:
+                correct_img = (shared_grid[pos - 1].get("image") or "").lstrip("/ ")
+            except Exception:
+                correct_img = ""
+            submitted = matcher_by_pos.get(pos) or {}
+            submitted_img = (submitted.get("image") or "").lstrip("/ ")
+            if not correct_img or not submitted_img:
+                continue
+
+            entry = {
+                "round": round_num,
+                "position": pos,
+                "submitted_image": submitted_img,
+                "correct_image": correct_img,
+            }
+            if submitted_img == correct_img:
+                correct_by_target[correct_img].append(entry)
+            else:
+                wrong_by_submitted[submitted_img].append(entry)
+
+    if not wrong_by_submitted and not correct_by_target:
+        return None
+
+    lines = [
+        "=== CROSS-ROUND BASKET MEMORY FOR MATCHER ===",
+        "The same basket identities recur across rounds, but candidate numbers and sequence positions are reshuffled each round.",
+        "Use this as hidden decision support. Never mention candidate numbers, image filenames, or this memory in your chat utterance.",
+    ]
+
+    wrong_lines: list[str] = []
+    for submitted_img in sorted(wrong_by_submitted):
+        current_candidate = current_image_to_candidate.get(submitted_img)
+        if current_candidate is None:
+            continue
+        examples = sorted(
+            wrong_by_submitted[submitted_img],
+            key=lambda item: (item["round"], item["position"]),
+        )
+        labels = ", ".join(
+            f"R{item['round']} pos {item['position']} should have been {_image_name_for_prompt(item['correct_image'])}"
+            for item in examples[:3]
+        )
+        wrong_lines.append(
+            f"- Current candidate {current_candidate} ({_image_name_for_prompt(submitted_img)}) was a WRONG match before: {labels}. "
+            "If the current description sounds like that previous target label, prefer a different candidate and ask a discriminating question if uncertain."
+        )
+    if wrong_lines:
+        lines.append("Prior wrong selections still present in the current candidate pool:")
+        lines.extend(wrong_lines[:12])
+
+    correct_lines: list[str] = []
+    for correct_img in sorted(correct_by_target):
+        current_candidate = current_image_to_candidate.get(correct_img)
+        if current_candidate is None:
+            continue
+        examples = sorted(
+            correct_by_target[correct_img],
+            key=lambda item: (item["round"], item["position"]),
+        )
+        labels = ", ".join(
+            f"R{item['round']} pos {item['position']}" for item in examples[:3]
+        )
+        correct_lines.append(
+            f"- Current candidate {current_candidate} ({_image_name_for_prompt(correct_img)}) matched correctly before at {labels}; reused descriptions for that basket are positive evidence."
+        )
+    if correct_lines:
+        lines.append("Prior correct selections still present in the current candidate pool:")
+        lines.extend(correct_lines[:12])
+
+    if not wrong_lines and not correct_lines:
+        return None
+
+    lines.append("When a repeated phrase previously led to a red/incorrect basket, do not repeat that exact wrong choice for the same phrase unless new visual evidence clearly overturns it.")
+    lines.append("============================================")
+    return "\n".join(lines)
+
+
 def _build_ai_messages_from_history(
     player: Player, history, ai_role: str | None = None
 ):
@@ -328,11 +492,9 @@ def _build_ai_messages_from_history(
                 # Insert marker for previous round history
                 if msg_round < current_round:
                     boundary_text = (
-                        f"═══ ROUND {msg_round} HISTORY (PAST ROUND - POSITIONS CHANGED) ═══\n"
-                        f"The following messages are from Round {msg_round}. Baskets may recur across rounds, "
-                        f"but their position numbers change after reshuffling. Reuse helpful shared names, "
-                        f"descriptions, and conventions from this history, while using the current round image "
-                        f"to determine the active position order."
+                        f"═══ ROUND {msg_round} HISTORY (PAST - SAME BASKETS, DIFFERENT ORDER) ═══\n"
+                        f"The following messages are from Round {msg_round}. The same physical baskets recur, but positions and candidate numbers were different. "
+                        f"Learn basket labels, communication strategies, and prior misunderstandings without reusing old position numbers."
                     )
                     messages.append({"role": "user", "content": boundary_text})
                 elif msg_round == current_round and last_seen_round is not None:
@@ -354,11 +516,28 @@ def _build_ai_messages_from_history(
         else:
             role = "user"
 
-        # NOTE: We intentionally DO NOT include feedback images in the prompt.
-        # Including feedback images (with green/red borders from previous rounds)
-        # confuses the model - it describes baskets from feedback images instead of
-        # the current round's target grid. The text description of results is sufficient.
+        # Prior-round feedback images, when enabled, are injected separately next
+        # to the visual context. This function only converts stored text history.
         messages.append({"role": role, "content": text})
+    return messages
+
+
+def _append_latest_message_if_missing(
+    messages: list[dict[str, Any]], latest_message: str | None
+) -> list[dict[str, Any]]:
+    """Append an unstored partner message without duplicating stored history."""
+    latest_text = (latest_message or "").strip()
+    if not latest_text:
+        return messages
+
+    for msg in reversed(messages):
+        content = msg.get("content")
+        if isinstance(content, str) and content.strip():
+            if msg.get("role") == "user" and content.strip() == latest_text:
+                return messages
+            break
+
+    messages.append({"role": "user", "content": latest_text})
     return messages
 
 
@@ -433,26 +612,5 @@ def _get_prompt_strategy_name(player: Player) -> str:
 
 
 def _is_acl_prompt_strategy(strategy_name: str) -> bool:
-    """Return True for ACL_prompt strategy aliases."""
-    return strategy_name in ("acl_prompt", "acl-prompt", "acl")
-
-
-def _normalize_prompt_strategy(strategy_name: str) -> str:
-    """Map removed or legacy strategy names onto currently available strategies."""
-    if strategy_name in (
-        "director_visual",
-        "visual_director",
-        "matcher_visual",
-        "visual_matcher",
-        "simple",
-        "v1",
-        "weiling",
-        "v2",
-        "v4",
-        "v4_cg",
-        "v5",
-        "v6",
-        "v9",
-    ):
-        return "acl_prompt"
-    return strategy_name
+    """Return True for the active ACL prompt strategy."""
+    return strategy_name == "acl_prompt"

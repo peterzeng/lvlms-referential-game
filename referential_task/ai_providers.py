@@ -701,8 +701,10 @@ def _call_gemini_legacy_sdk(
         if max_tokens is not None:
             generation_config["max_output_tokens"] = max_tokens
         
-        # Handle JSON response format
-        if response_format and response_format.get("type") == "json_object":
+        # Handle JSON response format. The legacy SDK does not reliably support
+        # response schemas, but it can still be told to emit JSON for both
+        # json_object and json_schema prompt contracts.
+        if response_format and response_format.get("type") in ("json_object", "json_schema"):
             generation_config["response_mime_type"] = "application/json"
         
         # Create model instance

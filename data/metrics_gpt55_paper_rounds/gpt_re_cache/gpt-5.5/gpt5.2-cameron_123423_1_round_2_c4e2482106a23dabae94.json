@@ -1,7 +1,0 @@
-{
-  "model": "gpt-5.5",
-  "trace_file": "data/experiments/Cameron-style/gpt5.2-cameron/gpt5.2-cameron_123423_1/gpt5.2-cameron_123423_1_data.json",
-  "session_id": "gpt5.2-cameron_123423_1",
-  "round": 2,
-  "response": "{\n  \"object_#1\": \"oval picnic basket w tall center handle + a hinged lid flap on one side (kinda open-top otherwise)\",\n  \"object_#2\": \"tall cylindrical wicker hamper, open top, two small loop handles near rim\",\n  \"object_#3\": \"round bulbous basket w a thick dark arched handle (almost black) and a banded rim\",\n  \"object_#4\": \"small rectangular low basket w big twisted rope handle (light tan), tight checker weave\",\n  \"object_#5\": \"dark gray/black wicker basket w lighter base + gray handle, kind of squat rectangle\",\n  \"object_#6\": \"the duck-shaped lidded basket (side view, long beak)\",\n  \"object_#7\": \"round lidded basket that\u2019s a cat face (front view) w little feet\",\n  \"object_#8\": \"shallow round tray-basket w a single thin handle, spiral weave (light tan)\",\n  \"object_#9\": \"rectangular basket w tall handle; greenish/teal sides with tan top/bottom bands\",\n  \"object_#10\": \"big round tub basket w two small side handles (no tall handle), tight brown weave\",\n  \"object_#11\": \"oval basket w tall handle and two red/purple fabric straps attaching the handle\",\n  \"object_#12\": \"light brown rectangular basket w a wavy/scalloped rim and a single handle\"\n}"
-}

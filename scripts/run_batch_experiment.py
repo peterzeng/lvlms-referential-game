@@ -155,7 +155,6 @@ def run_single_session(session_id: str, config: dict):
     logger.info(f"=== Starting Session: {session_id} ===")
 
     config = dict(config)
-    config["cross_round_history"] = True
     if not config.get("enable_conceptual_pacts"):
         config.pop("conceptual_pacts", None)
 
@@ -238,7 +237,13 @@ def run_single_session(session_id: str, config: dict):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run headless AI vs AI experimental sessions.")
     parser.add_argument("--sessions", type=int, default=1, help=f"Number of full sessions ({Constants.num_rounds} rounds each) to run.")
-    parser.add_argument("--prompt-strategy", type=str, default="ACL_prompt", help="Prompt strategy (ACL_prompt or cameron-prompt).")
+    parser.add_argument(
+        "--prompt-strategy",
+        type=str,
+        default="ACL_prompt",
+        choices=("ACL_prompt", "cameron-prompt"),
+        help="Prompt strategy (ACL_prompt or cameron-prompt).",
+    )
     parser.add_argument("--model", type=str, default="gpt-4o-mini", help="Model to use for both agents.")
     parser.add_argument("--director-model", type=str, help="Specific model for director (overrides --model).")
     parser.add_argument("--matcher-model", type=str, help="Specific model for matcher (overrides --model).")
@@ -251,6 +256,17 @@ if __name__ == "__main__":
         choices=["none", "minimal", "low", "medium", "high"],
         help="Reasoning effort for GPT-5 family models.",
     )
+    parser.add_argument(
+        "--cross-round-history",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Include prior-round text history and submitted-grid feedback images for both agents.",
+    )
+    parser.add_argument(
+        "--debug-prompt-context",
+        action="store_true",
+        help="Write per-turn prompt text and attached images under _static/ai_debug/prompt_context/.",
+    )
     
     args = parser.parse_args()
     
@@ -259,7 +275,8 @@ if __name__ == "__main__":
         "director_view": "grid",
         "basket_set": args.basket_set,
         "num_rounds": Constants.num_rounds,
-        "cross_round_history": True,
+        "cross_round_history": args.cross_round_history,
+        "debug_prompt_context": args.debug_prompt_context,
         "session_prefix": args.session_prefix,
         "prompt_strategy": args.prompt_strategy,
         "ai_director_model": args.director_model or args.model,

@@ -25,7 +25,6 @@ from .prompt_context import (
     _inject_task_background,
     _is_acl_prompt_strategy,
     _is_instruction_message,
-    _normalize_prompt_strategy,
     _should_log_acl_reasoning,
 )
 from .sequence import _update_ai_partial_sequence
@@ -37,6 +36,7 @@ from .visual_context import (
     _debug_save_ai_matcher_grid_image,
     _debug_save_round_feedback_image,
     _image_rel_to_data_url,
+    _inject_round_feedback_context,
     _inject_visual_grid_context,
     _load_matcher_pool_image_urls,
     _load_shared_grid_image_urls,
@@ -65,6 +65,7 @@ __all__ = [
     "_get_prompt_strategy_name",
     "_get_reasoning_effort",
     "_image_rel_to_data_url",
+    "_inject_round_feedback_context",
     "_inject_task_background",
     "_inject_visual_grid_context",
     "_is_acl_prompt_strategy",
@@ -72,7 +73,6 @@ __all__ = [
     "_is_instruction_message",
     "_load_matcher_pool_image_urls",
     "_load_shared_grid_image_urls",
-    "_normalize_prompt_strategy",
     "_resolve_static_image_path",
     "_should_log_acl_reasoning",
     "_update_ai_partial_sequence",

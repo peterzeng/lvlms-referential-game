@@ -13,7 +13,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from referential_task.prompt_context import TASK_BACKGROUND
 from referential_task.prompts import acl as ACL_prompt
-from referential_task.prompts import cameron as cameron_prompt
+from referential_task.prompts import cameron as cameron_module
 
 
 OUT_DIR = Path("prompt_exports")
@@ -43,7 +43,7 @@ def strategy_blocks(strategy: str, ai_role: str) -> list[PromptBlock]:
     if strategy == "ACL_prompt":
         messages = ACL_prompt.build_acl_prompt_messages(player, None, [], ai_role=ai_role)
     elif strategy == "cameron-prompt":
-        messages = cameron_prompt.build_cameron_prompt_messages(player, None, [], ai_role=ai_role)
+        messages = cameron_module.build_cameron_prompt_messages(player, None, [], ai_role=ai_role)
     else:
         raise ValueError(strategy)
 

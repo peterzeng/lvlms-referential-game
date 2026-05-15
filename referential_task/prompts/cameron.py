@@ -1,8 +1,6 @@
 from __future__ import annotations
 
 """
-V8 Prompt Strategy: Bare Minimum CoT
-
 "Humanlike" prompt adapted from a single-agent implementation.
 This version replaces tangrams with baskets and updates grid numbering, 
 while enforcing strict JSON formatting (CoT reasoning) but providing minimal other instructions.
@@ -13,6 +11,7 @@ from typing import Any, Dict, List, Optional
 from pydantic import BaseModel
 
 from ..prompt_context import (
+    _append_latest_message_if_missing,
     _build_ai_messages_from_history,
 )
 
@@ -24,13 +23,13 @@ class Selection(BaseModel):
 
 class MatcherResponse(BaseModel):
     model_config = {"extra": "forbid"}
-    utterance: Optional[str]
+    utterance: str
     reasoning: Optional[str]
     selection: Optional[Selection]
 
 class DirectorResponse(BaseModel):
     model_config = {"extra": "forbid"}
-    utterance: Optional[str]
+    utterance: str
     reasoning: Optional[str]
 
 
@@ -74,6 +73,8 @@ SERIOUSLY—in later rounds just 1-2 words. Do NOT send longer descriptions unle
 - Your partner will provide a description of a basket.
 - Your task is to identify which image they are describing.
 - You will select the candidate basket and indicate its position.
+- Across rounds, the same physical baskets recur in new orders. Candidate numbers and positions change each round, but prior correct matches and prior wrong guesses should guide your current choice.
+- If a repeated description previously led to an incorrect basket, don't pick that same basket again for the same description unless the new details clearly justify it.
 """
     return base
 
@@ -131,7 +132,4 @@ def build_cameron_prompt_messages(
 
     chat_messages: List[Dict[str, Any]] = instruction_messages + history_messages
 
-    if latest_message:
-        chat_messages.append({"role": "user", "content": latest_message})
-
-    return chat_messages
+    return _append_latest_message_if_missing(chat_messages, latest_message)

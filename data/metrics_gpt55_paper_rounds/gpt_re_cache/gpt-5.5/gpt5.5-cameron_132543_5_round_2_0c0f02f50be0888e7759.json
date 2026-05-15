@@ -1,7 +1,0 @@
-{
-  "model": "gpt-5.5",
-  "trace_file": "data/experiments/Cameron-style/gpt5.5-cameron/gpt5.5-cameron_132543_5/gpt5.5-cameron_132543_5_data.json",
-  "session_id": "gpt5.5-cameron_132543_5",
-  "round": 2,
-  "response": "{\n  \"object_#1\": \"picnic basket, one handle tilted down; picnic\",\n  \"object_#2\": \"tall cylinder with side handles; tall cylinder\",\n  \"object_#3\": \"small round bucket, dark handle; small dark-handle\",\n  \"object_#4\": \"tiny basket, braided handle; square rope-handle\",\n  \"object_#5\": \"gray basket dark rim\",\n  \"object_#6\": \"rabbit basket\",\n  \"object_#7\": \"round lid with flowers\",\n  \"object_#8\": \"shallow oval tray\",\n  \"object_#9\": \"green rectangular basket\",\n  \"object_#10\": \"short round tub, two side handles\",\n  \"object_#11\": \"white basket tall handle\",\n  \"object_#12\": \"plain tan oval\"\n}"
-}

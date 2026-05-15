@@ -1,7 +1,0 @@
-{
-  "model": "gpt-5.5",
-  "trace_file": "data/experiments/Cameron-style/gpt5.5-cameron/6/test-refactor_data.json",
-  "session_id": "test-refactor",
-  "round": 4,
-  "response": "{\n  \"object_#1\": \"flat oval tray, tall handle\",\n  \"object_#2\": \"small chunky square basket, twist handle\",\n  \"object_#3\": \"fish basket\",\n  \"object_#4\": \"greenish rectangular, dark middle\",\n  \"object_#5\": \"round tub, 2 little side handles\",\n  \"object_#6\": \"dark round bucket, black handle\",\n  \"object_#7\": \"tall cylinder, 2 tiny handles\",\n  \"object_#8\": \"lidded picnic basket, handle up\",\n  \"object_#9\": \"round garlic/onion basket\",\n  \"object_#10\": \"white striped oval, wrapped handle\",\n  \"object_#11\": \"plain peach oval handbag\",\n  \"object_#12\": \"gray oval, black handle\"\n}"
-}

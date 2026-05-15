@@ -9,7 +9,7 @@ This project is now centered on AI-vs-AI referential-game experiments. The activ
 - `referential_task/prompt_context.py` for shared task background, prompt history, and prompt strategy config.
 - `referential_task/sequence.py` for matcher sequence updates.
 - `referential_task/ai_providers.py` for OpenAI/Gemini provider calls.
-- `referential_task/ACL_prompt.py` and `referential_task/cameron_prompt.py` for currently selectable prompt strategies.
+- `referential_task/prompts/acl.py` and `referential_task/prompts/cameron.py` for currently selectable prompt strategies.
 - `referential_task/ai_perceptions.py` for final mutual AI evaluations.
 - `referential_task/common_ground_agent.py` only when `enable_conceptual_pacts` is enabled.
 

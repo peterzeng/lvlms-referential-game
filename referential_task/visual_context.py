@@ -727,11 +727,20 @@ def _build_ai_matcher_grid_composite(player: Player) -> str | None:
         return None
 
 
-def _build_round_feedback_image(player: Player) -> str | None:
+def _build_round_feedback_image(
+    player: Player, viewer_role: str | None = None
+) -> str | None:
     """
     Render a feedback image showing round results with correct/incorrect highlighting.
 
-    This mirrors what the human sees on the RoundFeedback page:
+    The image is role-aware:
+    - Matcher feedback shows the submitted basket in each slot.
+    - Director feedback shows the correct target basket in each slot, with red
+      borders only marking the positions the matcher got wrong. This preserves
+      the director's information boundary: the director learns which positions
+      were misunderstood, but not which basket the matcher actually selected.
+
+    This mirrors what the players should see on the RoundFeedback page:
     - A 2×6 grid of the 12 positions
     - Green border for correct placements
     - Red border for incorrect placements
@@ -752,21 +761,12 @@ def _build_round_feedback_image(player: Player) -> str | None:
     if not shared_grid:
         return None
 
-    # Build correct sequence
-    correct_sequence = [slot.get("image") for slot in shared_grid]
+    correct_count, slots_data = _prepare_round_feedback_slots(
+        shared_grid, matcher_sequence, viewer_role=viewer_role
+    )
 
-    # Build matcher's submissions by position
-    matcher_by_pos = {}
-    for item in matcher_sequence or []:
-        if not isinstance(item, dict):
-            continue
-        pos = item.get("position")
-        try:
-            pos_int = int(pos)
-        except (TypeError, ValueError):
-            continue
-        if 1 <= pos_int <= 12 and pos_int not in matcher_by_pos:
-            matcher_by_pos[pos_int] = item
+    if slots_data is None:
+        return None
 
     # Grid geometry
     COLS = 6
@@ -814,28 +814,6 @@ def _build_round_feedback_image(player: Player) -> str | None:
             badge_font = ImageFont.truetype("arial.ttf", 18)
         except Exception:
             badge_font = ImageFont.load_default()
-
-    # Count correct placements and prepare slot data
-    correct_count = 0
-    slots_data = []
-    for i in range(12):
-        correct_img = correct_sequence[i] if i < len(correct_sequence) else None
-        submitted_entry = matcher_by_pos.get(i + 1)
-        submitted_img = submitted_entry.get("image") if submitted_entry else None
-
-        is_correct = (
-            submitted_img is not None
-            and correct_img is not None
-            and submitted_img == correct_img
-        )
-        if is_correct:
-            correct_count += 1
-
-        slots_data.append({
-            "position": i + 1,
-            "image": submitted_img,  # Show what was submitted
-            "is_correct": is_correct,
-        })
 
     # Draw header
     round_num = getattr(player, "round_number", "?")
@@ -922,7 +900,7 @@ def _build_round_feedback_image(player: Player) -> str | None:
         legend_x += 100
 
     # Save debug copy locally
-    _debug_save_round_feedback_image(player, img_canvas)
+    _debug_save_round_feedback_image(player, img_canvas, viewer_role=viewer_role)
 
     # Encode as data URL
     try:
@@ -934,7 +912,165 @@ def _build_round_feedback_image(player: Player) -> str | None:
         return None
 
 
-def _debug_save_round_feedback_image(player: Player, img_canvas: Image.Image) -> None:
+def _prepare_round_feedback_slots(
+    shared_grid: list[dict[str, Any]],
+    matcher_sequence: list[dict[str, Any]],
+    viewer_role: str | None = None,
+) -> tuple[int, list[dict[str, Any]] | None]:
+    """Return correctness count and role-appropriate feedback slot payloads."""
+    # Build correct sequence
+    correct_sequence = [slot.get("image") for slot in shared_grid]
+
+    # Build matcher's submissions by position
+    matcher_by_pos = {}
+    for item in matcher_sequence or []:
+        if not isinstance(item, dict):
+            continue
+        pos = item.get("position")
+        try:
+            pos_int = int(pos)
+        except (TypeError, ValueError):
+            continue
+        if 1 <= pos_int <= 12 and pos_int not in matcher_by_pos:
+            matcher_by_pos[pos_int] = item
+
+    # Count correct placements and prepare slot data
+    correct_count = 0
+    slots_data = []
+    for i in range(12):
+        correct_img = correct_sequence[i] if i < len(correct_sequence) else None
+        submitted_entry = matcher_by_pos.get(i + 1)
+        submitted_img = submitted_entry.get("image") if submitted_entry else None
+
+        is_correct = (
+            submitted_img is not None
+            and correct_img is not None
+            and submitted_img == correct_img
+        )
+        if is_correct:
+            correct_count += 1
+
+        display_img = correct_img if viewer_role == "director" else submitted_img
+
+        slots_data.append({
+            "position": i + 1,
+            "image": display_img,
+            "is_correct": is_correct,
+        })
+    return correct_count, slots_data
+
+
+def _inject_round_feedback_context(
+    player: Player, messages: list[dict[str, Any]], ai_role: str | None = None
+) -> list[dict[str, Any]]:
+    """Insert prior-round submitted-grid feedback images into the prompt.
+
+    These images are only historical context. They should stay near the
+    conversation from the same round so the model does not see a stack of
+    visually similar grids detached from the dialogue they explain.
+    """
+    try:
+        current_round = int(getattr(player, "round_number", 1) or 1)
+    except Exception:
+        current_round = 1
+    if current_round <= 1:
+        return messages
+
+    try:
+        all_round_players = player.in_all_rounds()
+    except Exception:
+        all_round_players = [player]
+
+    feedback_messages_by_round: dict[int, dict[str, Any]] = {}
+    for p_round in all_round_players:
+        try:
+            round_num = int(getattr(p_round, "round_number", 0) or 0)
+        except Exception:
+            continue
+        if not (1 <= round_num < current_round):
+            continue
+
+        feedback_url = _build_round_feedback_image(p_round, viewer_role=ai_role)
+        if not feedback_url:
+            continue
+
+        if ai_role == "director":
+            feedback_text = (
+                f"*** ROUND {round_num} DIRECTOR FEEDBACK (PAST ROUND) ***\n"
+                "This historical image shows the correct target basket for each 12-position slot "
+                "from a previous round. Green means the matcher placed that position correctly; "
+                "red means the matcher got that position wrong. Red slots show the correct basket "
+                "for that position, not the basket the matcher selected. The same physical baskets "
+                "recur across rounds, so use this to learn which descriptions were misunderstood "
+                "and which basket identities need clearer labels. Do NOT reuse old position numbers "
+                "for the current round."
+            )
+        else:
+            feedback_text = (
+                f"*** ROUND {round_num} SUBMITTED GRID FEEDBACK (PAST ROUND) ***\n"
+                "This historical image shows the MATCHER's submitted 12-position grid "
+                "from a previous round. Green means that submitted position was correct; "
+                "red means that exact submitted basket was incorrect for that described target. "
+                "The same physical baskets recur across rounds, so use this to recover shared labels, "
+                "visual conventions, correct identities, and prior wrong guesses. Do NOT reuse its "
+                "old position numbers or old candidate numbers for the current round."
+            )
+
+        feedback_messages_by_round[round_num] = {
+            "role": "user",
+            "content": [
+                {
+                    "type": "text",
+                    "text": feedback_text,
+                },
+                {
+                    "type": "image_url",
+                    "image_url": {"url": feedback_url},
+                },
+            ],
+        }
+
+    if not feedback_messages_by_round:
+        return messages
+
+    grouped_messages: list[dict[str, Any]] = []
+    inserted_rounds: set[int] = set()
+
+    for msg in messages:
+        grouped_messages.append(msg)
+        content = msg.get("content")
+        if not isinstance(content, str):
+            continue
+
+        for round_num, feedback_message in feedback_messages_by_round.items():
+            if round_num in inserted_rounds:
+                continue
+            marker = f"═══ ROUND {round_num} HISTORY "
+            if content.startswith(marker):
+                grouped_messages.append(feedback_message)
+                inserted_rounds.add(round_num)
+                break
+
+    if len(inserted_rounds) == len(feedback_messages_by_round):
+        return grouped_messages
+
+    # Fallback for unusual prompt strategies with no explicit round markers:
+    # keep instructions first, then put any ungrouped historical images before
+    # the remaining conversation.
+    insert_idx = 0
+    while insert_idx < len(grouped_messages) and _is_instruction_message(grouped_messages[insert_idx]):
+        insert_idx += 1
+    missing_feedback = [
+        feedback_messages_by_round[round_num]
+        for round_num in sorted(feedback_messages_by_round)
+        if round_num not in inserted_rounds
+    ]
+    return grouped_messages[:insert_idx] + missing_feedback + grouped_messages[insert_idx:]
+
+
+def _debug_save_round_feedback_image(
+    player: Player, img_canvas: Image.Image, viewer_role: str | None = None
+) -> None:
     """
     Save the round feedback image as a PNG under the project's _static folder.
 
@@ -968,6 +1104,8 @@ def _debug_save_round_feedback_image(player: Player, img_canvas: Image.Image) ->
             round_num = ""
 
         parts = ["round_feedback"]
+        if viewer_role in ("director", "matcher"):
+            parts.append(viewer_role)
         if session_code:
             parts.append(session_code)
         if group_id:
@@ -1193,8 +1331,8 @@ def _inject_visual_grid_context(
         intro_text = (
             f"*** ROUND {current_round} TARGET GRID ***\n"
             f"This image (labeled 'ROUND {current_round} TARGET SEQUENCE') shows the 12 baskets you must describe for THIS round.\n\n"
-            f"⚠️ CRITICAL: The baskets in Round {current_round} are in a DIFFERENT order than previous rounds. "
-            f"Do NOT confuse these with baskets from earlier rounds (shown in 'Feedback' images with green/red borders). "
+            f"CRITICAL: The same physical basket set appears across rounds, but Round {current_round} is in a DIFFERENT order. "
+            f"Carry forward useful names and corrections, but do not reuse previous position numbers. "
             f"ONLY describe the baskets in THIS image, labeled 'ROUND {current_round} TARGET SEQUENCE'.\n\n"
             "Layout: 2 rows × 6 columns with Baskets 1–6 on the top row and Baskets 7–12 on the bottom row. "
             "IMPORTANT: Describe ONE BASKET PER MESSAGE, in order. Wait for your partner to confirm before moving to the next basket."
@@ -1203,8 +1341,8 @@ def _inject_visual_grid_context(
         intro_text = (
             f"*** ROUND {current_round} MATCHER VIEW ***\n"
             f"This image shows your current sequence state for THIS round.\n\n"
-            f"⚠️ CRITICAL: The baskets in Round {current_round} are in a DIFFERENT order than previous rounds. "
-            f"Do NOT confuse these with baskets from earlier rounds (shown in 'Feedback' images with green/red borders). "
+            f"CRITICAL: The same physical basket set appears across rounds, but Round {current_round} has different candidate numbers and sequence positions. "
+            f"Carry forward useful names, correct matches, and wrong-match feedback, but map them onto THIS current candidate pool. "
             f"ONLY select from the candidates shown in THIS image.\n\n"
             "Layout: TOP TWO ROWS show your CURRENT 12-position sequence (positions 1–12). "
             "BOTTOM THREE ROWS show your CANDIDATE POOL of 18 baskets to choose from. "
@@ -1229,10 +1367,26 @@ def _inject_visual_grid_context(
         "content": multimodal_content,
     }
 
-    # Insert after any leading instruction messages so they still anchor behavior,
-    # but before conversation history and the latest partner turn.
+    # Insert after historical round context, but before current-round active
+    # dialogue when that boundary is present. This keeps old feedback images
+    # paired with old transcripts and makes the current grid the freshest
+    # visual frame for the model's next action.
     idx = 0
     while idx < len(messages) and _is_instruction_message(messages[idx]):
         idx += 1
+
+    current_marker = f"═══ ROUND {current_round} (CURRENT ROUND - ACTIVE) ═══"
+    for current_idx in range(idx, len(messages)):
+        content = messages[current_idx].get("content")
+        if isinstance(content, str) and content.startswith(current_marker):
+            return messages[:current_idx] + [grid_message] + messages[current_idx:]
+
+    saw_past_history = any(
+        isinstance(message.get("content"), str)
+        and " HISTORY (PAST - SAME BASKETS, DIFFERENT ORDER) ═══" in message.get("content", "")
+        for message in messages[idx:]
+    )
+    if saw_past_history:
+        return messages + [grid_message]
 
     return messages[:idx] + [grid_message] + messages[idx:]
