@@ -34,6 +34,7 @@ WORD_RE = re.compile(r"\b\w+\b")
 @dataclass(frozen=True)
 class Setting:
     experiment: str
+    session_prefix: str
     prompt_strategy: str
     director_model: str
     matcher_model: str
@@ -193,7 +194,16 @@ def gpt_cache_path(
     key = f"{trace_file.resolve()}::{session_id}::{round_num}::{model}"
     digest = hashlib.sha256(key.encode("utf-8")).hexdigest()[:20]
     safe_session = re.sub(r"[^A-Za-z0-9_.-]+", "_", session_id)
-    return cache_dir / model / f"{safe_session}_round_{round_num}_{digest}.json"
+    exact_path = cache_dir / model / f"{safe_session}_round_{round_num}_{digest}.json"
+    if exact_path.exists():
+        return exact_path
+
+    # Keep caches usable when experiment folders are reorganized. Session ids are
+    # unique for these runs, while the full path is not stable during cleanup.
+    matches = sorted((cache_dir / model).glob(f"{safe_session}_round_{round_num}_*.json"))
+    if matches:
+        return matches[0]
+    return exact_path
 
 
 def parse_extraction_json(raw_text: str) -> dict[int, str]:
@@ -292,6 +302,8 @@ def experiment_name(path: Path, input_roots: list[Path]) -> str:
         except ValueError:
             continue
         if relative.parts:
+            if root.name == "experiments":
+                return relative.parts[0]
             return root.name
     parts = path.parts
     if "experiments" in parts:
@@ -314,6 +326,7 @@ def analyze_trace(
     first_config = data[0].get("config", {})
     setting = Setting(
         experiment=experiment_name(path, input_roots),
+        session_prefix=first_config.get("session_prefix", path.parent.parent.name),
         prompt_strategy=first_config.get("prompt_strategy", "unknown"),
         director_model=first_config.get("ai_director_model", "unknown"),
         matcher_model=first_config.get("ai_matcher_model", "unknown"),
@@ -375,6 +388,7 @@ def analyze_trace(
                         else ""
                     ),
                     "experiment": setting.experiment,
+                    "session_prefix": setting.session_prefix,
                     "prompt_strategy": setting.prompt_strategy,
                     "director_model": setting.director_model,
                     "matcher_model": setting.matcher_model,
@@ -401,6 +415,7 @@ def analyze_trace(
                     extraction_config.gpt_model if extraction_config.extractor == "gpt" else ""
                 ),
                 "experiment": setting.experiment,
+                "session_prefix": setting.session_prefix,
                 "prompt_strategy": setting.prompt_strategy,
                 "director_model": setting.director_model,
                 "matcher_model": setting.matcher_model,
@@ -489,6 +504,7 @@ def print_setting_summary(rows: list[dict[str, Any]]) -> None:
             "extractor",
             "gpt_model",
             "experiment",
+            "session_prefix",
             "prompt_strategy",
             "director_model",
             "matcher_model",
@@ -498,6 +514,7 @@ def print_setting_summary(rows: list[dict[str, Any]]) -> None:
         "extractor",
         "gpt_model",
         "experiment",
+        "session_prefix",
         "director_model",
         "matcher_model",
         "n_sessions",
@@ -562,6 +579,12 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Re-run GPT extraction even when a cached response exists.",
     )
+    parser.add_argument(
+        "--exclude-pattern",
+        action="append",
+        default=[],
+        help="Skip trace files whose path contains this substring. Repeatable.",
+    )
     return parser.parse_args()
 
 
@@ -574,6 +597,12 @@ def main() -> None:
         paths = [Path("data/experiments/ACL"), Path("data/experiments/Cameron-style")]
 
     trace_files = find_trace_files(paths)
+    if args.exclude_pattern:
+        trace_files = [
+            path
+            for path in trace_files
+            if not any(pattern in str(path) for pattern in args.exclude_pattern)
+        ]
     extraction_config = ExtractionConfig(
         extractor=args.extractor,
         gpt_model=args.gpt_model,
@@ -598,6 +627,7 @@ def main() -> None:
             "extractor",
             "gpt_model",
             "experiment",
+            "session_prefix",
             "prompt_strategy",
             "director_model",
             "matcher_model",
@@ -605,6 +635,30 @@ def main() -> None:
         ],
     )
     setting_summary = summarize(
+        rows,
+        [
+            "extractor",
+            "gpt_model",
+            "experiment",
+            "session_prefix",
+            "prompt_strategy",
+            "director_model",
+            "matcher_model",
+        ],
+    )
+    collapsed_round_summary = summarize(
+        rows,
+        [
+            "extractor",
+            "gpt_model",
+            "experiment",
+            "prompt_strategy",
+            "director_model",
+            "matcher_model",
+            "round",
+        ],
+    )
+    collapsed_setting_summary = summarize(
         rows,
         [
             "extractor",
@@ -620,6 +674,14 @@ def main() -> None:
     write_csv(args.output_dir / "metrics_by_session_round.csv", rows)
     write_csv(args.output_dir / "metrics_by_setting_round.csv", round_summary)
     write_csv(args.output_dir / "metrics_by_setting.csv", setting_summary)
+    write_csv(
+        args.output_dir / "metrics_by_setting_round_collapsed.csv",
+        collapsed_round_summary,
+    )
+    write_csv(
+        args.output_dir / "metrics_by_setting_collapsed.csv",
+        collapsed_setting_summary,
+    )
 
     print(f"Analyzed {len(trace_files)} trace files and {len(rows)} rounds.")
     print_setting_summary(rows)

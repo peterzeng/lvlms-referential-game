@@ -15,6 +15,7 @@ from typing import Any
 WORD_RE = re.compile(r"\b\w+\b")
 KEY_FIELDS = [
     "experiment",
+    "session_prefix",
     "prompt_strategy",
     "director_model",
     "matcher_model",
