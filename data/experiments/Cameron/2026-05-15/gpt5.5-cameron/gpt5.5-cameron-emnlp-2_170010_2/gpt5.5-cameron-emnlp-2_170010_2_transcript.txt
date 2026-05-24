@@ -1,0 +1,324 @@
+================================================================================
+SESSION TRANSCRIPT REPORT
+================================================================================
+
+Pair ID:        gpt5.5-cameron-emnlp-2_170010_2
+Session Code:   gpt5.5-cameron-emnlp-2_170010_2
+Source File:    data/experiments/Cameron/2026-05-15/gpt5.5-cameron-emnlp-2/gpt5.5-cameron-emnlp-2_170010_2/gpt5.5-cameron-emnlp-2_170010_2_data.json
+
+SESSION CONFIGURATION:
+  ai_vs_ai_mode: True
+  director_view: grid
+  basket_set: 5
+  num_rounds: 5
+  cross_round_history: True
+  debug_prompt_context: False
+  session_prefix: gpt5.5-cameron-emnlp-2
+  prompt_strategy: cameron-prompt
+  ai_director_model: gpt-5.5
+  ai_matcher_model: gpt-5.5
+  ai_reasoning_effort: none
+
+OVERALL ACCURACY: 91.7% (avg across 5 rounds)
+
+================================================================================
+
+ROUND 1
+----------------------------------------
+Accuracy: 91.7%
+
+DIALOGUE:
+--------------------
+[17:09:36] DIRECTOR: rabbit shaped basket, red eye
+
+[17:09:39] MATCHER: Placed the rabbit-shaped one with the red eye in position 1.
+
+[17:09:43] DIRECTOR: dark round basket, big dark handle
+
+[17:09:46] MATCHER: Placed the dark round basket with the big dark handle in position 2.
+
+[17:09:48] DIRECTOR: rect basket w tall middle handle
+
+[17:09:51] MATCHER: Placed the rectangular basket with the tall middle handle in position 3.
+
+[17:09:53] DIRECTOR: small white striped basket
+
+[17:09:56] MATCHER: Placed the small white striped basket in position 4.
+
+[17:10:00] DIRECTOR: orange square basket, twisted handle
+
+[17:10:03] MATCHER: Placed the orange square basket with the twisted handle in position 5.
+
+[17:10:05] DIRECTOR: round cat basket face
+
+[17:10:08] MATCHER: Placed the round cat face basket in position 6.
+
+[17:10:10] DIRECTOR: greenish rectangular basket
+
+[17:10:15] MATCHER: Placed the greenish rectangular basket in position 7.
+
+[17:10:17] DIRECTOR: gray striped basket, black handle
+
+[17:10:20] MATCHER: Placed the gray striped basket with the black handle in position 8.
+
+[17:10:22] DIRECTOR: tall cylinder basket
+
+[17:10:26] MATCHER: Placed the tall cylinder basket in position 9.
+
+[17:10:28] DIRECTOR: flat round tray, single handle
+
+[17:10:31] MATCHER: Placed the flat round tray with the single handle in position 10.
+
+[17:10:33] DIRECTOR: oval basket, two side handles
+
+[17:10:37] MATCHER: Placed the oval basket with two side handles in position 11.
+
+[17:10:40] DIRECTOR: pinkish basket, smooth arch handle
+
+[17:10:43] MATCHER: Placed the pinkish basket with the smooth arch handle in position 12.
+
+[17:10:46] DIRECTOR: yep submit
+
+[17:10:49] MATCHER: Submitting now.
+
+================================================================================
+
+ROUND 2
+----------------------------------------
+Accuracy: 91.7%
+
+DIALOGUE:
+--------------------
+[17:10:52] DIRECTOR: rect basket w tall middle handle
+
+[17:10:56] MATCHER: Placed the rectangular basket with the tall middle handle in position 1.
+
+[17:10:59] DIRECTOR: tall cylinder basket
+
+[17:11:02] MATCHER: Placed the tall cylinder basket in position 2.
+
+[17:11:05] DIRECTOR: dark round basket
+
+[17:11:10] MATCHER: Placed the dark round basket in position 3.
+
+[17:11:14] DIRECTOR: orange square twisted handle
+
+[17:11:17] MATCHER: Placed the orange square one with the twisted handle in position 4.
+
+[17:11:20] DIRECTOR: gray striped black handle
+
+[17:11:24] MATCHER: Placed the gray striped basket with the black handle in position 5.
+
+[17:11:27] DIRECTOR: rabbit basket
+
+[17:11:32] MATCHER: Placed the rabbit basket in position 6.
+
+[17:11:35] DIRECTOR: cat face round
+
+[17:11:39] MATCHER: Placed the round cat face basket in position 7.
+
+[17:11:41] DIRECTOR: flat tray single handle
+
+[17:11:45] MATCHER: Placed the flat tray with the single handle in position 8.
+
+[17:11:48] DIRECTOR: greenish rectangular basket
+
+[17:11:52] MATCHER: Placed the greenish rectangular basket in position 9.
+
+[17:11:55] DIRECTOR: oval two side handles
+
+[17:12:00] MATCHER: Placed the oval basket with two side handles in position 10.
+
+[17:12:03] DIRECTOR: small white striped
+
+[17:12:08] MATCHER: Placed the small white striped basket in position 11.
+
+[17:12:11] DIRECTOR: pinkish smooth arch
+
+[17:12:17] MATCHER: Placed the pinkish basket with the smooth arch handle in position 12.
+
+[17:12:21] DIRECTOR: submit
+
+[17:12:25] MATCHER: Submitting now.
+
+================================================================================
+
+ROUND 3
+----------------------------------------
+Accuracy: 91.7%
+
+DIALOGUE:
+--------------------
+[17:12:30] DIRECTOR: greenish rectangular basket
+
+[17:12:35] MATCHER: Placed the greenish rectangular basket in position 1.
+
+[17:12:38] DIRECTOR: small white striped
+
+[17:12:43] MATCHER: Placed the small white striped basket in position 2.
+
+[17:12:47] DIRECTOR: cat face round
+
+[17:12:52] MATCHER: Placed the round cat face basket in position 3.
+
+[17:12:55] DIRECTOR: rabbit basket
+
+[17:12:59] MATCHER: Placed the rabbit basket in position 4.
+
+[17:13:03] DIRECTOR: pinkish smooth arch
+
+[17:13:08] MATCHER: Placed the pinkish basket with the smooth arch handle in position 5.
+
+[17:13:11] DIRECTOR: tall cylinder
+
+[17:13:17] MATCHER: Placed the tall cylinder basket in position 6.
+
+[17:13:20] DIRECTOR: dark round basket
+
+[17:13:26] MATCHER: Placed the dark round basket in position 7.
+
+[17:13:30] DIRECTOR: gray striped black handle
+
+[17:13:35] MATCHER: Placed the gray striped basket with the black handle in position 8.
+
+[17:13:39] DIRECTOR: orange square twisted handle
+
+[17:13:44] MATCHER: Placed the orange square basket with the twisted handle in position 9.
+
+[17:13:48] DIRECTOR: oval two side handles
+
+[17:13:54] MATCHER: Placed the oval basket with two side handles in position 10.
+
+[17:13:57] DIRECTOR: flat tray single handle
+
+[17:14:03] MATCHER: Placed the flat tray with the single handle in position 11.
+
+[17:14:07] DIRECTOR: rect tall middle handle
+
+[17:14:23] MATCHER: Placed the rectangular basket with the tall middle handle in position 12.
+
+[17:14:26] DIRECTOR: submit
+
+[17:14:31] MATCHER: Submitting now.
+
+================================================================================
+
+ROUND 4
+----------------------------------------
+Accuracy: 91.7%
+
+DIALOGUE:
+--------------------
+[17:14:36] DIRECTOR: flat tray single handle
+
+[17:14:45] MATCHER: Placed the flat tray with the single handle in position 1.
+
+[17:14:49] DIRECTOR: orange square twisted handle
+
+[17:14:53] MATCHER: Placed the orange square basket with the twisted handle in position 2.
+
+[17:14:57] DIRECTOR: rabbit
+
+[17:15:02] MATCHER: Placed the rabbit basket in position 3.
+
+[17:15:06] DIRECTOR: greenish rectangular
+
+[17:15:12] MATCHER: Placed the greenish rectangular basket in position 4.
+
+[17:15:16] DIRECTOR: oval two side handles
+
+[17:15:22] MATCHER: Placed the oval basket with two side handles in position 5.
+
+[17:15:26] DIRECTOR: dark round basket
+
+[17:15:32] MATCHER: Placed the dark round basket in position 6.
+
+[17:15:37] DIRECTOR: tall cylinder
+
+[17:15:43] MATCHER: Placed the tall cylinder basket in position 7.
+
+[17:15:48] DIRECTOR: rect tall middle handle
+
+[17:15:55] MATCHER: Placed the rectangular basket with the tall middle handle in position 8.
+
+[17:15:59] DIRECTOR: cat face
+
+[17:16:05] MATCHER: Placed the cat face basket in position 9.
+
+[17:16:09] DIRECTOR: small white striped
+
+[17:16:16] MATCHER: Placed the small white striped basket in position 10.
+
+[17:16:20] DIRECTOR: pinkish smooth arch
+
+[17:16:26] MATCHER: Placed the pinkish basket with the smooth arch handle in position 11.
+
+[17:16:30] DIRECTOR: gray striped black handle
+
+[17:16:37] MATCHER: Placed the gray striped basket with the black handle in position 12.
+
+[17:16:41] DIRECTOR: submit
+
+[17:16:48] MATCHER: Submitting now.
+
+================================================================================
+
+ROUND 5
+----------------------------------------
+Accuracy: 91.7%
+
+DIALOGUE:
+--------------------
+[17:16:52] DIRECTOR: gray striped black handle
+
+[17:16:58] MATCHER: Placed the gray striped basket with the black handle in position 1.
+
+[17:17:02] DIRECTOR: small white striped
+
+[17:17:07] MATCHER: Placed the small white striped basket in position 2.
+
+[17:17:12] DIRECTOR: oval two side handles
+
+[17:17:17] MATCHER: Placed the oval basket with two side handles in position 3.
+
+[17:17:22] DIRECTOR: dark round basket
+
+[17:17:28] MATCHER: Placed the dark round basket in position 4.
+
+[17:17:32] DIRECTOR: tall cylinder
+
+[17:17:38] MATCHER: Placed the tall cylinder basket in position 5.
+
+[17:17:42] DIRECTOR: orange square twisted handle
+
+[17:17:50] MATCHER: Placed the orange square basket with the twisted handle in position 6.
+
+[17:17:57] DIRECTOR: pinkish smooth arch
+
+[17:18:03] MATCHER: Placed the pinkish basket with the smooth arch handle in position 7.
+
+[17:18:08] DIRECTOR: rabbit
+
+[17:18:14] MATCHER: Placed the rabbit basket in position 8.
+
+[17:18:19] DIRECTOR: cat face
+
+[17:18:26] MATCHER: Placed the cat face basket in position 9.
+
+[17:18:31] DIRECTOR: rect tall middle handle
+
+[17:18:36] MATCHER: Placed the rectangular basket with the tall middle handle in position 10.
+
+[17:18:41] DIRECTOR: flat tray
+
+[17:18:47] MATCHER: Placed the flat tray in position 11.
+
+[17:18:52] DIRECTOR: greenish rectangular
+
+[17:18:59] MATCHER: Placed the greenish rectangular basket in position 12.
+
+[17:19:05] DIRECTOR: submit
+
+[17:19:11] MATCHER: Submitting now.
+
+================================================================================

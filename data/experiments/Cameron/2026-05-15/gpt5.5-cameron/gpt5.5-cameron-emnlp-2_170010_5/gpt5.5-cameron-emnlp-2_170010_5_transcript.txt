@@ -1,0 +1,324 @@
+================================================================================
+SESSION TRANSCRIPT REPORT
+================================================================================
+
+Pair ID:        gpt5.5-cameron-emnlp-2_170010_5
+Session Code:   gpt5.5-cameron-emnlp-2_170010_5
+Source File:    data/experiments/Cameron/2026-05-15/gpt5.5-cameron-emnlp-2/gpt5.5-cameron-emnlp-2_170010_5/gpt5.5-cameron-emnlp-2_170010_5_data.json
+
+SESSION CONFIGURATION:
+  ai_vs_ai_mode: True
+  director_view: grid
+  basket_set: 5
+  num_rounds: 5
+  cross_round_history: True
+  debug_prompt_context: False
+  session_prefix: gpt5.5-cameron-emnlp-2
+  prompt_strategy: cameron-prompt
+  ai_director_model: gpt-5.5
+  ai_matcher_model: gpt-5.5
+  ai_reasoning_effort: none
+
+OVERALL ACCURACY: 100.0% (avg across 5 rounds)
+
+================================================================================
+
+ROUND 1
+----------------------------------------
+Accuracy: 100.0%
+
+DIALOGUE:
+--------------------
+[17:38:17] DIRECTOR: rabbit basket
+
+[17:38:19] MATCHER: Placed the rabbit-shaped basket in position 1. What's next?
+
+[17:38:22] DIRECTOR: round brown pot, dark handle
+
+[17:38:25] MATCHER: Placed the round brown pot with the dark handle in position 2. What's next?
+
+[17:38:27] DIRECTOR: rectangular picnic basket, tall middle handle
+
+[17:38:31] MATCHER: Placed the rectangular picnic basket with the tall middle handle in position 3. What's next?
+
+[17:38:33] DIRECTOR: small white-striped basket, arched handle
+
+[17:38:37] MATCHER: Placed the small white-striped basket with the arched handle in position 4. What's next?
+
+[17:38:39] DIRECTOR: gold basket, twisted handle
+
+[17:38:43] MATCHER: Placed the gold basket with the twisted handle in position 5. What's next?
+
+[17:38:45] DIRECTOR: round cat-face basket
+
+[17:38:50] MATCHER: Placed the round cat-face basket in position 6. What's next?
+
+[17:38:52] DIRECTOR: green rectangular basket
+
+[17:38:57] MATCHER: Placed the green rectangular basket in position 7. What's next?
+
+[17:38:59] DIRECTOR: dark gray basket, black handle
+
+[17:39:03] MATCHER: Placed the dark gray basket with the black handle in position 8. What's next?
+
+[17:39:05] DIRECTOR: tall cylinder basket with side handles
+
+[17:39:09] MATCHER: Placed the tall cylinder basket with side handles in position 9. What's next?
+
+[17:39:11] DIRECTOR: flat round tray basket
+
+[17:39:14] MATCHER: Placed the flat round tray basket in position 10. What's next?
+
+[17:39:17] DIRECTOR: large tan tub, two side handles
+
+[17:39:20] MATCHER: Placed the large tan tub with two side handles in position 11. What's next?
+
+[17:39:23] DIRECTOR: pinkish basket, single handle
+
+[17:39:28] MATCHER: Placed the pinkish basket with the single handle in position 12.
+
+[17:39:30] DIRECTOR: done!
+
+[17:39:33] MATCHER: Submitting now!
+
+================================================================================
+
+ROUND 2
+----------------------------------------
+Accuracy: 100.0%
+
+DIALOGUE:
+--------------------
+[17:39:37] DIRECTOR: rect picnic, tall middle handle
+
+[17:39:41] MATCHER: Placed the rectangular picnic basket with the tall middle handle in position 1. What's next?
+
+[17:39:43] DIRECTOR: tall cylinder side handles
+
+[17:39:48] MATCHER: Placed the tall cylinder basket with side handles in position 2. What's next?
+
+[17:39:50] DIRECTOR: round brown pot, dark handle
+
+[17:39:54] MATCHER: Placed the round brown pot with the dark handle in position 3. What's next?
+
+[17:39:56] DIRECTOR: gold twisted handle
+
+[17:40:01] MATCHER: Placed the gold basket with the twisted handle in position 4. What's next?
+
+[17:40:03] DIRECTOR: dark gray black handle
+
+[17:40:07] MATCHER: Placed the dark gray basket with the black handle in position 5. What's next?
+
+[17:40:10] DIRECTOR: rabbit basket
+
+[17:40:15] MATCHER: Placed the rabbit-shaped basket in position 6. What's next?
+
+[17:40:17] DIRECTOR: cat face
+
+[17:40:22] MATCHER: Placed the cat-face basket in position 7. What's next?
+
+[17:40:24] DIRECTOR: flat tray
+
+[17:40:29] MATCHER: Placed the flat tray basket in position 8. What's next?
+
+[17:40:32] DIRECTOR: green rectangular
+
+[17:40:36] MATCHER: Placed the green rectangular basket in position 9. What's next?
+
+[17:40:39] DIRECTOR: tan tub side handles
+
+[17:40:44] MATCHER: Placed the tan tub with side handles in position 10. What's next?
+
+[17:40:47] DIRECTOR: white striped small basket
+
+[17:40:51] MATCHER: Placed the small white-striped basket in position 11. What's next?
+
+[17:40:54] DIRECTOR: pinkish single handle
+
+[17:40:59] MATCHER: Placed the pinkish single-handle basket in position 12.
+
+[17:41:03] DIRECTOR: done!
+
+[17:41:08] MATCHER: Submitting now!
+
+================================================================================
+
+ROUND 3
+----------------------------------------
+Accuracy: 100.0%
+
+DIALOGUE:
+--------------------
+[17:41:11] DIRECTOR: green rectangular
+
+[17:41:17] MATCHER: Placed the green rectangular basket in position 1. What's next?
+
+[17:41:21] DIRECTOR: white striped small basket
+
+[17:41:26] MATCHER: Placed the small white-striped basket in position 2. What's next?
+
+[17:41:29] DIRECTOR: cat face
+
+[17:41:33] MATCHER: Placed the cat-face basket in position 3. What's next?
+
+[17:41:37] DIRECTOR: rabbit basket
+
+[17:41:42] MATCHER: Placed the rabbit-shaped basket in position 4. What's next?
+
+[17:41:45] DIRECTOR: pinkish single handle
+
+[17:41:51] MATCHER: Placed the pinkish single-handle basket in position 5. What's next?
+
+[17:41:55] DIRECTOR: tall cylinder side handles
+
+[17:42:02] MATCHER: Placed the tall cylinder basket with side handles in position 6. What's next?
+
+[17:42:05] DIRECTOR: round brown pot
+
+[17:42:10] MATCHER: Placed the round brown pot in position 7. What's next?
+
+[17:42:13] DIRECTOR: dark gray black handle
+
+[17:42:20] MATCHER: Placed the dark gray basket with the black handle in position 8. What's next?
+
+[17:42:23] DIRECTOR: gold twisted handle
+
+[17:42:28] MATCHER: Placed the gold twisted-handle basket in position 9. What's next?
+
+[17:42:32] DIRECTOR: tan tub side handles
+
+[17:42:38] MATCHER: Placed the tan tub with side handles in position 10. What's next?
+
+[17:42:41] DIRECTOR: flat tray
+
+[17:42:46] MATCHER: Placed the flat tray basket in position 11. What's next?
+
+[17:42:50] DIRECTOR: rect picnic tall handle
+
+[17:42:56] MATCHER: Placed the rectangular picnic basket with the tall handle in position 12.
+
+[17:42:59] DIRECTOR: done!
+
+[17:43:03] MATCHER: Submitting now!
+
+================================================================================
+
+ROUND 4
+----------------------------------------
+Accuracy: 100.0%
+
+DIALOGUE:
+--------------------
+[17:43:07] DIRECTOR: flat tray
+
+[17:43:13] MATCHER: Placed the flat tray basket in position 1. What's next?
+
+[17:43:17] DIRECTOR: gold twisted handle
+
+[17:43:22] MATCHER: Placed the gold twisted-handle basket in position 2. What's next?
+
+[17:43:27] DIRECTOR: rabbit basket
+
+[17:43:33] MATCHER: Placed the rabbit basket in position 3. What's next?
+
+[17:43:37] DIRECTOR: green rectangular
+
+[17:43:43] MATCHER: Placed the green rectangular basket in position 4. What's next?
+
+[17:43:46] DIRECTOR: tan tub side handles
+
+[17:43:52] MATCHER: Placed the tan tub with side handles in position 5. What's next?
+
+[17:43:56] DIRECTOR: round brown pot
+
+[17:44:02] MATCHER: Placed the round brown pot in position 6. What's next?
+
+[17:44:06] DIRECTOR: tall cylinder side handles
+
+[17:44:12] MATCHER: Placed the tall cylinder basket with side handles in position 7. What's next?
+
+[17:44:17] DIRECTOR: rect picnic tall handle
+
+[17:44:23] MATCHER: Placed the rectangular picnic basket with the tall handle in position 8. What's next?
+
+[17:44:28] DIRECTOR: cat face
+
+[17:44:34] MATCHER: Placed the cat-face basket in position 9. What's next?
+
+[17:44:38] DIRECTOR: white striped
+
+[17:44:44] MATCHER: Placed the white-striped basket in position 10. What's next?
+
+[17:44:48] DIRECTOR: pinkish single handle
+
+[17:44:54] MATCHER: Placed the pinkish single-handle basket in position 11. What's next?
+
+[17:44:59] DIRECTOR: dark gray black handle
+
+[17:45:05] MATCHER: Placed the dark gray basket with the black handle in position 12.
+
+[17:45:09] DIRECTOR: done!
+
+[17:45:16] MATCHER: Submitting now!
+
+================================================================================
+
+ROUND 5
+----------------------------------------
+Accuracy: 100.0%
+
+DIALOGUE:
+--------------------
+[17:45:21] DIRECTOR: dark gray black handle
+
+[17:45:26] MATCHER: Placed the dark gray basket with the black handle in position 1. What's next?
+
+[17:45:31] DIRECTOR: white striped
+
+[17:45:37] MATCHER: Placed the white-striped basket in position 2. What's next?
+
+[17:45:42] DIRECTOR: tan tub side handles
+
+[17:45:47] MATCHER: Placed the tan tub with side handles in position 3. What's next?
+
+[17:45:52] DIRECTOR: round brown pot
+
+[17:45:58] MATCHER: Placed the round brown pot in position 4. What's next?
+
+[17:46:03] DIRECTOR: tall cylinder side handles
+
+[17:46:08] MATCHER: Placed the tall cylinder basket with side handles in position 5. What's next?
+
+[17:46:12] DIRECTOR: gold twisted handle
+
+[17:46:19] MATCHER: Placed the gold twisted-handle basket in position 6. What's next?
+
+[17:46:24] DIRECTOR: pinkish single handle
+
+[17:46:31] MATCHER: Placed the pinkish single-handle basket in position 7. What's next?
+
+[17:46:36] DIRECTOR: rabbit basket
+
+[17:46:42] MATCHER: Placed the rabbit basket in position 8. What's next?
+
+[17:46:48] DIRECTOR: cat face
+
+[17:46:54] MATCHER: Placed the cat-face basket in position 9. What's next?
+
+[17:46:59] DIRECTOR: rect picnic tall handle
+
+[17:47:05] MATCHER: Placed the rectangular picnic basket with the tall handle in position 10. What's next?
+
+[17:47:10] DIRECTOR: flat tray
+
+[17:47:16] MATCHER: Placed the flat tray basket in position 11. What's next?
+
+[17:47:20] DIRECTOR: green rectangular
+
+[17:47:27] MATCHER: Placed the green rectangular basket in position 12.
+
+[17:47:31] DIRECTOR: done!
+
+[17:47:37] MATCHER: Submitting now!
+
+================================================================================

@@ -19,4 +19,8 @@ data.sqlite
 # data/exported_sessions/
 # data/old/
 prompt_exports/
-data/
+# data/
+2026_05_EMNLP_Basket_Prompts/
+old/
+emnlp_results_analysis.md
+emnlp_results_section_draft.md

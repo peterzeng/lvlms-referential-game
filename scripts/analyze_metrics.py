@@ -4,8 +4,8 @@
 The experiment logs already contain enough structure to compute the core
 metrics without an LLM extraction pass. Director utterances consistently mark
 objects as "Basket N ..." or "basket N ..."; this script extracts those spans,
-tracks object identity through `shared_grid[*].basket_id`, and summarizes runs
-separately by prompt and model setting.
+tracks object identity through the stable image path in `shared_grid`, and
+summarizes runs separately by prompt and model setting.
 """
 
 from __future__ import annotations
@@ -286,11 +286,11 @@ def extract_referring_expressions_for_round(
     raise ValueError(f"Unknown extractor: {config.extractor}")
 
 
-def target_map_for_round(round_data: dict[str, Any]) -> dict[int, int]:
+def target_map_for_round(round_data: dict[str, Any]) -> dict[int, str]:
     grid = round_data.get("shared_grid") or []
     grid_sorted = sorted(grid, key=lambda cell: (cell.get("row", 0), cell.get("col", 0)))
     return {
-        index + 1: cell.get("basket_id", index + 1)
+        index + 1: str(cell.get("image") or cell.get("basket_id", index + 1))
         for index, cell in enumerate(grid_sorted)
     }
 
@@ -332,7 +332,7 @@ def analyze_trace(
         matcher_model=first_config.get("ai_matcher_model", "unknown"),
     )
 
-    re_history: dict[int, str] = {}
+    re_history: dict[str, str] = {}
     rows: list[dict[str, Any]] = []
     expression_rows: list[dict[str, Any]] = []
 
@@ -362,7 +362,7 @@ def analyze_trace(
             re_text = expressions.get(object_num, "")
             if re_text:
                 extracted_count += 1
-            basket_id = target_map.get(object_num, object_num)
+            basket_id = target_map.get(object_num, str(object_num))
             re_word_count = get_content_word_count(re_text)
             total_re_len += re_word_count
 

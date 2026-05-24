@@ -46,7 +46,7 @@ def _build_cameron_base_prompt(player, role: str) -> str:
 
 """
     if role == "director":
-        base += """You are the DIRECTOR (Speaker). 
+        base += """You are the DIRECTOR. 
 
 ## Instructions
 
@@ -66,7 +66,7 @@ def _build_cameron_base_prompt(player, role: str) -> str:
 SERIOUSLY—in later rounds just 1-2 words. Do NOT send longer descriptions unless your partner keeps getting it wrong.
 """
     else:
-        base += """You are the MATCHER (Listener). You'll identify a basket based on your partner's description.
+        base += """You are the MATCHER. You'll identify a basket based on your partner's description.
 
 ## Instructions
 

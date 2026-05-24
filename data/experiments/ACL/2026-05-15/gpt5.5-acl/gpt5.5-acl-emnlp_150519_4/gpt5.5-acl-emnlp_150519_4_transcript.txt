@@ -1,0 +1,324 @@
+================================================================================
+SESSION TRANSCRIPT REPORT
+================================================================================
+
+Pair ID:        gpt5.5-acl-emnlp_150519_4
+Session Code:   gpt5.5-acl-emnlp_150519_4
+Source File:    data/experiments/ACL/2026-05-15/gpt5.5-acl-emnlp/gpt5.5-acl-emnlp_150519_4/gpt5.5-acl-emnlp_150519_4_data.json
+
+SESSION CONFIGURATION:
+  ai_vs_ai_mode: True
+  director_view: grid
+  basket_set: 5
+  num_rounds: 5
+  cross_round_history: True
+  debug_prompt_context: False
+  session_prefix: gpt5.5-acl-emnlp
+  prompt_strategy: ACL_prompt
+  ai_director_model: gpt-5.5
+  ai_matcher_model: gpt-5.5
+  ai_reasoning_effort: none
+
+OVERALL ACCURACY: 100.0% (avg across 5 rounds)
+
+================================================================================
+
+ROUND 1
+----------------------------------------
+Accuracy: 100.0%
+
+DIALOGUE:
+--------------------
+[15:50:42] DIRECTOR: Basket 1 is the light tan wicker rabbit-shaped basket in side profile: rounded body, small red eye near the front, with ears/opening on top—no handle.
+
+[15:50:49] MATCHER: I found the light tan rabbit-shaped basket with the red eye and no handle; placing it in position 1.
+
+[15:50:54] DIRECTOR: Basket 2 is a squat round bucket-shaped wicker basket with a thick dark almost black arched handle and an orange-brown body with a darker rim.
+
+[15:50:59] MATCHER: I think I found it: the squat orange-brown bucket with the very dark arched handle and darker rim. Placing it in position 2.
+
+[15:51:05] DIRECTOR: Basket 3 is the boxy rectangular picnic-style basket: tan wicker, flat base, with a tall vertical handle rising from the center and a slanted dark handle/strap on the right side.
+
+[15:51:10] MATCHER: I found the boxy rectangular picnic basket with the tall center handle and darker slanted side handle on the right; placing it in position 3.
+
+[15:51:15] DIRECTOR: Basket 4 is the small oval basket with a thin upright handle, a pale whitewashed/two-tone wicker body, and reddish ties where the handle attaches on both sides.
+
+[15:51:21] MATCHER: I think I found the small oval two-tone basket with the thin upright handle and reddish ties at the handle attachments; placing it in position 4. Please describe the next basket.
+
+[15:51:26] DIRECTOR: Basket 5 is a shallow rectangular golden-brown wicker basket with a very thick twisted rope-like arch handle and an open lattice weave body.
+
+[15:51:32] MATCHER: I think I found the shallow rectangular golden-brown basket with the thick twisted rope-like arch handle and open lattice sides; placing it in position 5. Please describe the next basket.
+
+[15:51:37] DIRECTOR: Basket 6 is the front-facing round rabbit basket: light blond wicker, red eyes and whisker/nose details on the face, small ears/opening on top, and little feet at the bottom.
+
+[15:51:42] MATCHER: I found the front-facing light blond rabbit basket with red face details and little feet; placing it in position 6. Please describe the next basket.
+
+[15:51:47] DIRECTOR: Basket 7 is a rectangular handled basket with dark greenish/olive woven side panels, tan wicker bands along the top and bottom, and a single medium-brown arched handle.
+
+[15:51:54] MATCHER: I think I found the rectangular basket with dark olive side panels, tan bands, and one brown arched handle; placing it in position 7.
+
+[15:51:59] DIRECTOR: Basket 8 is the squat oval basket with dark gray-brown mixed wicker, a nearly black arched handle, and a thin reddish-brown rim around the top.
+
+[15:52:06] MATCHER: I think I found the squat oval dark gray-brown basket with the nearly black handle and reddish-brown rim; placing it in position 8. Please describe the next basket.
+
+[15:52:11] DIRECTOR: Basket 9 is the tall cylindrical medium-brown wicker basket with straight sides, an open top, and two small loop handles near the upper sides.
+
+[15:52:18] MATCHER: I found the tall straight-sided cylindrical basket with an open top and two small loop handles near the upper sides; placing it in position 9. Please describe the next basket.
+
+[15:52:24] DIRECTOR: Basket 10 is a very shallow round tray-like basket, with a flat spiral woven bottom, a single pale arched handle, and darker reddish-brown edging around the rim.
+
+[15:52:31] MATCHER: I found the very shallow round tray basket with the spiral bottom, pale arched handle, and reddish-brown rim; placing it in position 10. Please describe the next basket.
+
+[15:52:39] DIRECTOR: Basket 11 is an open bucket/tub-shaped basket with dark golden-brown tight honeycomb weave and two short loop handles on the sides—no tall arch handle.
+
+[15:52:44] MATCHER: I found the open tub-shaped dark golden-brown honeycomb basket with two short side loop handles and no tall arch handle; placing it in position 11.
+
+[15:52:49] DIRECTOR: Basket 12 is the light pinkish-brown rounded rectangular basket with vertical ribbed sides and one smooth arched handle over the open top.
+
+[15:52:55] MATCHER: I found the light pinkish-brown rounded rectangular open basket with vertical ribbed sides and one smooth arched handle; placing it in position 12.
+
+[15:52:59] DIRECTOR: Great, that completes all 12 for Round 1. Please submit the sequence when ready.
+
+[15:53:04] MATCHER: All 12 positions are filled; submitting the sequence now.
+
+================================================================================
+
+ROUND 2
+----------------------------------------
+Accuracy: 100.0%
+
+DIALOGUE:
+--------------------
+[15:53:09] DIRECTOR: Basket 1 is the boxy rectangular picnic-style basket: tan wicker with a tall vertical handle in the center and a darker slanted handle/strap on the right side.
+
+[15:53:16] MATCHER: I found the boxy rectangular picnic basket with the tall center handle and darker slanted strap on the right; placing it in position 1.
+
+[15:53:21] DIRECTOR: Basket 2 is the tall straight-sided cylindrical basket, open at the top, with two small loop handles near the upper sides—no big arch handle.
+
+[15:53:27] MATCHER: I found the tall straight-sided open cylindrical basket with the two small side loop handles and no big arch; placing it in position 2.
+
+[15:53:34] DIRECTOR: Basket 3 is the squat round bucket-shaped basket with an orange-brown body, a darker top rim, and a thick very dark almost black arched handle.
+
+[15:53:41] MATCHER: I found the squat orange-brown bucket with the thick nearly black arched handle and darker rim; placing it in position 3.
+
+[15:53:46] DIRECTOR: Basket 4 is the shallow rectangular golden-brown basket with low open-lattice sides and a very thick twisted rope-like arch handle.
+
+[15:53:52] MATCHER: I found the shallow rectangular golden-brown basket with the thick twisted rope arch and open lattice sides; placing it in position 4.
+
+[15:53:57] DIRECTOR: Basket 5 is the squat oval dark gray-brown basket, with a nearly black arched handle and a thin reddish-brown rim around the top.
+
+[15:54:05] MATCHER: I think I found the squat oval dark gray-brown basket with the nearly black handle and reddish-brown top rim; placing it in position 5.
+
+[15:54:11] DIRECTOR: Basket 6 is the side-profile rabbit basket: light tan wicker, pointed rabbit face with one red eye visible, ears/opening on top, and no handle.
+
+[15:54:18] MATCHER: I found the side-profile rabbit with one visible red eye and no handle; placing it in position 6.
+
+[15:54:26] DIRECTOR: Basket 7 is the front-facing round rabbit basket: light blond wicker with two red eyes and nose/whisker face details, little feet at the bottom, and no handle.
+
+[15:54:34] MATCHER: I found the front-facing round rabbit with two red eyes, face details, and little feet; placing it in position 7.
+
+[15:54:40] DIRECTOR: Basket 8 is the very shallow round tray-like basket with a flat spiral woven bottom, one pale arched handle, and a darker reddish-brown rim.
+
+[15:54:47] MATCHER: I found the very shallow round tray with the spiral bottom, pale arched handle, and reddish-brown rim; placing it in position 8.
+
+[15:54:53] DIRECTOR: Basket 9 is the rectangular basket with dark greenish/olive side panels, tan wicker bands along the top and bottom, and one medium-brown arched handle.
+
+[15:55:00] MATCHER: I found the rectangular basket with dark olive side panels, tan bands, and one brown arched handle; placing it in position 9.
+
+[15:55:06] DIRECTOR: Basket 10 is the open tub-shaped basket with dark golden-brown tight honeycomb weave and two short loop handles on the sides—no tall arch handle.
+
+[15:55:12] MATCHER: I found the open dark golden-brown tub with tight honeycomb weave and two short side loop handles; placing it in position 10.
+
+[15:55:19] DIRECTOR: Basket 11 is the small oval two-tone basket: pale whitewashed wicker, a thin upright handle, and reddish ties where the handle attaches on both sides.
+
+[15:55:26] MATCHER: I found the small oval two-tone whitewashed basket with the thin upright handle and reddish ties at both handle attachments; placing it in position 11.
+
+[15:55:32] DIRECTOR: Basket 12 is the light pinkish-brown rounded rectangular open basket, with vertical ribbed sides and one smooth arched handle over the top.
+
+[15:55:39] MATCHER: I found the light pinkish-brown rounded rectangular open basket with vertical ribbed sides and one smooth arched handle; placing it in position 12.
+
+[15:55:43] DIRECTOR: Great, all 12 positions are filled for Round 2. Please submit the sequence when ready.
+
+[15:55:50] MATCHER: All 12 positions are filled; submitting the sequence now.
+
+================================================================================
+
+ROUND 3
+----------------------------------------
+Accuracy: 100.0%
+
+DIALOGUE:
+--------------------
+[15:55:56] DIRECTOR: Basket 1 is the rectangular basket with dark greenish/olive side panels, tan wicker bands along the top and bottom, and one medium-brown arched handle.
+
+[15:56:02] MATCHER: I found the rectangular basket with dark olive side panels, tan bands, and one brown arched handle; placing it in position 1.
+
+[15:56:10] DIRECTOR: Basket 2 is the small oval two-tone basket: pale whitewashed wicker, thin upright handle, and reddish ties where the handle attaches on both sides.
+
+[15:56:17] MATCHER: I found the small oval two-tone basket with the thin upright handle and reddish ties at the handle attachments; placing it in position 2.
+
+[15:56:23] DIRECTOR: Basket 3 is the front-facing round rabbit basket: light blond wicker with two red eyes, nose/whisker face details, little feet at the bottom, and no handle.
+
+[15:56:31] MATCHER: I found the front-facing round rabbit with two red eyes, face details, and little feet; placing it in position 3.
+
+[15:56:38] DIRECTOR: Basket 4 is the side-profile rabbit basket: light tan wicker, pointed face with one visible red eye, ears/opening on top, and no handle.
+
+[15:56:46] MATCHER: I found the side-profile rabbit with one visible red eye and no handle; placing it in position 4.
+
+[15:56:52] DIRECTOR: Basket 5 is the light pinkish-brown rounded rectangular open basket with vertical ribbed sides and one smooth arched handle over the top.
+
+[15:57:01] MATCHER: I found the light pinkish-brown rounded rectangular basket with vertical ribbed sides and one smooth arched handle; placing it in position 5.
+
+[15:57:09] DIRECTOR: Basket 6 is the tall straight-sided cylindrical basket, medium-brown wicker, open at the top, with two small loop handles near the upper sides—no big arch handle.
+
+[15:57:18] MATCHER: I found the tall straight-sided open cylindrical basket with two small side loop handles and no big arch; placing it in position 6.
+
+[15:57:25] DIRECTOR: Basket 7 is the squat round bucket-shaped basket with an orange-brown body, darker top rim, and a thick almost black arched handle.
+
+[15:57:33] MATCHER: I found the squat orange-brown bucket with the darker rim and very dark thick arched handle; placing it in position 7.
+
+[15:57:39] DIRECTOR: Basket 8 is the squat oval dark gray-brown mixed-wicker basket, with a nearly black arched handle and a thin reddish-brown rim around the top.
+
+[15:57:47] MATCHER: I found the squat oval dark gray-brown mixed-wicker basket with the nearly black arched handle and reddish-brown top rim; placing it in position 8.
+
+[15:57:53] DIRECTOR: Basket 9 is the shallow rectangular golden-brown basket with low open-lattice sides and a very thick twisted rope-like arch handle.
+
+[15:58:00] MATCHER: I found the shallow rectangular golden-brown basket with the thick twisted rope-like arch and low open-lattice sides; placing it in position 9.
+
+[15:58:06] DIRECTOR: Basket 10 is the open tub-shaped dark golden-brown basket with tight honeycomb weave and two short side loop handles—no tall arch handle.
+
+[15:58:13] MATCHER: I found the open dark golden-brown tub with tight honeycomb weave and two short side loop handles, no tall arch; placing it in position 10.
+
+[15:58:21] DIRECTOR: Basket 11 is the very shallow round tray-like basket with a flat spiral woven bottom, one pale arched handle, and a darker reddish-brown rim.
+
+[15:58:32] MATCHER: I found the very shallow round tray with the visible spiral bottom, pale arched handle, and reddish-brown rim; placing it in position 11.
+
+[15:58:40] DIRECTOR: Basket 12 is the boxy rectangular picnic-style basket: tan wicker, with a tall vertical handle in the center and a darker slanted handle/strap on the right side.
+
+[15:58:49] MATCHER: I found the boxy rectangular picnic-style basket with the tall center handle and darker slanted right-side strap; placing it in position 12.
+
+[15:58:56] DIRECTOR: Great, all 12 positions are filled for Round 3. Please submit the sequence when ready.
+
+[15:59:06] MATCHER: All 12 positions are filled; submitting the sequence now.
+
+================================================================================
+
+ROUND 4
+----------------------------------------
+Accuracy: 100.0%
+
+DIALOGUE:
+--------------------
+[15:59:13] DIRECTOR: Basket 1 is the very shallow round tray-like basket with a flat spiral woven bottom, one pale arched handle, and a darker reddish-brown rim.
+
+[15:59:21] MATCHER: I found the very shallow round tray with the spiral bottom, pale arched handle, and darker reddish rim; placing it in position 1.
+
+[15:59:29] DIRECTOR: Basket 2 is the shallow rectangular golden-brown basket with low open-lattice sides and a very thick twisted rope-like arch handle.
+
+[15:59:37] MATCHER: I found the shallow rectangular golden-brown basket with the thick twisted rope-like arch and low open-lattice sides; placing it in position 2.
+
+[15:59:45] DIRECTOR: Basket 3 is the side-profile rabbit basket: light tan wicker, pointed face facing right with one visible red eye, ears/opening on top, and no handle.
+
+[15:59:53] MATCHER: I found the side-profile rabbit facing right with one visible red eye and no handle; placing it in position 3.
+
+[16:00:01] DIRECTOR: Basket 4 is the rectangular basket with dark olive-green side panels, tan bands along the top and bottom, and one medium-brown arched handle.
+
+[16:00:08] MATCHER: I found the rectangular basket with dark olive-green side panels, tan bands, and one brown arched handle; placing it in position 4.
+
+[16:00:16] DIRECTOR: Basket 5 is the open tub-shaped dark golden-brown basket with tight honeycomb weave and two short side loop handles—no tall arch handle.
+
+[16:00:24] MATCHER: I found the open dark golden-brown tub with tight honeycomb weave and two short side loop handles, no tall arch; placing it in position 5.
+
+[16:00:31] DIRECTOR: Basket 6 is the squat round orange-brown bucket basket, with a darker top rim and a thick almost black arched handle.
+
+[16:00:40] MATCHER: I found the squat orange-brown bucket with the darker rim and thick almost black arched handle; placing it in position 6.
+
+[16:00:48] DIRECTOR: Basket 7 is the tall straight-sided cylindrical medium-brown basket, open at the top, with two small loop handles near the upper sides—no big arch handle.
+
+[16:00:55] MATCHER: I found the tall straight-sided open cylindrical basket with two small side loop handles and no big arch; placing it in position 7.
+
+[16:01:02] DIRECTOR: Basket 8 is the boxy rectangular picnic-style basket: tan wicker, with a tall vertical handle in the center and a darker slanted handle/strap on the right side.
+
+[16:01:09] MATCHER: I found the boxy rectangular tan picnic basket with the tall center handle and darker slanted right-side strap; placing it in position 8.
+
+[16:01:16] DIRECTOR: Basket 9 is the front-facing round rabbit basket: light blond wicker with two red eyes, nose/whisker face details, little feet at the bottom, and no handle.
+
+[16:01:24] MATCHER: I found the front-facing round rabbit with two red eyes, face details, little feet, and no handle; placing it in position 9.
+
+[16:01:32] DIRECTOR: Basket 10 is the small oval two-tone basket: pale whitewashed wicker, thin upright handle, and reddish ties where the handle attaches on both sides.
+
+[16:01:40] MATCHER: I found the small oval two-tone basket with the pale whitewashed body, thin upright handle, and reddish ties at both handle attachments; placing it in position 10.
+
+[16:01:46] DIRECTOR: Basket 11 is the light pinkish-brown rounded rectangular open basket with vertical ribbed sides and one smooth arched handle over the top.
+
+[16:01:54] MATCHER: I found the light pinkish-brown rounded rectangular open basket with vertical ribbed sides and one smooth arched handle; placing it in position 11.
+
+[16:02:02] DIRECTOR: Basket 12 is the squat oval dark gray-brown mixed-wicker basket, with a nearly black arched handle and a thin reddish-brown rim around the top.
+
+[16:02:10] MATCHER: I found the squat oval dark gray-brown mixed-wicker basket with the nearly black arched handle and reddish-brown top rim; placing it in position 12.
+
+[16:02:18] DIRECTOR: Great, all 12 positions are filled for Round 4. Please submit the sequence when ready.
+
+[16:02:30] MATCHER: All 12 positions are filled; submitting the sequence now.
+
+================================================================================
+
+ROUND 5
+----------------------------------------
+Accuracy: 100.0%
+
+DIALOGUE:
+--------------------
+[16:02:41] DIRECTOR: Basket 1 is the squat oval dark gray-brown mixed-wicker basket, with a nearly black arched handle and a thin reddish-brown rim around the top.
+
+[16:02:50] MATCHER: I found the squat oval dark gray-brown mixed-wicker basket with the nearly black handle and reddish-brown top rim; placing it in position 1.
+
+[16:02:59] DIRECTOR: Basket 2 is the small oval two-tone basket: pale whitewashed wicker body, thin upright handle, and reddish ties where the handle attaches on both sides.
+
+[16:03:08] MATCHER: I found the small oval two-tone basket with the pale whitewashed body, thin upright handle, and reddish ties at the handle attachments; placing it in position 2.
+
+[16:03:18] DIRECTOR: Basket 3 is the open tub-shaped dark golden-brown basket with a tight honeycomb weave and two short side loop handles—no tall arch handle.
+
+[16:03:28] MATCHER: I found the open dark golden-brown tub with tight honeycomb weave and two short side loop handles, no tall arch; placing it in position 3.
+
+[16:03:40] DIRECTOR: Basket 4 is the squat round orange-brown bucket basket, with a darker top rim and a thick almost black arched handle.
+
+[16:03:49] MATCHER: I found the squat orange-brown bucket with the darker rim and thick almost black arched handle; placing it in position 4.
+
+[16:03:58] DIRECTOR: Basket 5 is the tall straight-sided cylindrical medium-brown basket, open at the top, with two small loop handles near the upper sides—no big arch handle.
+
+[16:04:09] MATCHER: I found the tall straight-sided open cylindrical basket with two small side loop handles and no big arch; placing it in position 5.
+
+[16:04:18] DIRECTOR: Basket 6 is the shallow rectangular golden-brown basket with low open-lattice sides and a very thick twisted rope-like arch handle.
+
+[16:04:28] MATCHER: I found the shallow rectangular golden-brown basket with the thick twisted rope-like arch and low open-lattice sides; placing it in position 6.
+
+[16:04:37] DIRECTOR: Basket 7 is the light pinkish-brown rounded rectangular open basket, with vertical ribbed sides and one smooth arched handle over the top.
+
+[16:04:47] MATCHER: I found the light pinkish-brown rounded rectangular open basket with vertical ribbed sides and one smooth arched handle; placing it in position 7.
+
+[16:04:55] DIRECTOR: Basket 8 is the side-profile rabbit basket: light tan wicker, facing right with one visible red eye, ears/opening on top, and no handle.
+
+[16:05:05] MATCHER: I found the side-profile rabbit facing right with one visible red eye and no handle; placing it in position 8.
+
+[16:05:17] DIRECTOR: Basket 9 is the front-facing round rabbit basket: light blond wicker with two red eyes, nose/whisker face details, little feet at the bottom, and no handle.
+
+[16:05:29] MATCHER: I found the front-facing round rabbit with two red eyes, face details, little feet, and no handle; placing it in position 9.
+
+[16:05:37] DIRECTOR: Basket 10 is the boxy rectangular picnic-style basket: tan wicker, with a tall vertical center handle and a darker slanted strap/handle on the right side.
+
+[16:05:49] MATCHER: I found the boxy tan rectangular picnic basket with the tall center handle and darker slanted right-side strap; placing it in position 10.
+
+[16:06:00] DIRECTOR: Basket 11 is the very shallow round tray-like basket with the flat spiral woven bottom, one pale arched handle, and a darker reddish-brown rim.
+
+[16:06:12] MATCHER: I found the very shallow round tray with the visible spiral bottom, pale arched handle, and reddish-brown rim; placing it in position 11.
+
+[16:06:23] DIRECTOR: Basket 12 is the rectangular basket with dark olive-green side panels, tan bands along the top and bottom, and one medium-brown arched handle.
+
+[16:06:34] MATCHER: I found the rectangular basket with dark olive-green side panels, tan top and bottom bands, and one brown arched handle; placing it in position 12.
+
+[16:06:42] DIRECTOR: Great, all 12 positions are filled for Round 5. Please submit the sequence when ready.
+
+[16:06:51] MATCHER: All 12 positions are filled; submitting the sequence now.
+
+================================================================================

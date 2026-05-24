@@ -1,0 +1,324 @@
+================================================================================
+SESSION TRANSCRIPT REPORT
+================================================================================
+
+Pair ID:        gpt5.5-cameron-emnlp-2_170010_1
+Session Code:   gpt5.5-cameron-emnlp-2_170010_1
+Source File:    data/experiments/Cameron/2026-05-15/gpt5.5-cameron-emnlp-2/gpt5.5-cameron-emnlp-2_170010_1/gpt5.5-cameron-emnlp-2_170010_1_data.json
+
+SESSION CONFIGURATION:
+  ai_vs_ai_mode: True
+  director_view: grid
+  basket_set: 5
+  num_rounds: 5
+  cross_round_history: True
+  debug_prompt_context: False
+  session_prefix: gpt5.5-cameron-emnlp-2
+  prompt_strategy: cameron-prompt
+  ai_director_model: gpt-5.5
+  ai_matcher_model: gpt-5.5
+  ai_reasoning_effort: none
+
+OVERALL ACCURACY: 100.0% (avg across 5 rounds)
+
+================================================================================
+
+ROUND 1
+----------------------------------------
+Accuracy: 100.0%
+
+DIALOGUE:
+--------------------
+[17:00:12] DIRECTOR: round fat bunny-shaped basket, red eye
+
+[17:00:15] MATCHER: Placed the round bunny-shaped basket with the red eye in position 1.
+
+[17:00:17] DIRECTOR: dark bowl basket, black handle
+
+[17:00:20] MATCHER: Placed the dark bowl basket with the black handle in position 2.
+
+[17:00:24] DIRECTOR: rectangular picnic basket, tall middle handle
+
+[17:00:26] MATCHER: Placed the rectangular picnic basket with the tall middle handle in position 3.
+
+[17:00:29] DIRECTOR: small white striped basket, wrapped handle
+
+[17:00:32] MATCHER: Placed the small white striped basket with the wrapped handle in position 4.
+
+[17:00:34] DIRECTOR: bright orange basket, big twisted handle
+
+[17:00:38] MATCHER: Placed the bright orange basket with the big twisted handle in position 5.
+
+[17:00:40] DIRECTOR: round cat face basket
+
+[17:00:43] MATCHER: Placed the round cat face basket in position 6.
+
+[17:00:46] DIRECTOR: green rectangular basket
+
+[17:00:49] MATCHER: Placed the green rectangular basket in position 7.
+
+[17:00:51] DIRECTOR: gray basket, black handle
+
+[17:00:54] MATCHER: Placed the gray basket with the black handle in position 8.
+
+[17:00:56] DIRECTOR: tall cylindrical basket, little side handles
+
+[17:01:00] MATCHER: Placed the tall cylindrical basket with the little side handles in position 9.
+
+[17:01:02] DIRECTOR: flat shallow round tray basket
+
+[17:01:06] MATCHER: Placed the flat shallow round tray basket in position 10.
+
+[17:01:08] DIRECTOR: tall tan tub, rope side handles
+
+[17:01:13] MATCHER: Placed the tall tan tub with rope side handles in position 11.
+
+[17:01:16] DIRECTOR: pinkish oval basket
+
+[17:01:21] MATCHER: Placed the pinkish oval basket in position 12.
+
+[17:01:23] DIRECTOR: done
+
+[17:01:27] MATCHER: All set, submitting now.
+
+================================================================================
+
+ROUND 2
+----------------------------------------
+Accuracy: 100.0%
+
+DIALOGUE:
+--------------------
+[17:01:30] DIRECTOR: rect picnic, tall middle handle
+
+[17:01:34] MATCHER: Placed the rectangular picnic basket with the tall middle handle in position 1.
+
+[17:01:37] DIRECTOR: tall cylinder side handles
+
+[17:01:41] MATCHER: Placed the tall cylindrical basket with side handles in position 2.
+
+[17:01:44] DIRECTOR: dark bowl black handle
+
+[17:01:48] MATCHER: Placed the dark bowl basket with the black handle in position 3.
+
+[17:01:50] DIRECTOR: orange twisted handle
+
+[17:01:55] MATCHER: Placed the orange basket with the twisted handle in position 4.
+
+[17:01:58] DIRECTOR: gray basket black handle
+
+[17:02:02] MATCHER: Placed the gray basket with the black handle in position 5.
+
+[17:02:05] DIRECTOR: bunny red eye
+
+[17:02:09] MATCHER: Placed the bunny with the red eye in position 6.
+
+[17:02:11] DIRECTOR: cat face round
+
+[17:02:15] MATCHER: Placed the round cat face basket in position 7.
+
+[17:02:18] DIRECTOR: flat shallow tray
+
+[17:02:22] MATCHER: Placed the flat shallow tray basket in position 8.
+
+[17:02:25] DIRECTOR: green rectangular
+
+[17:02:29] MATCHER: Placed the green rectangular basket in position 9.
+
+[17:02:32] DIRECTOR: tan tub rope handles
+
+[17:02:37] MATCHER: Placed the tan tub with rope handles in position 10.
+
+[17:02:40] DIRECTOR: white striped wrapped handle
+
+[17:02:46] MATCHER: Placed the white striped basket with the wrapped handle in position 11.
+
+[17:02:49] DIRECTOR: pink oval
+
+[17:02:54] MATCHER: Placed the pink oval basket in position 12.
+
+[17:02:57] DIRECTOR: done
+
+[17:03:01] MATCHER: All set, submitting now.
+
+================================================================================
+
+ROUND 3
+----------------------------------------
+Accuracy: 100.0%
+
+DIALOGUE:
+--------------------
+[17:03:04] DIRECTOR: green rectangular
+
+[17:03:09] MATCHER: Placed the green rectangular basket in position 1.
+
+[17:03:12] DIRECTOR: white striped
+
+[17:03:17] MATCHER: Placed the white striped basket in position 2.
+
+[17:03:21] DIRECTOR: cat face
+
+[17:03:25] MATCHER: Placed the cat face basket in position 3.
+
+[17:03:30] DIRECTOR: bunny red eye
+
+[17:03:34] MATCHER: Placed the bunny with the red eye in position 4.
+
+[17:03:38] DIRECTOR: pink oval
+
+[17:03:43] MATCHER: Placed the pink oval basket in position 5.
+
+[17:03:47] DIRECTOR: tall cylinder
+
+[17:03:52] MATCHER: Placed the tall cylinder basket in position 6.
+
+[17:03:56] DIRECTOR: dark bowl
+
+[17:04:01] MATCHER: Placed the dark bowl basket in position 7.
+
+[17:04:05] DIRECTOR: gray black handle
+
+[17:04:10] MATCHER: Placed the gray basket with the black handle in position 8.
+
+[17:04:15] DIRECTOR: orange twisted
+
+[17:04:19] MATCHER: Placed the orange twisted-handle basket in position 9.
+
+[17:04:23] DIRECTOR: tan tub
+
+[17:04:29] MATCHER: Placed the tan tub basket in position 10.
+
+[17:04:32] DIRECTOR: flat tray
+
+[17:04:37] MATCHER: Placed the flat tray basket in position 11.
+
+[17:04:42] DIRECTOR: rect picnic
+
+[17:04:48] MATCHER: Placed the rectangular picnic basket in position 12.
+
+[17:04:52] DIRECTOR: done
+
+[17:04:57] MATCHER: All set, submitting now.
+
+================================================================================
+
+ROUND 4
+----------------------------------------
+Accuracy: 100.0%
+
+DIALOGUE:
+--------------------
+[17:05:00] DIRECTOR: flat tray
+
+[17:05:05] MATCHER: Placed the flat tray basket in position 1.
+
+[17:05:09] DIRECTOR: orange twisted
+
+[17:05:16] MATCHER: Placed the orange twisted-handle basket in position 2.
+
+[17:05:19] DIRECTOR: bunny red eye
+
+[17:05:25] MATCHER: Placed the bunny with the red eye in position 3.
+
+[17:05:29] DIRECTOR: green rectangular
+
+[17:05:34] MATCHER: Placed the green rectangular basket in position 4.
+
+[17:05:38] DIRECTOR: tan tub
+
+[17:05:43] MATCHER: Placed the tan tub basket in position 5.
+
+[17:05:46] DIRECTOR: dark bowl
+
+[17:05:52] MATCHER: Placed the dark bowl basket in position 6.
+
+[17:05:56] DIRECTOR: tall cylinder
+
+[17:06:01] MATCHER: Placed the tall cylinder basket in position 7.
+
+[17:06:06] DIRECTOR: rect picnic
+
+[17:06:12] MATCHER: Placed the rectangular picnic basket in position 8.
+
+[17:06:16] DIRECTOR: cat face
+
+[17:06:24] MATCHER: Placed the cat face basket in position 9.
+
+[17:06:28] DIRECTOR: white striped
+
+[17:06:33] MATCHER: Placed the white striped basket in position 10.
+
+[17:06:37] DIRECTOR: pink oval
+
+[17:06:43] MATCHER: Placed the pink oval basket in position 11.
+
+[17:06:46] DIRECTOR: gray black handle
+
+[17:06:52] MATCHER: Placed the gray basket with the black handle in position 12.
+
+[17:06:56] DIRECTOR: done
+
+[17:07:02] MATCHER: All set, submitting now.
+
+================================================================================
+
+ROUND 5
+----------------------------------------
+Accuracy: 100.0%
+
+DIALOGUE:
+--------------------
+[17:07:06] DIRECTOR: gray black handle
+
+[17:07:13] MATCHER: Placed the gray basket with the black handle in position 1.
+
+[17:07:17] DIRECTOR: white striped
+
+[17:07:23] MATCHER: Placed the white striped basket in position 2.
+
+[17:07:29] DIRECTOR: tan tub
+
+[17:07:35] MATCHER: Placed the tan tub basket in position 3.
+
+[17:07:40] DIRECTOR: dark bowl
+
+[17:07:47] MATCHER: Placed the dark bowl basket in position 4.
+
+[17:07:52] DIRECTOR: tall cylinder
+
+[17:07:58] MATCHER: Placed the tall cylinder basket in position 5.
+
+[17:08:03] DIRECTOR: orange twisted
+
+[17:08:09] MATCHER: Placed the orange twisted-handle basket in position 6.
+
+[17:08:14] DIRECTOR: pink oval
+
+[17:08:20] MATCHER: Placed the pink oval basket in position 7.
+
+[17:08:25] DIRECTOR: bunny red eye
+
+[17:08:31] MATCHER: Placed the bunny with the red eye in position 8.
+
+[17:08:36] DIRECTOR: cat face
+
+[17:08:42] MATCHER: Placed the cat face basket in position 9.
+
+[17:08:48] DIRECTOR: rect picnic
+
+[17:08:54] MATCHER: Placed the rectangular picnic basket in position 10.
+
+[17:08:59] DIRECTOR: flat tray
+
+[17:09:06] MATCHER: Placed the flat tray basket in position 11.
+
+[17:09:11] DIRECTOR: green rectangular
+
+[17:09:17] MATCHER: Placed the green rectangular basket in position 12.
+
+[17:09:22] DIRECTOR: done
+
+[17:09:28] MATCHER: All set, submitting now.
+
+================================================================================
