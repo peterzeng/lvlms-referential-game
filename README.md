@@ -2,6 +2,18 @@
 
 This repository contains an interactive director-matcher game experiment implemented with [oTree](https://www.otree.org/). The experiment is designed to study communication and reference in a collaborative visual task.
 
+## Which branch runs which experiment?
+
+Each pairing of the experiment lives on its own branch. **Check out the branch that matches the pairing you want to run:**
+
+| Branch         | Pairing                | What runs                                                                 |
+| -------------- | ---------------------- | ------------------------------------------------------------------------- |
+| `main`         | **Human–AI / AI–Human** | One human paired with a VLM partner (GPT‑5.2). The human plays Director *or* Matcher; the AI plays the other role. |
+| **`human-human`** *(you are here)* | **Human–Human** | Two human participants, one Director and one Matcher. No AI. |
+| `ai-ai`        | **AI–AI**              | Both Director and Matcher played by the VLM.                              |
+
+The rest of this README documents the **`human-human` (Human–Human)** branch.
+
 ## Experiment Overview
 
 In this game, two participants are paired as the **Director** and the **Matcher**. Over 3 rounds:
@@ -103,76 +115,42 @@ The experiment is run in real time, with both participants interacting through a
 
    Basket images are in `_static/images/` and `baskets-internet/`. CSS and JS are in `_static/css/` and `_static/js/`.
 
-## Human–AI and AI–Human Mode and GPT‑5.2 Integration
+## Human–Human Mode
 
-This branch (human-human) runs the referential task **purely as a human–human interaction**. There is **no human–AI mode/AI-human** nor **AI–AI mode** in this branch.
+This branch (`human-human`) runs the referential task **purely as a human–human interaction**. There is **no human–AI / AI–human mode** nor **AI–AI mode** in this branch — both roles are always played by real participants.
 
-To run human-ai or ai-human, switch to *main* branch, and for ai-ai, switch to *ai-ai* branch.
+For the human–AI / AI–human experiment, switch to the **`main`** branch; for the AI–AI experiment, switch to the **`ai-ai`** branch (see the branch table at the top of this README).
 
-In this setup, each oTree group contains exactly **one human participant**.
+In this setup, each oTree group contains exactly **two human participants**:
 
-- The “partner” is always an AI agent (a VLM back-end using OpenAI's `gpt-5.2` model).
-- The human UI (Director/Matcher views, chat, feedback) remains the same as in the original human–human setup, but the other role is always played by the AI.
+- **P1 = Director** and **P2 = Matcher**.
+- The Director and Matcher views, chat, and feedback are all driven by the two humans; no AI back-end and no OpenAI API key are involved.
 
-To enable the AI partner:
+No API key or extra configuration is needed — just install dependencies and run the oTree server (see **Setup Instructions** above), then create a session for one of the configs below.
 
-1. Install dependencies (includes the OpenAI Python client):
+### Session configurations
 
-   ```bash
-   pip install -r requirements.txt
-   ```
-2. Set your OpenAI API key in the environment (for example on macOS/Linux):
+On the oTree demo page (`http://localhost:8000/`) this branch exposes **two-human session configs** (all with `num_demo_participants = 2`, so each session produces two participant links — one Director, one Matcher):
 
-   ```bash
-   export OPENAI_API_KEY="sk-..."
-   ```
+**Grid director view** (Director sees the full 2x6 grid at once):
 
-   On Windows PowerShell:
+- `referential_task_set1` — Basket Set 1.
+- `referential_task_set2` — Basket Set 2.
+- `referential_task_set3` — Basket Set 3.
+- `referential_task_set4` — Basket Set 4.
+- `referential_task_set5` — Basket Set 5.
 
-   ```powershell
-   $env:OPENAI_API_KEY="sk-..."
-   ```
-3. Run the oTree server as usual and create a session for `referential_task`.
+**Sequential director view** (Director reveals baskets one at a time):
 
-If no API key is set or the OpenAI client is unavailable, the experiment will still run, but the partner will not send AI-generated replies.
+- `referential_task_sequential` — Basket Set 1.
+- `referential_task_sequential_set2` — Basket Set 2.
+- `referential_task_sequential_set3` — Basket Set 3.
+- `referential_task_sequential_set4` — Basket Set 4.
+- `referential_task_sequential_set5` — Basket Set 5.
 
-### Choosing the human's role (Director vs Matcher)
+**Other:**
 
-On the oTree demo page (`http://localhost:8000/`) this branch exposes **single-human session configs** (all with `num_demo_participants = 1`, so there is exactly one human link per session; the partner is always the AI bot):
-
-- `referential_task_grid_human_matcher` — **Human = Matcher, AI = Director** (grid view, Set 5, v1 prompt).
-- `referential_task_grid_human_matcher_v2` — **Human = Matcher, AI = Director** (grid view, Set 5, v2 prompt).
-- `referential_task_grid_human_matcher_v3` — **Human = Matcher, AI = Director** (grid view, Set 5, v3 prompt).
-- `referential_task_grid_human_director` — **Human = Director, AI = Matcher** (grid view, Set 5, v1 prompt).
-- `referential_task_grid_human_director_v2` — **Human = Director, AI = Matcher** (grid view, Set 5, v2 prompt).
-- `referential_task_grid_human_director_v3` — **Human = Director, AI = Matcher** (grid view, Set 5, v3 prompt).
-- `referential_task_shapes_demo` — single-round shapes demo (colored shapes instead of baskets; human role randomized).
-
-All of these use the same **visual 12‑basket grid** as context for the AI whenever images are available; the differences between v1/v2/v3 are in how the AI is instructed to reason and respond.
-
-### Prompt strategy variants (v1 vs v2 vs v3)
-
-For the basket tasks, the `prompt_strategy` controls how the AI partner is prompted. The main variants are:
-
-- **`v1` – Simple baseline**
-
-  - Short, generic system prompt that just explains the role (Director or Matcher) and high-level task.
-  - No explicit knowledge-base (KB) hints and no structured reasoning format.
-  - Still sees the full 12‑basket grid visually via GPT‑4o.
-- **`v2` – Weiling-style rich prompt**
-
-  - Detailed, role-specific system prompt with round number and game-state context.
-  - Optionally includes KB-based basket hints when `use_kb=True` in the session config.
-  - Emphasizes distinctive visual features, comparative language, and avoiding basket IDs.
-  - Also sees the same visual 12‑basket grid as v1.
-- **`v3` – CoT / JSON reasoning on top of v2**
-
-  - Uses the same rich Weiling-style system prompt as v2 (including optional KB hints).
-  - Adds an extra instruction that the model must reply in **strict JSON** with:
-    - `"reasoning"` – a structured, step-by-step discriminative analysis.
-    - `"utterance"` – a single natural-language message shown to the human.
-  - Server-side code parses out `utterance` for the chat UI and can optionally log the full `reasoning` JSON for analysis.
-  - Also uses the same visual 12‑basket grid as v1 and v2.
+- `referential_task_shapes_demo` — single-round shapes demo (colored shapes instead of baskets; roles assigned to the two humans).
 
 ## Preset Grid Configurations
 
@@ -212,12 +190,11 @@ Example structure:
 
 ## Analysis & Helper Scripts
 
-The `scripts/` directory contains useful utilities for working with the experimental data and development:
+The `scripts/` directory contains useful utilities for working with the experimental data:
 
-- `calculate_round_times.py`: Calculates timing metrics for each round from exported data.
+- `clean_all_apps_wide.py`: Cleans/normalizes the wide-format all-apps export.
+- `export_round_level_csv.py`: Exports round-level results to CSV.
 - `format_chat_transcript.py`: Formats chat logs into readable transcripts.
-- `test_director_grid.py`: Local testing script for the director's grid view.
-- `generate_knowledge_base.py`: Helper script to generate knowledge base JSON data for the AI.
 
 ## Contact
 
