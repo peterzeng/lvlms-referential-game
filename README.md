@@ -2,6 +2,18 @@
 
 This repository contains an interactive director-matcher game experiment implemented with [oTree](https://www.otree.org/). The experiment is designed to study communication and reference in a collaborative visual task. Our corpus is available [here](https://drive.google.com/drive/folders/1y4utpf5zErb7VKe8qW5U9I4AMlFd5uxx?usp=sharing):
 
+## Which branch runs which experiment?
+
+Each pairing of the experiment lives on its own branch. **Check out the branch that matches the pairing you want to run:**
+
+| Branch         | Pairing                | What runs                                                                 |
+| -------------- | ---------------------- | ------------------------------------------------------------------------- |
+| **`main`** *(you are here)* | **Human–AI / AI–Human** | One human paired with a VLM partner (GPT‑5.2). The human plays Director *or* Matcher; the AI plays the other role. |
+| `human-human`  | **Human–Human**        | Two human participants, one Director and one Matcher. No AI.               |
+| `ai-ai`        | **AI–AI**              | Both Director and Matcher played by the VLM.                              |
+
+The rest of this README documents the **`main` (Human–AI / AI–Human)** branch.
+
 ## Experiment Overview
 
 In this game, two participants are paired as the **Director** and the **Matcher**. Over 3 rounds:
@@ -105,9 +117,9 @@ The experiment is run in real time, with both participants interacting through a
 
 ## Human–AI and AI–Human Mode and GPT‑5.2 Integration
 
-This branch (main) runs the referential task **purely as a human–VLM (human–AI) or AI–human interaction**. There is **no human–human mode** nor **AI–AI mode** in this branch.
+This branch (`main`) runs the referential task **purely as a human–VLM (human–AI) or AI–human interaction**. There is **no human–human mode** nor **AI–AI mode** in this branch.
 
-To run human-human, switch to human, and to run AI-AI experiments, switch to ai-ai.
+For the human–human experiment, switch to the **`human-human`** branch; for the AI–AI experiment, switch to the **`ai-ai`** branch (see the branch table at the top of this README).
 
 In this setup, each oTree group contains exactly **one human participant**.
 
