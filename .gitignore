@@ -3,3 +3,5 @@
 .env
 main/
 _static/ai_debug/
+# oTree/experiment local database (regenerated at runtime; do not commit)
+data.sqlite
