@@ -50,7 +50,7 @@ The rest of this README documents the **`main` (Human–AI / AI–Human)** branc
 
 ## Experiment Overview
 
-In this game, two participants are paired as the **Director** and the **Matcher**. Over 3 rounds:
+In this game, two participants are paired as the **Director** and the **Matcher**. Over 4 rounds:
 
 - The **Director** describes their entire 2x6 grid so the Matcher can reconstruct the sequence (left-to-right, top-to-bottom order).
 - The **Matcher** has a staging area (bottom) with 18 baskets and a target area (top) with 12 empty cells arranged in 2 rows of 6.
@@ -79,7 +79,7 @@ In this game, two participants are paired as the **Director** and the **Matcher*
 
   - Activate env and run: `otree devserver`
   - Open `http://localhost:8000`
-- Number of rounds: 3. Each round re-randomizes the matcher's staging area (18 baskets: 12 from director’s grid + 6 distractors) and preserves the director's 2x6 grid.
+- Number of rounds: 4 (`Constants.num_rounds` in `referential_task/models.py`). Each round re-randomizes the matcher's staging area (18 baskets: 12 from director’s grid + 6 distractors) and preserves the director's 2x6 grid.
 
 ## Collecting Results (Experimenter)
 
@@ -96,7 +96,7 @@ You have 2 ways to retrieve results after participants finish:
    - In the session page, click “Data / Download”. You will get:
      - Player CSV: includes `sequence_accuracy`, `selected_sequence`, `task_completed`, `completion_time`, `grid_messages`.
      - Group CSV: includes `shared_grid`, `target_baskets`, `matcher_sequence`.
-   - Filter to round 3 or aggregate as needed.
+   - Filter to round 4 (the final round) or aggregate as needed.
 
 Note: Participants never see accuracy; it is only visible in the admin/exports.
 
