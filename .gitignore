@@ -1,3 +1,14 @@
+.env
+main/
+_static/ai_debug/
 
 # oTree/experiment local database (regenerated at runtime; do not commit)
 db.sqlite3
+
+# Python / macOS noise
+*.pyc
+*.py[cod]
+__pycache__/
+**/__pycache__/
+.DS_Store
+**/.DS_Store
