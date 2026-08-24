@@ -1,16 +1,50 @@
 # Human-LVLM Director-Matcher Game
 
-This repository contains an interactive director-matcher game experiment implemented with [oTree](https://www.otree.org/). The experiment is designed to study communication and reference in a collaborative visual task. Our corpus is available [here](https://drive.google.com/drive/folders/1y4utpf5zErb7VKe8qW5U9I4AMlFd5uxx?usp=sharing):
+Code and data for:
+
+> **LVLMs and Humans Ground Differently in Referential Communication**
+> Peter Zeng, Weiling Li, Amie J. Paige, Zhengxiang Wang, Panagiotis Kaliosis,
+> Dimitris Samaras, Gregory Zelinsky, Susan E. Brennan, and Owen Rambow.
+> *Proceedings of ACL 2026* (Long Papers), pages 9061–9087.
+> [aclanthology.org/2026.acl-long.410](https://aclanthology.org/2026.acl-long.410/)
+
+This repository contains an interactive director-matcher game experiment implemented with [oTree](https://www.otree.org/), used to study communication and reference in a collaborative visual task. The paper reports a factorial design over director-matcher pairings (human-human, human-AI, AI-human, AI-AI) matching pictures of baskets, objects with no conventionally lexicalized labels.
+
+## Corpus
+
+The corpus of 356 dialogues (89 pairs over 4 rounds each) is available on
+[Google Drive](https://drive.google.com/drive/folders/1y4utpf5zErb7VKe8qW5U9I4AMlFd5uxx?usp=sharing).
+
+We intend to move the corpus to an archival host with a DOI so that it has a
+stable, citable location; this README will be updated when that happens.
 
 ## Which branch runs which experiment?
 
-Each pairing of the experiment lives on its own branch. **Check out the branch that matches the pairing you want to run:**
+Each pairing lives on its own branch. **Check out the branch matching the pairing you want to run.** Commit SHAs are given so you can pin an exact version.
 
-| Branch         | Pairing                | What runs                                                                 |
-| -------------- | ---------------------- | ------------------------------------------------------------------------- |
-| **`main`** *(you are here)* | **Human–AI / AI–Human** | One human paired with a VLM partner (GPT‑5.2). The human plays Director *or* Matcher; the AI plays the other role. |
-| `human-human`  | **Human–Human**        | Two human participants, one Director and one Matcher. No AI.               |
-| `ai-ai`        | **AI–AI**              | Both Director and Matcher played by the VLM.                              |
+| Branch | Pairing / purpose | Last updated | Pinned commit |
+| ------ | ----------------- | ------------ | ------------- |
+| **`main`** *(you are here)* | **Human–AI / AI–Human.** One human paired with a VLM partner (GPT-5.2). The human plays Director *or* Matcher; the AI plays the other role. | 2026-07-01 | [`d7b5cf3`](https://github.com/peterzeng/lvlms-referential-game/tree/d7b5cf3ccd53cf5bfbecd13be8e2299c45f2b9f7) |
+| `human-human` | **Human–Human.** Two human participants, one Director and one Matcher, no AI. Most recent version of the human-human pipeline. | 2026-07-01 | [`be03c82`](https://github.com/peterzeng/lvlms-referential-game/tree/be03c821af456202437069271dad8d0d4bb3400f) |
+| `ai-ai2` | **AI–AI.** Both roles played by the VLM. Supersedes `ai-ai`; prefer this branch. | 2026-05-13 | [`fd7614e`](https://github.com/peterzeng/lvlms-referential-game/tree/fd7614e58b64f903e34e83221c6d8ddca1878322) |
+| `ai-ai` | **AI–AI (earlier).** Retained for provenance. | 2026-03-02 | [`5167820`](https://github.com/peterzeng/lvlms-referential-game/tree/5167820d89232baae75943c7925e055a9eb946be) |
+| `analysis` | Analysis notebooks and scripts (accuracy, efficiency, lexical overlap). | 2026-04-22 | [`85d80b1`](https://github.com/peterzeng/lvlms-referential-game/tree/85d80b1e7c1c284e4db040164566f232d6619f68) |
+| `emnlp` | Follow-up prompting experiments; **now maintained separately** (see below). | 2026-05-24 | [`59d4364`](https://github.com/peterzeng/lvlms-referential-game/tree/59d43645ee9039b89e6881c9af14177300a49906) |
+
+## Related repository
+
+The follow-up study comparing implicit and explicit prompting strategies has its
+own repository: **[implicit-vs-explicit-prompting](https://github.com/peterzeng/implicit-vs-explicit-prompting)**.
+It was split out from the `emnlp` branch above.
+
+## License
+
+Code in this repository is MIT licensed; see [`LICENSE`](LICENSE). The corpus is
+released separately (see **Corpus** above) and is not covered by the code
+license. Human participants gave informed consent, and the released dialogues
+contain no participant identifiers.
+
+---
 
 The rest of this README documents the **`main` (Human–AI / AI–Human)** branch.
 
@@ -87,8 +121,8 @@ The experiment is run in real time, with both participants interacting through a
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/yourusername/Human-VLM-Game.git
-   cd Human-VLM-Game
+   git clone https://github.com/peterzeng/lvlms-referential-game.git
+   cd lvlms-referential-game
    ```
 2. **Set up your Python environment** (recommended: conda)
 
