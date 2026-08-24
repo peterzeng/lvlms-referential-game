@@ -4,3 +4,5 @@
 main/
 _static/ai_debug/
 *.pyc
+# oTree/experiment local database (regenerated at runtime; do not commit)
+db.sqlite3
