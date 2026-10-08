@@ -25,11 +25,18 @@ Each pairing lives on its own branch. **Check out the branch matching the pairin
 | Branch | Pairing / purpose | Last updated | Pinned commit |
 | ------ | ----------------- | ------------ | ------------- |
 | **`main`** *(you are here)* | **Human–AI / AI–Human.** One human paired with a VLM partner (GPT-5.2). The human plays Director *or* Matcher; the AI plays the other role. | 2026-07-01 | [`d7b5cf3`](https://github.com/peterzeng/lvlms-referential-game/tree/d7b5cf3ccd53cf5bfbecd13be8e2299c45f2b9f7) |
-| `human-human` | **Human–Human.** Two human participants, one Director and one Matcher, no AI. Most recent version of the human-human pipeline. | 2026-07-01 | [`be03c82`](https://github.com/peterzeng/lvlms-referential-game/tree/be03c821af456202437069271dad8d0d4bb3400f) |
+| `human-human` | **Human–Human.** Two human participants, one Director and one Matcher, no AI. Most recent version of the human-human pipeline. | 2026-10-08 | [`d372978`](https://github.com/peterzeng/lvlms-referential-game/tree/d37297813b0ab9a3f850f1cae189f97aa74c63d8) |
 | `ai-ai2` | **AI–AI.** Both roles played by the VLM. Supersedes `ai-ai`; prefer this branch. | 2026-05-13 | [`fd7614e`](https://github.com/peterzeng/lvlms-referential-game/tree/fd7614e58b64f903e34e83221c6d8ddca1878322) |
 | `ai-ai` | **AI–AI (earlier).** Retained for provenance. | 2026-03-02 | [`5167820`](https://github.com/peterzeng/lvlms-referential-game/tree/5167820d89232baae75943c7925e055a9eb946be) |
 | `analysis` | Analysis notebooks and scripts (accuracy, efficiency, lexical overlap). | 2026-04-22 | [`85d80b1`](https://github.com/peterzeng/lvlms-referential-game/tree/85d80b1e7c1c284e4db040164566f232d6619f68) |
 | `emnlp` | Follow-up prompting experiments; **now maintained separately** (see below). | 2026-05-24 | [`59d4364`](https://github.com/peterzeng/lvlms-referential-game/tree/59d43645ee9039b89e6881c9af14177300a49906) |
+
+> **Basket Set 5 differs between conditions.** In the human–human experiments, rounds 2 and 3 of
+> Set 5 used a slightly different director grid order than the human–AI / AI–human and AI–AI
+> experiments (one adjacent swap in each round; rounds 1 and 4 match). When comparing conditions,
+> use each condition's own grids. Do not use `be03c82`, the earlier `human-human` pin: it contains
+> the human–AI ordering by mistake. See the
+> [data note on the `human-human` branch](https://github.com/peterzeng/lvlms-referential-game/tree/human-human#basket-set-5-grid-order-data-note).
 
 ## Related repository
 
