@@ -14,9 +14,12 @@ Each pairing of the experiment lives on its own branch. **Check out the branch t
 
 The rest of this README documents the **`human-human` (Human–Human)** branch.
 
+> **Data note:** human–human Basket Set 5 uses a slightly different grid order in rounds 2 and 3
+> than the human–AI and AI–AI conditions. See [Basket Set 5 grid order](#basket-set-5-grid-order-data-note) below.
+
 ## Experiment Overview
 
-In this game, two participants are paired as the **Director** and the **Matcher**. Over 3 rounds:
+In this game, two participants are paired as the **Director** and the **Matcher**. Over 4 rounds:
 
 - The **Director** describes their entire 2x6 grid so the Matcher can reconstruct the sequence (left-to-right, top-to-bottom order).
 - The **Matcher** has a staging area (bottom) with 18 baskets and a target area (top) with 12 empty cells arranged in 2 rows of 6.
@@ -151,6 +154,30 @@ On the oTree demo page (`http://localhost:8000/`) this branch exposes **two-huma
 **Other:**
 
 - `referential_task_shapes_demo` — single-round shapes demo (colored shapes instead of baskets; roles assigned to the two humans).
+
+## Basket Set 5 grid order (data note)
+
+`referential_task/grids_presets5.json` on this branch holds the **exact director grids used in the
+human–human experiments**. We checked it against the `shared_grid` that each pair recorded in
+`data/consolidated_pairs.csv`: all 32 pairs (sessions `3kk7u0fy`, `knco59ak`, `oatjomyt`) saw these
+grids in all four rounds.
+
+This order is **not** the same as Set 5 on `main` (human–AI / AI–human) or `ai-ai` / `ai-ai2`.
+Rounds 1 and 4 match. In rounds 2 and 3, two adjacent baskets are swapped:
+
+| Round | Positions | Human–human (this branch) | Human–AI / AI–AI |
+| ----- | --------- | ------------------------- | ---------------- |
+| 2     | 11, 12    | `017.png`, `009.png`      | `009.png`, `017.png` |
+| 3     | 10, 11    | `019.png`, `065.png`      | `065.png`, `019.png` |
+
+Positions are numbered 1–12 left to right, top to bottom, as shown on the director's screen.
+When comparing positions or sequence accuracy across conditions, use each condition's own grids
+(or, best of all, the recorded `shared_grid`), not one preset file for all of them.
+
+History: commit `be03c82` (2026-07-01) accidentally replaced this file with the human–AI ordering.
+It has since been restored to the experiment ordering. Two earlier sessions in the raw exports
+(`data/all_apps_wide-2025-11-17.csv`, `data/all_apps_wide-2025-11-18 (1).csv`) also used the
+human–AI ordering; those sessions are not in `data/consolidated_pairs.csv`.
 
 ## Preset Grid Configurations
 
